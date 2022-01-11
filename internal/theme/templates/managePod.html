@@ -34,6 +34,12 @@
             </label>
           </div>
           <div>
+            <label for="twtsPerPage">
+              Twts per Page
+              <input id="twtsPerPage" type="number" name="twtsPerPage" placeholder="Numbers of Twts to display per page" aria-label="twtsPerPage" value="{{ .TwtsPerPage }}">
+            </label>
+          </div>
+          <div>
             <label for="avatarResolution">
               Avatar Resolution
               <input id="avatarResolution" type="number" name="avatarResolution" placeholder="Avatar Resolution in pixels" aria-label="avatarResolution" value="{{ .AvatarResolution }}">

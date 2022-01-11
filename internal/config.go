@@ -45,6 +45,7 @@ type Settings struct {
 	Description string `yaml:"pod_description"`
 
 	MaxTwtLength     int `yaml:"max_twt_length"`
+	TwtsPerPage      int `yaml:"twts_per_page"`
 	MediaResolution  int `yaml:"media_resolution"`
 	AvatarResolution int `yaml:"avatar_resolution"`
 

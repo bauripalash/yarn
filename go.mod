@@ -44,7 +44,6 @@ require (
 	github.com/lithammer/shortuuid/v3 v3.0.7
 	github.com/marksalpeter/sugar v0.0.0-20160713164314-a69afe358ea8 // indirect
 	github.com/marksalpeter/token/v2 v2.0.0
-	github.com/matryer/is v1.4.0
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d
 	github.com/microcosm-cc/bluemonday v1.0.16

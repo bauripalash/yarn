@@ -37,6 +37,7 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		logo := strings.TrimSpace(r.FormValue("podLogo"))
 		description := strings.TrimSpace(r.FormValue("podDescription"))
 		maxTwtLength := SafeParseInt(r.FormValue("maxTwtLength"), s.config.MaxTwtLength)
+		twtsPerPage := SafeParseInt(r.FormValue("twtsPerPage"), s.config.TwtsPerPage)
 		avatarResolution := SafeParseInt(r.FormValue("avatarResolution"), s.config.AvatarResolution)
 		mediaResolution := SafeParseInt(r.FormValue("mediaResolution"), s.config.MediaResolution)
 		openProfiles := r.FormValue("enableOpenProfiles") == "on"
@@ -91,6 +92,8 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 
 		// Update Max Twt Length
 		s.config.MaxTwtLength = maxTwtLength
+		// Update Twts Per Page
+		s.config.TwtsPerPage = twtsPerPage
 		// Update Avatar Resolution
 		s.config.AvatarResolution = avatarResolution
 		// Update Media Resolution
