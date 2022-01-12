@@ -100,6 +100,13 @@ func (s *Server) ConversationHandler() httprouter.Handle {
 		}
 		sort.Sort(sort.Reverse(twts))
 
+		if len(twts) == 0 {
+			ctx.Error = true
+			ctx.Message = "No matching twts found due to muted feeds"
+			s.render("404", w, ctx)
+			return
+		}
+
 		if accept.PreferredContentTypeLike(r.Header, "application/json") == "application/json" {
 			data, err := json.Marshal(twts)
 			if err != nil {
