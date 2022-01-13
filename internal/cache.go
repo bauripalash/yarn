@@ -1758,7 +1758,8 @@ func (cache *Cache) GetByUser(u *User, refresh bool) types.Twts {
 // GetByUserView ...
 func (cache *Cache) GetByUserView(u *User, view string, refresh bool) types.Twts {
 	if u == nil {
-		return cache.GetByView(view)
+		// TODO: Cache anonymojs views?
+		return cache.conf.FilterTwts(nil, cache.GetByView(view))
 	}
 
 	key := fmt.Sprintf("%s:%s", u.Username, view)
