@@ -1677,7 +1677,7 @@ type FilterTwtsFunc func(user *User, twts types.Twts) types.Twts
 // or are otherwised shadowed by the Pod (as decided by a Pod Owner/Operatgor).
 func FilterTwtsFactory(conf *Config) FilterTwtsFunc {
 	return func(user *User, twts types.Twts) types.Twts {
-		if user == nil {
+		if user == nil || user.Username == "" {
 			// fast-path
 			if len(twts) == 0 {
 				return twts
