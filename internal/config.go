@@ -153,6 +153,8 @@ type Config struct {
 
 	// requestTimeout defines the timeout for outgoing HTTP requests.
 	requestTimeout time.Duration
+
+	FilterTwts FilterTwtsFunc
 }
 
 var _ types.FmtOpts = (*Config)(nil)

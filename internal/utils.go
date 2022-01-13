@@ -1671,12 +1671,29 @@ func UnparseTwtFactory(conf *Config) func(text string) string {
 	}
 }
 
-// FilterTwts filters out Twts from users/feeds that a User has chosen to mute.
-func FilterTwts(user *User, twts types.Twts) (filtered types.Twts) {
-	if user == nil {
-		return twts
+type FilterTwtsFunc func(user *User, twts types.Twts) types.Twts
+
+// FilterTwtsFactory returns a function that filters out Twts from users/feeds that a User has chosen to mute
+// or are otherwised shadowed by the Pod (as decided by a Pod Owner/Operatgor).
+func FilterTwtsFactory(conf *Config) FilterTwtsFunc {
+	return func(user *User, twts types.Twts) types.Twts {
+		if user == nil {
+			// fast-path
+			if len(twts) == 0 {
+				return twts
+			}
+
+			filtered := make([]types.Twt, 0)
+			for _, twt := range twts {
+				if conf.IsShadowed(twt.Twter().URI) {
+					continue
+				}
+				filtered = append(filtered, twt)
+			}
+			return filtered
+		}
+		return user.Filter(twts)
 	}
-	return user.Filter(twts)
 }
 
 // FilterTwtsAge calculates what page to scroll to, provided

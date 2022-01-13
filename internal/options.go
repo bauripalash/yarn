@@ -206,7 +206,7 @@ var (
 )
 
 func NewConfig() *Config {
-	return &Config{
+	conf := &Config{
 		Version: version,
 		Debug:   DefaultDebug,
 
@@ -244,6 +244,11 @@ func NewConfig() *Config {
 		SMTPUser:                DefaultSMTPUser,
 		SMTPPass:                DefaultSMTPPass,
 	}
+
+	// Factory functions that require access to the Pod Config.
+	conf.FilterTwts = FilterTwtsFactory(conf)
+
+	return conf
 }
 
 // Option is a function that takes a config struct and modifies it

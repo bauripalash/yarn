@@ -1730,7 +1730,7 @@ func (cache *Cache) GetByUser(u *User, refresh bool) types.Twts {
 	for feed := range u.Sources() {
 		twts = append(twts, cache.GetByURL(feed.URL)...)
 	}
-	twts = FilterTwts(u, twts)
+	twts = cache.conf.FilterTwts(u, twts)
 	sort.Sort(twts)
 
 	if u.HideRepliesPreference {
@@ -1771,7 +1771,7 @@ func (cache *Cache) GetByUserView(u *User, view string, refresh bool) types.Twts
 		return cached.GetTwts()
 	}
 
-	twts := FilterTwts(u, cache.GetByView(view))
+	twts := cache.conf.FilterTwts(u, cache.GetByView(view))
 	sort.Sort(twts)
 
 	cache.mu.Lock()
