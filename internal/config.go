@@ -221,7 +221,12 @@ func (c *Config) BlacklistedFeed(uri string) bool {
 // IsShadowed returns true if a feed has been Shadowed Banned by the Pod Owner/Operator (poderator)
 // This is currently functionally equivilent to Blacklisting a feed and uses the same configuration
 func (c *Config) IsShadowed(uri string) bool {
-	return c.BlacklistedFeed(uri)
+	for _, re := range c.blacklistedFeeds {
+		if re.MatchString(uri) {
+			return true
+		}
+	}
+	return false
 }
 
 // RandomTwtPrompt returns a random  Twt Prompt for display by the UI
