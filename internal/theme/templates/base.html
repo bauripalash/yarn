@@ -38,6 +38,9 @@
     {{ with .Meta.Image }}<meta property="og:image" content="{{ . }}">{{ end  }}
     {{ with .Meta.URL }}<meta property="og:url" content="{{ . }}">{{ end  }}
     <meta property="og:site_name" content="{{ .InstanceName }}">
+
+    <!-- Custom Pod CSS if provided -->
+    {{ if gt (len $.CSS) 0 }}<style>{{ $.CSS }}</style>{{ end }}
   </head>
 <body class="preload">
   <nav id="mainNav">

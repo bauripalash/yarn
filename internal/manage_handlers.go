@@ -35,6 +35,7 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 
 		name := strings.TrimSpace(r.FormValue("podName"))
 		logo := strings.TrimSpace(r.FormValue("podLogo"))
+		css := strings.TrimSpace(r.FormValue("podCSS"))
 		description := strings.TrimSpace(r.FormValue("podDescription"))
 		maxTwtLength := SafeParseInt(r.FormValue("maxTwtLength"), s.config.MaxTwtLength)
 		twtsPerPage := SafeParseInt(r.FormValue("twtsPerPage"), s.config.TwtsPerPage)
@@ -55,6 +56,7 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 
 		// Clean lines from DOS (\r\n) to UNIX (\n)
 		logo = strings.ReplaceAll(logo, "\r\n", "\n")
+		css = strings.ReplaceAll(css, "\r\n", "\n")
 
 		whitelistedImages = strings.Trim(strings.ReplaceAll(whitelistedImages, "\r\n", "\n"), "\n")
 		blacklistedFeeds = strings.Trim(strings.ReplaceAll(blacklistedFeeds, "\r\n", "\n"), "\n")
@@ -76,6 +78,16 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		} else {
 			ctx.Error = true
 			ctx.Message = "Pod logo not provided"
+			s.render("error", w, ctx)
+			return
+		}
+
+    // Update CSS customisation
+		if css != "" {
+			s.config.CSS = css
+		} else {
+			ctx.Error = true
+			ctx.Message = "Pod CSS not provided"
 			s.render("error", w, ctx)
 			return
 		}

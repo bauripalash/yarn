@@ -47,6 +47,7 @@ type Context struct {
 	Debug bool
 
 	Logo              template.HTML
+	CSS               template.CSS
 	BaseURL           string
 	InstanceName      string
 	SoftwareVersion   SoftwareConfig
@@ -147,11 +148,18 @@ func NewContext(s *Server, req *http.Request) *Context {
 		logo = template.HTML(DefaultLogo)
 	}
 
+	css, err := RenderCSS(conf.CSS)
+	if err != nil {
+		log.WithError(err).Warn("error rendering custom pod css")
+		css = template.CSS(DefaultCSS)
+	}
+
 	// context
 	ctx := &Context{
 		Debug: conf.Debug,
 
 		Logo:              logo,
+		CSS:               css,
 		BaseURL:           conf.BaseURL,
 		InstanceName:      conf.Name,
 		SoftwareVersion:   conf.Version,

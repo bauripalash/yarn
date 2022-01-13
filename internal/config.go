@@ -42,6 +42,7 @@ func init() {
 type Settings struct {
 	Name        string `yaml:"pod_name"`
 	Logo        string `yaml:"pod_logo"`
+	CSS         string `yaml:"pod_css"`
 	Description string `yaml:"pod_description"`
 
 	MaxTwtLength     int `yaml:"max_twt_length"`
@@ -87,6 +88,7 @@ type Config struct {
 	Data              string
 	Name              string
 	Logo              string
+	CSS               string
 	Description       string
 	Store             string
 	Theme             string

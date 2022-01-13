@@ -403,6 +403,18 @@ func RenderLogo(logo string, podName string) (template.HTML, error) {
 	return template.HTML(buf.String()), nil
 }
 
+// RenderCSS ...
+func RenderCSS(css string) (template.CSS, error) {
+	t := text_template.Must(text_template.New("css").Parse(css))
+	buf := bytes.NewBuffer([]byte{})
+	err := t.Execute(buf, map[string]string{"PodCSS": css})
+	if err != nil {
+		return "", err
+	}
+
+	return template.CSS(buf.String()), nil
+}
+
 func IsLocalURLFactory(conf *Config) func(url string) bool {
 	return func(url string) bool {
 		if NormalizeURL(url) == "" {

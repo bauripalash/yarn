@@ -145,6 +145,9 @@ var (
 	//go:embed logo.svg
 	DefaultLogo string
 
+	// DefaultCSS should be empty
+	DefaultCSS string
+
 	// DefaultFeedSources is the default list of external feed sources
 	DefaultFeedSources = []string{
 		"https://feeds.twtxt.net/we-are-feeds.txt",
@@ -209,6 +212,7 @@ func NewConfig() *Config {
 
 		Name:                    DefaultName,
 		Logo:                    DefaultLogo,
+		CSS:                     DefaultCSS,
 		Description:             DefaultMetaDescription,
 		Store:                   DefaultStore,
 		Theme:                   DefaultTheme,
