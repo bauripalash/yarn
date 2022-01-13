@@ -82,15 +82,8 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 			return
 		}
 
-    // Update CSS customisation
-		if css != "" {
-			s.config.CSS = css
-		} else {
-			ctx.Error = true
-			ctx.Message = "Pod CSS not provided"
-			s.render("error", w, ctx)
-			return
-		}
+		// Update CSS customisation
+		s.config.CSS = css
 
 		// Update pod description
 		if description != "" {
