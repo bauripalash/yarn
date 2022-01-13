@@ -50,11 +50,17 @@ type FilterFunc func(twt types.Twt) bool
 // GroupFunc ...
 type GroupFunc func(twt types.Twt) []string
 
+// TODO: We need to define a formal way of declaring a feed is automated.
+// Suggestion by @jan6 on #yarn.social is to introduce a new field:
+// # automated = true
 func FilterOutFeedsAndBotsFactory(conf *Config) FilterFunc {
 	isLocal := IsLocalURLFactory(conf)
 	return func(twt types.Twt) bool {
 		twter := twt.Twter()
 		if strings.HasPrefix(twter.URI, "https://feeds.twtxt.net") {
+			return false
+		}
+		if strings.HasPrefix(twter.URI, "https://feeds.twtxt.cc") {
 			return false
 		}
 		if strings.HasPrefix(twter.URI, "https://search.twtxt.net") {
@@ -1257,12 +1263,15 @@ func (cache *Cache) Refresh() {
 	for _, twt := range allTwts {
 		byHash[twt.Hash()] = twt
 
-		if cache.conf.IsLocalURL(twt.Twter().URI) {
-			localTwts = append(localTwts, twt)
-		}
-
-		if filterOutFeedsAndBots(twt) {
-			discoverTwts = append(discoverTwts, twt)
+		if !cache.conf.IsShadowed(twt.Twter().URI) {
+			// Pod's Local Timeline (alternate Discover view)
+			if cache.conf.IsLocalURL(twt.Twter().URI) {
+				localTwts = append(localTwts, twt)
+			}
+			// Pod's Discover Timeline (Primary Discover view)
+			if filterOutFeedsAndBots(twt) {
+				discoverTwts = append(discoverTwts, twt)
+			}
 		}
 
 		for _, k := range GroupByTag(twt) {
