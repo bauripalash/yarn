@@ -1659,12 +1659,27 @@ func UnparseTwtFactory(conf *Config) func(text string) string {
 	}
 }
 
-// FilterTwts filters out Twts from users/feeds that a User has chosen to mute
+// FilterTwts filters out Twts from users/feeds that a User has chosen to mute.
 func FilterTwts(user *User, twts types.Twts) (filtered types.Twts) {
 	if user == nil {
 		return twts
 	}
 	return user.Filter(twts)
+}
+
+// FilterTwtsAge calculates what page to scroll to, provided
+// we want to see twts >= :age: hours old, and with :twtsPerPage:
+// twts on each page.
+func FilterTwtsAge(twts types.Twts, age int, twtsPerPage int) int {
+	now := time.Now()
+	var twtIndex int
+	for i, twt := range twts {
+		if int(now.Sub(twt.Created()).Hours()) >= age {
+			twtIndex = i
+			break
+		}
+	}
+	return int(twtIndex / twtsPerPage)
 }
 
 // CleanTwt cleans a twt's text, replacing new lines with spaces and
