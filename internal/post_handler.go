@@ -11,60 +11,78 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// PostHandler ...
+// PostHandler handles the creation/modification/deletion of a twt.
+//
+// TODO: Support deleting/patching last feed (`postas`) twt too.
 func (s *Server) PostHandler() httprouter.Handle {
-	//isLocalURL := IsLocalURLFactory(s.config)
-
-	appendTwt := AppendTwtFactory(s.config, s.db)
-
+	var appendTwt = AppendTwtFactory(s.config, s.db)
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-		ctx := NewContext(s, r)
-
 		postAs := strings.ToLower(strings.TrimSpace(r.FormValue("postas")))
+		ctx := NewContext(s, r)
+		var err error
 
-		// TODO: Support deleting/patching last feed (`postas`) twt too.
-		if r.Method == http.MethodDelete || r.Method == http.MethodPatch {
-			if err := DeleteLastTwt(s.config, ctx.User); err != nil {
-				ctx.Error = true
-				ctx.Message = s.tr(ctx, "ErrorDeleteLastTwt")
-				s.render("error", w, ctx)
-			}
-
-			// Delete user's own feed as it was edited
-			s.cache.DeleteFeeds(ctx.User.Source())
-
-			// Update user's own timeline with their own new post.
-			s.cache.FetchFeeds(s.config, s.archive, ctx.User.Source(), nil)
-
-			// Re-populate/Warm cache for User
-			s.cache.GetByUser(ctx.User, true)
-
-			if r.Method != http.MethodDelete {
-				return
-			}
-		}
-
-		hash := r.FormValue("hash")
-		lastTwt, _, err := GetLastTwt(s.config, ctx.User)
-		if err != nil {
+		// Validate twt user.
+		if ctx.User.Username == "" {
+			log.Errorf("error loading user object for %s", ctx.Username)
 			ctx.Error = true
-			ctx.Message = s.tr(ctx, "ErrorDeleteLastTwt")
+			ctx.Message = s.tr(ctx, "ErrorPostingTwt")
 			s.render("error", w, ctx)
 			return
 		}
 
-		if hash != "" && lastTwt.Hash() == hash {
-			if err := DeleteLastTwt(s.config, ctx.User); err != nil {
+		defer s.cache.DeleteUserViews(ctx.User)
+
+		hash := r.FormValue("hash")
+		var lastTwt types.Twt
+
+		// If we are deleting the last twt, delete it and return.
+		// Else, we are editing the last twt; so, delete it and continue.
+		if r.Method == http.MethodDelete || hash != "" {
+			// Retrieve the last twt.
+			lastTwt, _, err = GetLastTwt(s.config, ctx.User)
+			if err != nil {
+				ctx.Error = true
+				ctx.Message = s.tr(ctx, "ErrorPostingTwt")
+				s.render("error", w, ctx)
+				return
+			}
+
+			// If hash != "", the user either wants to delete or edit
+			// the last twt; therefore, it should correspond to its hash.
+			if hash != "" && lastTwt.Hash() != hash {
 				ctx.Error = true
 				ctx.Message = s.tr(ctx, "ErrorDeleteLastTwt")
 				s.render("error", w, ctx)
+				return
 			}
-			// Delete user's own feed as it was edited
-			s.cache.DeleteFeeds(ctx.User.Source())
+
+			// Delete the last twt from persistent memory.
+			if err = DeleteLastTwt(s.config, ctx.User); err != nil {
+				ctx.Error = true
+				ctx.Message = s.tr(ctx, "ErrorDeleteLastTwt")
+				s.render("error", w, ctx)
+				return
+			}
+
+			// Snipe the last twt from feeds.
+			s.cache.SnipeFeed(lastTwt.Twter().URL, lastTwt)
+			for feed := range ctx.User.Source() {
+				s.cache.SnipeFeed(feed.URL, lastTwt)
+			}
+
+			// If we are simply deleting the last twt, we have no need to proceed
+			// further.
+			if r.Method == http.MethodDelete {
+				return
+			}
 		}
 
-		text := CleanTwt(r.FormValue("text"))
+		//
+		// Post a new twt.
+		//
 
+		// Validate twt text.
+		text := CleanTwt(r.FormValue("text"))
 		if text == "" {
 			ctx.Error = true
 			ctx.Message = s.tr(ctx, "ErrorNoPostContent")
@@ -72,6 +90,7 @@ func (s *Server) PostHandler() httprouter.Handle {
 			return
 		}
 
+		// Validate twt reply into twt text.
 		reply := strings.TrimSpace(r.FormValue("reply"))
 		if reply != "" {
 			re := regexp.MustCompile(`^(@<.*>[, ]*)*(\(.*?\))(.*)`)
@@ -81,33 +100,23 @@ func (s *Server) PostHandler() httprouter.Handle {
 			}
 		}
 
-		user, err := s.db.GetUser(ctx.Username)
-		if err != nil {
-			log.WithError(err).Errorf("error loading user object for %s", ctx.Username)
-			ctx.Error = true
-			ctx.Message = s.tr(ctx, "ErrorPostingTwt")
-			s.render("error", w, ctx)
-			return
-		}
-
 		var (
-			//sources types.Feeds
 			twt     types.Twt = types.NilTwt
 			feedURL string
 		)
 
+		// Post the twt.
 		switch postAs {
-		case "", user.Username:
-			//sources = user.Source()
-			feedURL = s.config.URLForUser(user.Username)
+		case "", ctx.User.Username:
+			feedURL = s.config.URLForUser(ctx.User.Username)
 
 			if hash != "" && lastTwt.Hash() == hash {
-				twt, err = appendTwt(user, nil, text, lastTwt.Created())
+				twt, err = appendTwt(ctx.User, nil, text, lastTwt.Created())
 			} else {
-				twt, err = appendTwt(user, nil, text)
+				twt, err = appendTwt(ctx.User, nil, text)
 			}
 		default:
-			if user.OwnsFeed(postAs) {
+			if ctx.User.OwnsFeed(postAs) {
 				feed, feedErr := s.db.GetFeed(postAs)
 				if feedErr != nil {
 					log.WithError(err).Error("error loading feed object")
@@ -116,13 +125,12 @@ func (s *Server) PostHandler() httprouter.Handle {
 					s.render("error", w, ctx)
 					return
 				}
-				//		sources = feed.Source()
-				feedURL = s.config.URLForUser(postAs)
 
+				feedURL = s.config.URLForUser(postAs)
 				if hash != "" && lastTwt.Hash() == hash {
-					twt, err = appendTwt(user, feed, text, lastTwt.Created)
+					twt, err = appendTwt(ctx.User, feed, text, lastTwt.Created)
 				} else {
-					twt, err = appendTwt(user, feed, text)
+					twt, err = appendTwt(ctx.User, feed, text)
 				}
 			} else {
 				err = ErrFeedImposter
@@ -138,12 +146,10 @@ func (s *Server) PostHandler() httprouter.Handle {
 		}
 
 		// Update user's own timeline with their own new post.
-		// XXX: This is too slow and expensive :/
-		// s.cache.FetchFeeds(s.config, s.archive, sources, nil)
 		s.cache.InjectFeed(feedURL, twt)
 
-		// Force User Views to be recalculated
-		s.cache.DeleteUserViews(ctx.User)
+		// Refresh user views.
+		s.cache.GetByUser(ctx.User, true)
 
 		// WebMentions ...
 		// TODO: Use a queue here instead?

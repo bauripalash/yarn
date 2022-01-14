@@ -227,7 +227,7 @@ func (cached *Cached) Snipe(twt types.Twt) {
 }
 
 // Update ...
-func (cached *Cached) Update(lastmodiied string, twts types.Twts) {
+func (cached *Cached) Update(lastmodified string, twts types.Twts) {
 	// Avoid overwriting a cached Feed with no Twts
 	if len(twts) == 0 {
 		return
@@ -239,7 +239,7 @@ func (cached *Cached) Update(lastmodiied string, twts types.Twts) {
 	oldTwts := cached.Twts[:]
 
 	cached.Twts = twts
-	cached.LastModified = lastmodiied
+	cached.LastModified = lastmodified
 
 	//
 	// Calculate the moving average of a feed
@@ -1411,12 +1411,13 @@ func (cache *Cache) InjectFeed(url string, twt types.Twt) {
 
 // SnipeFeed deletes a twt from a Cache.
 func (cache *Cache) SnipeFeed(url string, twt types.Twt) {
-	if _, inCache := cache.Lookup(twt.Hash()); !inCache {
-		return
-	}
-
 	cache.mu.Lock()
 	defer cache.mu.Unlock()
+
+	cached, ok := cache.Feeds[url]
+	if ok {
+		cached.Snipe(twt)
+	}
 
 	// Update Cache.Map (hash -> Twt)
 	delete(cache.Map, twt.Hash())
@@ -1424,32 +1425,9 @@ func (cache *Cache) SnipeFeed(url string, twt types.Twt) {
 	// Update Cache.List ([]Twt)
 	cache.List.Snipe(twt)
 
-	// Update Cache.Views (Local)
-	if cache.conf.IsLocalURL(twt.Twter().URI) {
-		cache.Views[localViewKey].Snipe(twt)
-	}
-
-	// Update Cache.Views (Discover)
-	if FilterOutFeedsAndBotsFactory(cache.conf)(twt) {
-		cache.Views[discoverViewKey].Snipe(twt)
-	}
-
-	// Update Cache.Views (tags)
-	tags := GroupByTag(twt)
-	for _, tag := range tags {
-		key := "tag:" + tag
-		if _, ok := cache.Views[key]; ok {
-			cache.Views[key].Snipe(twt)
-		}
-	}
-
-	// Update Cache.Views (subjects)
-	subjects := GroupBySubject(twt)
-	for _, subject := range subjects {
-		key := "subject:" + subject
-		if _, ok := cache.Views[key]; ok {
-			cache.Views[key].Snipe(twt)
-		}
+	// Update Cache.Events
+	for key := range cache.Events {
+		cache.Events[key].Snipe(twt)
 	}
 }
 

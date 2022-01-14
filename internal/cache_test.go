@@ -437,6 +437,26 @@ func TestCache_Counts(t *testing.T) {
 	})
 }
 
+func TestCache_DeleteConsistency(t *testing.T) {
+	cache := NewCache(testConfig)
+	cache.UpdateFeed(testExternalFeed, "", testExternalTwts)
+	cache.Refresh()
+	assert.Equal(t, 2, cache.TwtCount())
+
+	twt1 := types.MakeTwt(testExternalTwter, time.Time{}, "This will be deleted")
+	cache.InjectFeed(testExternalTwter.URL, twt1)
+	assert.Equal(t, 3, cache.TwtCount())
+
+	_, has := cache.Lookup(twt1.Hash())
+	assert.Equal(t, has, true)
+
+	cache.SnipeFeed(twt1.Twter().URL, twt1)
+	assert.Equal(t, 2, cache.TwtCount())
+
+	_, has = cache.Lookup(twt1.Hash())
+	assert.Equal(t, has, false)
+}
+
 func TestCache_InjectAndSnipe(t *testing.T) {
 	cache := NewCache(testConfig)
 	cache.UpdateFeed(testExternalFeed, "", testExternalTwts)
