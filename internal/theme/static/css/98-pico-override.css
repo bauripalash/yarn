@@ -52,6 +52,41 @@ dialog article>footer p {
   text-align: left !important;
 }
 
+.modal-is-opening dialog,
+.modal-is-opening dialog > figure,
+.modal-is-closing dialog,
+.modal-is-closing dialog > figure {
+  -webkit-animation-duration: 0.2s !important;
+  animation-duration: 0.2s !important;
+  -webkit-animation-timing-function: ease-in-out !important;
+  animation-timing-function: ease-in-out !important;
+  -webkit-animation-fill-mode: both !important;
+  animation-fill-mode: both !important;
+}
+
+.modal-is-opening dialog,
+.modal-is-closing dialog {
+  -webkit-animation-duration: 0.8s !important;
+  animation-duration: 0.8s !important;
+  -webkit-animation-name: fadeIn !important;
+  animation-name: fadeIn !important;
+}
+
+.modal-is-opening dialog > figure,
+.modal-is-closing dialog > figure {
+  -webkit-animation-delay: 0.2s !important;
+  animation-delay: 0.2s !important;
+  -webkit-animation-name: slideInDown !important;
+  animation-name: slideInDown !important;
+}
+
+.modal-is-closing dialog,
+.modal-is-closing dialog > figure {
+  -webkit-animation-delay: 0s !important;
+  animation-delay: 0s !important;
+  animation-direction: reverse !important;
+}
+
 @media (max-width: 768px) {
   body>footer {
     margin-top: -0.5rem !important;

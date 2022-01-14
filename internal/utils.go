@@ -1800,11 +1800,10 @@ func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) st
 			 </a>
 		 </div>
 		 <dialog id="%s">
-        <article class="modal-image">
+        <figure>
           <img loading=lazy src="%s?full=1" />
-		  <a href="%s?full=1" download>Download</a>
-          <footer><p>%s</p></footer>
-        </article>
+          <figcaption><a id="img-dl" href="%s?full=1">Download</a>%s</figcaption>
+        </figure>
       </dialog>`,
 		imgURI, title, alt, isCaption, imgURI, uuid, uuid, imgURI, imgURI, caption,
 	)
