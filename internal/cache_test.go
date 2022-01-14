@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 
@@ -435,6 +436,64 @@ func TestCache_Counts(t *testing.T) {
 		assert.Equal(t, 12, cache.TwtCount())
 		assert.Equal(t, 2, cache.FeedCount())
 	})
+}
+
+// Ensure that when a twt is sniped, it never occurs in
+// a Cache again.
+func TestCache_Snipe(t *testing.T) {
+	cache := NewCache(testConfig)
+	cache.UpdateFeed(testExternalFeed, "", testExternalTwts)
+	cache.Refresh()
+	assert.Equal(t, 2, cache.TwtCount())
+
+	badtwt := types.MakeTwt(testExternalTwter, time.Time{}, "bad twt")
+	cache.InjectFeed(testExternalTwter.URL, badtwt)
+	assert.Equal(t, 3, cache.TwtCount())
+
+	//
+	// Same business logic as post_handler
+	//
+
+	cache.SnipeFeed(badtwt.Twter().URL, badtwt)
+
+	for key, feed := range cache.Views {
+		if strings.HasSuffix(key, discoverViewKey) {
+			feed.Snipe(badtwt)
+		}
+	}
+
+	assert.Equal(t, 2, cache.TwtCount())
+
+	//
+	// Now, look all over the cache to see if the twt remains.
+	//
+
+	// Check cache.Feeds
+	for _, cached := range cache.Feeds {
+		for _, twt := range cached.GetTwts() {
+			if twt.Hash() == badtwt.Hash() {
+				assert.Error(t, nil, "twt deleted but found in Cache.Feeds")
+			}
+		}
+	}
+
+	// Check cache.Views
+	for _, cached := range cache.Views {
+		for _, twt := range cached.GetTwts() {
+			if twt.Hash() == badtwt.Hash() {
+				assert.Error(t, nil, "twt deleted but found in Cache.Views")
+			}
+		}
+	}
+
+	// Check cache.Events
+	for _, cached := range cache.Events {
+		for _, twt := range cached.GetTwts() {
+			if twt.Hash() == badtwt.Hash() {
+				assert.Error(t, nil, "twt deleted but found in Cache.Events")
+			}
+		}
+	}
 }
 
 func TestCache_DeleteConsistency(t *testing.T) {

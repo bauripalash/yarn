@@ -70,6 +70,11 @@ func (s *Server) PostHandler() httprouter.Handle {
 				s.cache.SnipeFeed(feed.URL, lastTwt)
 			}
 
+			// Snipe the last twt from discover feeds.
+			for _, feed := range s.cache.Views {
+				feed.Snipe(lastTwt)
+			}
+
 			// If we are simply deleting the last twt, we have no need to proceed
 			// further.
 			if r.Method == http.MethodDelete {
