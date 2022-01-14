@@ -17,6 +17,10 @@ a {
   -moz-border-radius: 0.3rem !important;
 }
 
+article .p-summary {
+    word-break: break-word;
+}
+
 dialog article {
   margin: 0 0 0 -2rem !important;
   padding: 1rem !important;
