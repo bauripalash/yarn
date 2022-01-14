@@ -1,44 +1,46 @@
 {{ define "content" }}
-  <article class="grid bump-up">
-    <hgroup>
-      <h2>Manage Users</h2>
-      <h3>Add/Remove Users</h3>
-    </hgroup>
+  <article class="grid">
+    <div>
+      <hgroup>
+        <h2>Manage Users</h2>
+        <h3>Add/Remove Users</h3>
+      </hgroup>
+      <div class="grid">
+        <div>
+          <h4>Add User</h4>
+          <form action="/manage/adduser" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+            <input type="text" name="username" placeholder="Username" aria-label="Username" autocomplete="nickname" required>
+            <input type="text" name="email" placeholder="Email Address" aria-label="Email" autocomplete="email" required>
+            <p>Once created, the new user can reset their password via the "Reset Password" functionality.</p>
+            <button type="submit">Add User</button>
+          </form>
+        </div>
+        <div>
+          <h4>Delete User</h4>
+          <form action="/manage/deluser" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+            <input type="text" name="username" placeholder="Username" />
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this user? This cannot be undone!')">Delete User</button>
+          </form>
+        </div>
+        <div>
+          <h4>Delete Feed</h4>
+          <form action="/manage/delfeed" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+            <input type="text" name="name" placeholder="Name" />
+            <button type="submit" onclick="return confirm('Are you sure you want to delete this feed? This cannot be undone!')">Delete Feed</button>
+          </form>
+        </div>
+        <div>
+          <h4>Reset User</h4>
+          <form action="/manage/rstuser" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+            <input type="text" name="username" placeholder="Username" />
+            <button type="submit" onclick="return confirm('Are you sure you want to reset the passsword for this user? This cannot be undone!')">Reset Password</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </article>
-  <div class="grid">
-    <div>
-      <h4>Add User</h4>
-      <form action="/manage/adduser" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-        <input type="text" name="username" placeholder="Username" aria-label="Username" autocomplete="nickname" required>
-        <input type="text" name="email" placeholder="Email Address" aria-label="Email" autocomplete="email" required>
-        <p>Once created, the new user can reset their password via the "Reset Password" functionality.</p>
-        <button type="submit">Add User</button>
-      </form>
-    </div>
-    <div>
-      <h4>Delete User</h4>
-      <form action="/manage/deluser" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-        <input type="text" name="username" placeholder="Username" />
-        <button type="submit" onclick="return confirm('Are you sure you want to delete this user? This cannot be undone!')">Delete User</button>
-      </form>
-    </div>
-    <div>
-      <h4>Delete Feed</h4>
-      <form action="/manage/delfeed" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-        <input type="text" name="name" placeholder="Name" />
-        <button type="submit" onclick="return confirm('Are you sure you want to delete this feed? This cannot be undone!')">Delete Feed</button>
-      </form>
-    </div>
-    <div>
-      <h4>Reset User</h4>
-      <form action="/manage/rstuser" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-        <input type="text" name="username" placeholder="Username" />
-        <button type="submit" onclick="return confirm('Are you sure you want to reset the passsword for this user? This cannot be undone!')">Reset Password</button>
-      </form>
-    </div>
-  </div>
 {{ end }}

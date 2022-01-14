@@ -2,6 +2,13 @@ main.container {
   padding-top: 3rem;
 }
 
+article.container-fluid {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.75rem;
+  margin-top: 1rem;
+}
+
 article p img {
   display: block;
   margin-top: 0.5rem;
@@ -25,7 +32,7 @@ article:target {
 }
 
 article.grid {
-  padding-bottom: 0;
+  padding: 0.5rem 1rem;
 }
 
 .preload * {
@@ -649,6 +656,9 @@ pre {
   main.container {
     margin-top: -3rem;
   }
+  article.container-fluid {
+    margin-bottom: 1rem;
+  }
   .container-fluid, #followFeed {
     margin-top: -0.75rem;
     padding-bottom: 0;
@@ -699,9 +709,6 @@ pre {
   #convJoinSummary {
     display: block;
     margin: -1rem 0 1.75rem 0;
-  }
-  .bump-up {
-    margin-top: -1rem;
   }
   .twt-nav {
     margin-left: 0.25rem;
@@ -754,10 +761,10 @@ pre {
   div.h-feed-empty:empty {
     margin-top: 2.25rem;
   }
-  nav.pagination-nav:nth-of-type(2){
+  nav.pagination-nav:nth-of-type(2) {
     margin: -1rem 1rem 0.25rem 1rem;
   }
-  nav.pagination-nav{
+  nav.pagination-nav {
     margin: -0.5rem 1rem -1rem 1rem;
   }
   div .h-feed:last-child, div .h-entry:last-child {
@@ -772,7 +779,10 @@ pre {
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
-  body > footer{
+  main.container {
+    margin-top: -2rem;
+  }
+  body > footer {
     margin-top: -0.5rem;
   }
   #mainNav {
@@ -787,10 +797,10 @@ pre {
     margin-top: -1.15rem;
     display: inherit;
   }
-  nav.pagination-nav{
+  nav.pagination-nav {
     margin: -1.25rem 1rem -1rem 1rem;
   }
-  nav.pagination-nav:nth-of-type(2){
+  nav.pagination-nav:nth-of-type(2) {
     margin: -1rem 1rem -2rem 1rem;
   }
   .timelineBtn, .discoverBtn, .mentionsBtn, .feedsBtn, .settingsBtn, .logoutBtn, .loginBtn, .registerBtn {
@@ -835,10 +845,10 @@ pre {
   #podMenu {
     display: inherit;
   }
-  footer .footer-menu a{
+  footer .footer-menu a {
     margin-left: 0.25rem;
   }
-  nav.pagination-nav:nth-of-type(2){
+  nav.pagination-nav:nth-of-type(2) {
     margin: -1rem 1rem -1.5rem 1rem;
   }
   #convJoinSummary {
@@ -852,27 +862,15 @@ pre {
     margin: 0 auto;
     max-width:990px;
   }
-  #podMenu {
-    display: inherit;
-  }
-  article.bump-up > div:nth-of-type(2) {
-    border-left: 1px solid var(--range-border-color);
-    margin-top: 2.6rem;
-    margin-bottom: 3rem;
-  }
-  article.bump-up > div:nth-of-type(2) p,
-  article.bump-up > div:nth-of-type(2) hgroup {
-    padding-left: 1rem;
-  }
-  article.bump-up > div:nth-of-type(2) ul {
-    padding-left: 2rem;
-  }
-  nav.pagination-nav:nth-of-type(2){
-    margin: -1rem 1rem -2rem 1rem;
-  }
   #podLogo {
     margin-top: -0.05rem;
     margin-left: 0.95rem;
+  }
+  #podMenu {
+    display: inherit;
+  }
+  nav.pagination-nav:nth-of-type(2) {
+    margin: -1rem 1rem -2rem 1rem;
   }
   #convJoinSummary {
     margin: 0.5rem 0 -0.5rem 0;
@@ -885,27 +883,15 @@ pre {
     margin: 0 auto;
     max-width: 1180px;
   }
-  #podMenu {
-    display: inherit;
-  }
-  article.bump-up > div:nth-of-type(2) {
-    border-left: 1px solid var(--range-border-color);
-    margin-top: 2.6rem;
-    margin-bottom: 3rem;
-  }
-  article.bump-up > div:nth-of-type(2) p,
-  article.bump-up > div:nth-of-type(2) hgroup {
-    padding-left: 1rem;
-  }
-  article.bump-up > div:nth-of-type(2) ul {
-    padding-left: 2rem;
-  }
-  nav.pagination-nav:nth-of-type(2){
-    margin: -1rem 1rem -2.5rem 1rem;
-  }
   #podLogo {
     margin-top:1rem;
     margin-left:-0.5rem
+  }
+  #podMenu {
+    display: inherit;
+  }
+  nav.pagination-nav:nth-of-type(2) {
+    margin: -1rem 1rem -2.5rem 1rem;
   }
   #convJoinSummary {
     margin: 0.25rem 0 -1.25rem 0;

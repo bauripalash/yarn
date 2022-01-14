@@ -1,5 +1,5 @@
 {{ define "content" }}
-  <article class="grid bump-up">
+  <article class="grid">
   	<!-- ensure that we return to the page from where we clicked login -->
   	<script>window.history.replaceState(null, '', document.referrer)</script>
     <div>
@@ -33,14 +33,11 @@
     <div>
       <hgroup>
         <h2>{{ tr . "LoginHowToTitle" }}</h2>
+        <p>{{ tr . "LoginHowToSummary" }}</p>
       </hgroup>
-      {{ (tr . "LoginHowToContent" (dict "InstanceName" $.InstanceName)) | html }}
-      <p>
-      {{ (tr . "ForgottenPasswordContent") | html }}
-      </p>
-      <p>
-      {{ (tr . "LoginViaEmailAddressHowToContent") | html }}
-      </p>
+      <p>{{ (tr . "LoginHowToContent" (dict "InstanceName" $.InstanceName)) | html }}</p>
+      <p>{{ (tr . "ForgottenPasswordContent") | html }}</p>
+      <p>{{ (tr . "LoginViaEmailAddressHowToContent") | html }}</p>
     </div>
   </article>
 {{ end }}

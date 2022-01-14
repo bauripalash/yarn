@@ -1,5 +1,5 @@
 {{ define "content" }}
-  <article class="grid bump-up">
+  <article class="grid">
     <div>
       <hgroup>
         <h2>{{ tr . "RegisterTitle" }}</h2>
@@ -20,15 +20,15 @@
           </label>
         </fieldset>
         <button type="submit">{{ tr . "RegisterFormRegister" }}</button>
-        <p></p>
-            {{ (tr . "RegisterFormLogin") | html }}
+        <p>{{ (tr . "RegisterFormLogin") | html }}</p>
       </form>
     </div>
     <div>
       <hgroup>
           <h2>{{ tr . "RegisterHowToTitle" }}</h2>
+          <h2>{{ tr . "RegisterHowToSummary" }}</h2>
       </hgroup>
-      {{ (tr . "RegisterHowToContent" (dict "InstanceName" $.InstanceName)) | html }}
+      <p>{{ (tr . "RegisterHowToContent" (dict "InstanceName" $.InstanceName)) | html }}</p>
     </div>
   </article>
 {{ end }}
