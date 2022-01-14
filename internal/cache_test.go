@@ -6,7 +6,6 @@ import (
 	"net"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 	"time"
 
@@ -456,10 +455,8 @@ func TestCache_Snipe(t *testing.T) {
 
 	cache.SnipeFeed(badtwt.Twter().URL, badtwt)
 
-	for key, feed := range cache.Views {
-		if strings.HasSuffix(key, discoverViewKey) {
-			feed.Snipe(badtwt)
-		}
+	for _, feed := range cache.Views {
+		feed.Snipe(badtwt)
 	}
 
 	assert.Equal(t, 2, cache.TwtCount())
@@ -469,19 +466,21 @@ func TestCache_Snipe(t *testing.T) {
 	//
 
 	// Check cache.Feeds
-	for _, cached := range cache.Feeds {
+	for key, cached := range cache.Feeds {
 		for _, twt := range cached.GetTwts() {
 			if twt.Hash() == badtwt.Hash() {
-				assert.Error(t, nil, "twt deleted but found in Cache.Feeds")
+				err := fmt.Errorf("error, deleted twt found in Cache.Feeds[%s]", key)
+				assert.Error(t, err, "twt deleted but found in Cache.Feeds")
 			}
 		}
 	}
 
 	// Check cache.Views
-	for _, cached := range cache.Views {
+	for key, cached := range cache.Views {
 		for _, twt := range cached.GetTwts() {
 			if twt.Hash() == badtwt.Hash() {
-				assert.Error(t, nil, "twt deleted but found in Cache.Views")
+				err := fmt.Errorf("error, deleted twt found in Cache.Views[%s]", key)
+				assert.Error(t, err, "twt deleted but found in Cache.Views")
 			}
 		}
 	}
