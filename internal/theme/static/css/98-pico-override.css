@@ -26,6 +26,10 @@ pre>code {
   padding: 0.25rem 0.5rem !important;
 }
 
+pre {
+  margin-bottom: 1.5rem;
+}
+
 code,
 kbd {
   padding: 0.2rem 0.3rem !important;
