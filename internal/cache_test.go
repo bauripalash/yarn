@@ -485,15 +485,6 @@ func TestCache_Snipe(t *testing.T) {
 			}
 		}
 	}
-
-	// Check cache.Events
-	for _, cached := range cache.Events {
-		for _, twt := range cached.GetTwts() {
-			if twt.Hash() == badtwt.Hash() {
-				assert.Error(t, nil, "twt deleted but found in Cache.Events")
-			}
-		}
-	}
 }
 
 func TestCache_DeleteConsistency(t *testing.T) {

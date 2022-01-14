@@ -64,11 +64,9 @@ const (
 	mediaDir    = "media"
 
 	newsSpecialUser    = "news"
-	helpSpecialUser    = "help"
 	supportSpecialUser = "support"
 
 	me       = "me"
-	twtxtBot = "twtxt"
 	statsBot = "stats"
 
 	maxUsernameLength   = 15 // avg 6 chars / 2 syllables per name commonly
@@ -96,17 +94,14 @@ const (
 var (
 	specialUsernames = []string{
 		newsSpecialUser,
-		helpSpecialUser,
 		supportSpecialUser,
 	}
 	reservedUsernames = []string{
 		me,
 		statsBot,
-		twtxtBot,
 	}
 	automatedFeeds = []string{
 		statsBot,
-		twtxtBot,
 	}
 	specialFeeds = append(
 		append([]string{}, specialUsernames...),

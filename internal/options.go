@@ -245,9 +245,6 @@ func NewConfig() *Config {
 		SMTPPass:                DefaultSMTPPass,
 	}
 
-	// Factory functions that require access to the Pod Config.
-	conf.FilterTwts = FilterTwtsFactory(conf)
-
 	return conf
 }
 

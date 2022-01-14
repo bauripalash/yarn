@@ -85,6 +85,11 @@ type Server struct {
 
 	// Translator
 	translator *Translator
+
+	// Factory Functions
+
+	AppendTwt  AppendTwtFunc
+	FilterTwts FilterTwtsFunc
 }
 
 func (s *Server) render(name string, w http.ResponseWriter, ctx *Context) {
@@ -818,6 +823,10 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 		// Translator
 		translator: translator,
 	}
+
+	// Factory functions that require access to the Pod Config and Store
+	server.AppendTwt = AppendTwtFactory(config, db)
+	server.FilterTwts = FilterTwtsFactory(config)
 
 	if err := server.setupJobs(); err != nil {
 		log.WithError(err).Error("error setting up background jobs")

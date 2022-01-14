@@ -95,6 +95,17 @@ Kind regards,
 
 {{ .Pod }} Support
 `))
+
+	newUserEmailTemplate = template.Must(template.New("email").Parse(`Hello {{ .AdminUser }},
+
+A New User has joined your {{ .Pod }} pod! 🥳
+
+{{ .BaseURL }}/user/{{ .Username }}
+
+Kind regards,
+
+{{ .Pod }} Support
+`))
 )
 
 type MagicLinkAuthContext struct {
@@ -153,6 +164,14 @@ type ReportAbuseEmailContext struct {
 	Email    string
 	Category string
 	Message  string
+}
+
+type NewUserEmailContext struct {
+	Pod       string
+	BaseURL   string
+	AdminUser string
+
+	Username string
 }
 
 // indents a block of text with an indent string
@@ -331,6 +350,34 @@ func SendReportAbuseEmail(conf *Config, nick, url, name, email, category, messag
 
 	if err := SendEmail(conf, recipients, email, emailSubject, buf.String()); err != nil {
 		log.WithError(err).Errorf("error sending report abuse to %s", recipients[0])
+		return err
+	}
+
+	return nil
+}
+
+func SendNewUserEmail(conf *Config, username string) error {
+	recipients := []string{conf.AdminEmail}
+	emailSubject := fmt.Sprintf(
+		"[%s New User]: %s",
+		conf.Name, username,
+	)
+	ctx := NewUserEmailContext{
+		Pod:       conf.Name,
+		BaseURL:   conf.BaseURL,
+		AdminUser: conf.AdminUser,
+
+		Username: username,
+	}
+
+	buf := &bytes.Buffer{}
+	if err := newUserEmailTemplate.Execute(buf, ctx); err != nil {
+		log.WithError(err).Error("error rendering email template")
+		return err
+	}
+
+	if err := SendEmail(conf, recipients, conf.SMTPFrom, emailSubject, buf.String()); err != nil {
+		log.WithError(err).Errorf("error sending notification to %s", recipients[0])
 		return err
 	}
 

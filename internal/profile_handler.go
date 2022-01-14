@@ -82,7 +82,7 @@ func (s *Server) ProfileHandler() httprouter.Handle {
 			},
 		}...)
 
-		twts := s.config.FilterTwts(ctx.User, s.cache.GetByURL(profile.URI))
+		twts := s.FilterTwts(ctx.User, s.cache.GetByURL(profile.URI))
 
 		if len(twts) > 0 {
 			profile.LastPostedAt = twts[0].Created()

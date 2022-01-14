@@ -55,7 +55,7 @@ func (s *Server) SearchHandler() httprouter.Handle {
 			return
 		}
 
-		ctx.Twts = s.config.FilterTwts(ctx.User, pagedTwts)
+		ctx.Twts = s.FilterTwts(ctx.User, pagedTwts)
 		ctx.Pager = &pager
 
 		ctx.SearchQuery = fmt.Sprintf("tag=%s", tag)

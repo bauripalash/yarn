@@ -17,7 +17,6 @@ const (
 	FeatureInvalid FeatureType = iota
 	FeatureFoo
 	FeatureMovingAverageFeedRefresh
-	FeatureInternalEvents
 	FeatureJumpTimelineAge
 )
 
@@ -35,8 +34,6 @@ func (f FeatureType) String() string {
 		return "foo"
 	case FeatureMovingAverageFeedRefresh:
 		return "moving_average_feed_refresh"
-	case FeatureInternalEvents:
-		return "internal_events"
 	case FeatureJumpTimelineAge:
 		return "jump_timeline_age"
 	default:
@@ -71,8 +68,6 @@ func FeatureFromString(s string) (FeatureType, error) {
 		return FeatureFoo, nil
 	case "moving_average_feed_refresh":
 		return FeatureMovingAverageFeedRefresh, nil
-	case "internal_events":
-		return FeatureInternalEvents, nil
 	case "jump_timeline_age":
 		return FeatureJumpTimelineAge, nil
 	default:

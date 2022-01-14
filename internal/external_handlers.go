@@ -50,7 +50,7 @@ func (s *Server) ExternalHandler() httprouter.Handle {
 			ctx.Twter = types.Twter{Nick: nick, URI: uri}
 		}
 
-		twts := s.config.FilterTwts(ctx.User, s.cache.GetByURL(uri))
+		twts := s.FilterTwts(ctx.User, s.cache.GetByURL(uri))
 
 		var pagedTwts types.Twts
 

@@ -15,8 +15,6 @@ import (
 
 // RegisterHandler ...
 func (s *Server) RegisterHandler() httprouter.Handle {
-	isAdminUser := IsAdminUserFactory(s.config)
-
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		ctx := NewContext(s, r)
 
@@ -98,9 +96,8 @@ func (s *Server) RegisterHandler() httprouter.Handle {
 		user.CreatedAt = time.Now()
 
 		// Default Feeds
-		user.Follow(newsSpecialUser, s.config.URLForUser(newsSpecialUser)+"/twtxt.txt")
-		user.Follow(supportSpecialUser, s.config.URLForUser(supportSpecialUser)+"/twtxt.txt")
-		user.Follow(helpSpecialUser, s.config.URLForUser(helpSpecialUser)+"/twtxt.txt")
+		user.Follow(newsSpecialUser, s.config.URLForUser(newsSpecialUser))
+		user.Follow(supportSpecialUser, s.config.URLForUser(supportSpecialUser))
 
 		if err := s.db.SetUser(username, user); err != nil {
 			log.WithError(err).Error("error saving user object for new user")
@@ -108,29 +105,48 @@ func (s *Server) RegisterHandler() httprouter.Handle {
 			return
 		}
 
+		//
 		// Onboarding: Welcome new User and notify Poderator
+		//
 
-		// TODO: Make this async?
-		if s.config.Features.IsEnabled(FeatureInternalEvents) {
-			if admin, err := s.db.GetUser(s.config.AdminUser); err == nil && !isAdminUser(user) {
-				if twtxt, err := s.db.GetFeed(twtxtBot); err == nil {
-					// TODO: Make this configurable?
-					welcomeUserText := fmt.Sprintf(
-						"👋 Hey @<%s %s/twtxt.txt>, welcome to %s, a [Yarn.social](https://yarn.social) Pod! To get started you may want to check out the pod's [Discover](/discover) feed. To follow a new feed or user check out [Feeds](/feeds) and [Follow](/follow). Once again, welcome! 🤗",
-						user.Username, s.config.URLForUser(user.Username),
-						s.config.Name,
-					)
-					newUserText := fmt.Sprintf(
-						"👋 Hey @<%s %s/twtxt.txt>, a new user (@<%s %s/twtxt.txt>) has joined your pod %s! 🥳",
-						admin.Username, s.config.URLForUser(admin.Username),
-						user.Username, s.config.URLForUser(user.Username),
-						s.config.Name,
-					)
-					s.cache.AddEvent(user, twtxt, welcomeUserText)
-					s.cache.AddEvent(admin, twtxt, newUserText)
-				}
+		s.tasks.DispatchFunc(func() error {
+			if err := SendNewUserEmail(s.config, user.Username); err != nil {
+				log.WithError(err).Warnf("error notifying admin of new user %s", user.Username)
+				return err
 			}
-		}
+			return nil
+		})
+		s.tasks.DispatchFunc(func() error {
+			adminUser, err := s.db.GetUser(s.config.AdminUser)
+			if err != nil {
+				log.WithError(err).Warn("error loading admin user object")
+				return err
+			}
+
+			supportFeed, err := s.db.GetFeed(supportSpecialUser)
+			if err != nil {
+				log.WithError(err).Warn("error loading support feed object")
+				return err
+			}
+
+			// TODO: Make this configurable?
+			welcomeText := CleanTwt(
+				fmt.Sprintf(
+					"👋 Helo @<%s %s>, welcome to %s, a [Yarn.social](https://yarn.social) Pod! To get started you may want to check out the pod's [Discover](/discover) feed to find users to follow and interact with. To follow new users, use the `⨁ Follow` button on their profile page or use the [Follow](/follow) form and enter a Twtxt URL. You may also find other feeds of interest via [Feeds](/feeds). Welcome! 🤗",
+					user.Username, s.config.URLForUser(user.Username),
+					s.config.Name,
+				),
+			)
+			welcomeTwt, err := s.AppendTwt(adminUser, supportFeed, welcomeText)
+			if err != nil {
+				log.WithError(err).Warnf("error posting welcome for %s", user.Username)
+				return err
+			}
+			s.cache.InjectFeed(s.config.URLForUser(supportFeed.Name), welcomeTwt)
+			s.cache.DeleteUserViews(user)
+
+			return nil
+		})
 
 		http.Redirect(w, r, "/login", http.StatusFound)
 	}
