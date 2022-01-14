@@ -4,8 +4,17 @@
 export CGO_ENABLED=0
 VERSION=$(shell git describe --abbrev=0 --tags 2>/dev/null || echo "$VERSION")
 COMMIT=$(shell git rev-parse --short HEAD || echo "$COMMIT")
+BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 GOCMD=go
 GOVER=$(shell go version | grep -o -E 'go1\.17\.[0-9]+')
+
+ifeq ($(BRANCH), master)
+IMAGE := prologic/yarnd
+TAG := latest
+else
+IMAGE := prologic/yarnd
+TAG := dev
+endif
 
 all: preflight build
 
@@ -52,11 +61,11 @@ install: build
 
 ifeq ($(PUBLISH), 1)
 image:
-	@docker build --build-arg VERSION="$(VERSION)" --build-arg COMMIT="$(COMMIT)" -t prologic/yarnd .
-	@docker push prologic/yarnd
+	@docker build --build-arg VERSION="$(VERSION)" --build-arg COMMIT="$(COMMIT)" -t $(IMAGE):$(TAG) .
+	@docker push $(IMAGE):$(TAG)
 else
 image:
-	@docker build --build-arg VERSION="$(VERSION)" --build-arg COMMIT="$(COMMIT)" -t prologic/yarnd .
+	@docker build --build-arg VERSION="$(VERSION)" --build-arg COMMIT="$(COMMIT)" -t $(IMAGE):$(TAG) .
 endif
 
 release:
