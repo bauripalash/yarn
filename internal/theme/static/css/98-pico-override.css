@@ -1,0 +1,66 @@
+body, html {
+  overflow-x: hidden !important;
+  max-width: 850px !important;
+  margin: 0 auto !important;
+}
+
+:root {
+  --font-size: 16px !important;
+}
+
+a {
+  text-decoration: none !important;
+  padding: 0.1rem !important;
+  border-radius: 0.3rem !important;
+  -webkit-border-radius: 0.3rem !important;
+  -moz-border-radius: 0.3rem !important;
+}
+
+dialog article {
+  margin: 0 0 0 -2rem !important;
+  padding: 1rem !important;
+}
+
+pre > code {
+  padding: 0.25rem 0.5rem !important;
+}
+
+code, kbd {
+  padding: 0.2rem 0.3rem !important;
+}
+
+a[role=button] {
+  display: flex !important;
+  padding-top: 0.8rem !important;
+  padding-bottom: 0.8rem !important;
+}
+
+audio, video {
+  display: block !important;
+}
+
+dialog article > footer {
+  margin-top: 1rem !important;
+  padding: 0 !important;
+}
+
+dialog article > footer p {
+  padding: 0.5rem 1.5rem 2.5rem 1.5rem !important;
+  text-align: left !important;
+}
+
+@media (max-width: 768px) {
+  body > footer{
+    margin-top: -0.5rem !important;
+  }
+}
+
+@media (max-width: 991px) {
+  body > footer{
+    margin-top: -0.5rem !important;
+  }
+  dialog article {
+    margin: 0 !important;
+    padding: 1rem !important;
+  }
+}
