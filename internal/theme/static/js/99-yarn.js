@@ -131,12 +131,13 @@ function removeMe() {
 function replyTo(e) {
   e.preventDefault();
 
+  movePostBox(e);
+
   var el = u("textarea#text");
-  var text = document.getElementById("text");
+  var text = u("#text").first();
 
   var reply = u(e.target).data("reply");
 
-  movePostBox(e);
 
   if (u("#replyTo").first().value != "") {
     reply = reply.replace("(" + u("#replyTo").first().value + ") ", "")
@@ -148,17 +149,16 @@ function replyTo(e) {
   text.focus();
 
   var size = text.value.length;
-
   text.setSelectionRange(size, size);
 }
 
 function forkFrom(e) {
   e.preventDefault();
 
-  var el = u("textarea#text");
-  var text = document.getElementById("text");
-
   movePostBox(e);
+
+  var el = u("textarea#text");
+  var text = u("#text").first();
 
   el.empty();
 
@@ -166,17 +166,16 @@ function forkFrom(e) {
   text.focus();
 
   var size = text.value.length;
-
   text.setSelectionRange(size, size);
 }
 
 function editTwt(e) {
   e.preventDefault();
 
-  var el = u("textarea#text");
-  var text = document.getElementById("text");
-
   movePostBox(e);
+
+  var el = u("textarea#text");
+  var text = u("#test").first();
 
   el.empty();
 
@@ -184,7 +183,6 @@ function editTwt(e) {
   text.focus();
 
   var size = text.value.length;
-
   text.setSelectionRange(size, size);
 
   u("#replaceTwt").first().value = u(e.target).data("hash");
@@ -211,18 +209,22 @@ function deleteTwt(e) {
 function movePostBox(e) {
   e.preventDefault();
 
-  var article = e.target.closest(".twt-nav").parentNode;
-  var toolbar = document.getElementById("toolbar");
-  var form = document.getElementById("form");
+  var article = u(e.target).closest(".twt-nav").parent();
 
-  article.parentNode.insertBefore(form, article.nextSibling);
-  article.parentNode.insertBefore(toolbar, article.nextSibling);
+  var form = u("#form").clone();
+  var toolbar = u("#toolbar").clone();
 
-  toolbar.classList.add("toolbar-reply");
-  form.classList.add("form-reply");
+  u("#form").remove();
+  u("#toolbar").remove();
 
-  document.getElementsByClassName('grid h-feed')[0].classList.add("bump-up");
-  article.scrollIntoView()
+  article.after(form);
+  article.after(toolbar);
+
+  toolbar.addClass("toolbar-reply");
+  form.addClass("form-reply");
+
+  u('.grid.h-feed').addClass("bump-up");
+  article.scroll();
 }
 
 u("#theme select").on("change", function(e) {
