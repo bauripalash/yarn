@@ -259,7 +259,7 @@ func (s *Server) SubscribeIPP(feeds types.Feeds) {
 	}
 }
 
-func (s *Server) UpdateIPPSubscritpions(user *User) {
+func (s *Server) UpdateIPPSubscriptions(user *User) {
 	var matchingPeers Peers
 
 	// First get a list of peering Pods

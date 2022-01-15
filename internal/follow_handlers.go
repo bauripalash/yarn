@@ -57,6 +57,11 @@ func (s *Server) FollowHandler() httprouter.Handle {
 
 		s.cache.GetByUser(ctx.User, true)
 
+		// Update user subscriptions.
+		if s.config.Features.IsEnabled(FeatureIPP) {
+			s.UpdateIPPSubscriptions(ctx.User)
+		}
+
 		ctx.Error = false
 		ctx.Message = s.tr(ctx, "MsgFollowUserSuccess", trdata)
 		s.render("error", w, ctx)

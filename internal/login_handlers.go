@@ -91,6 +91,11 @@ func (s *Server) LoginHandler() httprouter.Handle {
 			_ = sess.(*session.Session).Set("persist", "1")
 		}
 
+		// Update user subscriptions.
+		if s.config.Features.IsEnabled(FeatureIPP) {
+			s.UpdateIPPSubscriptions(user)
+		}
+
 		http.Redirect(w, r, r.FormValue("referer"), http.StatusFound)
 	}
 }
