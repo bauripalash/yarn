@@ -33,8 +33,8 @@ const (
 
 	podInfoUpdateTTL = time.Hour * 24
 
-	minimumFeedRefresh  = 60.0  // 1m
-	maximumFeedRefresh  = 600.0 // 10m
+	minimumFeedRefresh  = 300.0 // 5m
+	maximumFeedRefresh  = 900.0 // 15m
 	movingAverageWindow = 7     // no. of most recent twts in moving avg calc
 )
 
