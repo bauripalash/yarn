@@ -78,6 +78,9 @@ func (s *Server) PostHandler() httprouter.Handle {
 			// If we are simply deleting the last twt, we have no need to proceed
 			// further.
 			if r.Method == http.MethodDelete {
+				if s.config.Features.IsEnabled(FeatureIPP) {
+					s.PublishIPP(ctx.User.Twter(s.config))
+				}
 				return
 			}
 		}
@@ -155,6 +158,11 @@ func (s *Server) PostHandler() httprouter.Handle {
 
 		// Refresh user views.
 		s.cache.GetByUser(ctx.User, true)
+
+		// Publish Inter-Pod Protocol.
+		if s.config.Features.IsEnabled(FeatureIPP) {
+			s.PublishIPP(ctx.User.Twter(s.config))
+		}
 
 		// WebMentions ...
 		// TODO: Use a queue here instead?

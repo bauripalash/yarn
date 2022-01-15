@@ -90,4 +90,5 @@ require (
 	gopkg.in/mail.v2 v2.3.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/gorm v1.22.2 // indirect
+	meow.tf/websub v1.0.0
 )

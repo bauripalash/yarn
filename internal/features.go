@@ -18,6 +18,7 @@ const (
 	FeatureFoo
 	FeatureMovingAverageFeedRefresh
 	FeatureJumpTimelineAge
+	FeatureIPP
 )
 
 // Interface guards
@@ -36,6 +37,8 @@ func (f FeatureType) String() string {
 		return "moving_average_feed_refresh"
 	case FeatureJumpTimelineAge:
 		return "jump_timeline_age"
+	case FeatureIPP:
+		return "ipp"
 	default:
 		return "invalid_feature"
 	}
@@ -70,6 +73,8 @@ func FeatureFromString(s string) (FeatureType, error) {
 		return FeatureMovingAverageFeedRefresh, nil
 	case "jump_timeline_age":
 		return FeatureJumpTimelineAge, nil
+	case "ipp":
+		return FeatureIPP, nil
 	default:
 		fs := fmt.Sprintf("available features: %s", strings.Join(AvailableFeatures(), " "))
 		return FeatureInvalid, fmt.Errorf("Error unrecognised feature: %s (%s)", s, fs)

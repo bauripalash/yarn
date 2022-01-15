@@ -86,8 +86,10 @@ type Server struct {
 	// Translator
 	translator *Translator
 
-	// Factory Functions
+	// Inter-Pod Protocol Store
+	subscribers *IPPStore
 
+	// Factory Functions
 	AppendTwt  AppendTwtFunc
 	FilterTwts FilterTwtsFunc
 }
@@ -673,13 +675,16 @@ func (s *Server) initRoutes() {
 	s.router.POST("/delete", httproutermiddleware.Handler("delete", s.am.MustAuth(s.DeleteHandler()), mdlw))
 
 	// Support / Report Abuse handlers
-
 	s.router.GET("/support", httproutermiddleware.Handler("support", s.SupportHandler(), mdlw))
 	s.router.POST("/support", httproutermiddleware.Handler("support", s.SupportHandler(), mdlw))
 	s.router.GET("/_captcha", httproutermiddleware.Handler("captcha", s.CaptchaHandler(), mdlw))
 
 	s.router.GET("/report", httproutermiddleware.Handler("report", s.ReportHandler(), mdlw))
 	s.router.POST("/report", httproutermiddleware.Handler("report", s.ReportHandler(), mdlw))
+
+	// InterPod Publishing Protocol
+	s.router.POST("/ipp/pub", httproutermiddleware.Handler("ipp_pub", s.IPPPubHandler(), mdlw))
+	s.router.POST("/ipp/sub", httproutermiddleware.Handler("ipp_sub", s.IPPSubHandler(), mdlw))
 }
 
 // NewServer ...
@@ -764,6 +769,8 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 
 	api := NewAPI(router, config, cache, archive, db, pm, tasks)
 
+	ippstore := NewIPPStore()
+
 	var handler http.Handler
 
 	csrfHandler := nosurf.New(router)
@@ -822,6 +829,9 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 
 		// Translator
 		translator: translator,
+
+		// Inter-Pod Protocol Store
+		subscribers: ippstore,
 	}
 
 	// Factory functions that require access to the Pod Config and Store
