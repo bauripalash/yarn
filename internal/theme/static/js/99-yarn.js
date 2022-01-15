@@ -209,7 +209,13 @@ function deleteTwt(e) {
 function movePostBox(e) {
   e.preventDefault();
 
+  u('article').each(function(n, i){
+    u(n).removeClass('highlight');
+  });
+
   var article = u(e.target).closest(".twt-nav").parent();
+
+  article.addClass("highlight");
 
   var form = u("#form").clone();
   var toolbar = u("#toolbar").clone();

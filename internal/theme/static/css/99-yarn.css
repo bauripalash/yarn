@@ -721,6 +721,10 @@ pre {
   padding-top: 1rem;
 }
 
+.highlight {
+  box-shadow: 0 0 0.1rem 0.05rem var(--primary);
+}
+
 @media (max-width: 576px) {
   main.container {
     margin-top: -3rem;
