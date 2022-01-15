@@ -552,7 +552,7 @@ article .p-summary {
 /* Video Summary Content Styling */
 article .p-summary p video,
 article .p-summary p img {
-  width: 100%;
+  max-width: 100%;
   padding-bottom: 0.5rem;
 }
 
