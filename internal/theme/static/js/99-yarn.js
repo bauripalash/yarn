@@ -1,23 +1,8 @@
-// Creare's 'Implied Consent' EU Cookie Law Banner v:2.4
-// Conceived by Robert Kent, James Bavington & Tom Foyster
-
-var dropCookie = true; // false disables the Cookie, allowing you to style the banner
-var cookieDuration = 14; // Number of days before the cookie expires, and the banner reappears
-var cookieName = "complianceCookie"; // Name of our cookie
-var cookieValue = "on"; // Value of cookie
-
 var textMaxLength = ""; // Previous value of maxlength of #text
 var textRows = ""; // Previous value of rows of #text
 
 var $mentionedList = u("#mentioned-list").first(); // node list of mentioned users
 var lastSymbol = ""; // last char in textarea
-
-function createDiv() {
-  u("body").prepend(
-    '<div id="cookie-law" class="container-fluid"><p>This website uses cookies. By continuing we assume your permission to deploy cookies, as detailed in our <a href="/privacy" rel="nofollow" title="Privacy Policy">privacy policy</a>. <a role="button" href="javascript:void(0);" onclick="removeMe();">Close</a></p></div>'
-  );
-  createCookie(window.cookieName, window.cookieValue, window.cookieDuration); // Create the cookie
-}
 
 // Array.findIndex polyfill
 if (!Array.prototype.findIndex) {
@@ -89,43 +74,6 @@ if (!Array.prototype.find) {
     configurable: true,
     writable: true,
   });
-}
-
-function createCookie(name, value, days) {
-  if (days) {
-    var date = new Date();
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-    var expires = "; expires=" + date.toGMTString();
-  } else var expires = "";
-  if (window.dropCookie) {
-    document.cookie = name + "=" + value + expires + "; path=/";
-  }
-}
-
-function checkCookie(name) {
-  var nameEQ = name + "=";
-  var ca = document.cookie.split(";");
-  for (var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == " ") c = c.substring(1, c.length);
-    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-  }
-  return null;
-}
-
-function eraseCookie(name) {
-  createCookie(name, "", -1);
-}
-
-window.onload = function() {
-  if (checkCookie(window.cookieName) != window.cookieValue) {
-    createDiv();
-  }
-};
-
-function removeMe() {
-  var element = document.getElementById("cookie-law");
-  element.parentNode.removeChild(element);
 }
 
 function replyTo(e) {
