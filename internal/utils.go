@@ -1694,7 +1694,7 @@ func FilterTwtsFactory(conf *Config) FilterTwtsFunc {
 // FilterTwtsAge calculates what page to scroll to, provided
 // we want to see twts >= :age: hours old, and with :twtsPerPage:
 // twts on each page.
-func FilterTwtsAge(twts types.Twts, age int, twtsPerPage int) int {
+func FilterTwtsAge(twts types.Twts, age, twtsPerPage int) int {
 	now := time.Now()
 	var twtIndex int
 	for i, twt := range twts {
@@ -1703,7 +1703,10 @@ func FilterTwtsAge(twts types.Twts, age int, twtsPerPage int) int {
 			break
 		}
 	}
-	return int(twtIndex / twtsPerPage)
+	if twtsPerPage > 0 {
+		return int(twtIndex / twtsPerPage)
+	}
+	return 0
 }
 
 // CleanTwt cleans a twt's text, replacing new lines with spaces and

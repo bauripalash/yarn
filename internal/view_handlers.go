@@ -84,7 +84,9 @@ func (s *Server) TimelineHandler() httprouter.Handle {
 
 		if s.config.Features.IsEnabled(FeatureJumpTimelineAge) {
 			age := SafeParseInt(r.URL.Query().Get("t"), 0)
-			page = page + FilterTwtsAge(twts, age, s.config.TwtsPerPage)
+			if age > 0 {
+				page = page + FilterTwtsAge(twts, age, s.config.TwtsPerPage)
+			}
 		}
 
 		pager.SetPage(page)
