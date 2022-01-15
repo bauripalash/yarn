@@ -136,14 +136,15 @@ function replyTo(e) {
 
   var reply = u(e.target).data("reply");
 
+  movePostBox(e);
+
   if (u("#replyTo").first().value != "") {
     reply = reply.replace("(" + u("#replyTo").first().value + ") ", "")
   }
 
   el.empty();
-  text.value = reply;
-  el.scroll();
 
+  text.value = reply;
   text.focus();
 
   var size = text.value.length;
@@ -157,10 +158,11 @@ function forkFrom(e) {
   var el = u("textarea#text");
   var text = document.getElementById("text");
 
-  el.empty();
-  text.value = u(e.target).data("fork");
-  el.scroll();
+  movePostBox(e);
 
+  el.empty();
+
+  text.value = u(e.target).data("fork");
   text.focus();
 
   var size = text.value.length;
@@ -174,10 +176,11 @@ function editTwt(e) {
   var el = u("textarea#text");
   var text = document.getElementById("text");
 
-  el.empty();
-  text.value = u(e.target).data("text");
-  el.scroll();
+  movePostBox(e);
 
+  el.empty();
+
+  text.value = u(e.target).data("text");
   text.focus();
 
   var size = text.value.length;
@@ -203,6 +206,23 @@ function deleteTwt(e) {
       },
     });
   }
+}
+
+function movePostBox(e) {
+  e.preventDefault();
+
+  var article = e.target.closest(".twt-nav").parentNode;
+  var toolbar = document.getElementById("toolbar");
+  var form = document.getElementById("form");
+
+  article.parentNode.insertBefore(form, article.nextSibling);
+  article.parentNode.insertBefore(toolbar, article.nextSibling);
+
+  toolbar.classList.add("toolbar-reply");
+  form.classList.add("form-reply");
+
+  document.getElementsByClassName('grid h-feed')[0].classList.add("bump-up");
+  article.scrollIntoView()
 }
 
 u("#theme select").on("change", function(e) {
