@@ -79,7 +79,7 @@ func (s *Server) PostHandler() httprouter.Handle {
 			// further.
 			if r.Method == http.MethodDelete {
 				if s.config.Features.IsEnabled(FeatureIPP) {
-					s.PublishIPP(ctx.User.Twter(s.config))
+					s.PublishIPP(ctx.User)
 				}
 				return
 			}
@@ -161,7 +161,7 @@ func (s *Server) PostHandler() httprouter.Handle {
 
 		// Publish Inter-Pod Protocol.
 		if s.config.Features.IsEnabled(FeatureIPP) {
-			s.PublishIPP(ctx.User.Twter(s.config))
+			s.PublishIPP(ctx.User)
 		}
 
 		// WebMentions ...

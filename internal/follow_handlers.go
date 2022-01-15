@@ -173,6 +173,11 @@ func (s *Server) UnfollowHandler() httprouter.Handle {
 
 		s.cache.GetByUser(ctx.User, true)
 
+		// Update user subscriptions.
+		if s.config.Features.IsEnabled(FeatureIPP) {
+			s.UpdateIPPSubscriptions(ctx.User)
+		}
+
 		ctx.Error = false
 		ctx.Message = s.tr(ctx, "MsgUnfollowSuccess", trdata)
 		s.render("error", w, ctx)
