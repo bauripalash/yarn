@@ -175,7 +175,7 @@ function editTwt(e) {
   movePostBox(e);
 
   var el = u("textarea#text");
-  var text = u("#test").first();
+  var text = u("#text").first();
 
   el.empty();
 
@@ -231,6 +231,38 @@ function movePostBox(e) {
 
   u('.grid.h-feed').addClass("bump-up");
   article.scroll();
+}
+
+u("body").on("keyup", function(e) {
+  if (e.key === "Escape") {
+    e.preventDefault();
+    resetPostBox();
+    u("#text").first().value = "";
+  }
+});
+
+function resetPostBox() {
+  if (!u("#form").hasClass("form-reply")) {
+    return;
+  }
+  
+  u('article').each(function(n, i){
+    u(n).removeClass('highlight');
+  });
+
+  var form = u("#form").clone();
+  var toolbar = u("#toolbar").clone();
+
+  u("#form").remove();
+  u("#toolbar").remove();
+
+  u("main").prepend(form);
+  u("main").prepend(toolbar);
+
+  toolbar.removeClass("toolbar-reply");
+  form.removeClass("form-reply");
+
+  u('.grid.h-feed').removeClass("bump-up");
 }
 
 u("#theme select").on("change", function(e) {
