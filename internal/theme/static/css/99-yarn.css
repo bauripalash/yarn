@@ -340,6 +340,10 @@ div .p-summary:not(.image-gallery)>.caption-wrap .caption {
   display: none;
 }
 
+.p-summary pre:last-child {
+  margin-bottom: 1.5rem;
+}
+
 audio,
 video {
   max-width: 100%;
