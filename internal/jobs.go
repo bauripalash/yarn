@@ -204,22 +204,22 @@ func (job *UpdateFeedsJob) Run() {
 
 	log.Infof("updating feeds for %d users and  %d feeds", len(users), len(feeds))
 
-	sources := make(types.Feeds)
-	publicFollowers := make(map[types.Feed][]string)
+	sources := make(types.FetchFeedRequests)
+	publicFollowers := make(map[types.FetchFeedRequest][]string)
 
 	// Ensure all specialUsername feeds are in the cache
 	for _, username := range specialUsernames {
-		sources[types.Feed{Nick: username, URL: URLForUser(job.conf.BaseURL, username)}] = true
+		sources[types.FetchFeedRequest{Nick: username, URL: URLForUser(job.conf.BaseURL, username)}] = true
 	}
 
 	// Ensure all twtxtBots feeds are in the cache
 	for _, bot := range automatedFeeds {
-		sources[types.Feed{Nick: bot, URL: URLForUser(job.conf.BaseURL, bot)}] = true
+		sources[types.FetchFeedRequest{Nick: bot, URL: URLForUser(job.conf.BaseURL, bot)}] = true
 	}
 
 	for _, feed := range feeds {
 		// Ensure we fetch the feed's own posts in the cache
-		sources[types.Feed{Nick: feed.Name, URL: feed.URL}] = true
+		sources[types.FetchFeedRequest{Nick: feed.Name, URL: feed.URL}] = true
 	}
 
 	for _, user := range users {

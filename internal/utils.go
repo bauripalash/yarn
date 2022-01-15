@@ -1586,7 +1586,7 @@ func URLForTask(baseURL, uuid string) string {
 	)
 }
 
-func URLForWhoFollows(baseURL string, feed types.Feed, feedFollowers int) string {
+func URLForWhoFollows(baseURL string, feed types.FetchFeedRequest, feedFollowers int) string {
 	return fmt.Sprintf(
 		"%s/whoFollows?followers=%d&token=%s",
 		strings.TrimSuffix(baseURL, "/"),

@@ -207,11 +207,12 @@ func (s *Server) IPPPubHandler() httprouter.Handle {
 
 		// Refresh the feed.
 		s.tasks.DispatchFunc(func() error {
-			sources := make(types.Feeds)
-			publicFollowers := make(map[types.Feed][]string)
-			feed := types.Feed{
-				Nick: twter.Nick,
-				URL:  twter.URI,
+			sources := make(types.FetchFeedRequests)
+			publicFollowers := make(map[types.FetchFeedRequest][]string)
+			feed := types.FetchFeedRequest{
+				Nick:  twter.Nick,
+				URL:   twter.URI,
+				Force: true,
 			}
 			sources[feed] = true
 			users, err := s.db.GetAllUsers()

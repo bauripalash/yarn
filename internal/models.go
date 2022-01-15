@@ -255,9 +255,9 @@ func (f *Feed) FollowedBy(url string) bool {
 	return ok
 }
 
-func (f *Feed) Source() types.Feeds {
-	feeds := make(types.Feeds)
-	feeds[types.Feed{Nick: f.Name, URL: f.URL}] = true
+func (f *Feed) Source() types.FetchFeedRequests {
+	feeds := make(types.FetchFeedRequests)
+	feeds[types.FetchFeedRequest{Nick: f.Name, URL: f.URL}] = true
 	return feeds
 }
 
@@ -464,17 +464,17 @@ func (u *User) HasMuted(url string) bool {
 	return ok
 }
 
-func (u *User) Source() types.Feeds {
-	feeds := make(types.Feeds)
-	feeds[types.Feed{Nick: u.Username, URL: u.URL}] = true
+func (u *User) Source() types.FetchFeedRequests {
+	feeds := make(types.FetchFeedRequests)
+	feeds[types.FetchFeedRequest{Nick: u.Username, URL: u.URL}] = true
 	return feeds
 }
 
-func (u *User) Sources() types.Feeds {
+func (u *User) Sources() types.FetchFeedRequests {
 	// Ensure we fetch the user's own posts in the cache
 	feeds := u.Source()
 	for url, nick := range u.sources {
-		feeds[types.Feed{Nick: nick, URL: url}] = true
+		feeds[types.FetchFeedRequest{Nick: nick, URL: url}] = true
 	}
 	return feeds
 }

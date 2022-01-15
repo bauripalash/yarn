@@ -388,7 +388,7 @@ func (a *API) PostEndpoint() httprouter.Handle {
 			return
 		}
 
-		var sources types.Feeds
+		var sources types.FetchFeedRequests
 
 		switch req.PostAs {
 		case "", me:
@@ -982,8 +982,8 @@ func (a *API) ProfileEndpoint() httprouter.Handle {
 		}
 
 		if !a.cache.IsCached(profile.URI) {
-			sources := make(types.Feeds)
-			sources[types.Feed{Nick: profile.Nick, URL: profile.URI}] = true
+			sources := make(types.FetchFeedRequests)
+			sources[types.FetchFeedRequest{Nick: profile.Nick, URL: profile.URI}] = true
 			a.cache.FetchFeeds(a.config, a.archive, sources, nil)
 		}
 
@@ -1114,8 +1114,8 @@ func (a *API) FetchTwtsEndpoint() httprouter.Handle {
 
 		if req.URL != "" && !isLocal(req.URL) {
 			if !a.cache.IsCached(req.URL) {
-				sources := make(types.Feeds)
-				sources[types.Feed{Nick: nick, URL: req.URL}] = true
+				sources := make(types.FetchFeedRequests)
+				sources[types.FetchFeedRequest{Nick: nick, URL: req.URL}] = true
 				a.cache.FetchFeeds(a.config, a.archive, sources, nil)
 			}
 
@@ -1196,8 +1196,8 @@ func (a *API) ExternalProfileEndpoint() httprouter.Handle {
 
 		if !a.cache.IsCached(uri) {
 			a.tasks.DispatchFunc(func() error {
-				sources := make(types.Feeds)
-				sources[types.Feed{Nick: nick, URL: uri}] = true
+				sources := make(types.FetchFeedRequests)
+				sources[types.FetchFeedRequest{Nick: nick, URL: uri}] = true
 				a.cache.FetchFeeds(a.config, a.archive, sources, nil)
 				return nil
 			})

@@ -850,7 +850,7 @@ func (cache *Cache) DetectPodFromUserAgent(ua TwtxtUserAgent) error {
 }
 
 // FetchFeeds ...
-func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Feeds, publicFollowers map[types.Feed][]string) {
+func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.FetchFeedRequests, publicFollowers map[types.FetchFeedRequest][]string) {
 	stime := time.Now()
 	defer func() {
 		metrics.Gauge(
@@ -893,7 +893,7 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Feeds
 		fetchers <- struct{}{}
 
 		// anon func takes needed variables as arg, avoiding capture of iterator variables
-		go func(feed types.Feed) {
+		go func(feed types.FetchFeedRequest) {
 			defer func() {
 				<-fetchers
 				wg.Done()
@@ -914,11 +914,12 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Feeds
 			}
 
 			// Handle Feed Refresh
-			// Supports two methods of refresh:
+			// Supports three methods of refresh:
 			// 1) A refresh interval (suggested refresh interval by feed author), e.g:
 			//    # refresh = 1h
 			// 2) An exponential back-off based on a weighted moving average of a feed's update frequency (TBD)
-			if !cache.ShouldRefreshFeed(feed.URL) {
+			// 3) FetchFeedRequest.Force is `true` so we fetch the feed immediately (Subscription Notification)
+			if !feed.Force && !cache.ShouldRefreshFeed(feed.URL) {
 				twtsch <- nil
 				return
 			}
@@ -1416,7 +1417,7 @@ func (cache *Cache) ShouldRefreshFeed(uri string) bool {
 	}
 
 	// Always refresh feeds on the same pod.
-	if IsLocalURLFactory(cache.conf)(uri) {
+	if cache.conf.IsLocalURL(uri) {
 		return true
 	}
 
@@ -1758,7 +1759,7 @@ func (cache *Cache) DeleteUserViews(u *User) {
 }
 
 // DeleteFeeds ...
-func (cache *Cache) DeleteFeeds(feeds types.Feeds) {
+func (cache *Cache) DeleteFeeds(feeds types.FetchFeedRequests) {
 	cache.mu.Lock()
 	for feed := range feeds {
 		delete(cache.Feeds, feed.URL)

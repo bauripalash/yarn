@@ -37,8 +37,8 @@ func (s *Server) ExternalHandler() httprouter.Handle {
 
 		if !s.cache.IsCached(uri) {
 			s.tasks.DispatchFunc(func() error {
-				sources := make(types.Feeds)
-				sources[types.Feed{Nick: nick, URL: uri}] = true
+				sources := make(types.FetchFeedRequests)
+				sources[types.FetchFeedRequest{Nick: nick, URL: uri}] = true
 				s.cache.FetchFeeds(s.config, s.archive, sources, nil)
 				return nil
 			})
@@ -160,8 +160,8 @@ func (s *Server) ExternalFollowingHandler() httprouter.Handle {
 
 		if !s.cache.IsCached(uri) {
 			s.tasks.DispatchFunc(func() error {
-				sources := make(types.Feeds)
-				sources[types.Feed{Nick: nick, URL: uri}] = true
+				sources := make(types.FetchFeedRequests)
+				sources[types.FetchFeedRequest{Nick: nick, URL: uri}] = true
 				s.cache.FetchFeeds(s.config, s.archive, sources, nil)
 				return nil
 			})

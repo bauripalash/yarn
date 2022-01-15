@@ -2,17 +2,21 @@ package types
 
 import "fmt"
 
-// Feed is an single twtxt.txt feed with a cannonical Nickname and URL for the feed
-type Feed struct {
+// FetchFeedRequest is an single request for a twtxt.txt feed with a cannonical Nickname and URL for the feed
+// and optinoal request parameters that affect how the Cache fetches the feed.
+type FetchFeedRequest struct {
 	Nick string
 	URL  string
+
+	// Force whether or not to immediately fetch the feed and bypass Cache.ShouldRefreshFeed()
+	Force bool
 }
 
 // String implements the Stringer interface and returns the Feed represented
 // as a twtxt.txt URI in the form @<nick url>
-func (f Feed) String() string {
-	return fmt.Sprintf("@<%s %s>", f.Nick, f.URL)
+func (f FetchFeedRequest) String() string {
+	return fmt.Sprintf("FetchFeedRequest: @<%s %s>", f.Nick, f.URL)
 }
 
-// Feeds is a mappping of Feed to booleans used to ensure unique feeds
-type Feeds map[Feed]bool
+// FetchFeedRequests is a mappping of FetchFeedRequest to booleans used to ensure unique feeds
+type FetchFeedRequests map[FetchFeedRequest]bool
