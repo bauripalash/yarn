@@ -87,7 +87,7 @@ type Server struct {
 	translator *Translator
 
 	// Inter-Pod Protocol Store
-	subscribers *IPPStore
+	ippStore *IPPStore
 
 	// Factory Functions
 	AppendTwt  AppendTwtFunc
@@ -769,7 +769,7 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 
 	api := NewAPI(router, config, cache, archive, db, pm, tasks)
 
-	ippstore := NewIPPStore()
+	ippStore := NewIPPStore()
 
 	var handler http.Handler
 
@@ -831,7 +831,7 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 		translator: translator,
 
 		// Inter-Pod Protocol Store
-		subscribers: ippstore,
+		ippStore: ippStore,
 	}
 
 	// Factory functions that require access to the Pod Config and Store
