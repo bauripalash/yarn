@@ -314,7 +314,7 @@ func (s *Server) SubscribeIPP(peer *Peer) {
 // UpdateIPPSubscriptions updates the IPPStore regarding a User's
 // followed feeds.
 func (s *Server) UpdateIPPSubscriptions(user *User) {
-	log.Debugf("Updating subscriptions for %s", user)
+	log.Infof("Updating subscriptions for %s", user)
 
 	var matchingPeers Peers
 	var otherPeers Peers
@@ -337,8 +337,8 @@ func (s *Server) UpdateIPPSubscriptions(user *User) {
 			}
 		}
 	}
-	log.Debugf("matchingPeers: %q", matchingPeers)
-	log.Debugf("othersPeers: %q", otherPeers)
+	log.Infof("matchingPeers: %q", matchingPeers)
+	log.Infof("othersPeers: %q", otherPeers)
 
 	// Ensure subscription to followed peers.
 	for _, matchingPeer := range matchingPeers {
