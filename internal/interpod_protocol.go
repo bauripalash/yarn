@@ -1,11 +1,11 @@
 package internal
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
 	"sync"
-	"time"
 
 	"git.mills.io/yarnsocial/yarn/types"
 	"github.com/julienschmidt/httprouter"
@@ -241,7 +241,7 @@ func (s *Server) IPPSubHandler() httprouter.Handle {
 
 		// The other pod's IPP publish endpoint, where we should send
 		// publish events.
-		callback := r.Header.Get("x-ipp-callback")
+		callback := r.Header.Get("Callback")
 
 		// Validate URL.
 		_, err := url.Parse(callback)
@@ -265,19 +265,25 @@ func (s *Server) IPPSubHandler() httprouter.Handle {
 // causing an upstream latency issue.
 func (s *Server) PublishIPP(user *User) {
 	s.tasks.DispatchFunc(func() error {
-		var resp *http.Response
-		client := http.Client{
-			Timeout: 5 * time.Second,
-		}
-
 		uri := URLForUser(s.config.BaseURL, user.Username)
 
 		// Send a publish event to all subscribers.
 		for sub := range s.ippStore.GetSubscribers() {
 			go func(sub, uri string) {
-				req, _ := http.NewRequest(http.MethodPost, sub, nil)
-				req.Header.Set("x-ipp-uri", uri)
-				resp, _ = client.Do(req)
+				headers := make(http.Header)
+				headers.Set("URI", uri)
+
+				res, err := Request(s.config, http.MethodPost, sub, headers)
+				if err != nil {
+					log.WithError(err).Errorf("error making callback request to %s", sub)
+					return
+				}
+				defer res.Body.Close()
+
+				if res.StatusCode/100 != 2 {
+					log.Errorf("non-success HTTP %s response subscribing to %s", sub)
+					return
+				}
 
 				// The receiving pod has received the request but doesn't
 				// recognize it, therefore stop sending it publish events.
@@ -287,10 +293,9 @@ func (s *Server) PublishIPP(user *User) {
 				//  2) The other pod isn't subscribed to us (anymore)
 				//	3) If we sent a bad IPP request
 				//	4) The receiver wasn't a pod at all
-				if resp.StatusCode != http.StatusAccepted {
+				if res.StatusCode != http.StatusAccepted {
 					s.ippStore.RemoveSubscriber(sub)
 				}
-				resp.Body.Close()
 			}(sub, uri)
 		}
 		return nil
@@ -298,17 +303,21 @@ func (s *Server) PublishIPP(user *User) {
 }
 
 // SubscribeIPP subscribes this pod to another pod's IPP notifications.
-func (s *Server) SubscribeIPP(peer *Peer) {
-	var resp *http.Response
-	client := http.Client{
-		Timeout: 5 * time.Second,
+func (s *Server) SubscribeIPP(peer *Peer) error {
+	headers := make(http.Header)
+	headers.Set("Callback", s.config.BaseURL+IPPPubEndpoint)
+
+	res, err := Request(s.config, http.MethodPost, peer.URI+IPPSubEndpoint, headers)
+	if err != nil {
+		return fmt.Errorf("error making subscription request to %s", peer)
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode/100 != 2 {
+		return fmt.Errorf("non-success HTTP %s response subscribing to %s", peer)
 	}
 
-	// Make a subscription request to the peer.
-	req, _ := http.NewRequest(http.MethodPost, peer.URI+IPPSubEndpoint, nil)
-	req.Header.Set("x-ipp-callback", s.config.BaseURL+IPPPubEndpoint)
-	resp, _ = client.Do(req)
-	resp.Body.Close()
+	return nil
 }
 
 // UpdateIPPSubscriptions updates the IPPStore regarding a User's
