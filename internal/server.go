@@ -86,9 +86,6 @@ type Server struct {
 	// Translator
 	translator *Translator
 
-	// Inter-Pod Protocol Store
-	ippStore *IPPStore
-
 	// Factory Functions
 	AppendTwt  AppendTwtFunc
 	FilterTwts FilterTwtsFunc
@@ -715,10 +712,6 @@ func (s *Server) initRoutes() {
 
 	s.router.GET("/report", httproutermiddleware.Handler("report", s.ReportHandler(), mdlw))
 	s.router.POST("/report", httproutermiddleware.Handler("report", s.ReportHandler(), mdlw))
-
-	// InterPod Publishing Protocol
-	s.router.POST("/ipp/pub", httproutermiddleware.Handler("ipp_pub", s.IPPPubHandler(), mdlw))
-	s.router.POST("/ipp/sub", httproutermiddleware.Handler("ipp_sub", s.IPPSubHandler(), mdlw))
 }
 
 // NewServer ...
@@ -803,8 +796,6 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 
 	api := NewAPI(router, config, cache, archive, db, pm, tasks)
 
-	ippStore := NewIPPStore()
-
 	var handler http.Handler
 
 	csrfHandler := nosurf.New(router)
@@ -863,9 +854,6 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 
 		// Translator
 		translator: translator,
-
-		// Inter-Pod Protocol Store
-		ippStore: ippStore,
 	}
 
 	// Factory functions that require access to the Pod Config and Store

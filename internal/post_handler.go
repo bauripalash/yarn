@@ -74,15 +74,6 @@ func (s *Server) PostHandler() httprouter.Handle {
 			for _, feed := range s.cache.Views {
 				feed.Snipe(lastTwt)
 			}
-
-			// If we are simply deleting the last twt, we have no need to proceed
-			// further.
-			if r.Method == http.MethodDelete {
-				if s.config.Features.IsEnabled(FeatureIPP) {
-					s.PublishIPP(ctx.User)
-				}
-				return
-			}
 		}
 
 		//
@@ -158,11 +149,6 @@ func (s *Server) PostHandler() httprouter.Handle {
 
 		// Refresh user views.
 		s.cache.GetByUser(ctx.User, true)
-
-		// Publish Inter-Pod Protocol.
-		if s.config.Features.IsEnabled(FeatureIPP) {
-			s.PublishIPP(ctx.User)
-		}
 
 		// WebMentions ...
 		// TODO: Use a queue here instead?
