@@ -166,24 +166,19 @@ func (s *Server) PostHandler() httprouter.Handle {
 
 		// WebMentions ...
 		// TODO: Use a queue here instead?
-		// TODO: Fix Webmentions
-		// TODO: https://git.mills.io/yarnsocial/yarn/issues/438
-		// TODO: https://git.mills.io/yarnsocial/yarn/issues/515
-		/*
-			if _, err := s.tasks.Dispatch(NewFuncTask(func() error {
-				for _, m := range twt.Mentions() {
-					twter := m.Twter()
-					if !isLocalURL(twter.RequestURI) {
-						if err := WebMention(twter.RequestURI, URLForTwt(s.config.BaseURL, twt.Hash())); err != nil {
-							log.WithError(err).Warnf("error sending webmention to %s", twter.RequestURI)
-						}
+		if _, err := s.tasks.Dispatch(NewFuncTask(func() error {
+			for _, m := range twt.Mentions() {
+				twter := m.Twter()
+				if !s.config.IsLocalURL(twter.URI) {
+					if err := WebMention(twter.URI, URLForTwt(s.config.BaseURL, twt.Hash())); err != nil {
+						log.WithError(err).Warnf("error sending webmention to %s", twter.URI)
 					}
 				}
-				return nil
-			})); err != nil {
-				log.WithError(err).Warn("error submitting task for webmentions")
 			}
-		*/
+			return nil
+		})); err != nil {
+			log.WithError(err).Warn("error submitting task for webmentions")
+		}
 
 		http.Redirect(w, r, RedirectRefererURL(r, s.config, "/"), http.StatusFound)
 	}

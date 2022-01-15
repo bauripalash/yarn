@@ -397,23 +397,57 @@ func (s *Server) processWebMention(source, target *url.URL, sourceData *microfor
 		return authorName, sourceFeed, nil
 	}
 
-	_, err := GetUserFromURL(s.config, s.db, target.String())
+	user, err := GetUserFromURL(s.config, s.db, target.String())
 	if err != nil {
 		log.WithError(err).WithField("target", target.String()).Warn("unable to get used from webmention target")
 		return err
 	}
 
-	authorName, sourceFeed, err := parseSourceData(sourceData)
+	authorNick, sourceFeed, err := parseSourceData(sourceData)
 	if err != nil {
 		log.WithError(err).Warnf("error parsing mf2 source data from %s", source)
+		return err
 	}
 
-	// TODO: Implement some kind of in-app notifications?
-	if authorName != "" && sourceFeed != "" {
-		// TODO: Do something with the @-mention
-	} else {
-		// TODO: Do something with the WebMention
+	adminUser, err := s.db.GetUser(s.config.AdminUser)
+	if err != nil {
+		log.WithError(err).Warn("error loading admin user object")
+		return err
 	}
+
+	supportFeed, err := s.db.GetFeed(supportSpecialUser)
+	if err != nil {
+		log.WithError(err).Warn("error loading support feed object")
+		return err
+	}
+
+	// TODO: Make this configurable?
+	mentionText := fmt.Sprintf(
+		"👋 Hello @<%s %s>, ",
+		user.Username, s.config.URLForUser(user.Username),
+	)
+
+	if authorNick != "" && sourceFeed != "" {
+		mentionText += fmt.Sprintf(
+			"you were mentioned on %s by @<%s %s>",
+			source.String(), authorNick, sourceFeed,
+		)
+	} else {
+		mentionText += fmt.Sprintf(
+			"you were mentioned on %s",
+			source.String(),
+		)
+	}
+
+	mentionText = CleanTwt(mentionText)
+
+	mentionTwt, err := s.AppendTwt(adminUser, supportFeed, mentionText)
+	if err != nil {
+		log.WithError(err).Warnf("error posting mention for %s", user.Username)
+		return err
+	}
+	s.cache.InjectFeed(s.config.URLForUser(supportFeed.Name), mentionTwt)
+	s.cache.DeleteUserViews(user)
 
 	return nil
 }
