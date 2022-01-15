@@ -1,15 +1,20 @@
 {{ define "content" }}
   <article class="container-fluid">
     <hgroup>
-      <h2>{{tr . "ConversationTitle"}}</h2>
-      <h3>{{tr . "ConversationSummary"}} <a href="/twt/{{ ($.Twts | first).Hash  }}">#{{ ($.Twts | first).Hash }}</a></h3>
+      <h2>{{ tr . "ConversationTitle" }}</h2>
+      <h3>{{ tr . "ConversationSummary" }} <a href="/twt/{{ ($.Twts | first).Hash  }}">#{{ ($.Twts | first).Hash }}</a></h3>
     </hgroup>
   </article>
   {{ template "twt" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Twt" ( $.Twts | first) "Ctx" . "view" "rootconv") }}
   {{ template "feed" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Pager" $.Pager "Twts" ($.Twts | rest) "Ctx" . "view" "conv") }}
   {{ if .Authenticated }}
-    {{ template "post" (dict "Authenticated" $.Authenticated "User" $.User "TwtPrompt" $.TwtPrompt "MaxTwtLength" $.MaxTwtLength "Reply" $.Reply "AutoFocus" false "CSRFToken" $.CSRFToken "Ctx" .) }}
+  {{ template "post" (dict "Authenticated" $.Authenticated "User" $.User "TwtPrompt" $.TwtPrompt "MaxTwtLength" $.MaxTwtLength "Reply" $.Reply "AutoFocus" false "CSRFToken" $.CSRFToken "Ctx" .) }}
   {{ else }}
-    <small id="convJoinSummary">{{ (tr . "ConversationJoinSummary") | html }}</small>
+  <article class="container-fluid">
+    <hgroup>
+      <h2>{{ tr . "ConversationJoinTitle" }}</h2>
+      <h3>{{ (tr . "ConversationJoinSummary") | html }}</h3>
+    </hgroup>
+  </article>
   {{ end }}
 {{ end }}
