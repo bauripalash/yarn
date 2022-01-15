@@ -8,6 +8,7 @@ import (
 
 	"git.mills.io/yarnsocial/yarn/types"
 	"github.com/julienschmidt/httprouter"
+	log "github.com/sirupsen/logrus"
 )
 
 const (
@@ -103,8 +104,23 @@ func (s *Server) IPPPubHandler() httprouter.Handle {
 		// Refresh the feed.
 		s.tasks.DispatchFunc(func() error {
 			sources := make(types.Feeds)
-			sources[types.Feed{Nick: twter.Nick, URL: twter.URI}] = true
-			s.cache.FetchFeeds(s.config, s.archive, sources, nil)
+			publicFollowers := make(map[types.Feed][]string)
+			feed := types.Feed{
+				Nick: twter.Nick,
+				URL:  twter.URI,
+			}
+			sources[feed] = true
+			users, err := s.db.GetAllUsers()
+			if err != nil {
+				log.WithError(err).Errorf("error getting all user objects")
+				return err
+			}
+			for _, user := range users {
+				if user.IsFollowingPubliclyVisible {
+					publicFollowers[feed] = append(publicFollowers[feed], user.Username)
+				}
+			}
+			s.cache.FetchFeeds(s.config, s.archive, sources, publicFollowers)
 			return nil
 		})
 	}
