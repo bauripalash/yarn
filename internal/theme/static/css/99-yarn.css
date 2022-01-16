@@ -341,6 +341,9 @@ div .p-summary:not(.image-gallery)>div {
 
 div .p-summary:not(.image-gallery)>.caption-wrap .caption {
   margin-bottom: 1.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .p-summary br {
