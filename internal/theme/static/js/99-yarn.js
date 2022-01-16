@@ -157,27 +157,23 @@ function deleteTwt(e) {
 function movePostBox(e) {
   e.preventDefault();
 
-  u('article').each(function(n, i){
-    u(n).removeClass('highlight');
+  u("article").each(function(n, i){
+    u(n).removeClass("highlight");
   });
 
   var article = u(e.target).closest(".twt-nav").parent();
+  var postbox = u("#postbox").clone();
 
   article.addClass("highlight");
 
-  var form = u("#form").clone();
-  var toolbar = u("#toolbar").clone();
+  u("#postbox").remove();
+  article.after(postbox);
+  postbox.addClass("drawer");
 
-  u("#form").remove();
-  u("#toolbar").remove();
+  u("#toolbar").addClass("toolbar-reply");
+  u("#form").addClass("form-reply");
 
-  article.after(form);
-  article.after(toolbar);
-
-  toolbar.addClass("toolbar-reply");
-  form.addClass("form-reply");
-
-  u('.grid.h-feed').addClass("bump-up");
+  u(".grid.h-feed").addClass("bump-up");
   article.scroll();
 }
 

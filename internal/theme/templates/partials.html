@@ -1,53 +1,55 @@
 {{ define "post" }}
 {{ if $.Authenticated }}
-<nav id="toolbar" class="toolbar-nav">
-  <ul>
-    <li class="toolbar-form-button"><a id="bBtn" href="#" title="Bold"><i class="ti ti-bold"></i></a></li>
-    <li class="toolbar-form-button"><a id="iBtn" href="#" title="Italic"><i class="ti ti-italic"></i></a></li>
-    <li class="toolbar-form-button"><a id="sBtn" href="#" title="Strikethrough"><i class="ti ti-strikethrough"></i></a></li>
-    <li class="toolbar-form-button"><a id="cBtn" href="#" title="Code"><i class="ti ti-code"></i></a></li>
-    <li class="toolbar-form-button"><a id="usrBtn" href="#" title="Mention"><i class="ti ti-user-circle"></i></a></li>
-    <li class="toolbar-form-button"><a id="lnkBtn" href="#" title="Link"><i class="ti ti-link"></i></a></li>
-    <li class="toolbar-form-button"><a id="imgBtn" href="#" title="Image"><i class="ti ti-photo"></i></a></li>
-    {{ if not $.Ctx.DisableMedia }}
-    <li class="toolbar-form-button-media">
-      <form id="mediaUploadForm" action="/upload" enctype="multipart/form-data" method="POST" title="Upload Media">
-        <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-        <label for="uploadMedia"><i id="uploadMediaButton" class="ti ti-upload"></i></label>
-        <input id="uploadMedia" class="invisible width-none" type="file" accept="image/*{{ if not $.Ctx.DisableFfmpeg }},audio/*,video/*{{ end }}" name="media_file" />
-      </form>
-    </li>
-    {{ end }}
-  </ul>
-</nav>
-<form id="form" action="/post" method="POST">
-  <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-  <input type="hidden" id="replaceTwt" name="hash" value="" />
-  <input type="hidden" id="replyTo" name="reply" value="{{ $.Reply }}" />
-  <input type="hidden" id="title" name="title" placeholder="{{tr $.Ctx "TwtFormTitle"}}" value="" />
-  <div class="textarea-container">
-    <textarea id="text" name="text" placeholder="{{ $.TwtPrompt }}" rows=3 maxlength={{ $.MaxTwtLength }} {{ if $.AutoFocus }}autofocus{{ end }} required>{{ $.PostText }}</textarea>
-    <div id="mentioned-list" class="users-list">
-      <div id="mentioned-list-content" class="mentioned-list-content">
+<div id="postbox">
+  <nav id="toolbar" class="toolbar-nav">
+    <ul>
+      <li class="toolbar-form-button"><a id="bBtn" href="#" title="Bold"><i class="ti ti-bold"></i></a></li>
+      <li class="toolbar-form-button"><a id="iBtn" href="#" title="Italic"><i class="ti ti-italic"></i></a></li>
+      <li class="toolbar-form-button"><a id="sBtn" href="#" title="Strikethrough"><i class="ti ti-strikethrough"></i></a></li>
+      <li class="toolbar-form-button"><a id="cBtn" href="#" title="Code"><i class="ti ti-code"></i></a></li>
+      <li class="toolbar-form-button"><a id="usrBtn" href="#" title="Mention"><i class="ti ti-user-circle"></i></a></li>
+      <li class="toolbar-form-button"><a id="lnkBtn" href="#" title="Link"><i class="ti ti-link"></i></a></li>
+      <li class="toolbar-form-button"><a id="imgBtn" href="#" title="Image"><i class="ti ti-photo"></i></a></li>
+      {{ if not $.Ctx.DisableMedia }}
+      <li class="toolbar-form-button-media">
+        <form id="mediaUploadForm" action="/upload" enctype="multipart/form-data" method="POST" title="Upload Media">
+          <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+          <label for="uploadMedia"><i id="uploadMediaButton" class="ti ti-upload"></i></label>
+          <input id="uploadMedia" class="invisible width-none" type="file" accept="image/*{{ if not $.Ctx.DisableFfmpeg }},audio/*,video/*{{ end }}" name="media_file" />
+        </form>
+      </li>
+      {{ end }}
+    </ul>
+  </nav>
+  <form id="form" action="/post" method="POST">
+    <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+    <input type="hidden" id="replaceTwt" name="hash" value="" />
+    <input type="hidden" id="replyTo" name="reply" value="{{ $.Reply }}" />
+    <input type="hidden" id="title" name="title" placeholder="{{tr $.Ctx "TwtFormTitle"}}" value="" />
+    <div class="textarea-container">
+      <textarea id="text" name="text" placeholder="{{ $.TwtPrompt }}" rows=3 maxlength={{ $.MaxTwtLength }} {{ if $.AutoFocus }}autofocus{{ end }} required>{{ $.PostText }}</textarea>
+      <div id="mentioned-list" class="users-list">
+        <div id="mentioned-list-content" class="mentioned-list-content">
+        </div>
       </div>
     </div>
-  </div>
-  <div class="submit-bar">
-    <div>
-      <select id="postas" class="postas" name="postas">
-        <option value="{{ $.User.Username }}" selected>{{ tr $.Ctx "TwtFormPostAs" (dict "Username" $.User.Username) }}</option>
-        {{ range $index, $feed := $.User.Feeds }}
-        <option value="{{ $feed }}">{{ $feed }}</option>
-        {{ end }}
-      </select>
+    <div class="submit-bar">
+      <div>
+        <select id="postas" class="postas" name="postas">
+          <option value="{{ $.User.Username }}" selected>{{ tr $.Ctx "TwtFormPostAs" (dict "Username" $.User.Username) }}</option>
+          {{ range $index, $feed := $.User.Feeds }}
+          <option value="{{ $feed }}">{{ $feed }}</option>
+          {{ end }}
+        </select>
+      </div>
+      <div>
+        <button id="post" type="submit">
+          <i class="ti ti-send"></i> {{ tr $.Ctx "TwtFormPost" }}
+        </button>
+      </div>
     </div>
-    <div>
-      <button id="post" type="submit">
-        <i class="ti ti-send"></i> {{ tr $.Ctx "TwtFormPost" }}
-      </button>
-    </div>
-  </div>
-</form>
+  </form>
+</div>
 {{ end }}
 {{ end }}
 

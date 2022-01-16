@@ -725,6 +725,19 @@ pre {
   box-shadow: 0 0 0.25rem var(--primary);
 }
 
+#postbox.drawer {
+  margin: -0.9rem 0.5rem 0 0.5rem;
+  padding-top: 0.7rem;
+  background-color: var(--form-element-background-color);
+  padding-bottom: 0.35rem;
+  border-bottom-left-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  transition: ease-in linear 2s;
+  border-style: solid;
+  border-color: var(--form-element-focus-color);
+  border-width: 0 0.15rem 0.15rem 0.15rem;
+}
+
 @media (max-width: 576px) {
   main.container {
     margin-top: -3rem;
@@ -793,16 +806,15 @@ pre {
   }
 
   .form-reply {
-    margin: 0 0 -1.75rem 0;
+    margin: 0 0.5rem -1.75rem 0.5rem;
   }
 
   [data-tooltip]:not(a):not(button):not(input) {
     border-bottom: none;
   }
 
-  #convJoinSummary {
-    display: block;
-    margin: -1rem 0 1.75rem 0;
+  #postbox.drawer {
+    margin: -0.9rem 0.25rem 0 0.25rem;
   }
 
   .twt-nav {
