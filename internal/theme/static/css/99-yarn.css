@@ -394,7 +394,6 @@ video {
 }
 
 .users-list {
-  display: none;
   flex-direction: column;
   position: absolute;
   background-color: var(--background-color);
@@ -722,6 +721,7 @@ pre {
 }
 
 .highlight {
+  border: 0.1rem solid var(--primary);
   box-shadow: 0 0 0.1rem 0.05rem var(--primary);
 }
 
