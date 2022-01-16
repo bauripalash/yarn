@@ -48,6 +48,10 @@ func InitJobs(conf *Config) {
 
 		"CreateAdminFeeds":     NewJobSpec("", NewCreateAdminFeedsJob),
 		"CreateAutomatedFeeds": NewJobSpec("", NewCreateAutomatedFeedsJob),
+
+		// XXX: bb3c130 missed disowning the noew deprecated @help and @twtxt special feeds
+		// TODO: Remove this job after all known pods have upgraded to > v0.13.x
+		"FixAdminFeeds": NewJobSpec("", NewFixAdminFeedsJob),
 	}
 
 	StartupJobs = map[string]JobSpec{
@@ -57,6 +61,7 @@ func InitJobs(conf *Config) {
 		"CreateAdminFeeds":     Jobs["CreateAdminFeeds"],
 		"CreateAutomatedFeeds": Jobs["CreateAutomatedFeeds"],
 		"DeleteOldSessions":    Jobs["DeleteOldSessions"],
+		"FixAdminFeeds":        Jobs["FixAdminFeeds"],
 	}
 
 }
@@ -535,6 +540,45 @@ func (job *PruneUsersJob) Run() {
 	} else {
 		if err := SendCandidatesForDeletionEmail(job.conf, candidates); err != nil {
 			log.WithError(err).Error("error sending candidates for deletion email")
+		}
+	}
+}
+
+type FixAdminFeedsJob struct {
+	conf    *Config
+	cache   *Cache
+	archive Archiver
+	db      Store
+}
+
+func NewFixAdminFeedsJob(conf *Config, cache *Cache, archive Archiver, db Store) Job {
+	return &FixAdminFeedsJob{conf: conf, cache: cache, archive: archive, db: db}
+}
+
+func (job *FixAdminFeedsJob) String() string { return "FixAdminFeeds" }
+
+func (job *FixAdminFeedsJob) Run() {
+	adminUser, err := job.db.GetUser(job.conf.AdminUser)
+	if err != nil {
+		log.WithError(err).Warnf("error loading user object for AdminUser")
+		return
+	}
+
+	var dirty bool
+
+	if HasString(adminUser.Feeds, "help") {
+		RemoveString(adminUser.Feeds, "help")
+		dirty = true
+	}
+
+	if HasString(adminUser.Feeds, "twtxt") {
+		RemoveString(adminUser.Feeds, "twtxt")
+		dirty = true
+	}
+
+	if dirty {
+		if err := job.db.SetUser(adminUser.Username, adminUser); err != nil {
+			log.WithError(err).Errorf("error saving user object for AdminUser")
 		}
 	}
 }
