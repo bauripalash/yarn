@@ -567,12 +567,12 @@ func (job *FixAdminFeedsJob) Run() {
 	var dirty bool
 
 	if HasString(adminUser.Feeds, "help") {
-		RemoveString(adminUser.Feeds, "help")
+		adminUser.Feeds = RemoveString(adminUser.Feeds, "help")
 		dirty = true
 	}
 
 	if HasString(adminUser.Feeds, "twtxt") {
-		RemoveString(adminUser.Feeds, "twtxt")
+		adminUser.Feeds = RemoveString(adminUser.Feeds, "twtxt")
 		dirty = true
 	}
 
