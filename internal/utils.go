@@ -1789,7 +1789,7 @@ func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) st
 		 <dialog id="%s">
         <figure>
           <img loading=lazy src="%s?full=1" />
-          <figcaption><a id="img-dl" href="%s?full=1">Download</a>%s</figcaption>
+          <figcaption><a id="img-dl" href="%s?full=1" download>Download</a>%s</figcaption>
         </figure>
       </dialog>`,
 		imgURI, title, alt, isCaption, imgURI, uuid, uuid, imgURI, imgURI, caption,
