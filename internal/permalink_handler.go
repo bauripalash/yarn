@@ -98,6 +98,11 @@ func (s *Server) PermalinkHandler() httprouter.Handle {
 		when := twt.Created().Format(time.RFC3339)
 		what := fmt.Sprintf("%t", twt)
 
+		if subject, _ := GetTwtConvSubjectHash(s.cache, s.archive, twt); subject != "" {
+			what = strings.ReplaceAll(what, subject, "")
+			what = strings.TrimSpace(what)
+		}
+
 		var ks []string
 		if ks, err = keywords.Extract(what); err != nil {
 			log.WithError(err).Warn("error extracting keywords")

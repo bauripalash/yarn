@@ -269,7 +269,7 @@ func (n *Mention) FormatCompact(out io.Writer) {
 		line = fmt.Sprintf("@%s", n.name)
 
 	case n.name == "" && n.target != "":
-		line = fmt.Sprintf("@<%s>", n.target)
+		line = fmt.Sprintf("@unknown@%s", n.target)
 	}
 
 	_, _ = fmt.Fprint(out, line)
@@ -282,10 +282,10 @@ func (n *Mention) FormatText(out io.Writer) {
 		line = fmt.Sprintf("@%s", n.name)
 
 	case n.name == "" && n.target != "":
-		line = fmt.Sprintf("@<%s>", n.target)
+		line = fmt.Sprintf("@unknown@%s", n.target)
 
 	case n.name != "" && n.target != "":
-		line = fmt.Sprintf("@<%s %s>", n.name, n.target)
+		line = fmt.Sprintf("@%s@%s", n.name, n.target)
 	}
 
 	_, _ = fmt.Fprint(out, line)
