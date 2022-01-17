@@ -96,7 +96,7 @@ func (s *Server) PermalinkHandler() httprouter.Handle {
 		}
 
 		when := twt.Created().Format(time.RFC3339)
-		what := twt.FormatText(types.TextFmt, s.config)
+		what := fmt.Sprintf("%t", twt)
 
 		var ks []string
 		if ks, err = keywords.Extract(what); err != nil {

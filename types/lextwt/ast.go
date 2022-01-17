@@ -580,7 +580,11 @@ func (n *Link) Literal() string {
 	}
 }
 func (n *Link) Format(state fmt.State, r rune) {
-	_, _ = state.Write([]byte(n.Literal()))
+	if r == 't' {
+		_, _ = state.Write([]byte(n.text))
+	} else {
+		_, _ = state.Write([]byte(n.Literal()))
+	}
 }
 func (n *Link) String() string {
 	return n.Literal()
