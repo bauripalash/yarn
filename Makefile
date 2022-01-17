@@ -8,7 +8,7 @@ BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 GOCMD=go
 GOVER=$(shell go version | grep -o -E 'go1\.17\.[0-9]+')
 
-ifeq ($(BRANCH), master)
+ifeq ($(BRANCH), main)
 IMAGE := prologic/yarnd
 TAG := latest
 else
