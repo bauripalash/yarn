@@ -40,6 +40,13 @@
     {{ with .Meta.URL }}<meta property="og:url" content="{{ . }}">{{ end  }}
     <meta property="og:site_name" content="{{ .InstanceName }}">
 
+    <!-- Twitter Summary Card Meta Tags -->
+    <meta name="twitter:card" content="summary" />
+    {{ with .Meta.Author }}<meta name="twitter:site" content="{{ . }}" />{{ end }}
+    {{ with .Meta.Title }}<meta name="twitter:title" content="{{ . }}" />{{ end }}
+    {{ with .Meta.Description }}<meta name="twitter:description" content="{{ . }}" />{{ end }}
+    {{ with .Meta.Image }}<meta name="twitter:image" content="{{ . }}" />{{ end }}
+
     <!-- Custom Pod CSS if provided -->
     {{ if gt (len $.CSS) 0 }}<style>{{ $.CSS }}</style>{{ end }}
   </head>
