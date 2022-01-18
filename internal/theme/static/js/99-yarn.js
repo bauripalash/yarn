@@ -189,7 +189,7 @@ function resetPostBox() {
   if (!u("#form").hasClass("form-reply")) {
     return;
   }
-  
+
   u('article').each(function(n, i){
     u(n).removeClass('highlight');
   });
@@ -430,15 +430,21 @@ function formatText(selector, fmt) {
   selector.first().focus();
 
   var finalText = "";
-
   var start = selector.first().selectionStart;
-
   var selectedText = selector.getSelection().text;
 
-  if (selectedText.length == 0) {
-    finalText = fmt + fmt;
+  if (fmt.includes("(url)")) {
+    if (selectedText.length == 0) {
+      finalText = fmt;
+    } else {
+      finalText = fmt.replace("url", selectedText);
+    }
   } else {
-    finalText = fmt + selectedText + fmt;
+    if (selectedText.length == 0) {
+      finalText = fmt + fmt;
+    } else {
+      finalText = fmt + selectedText + fmt;
+    }
   }
 
   selector.replaceSelection(finalText, true);
@@ -547,12 +553,12 @@ u("#cBtn").on("click", function(e) {
 
 u("#lnkBtn").on("click", function(e) {
   e.preventDefault();
-  insertText(u("textarea#text"), "[title](https://)");
+  formatText(u("textarea#text"), "[title](url)");
 });
 
 u("#imgBtn").on("click", function(e) {
   e.preventDefault();
-  insertText(u("textarea#text"), "![](https://)");
+  formatText(u("textarea#text"), "![](url)");
 });
 
 u("#usrBtn").on("click", function(e) {
