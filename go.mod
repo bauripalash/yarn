@@ -23,17 +23,18 @@ require (
 	github.com/disintegration/imageorient v0.0.0-20180920195336-8147d86e83ec
 	github.com/dustin/go-humanize v1.0.0
 	github.com/elithrar/simple-scrypt v1.3.0
+	github.com/emicklei/go-restful v2.14.2+incompatible // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/gabstv/merger v1.0.1
 	github.com/go-mail/mail v2.3.1+incompatible
-	github.com/goccy/go-yaml v1.9.4
+	github.com/goccy/go-yaml v1.9.5
 	github.com/gofrs/flock v0.8.1 // indirect
-	github.com/gomarkdown/markdown v0.0.0-20211105120026-16f708f914c3
+	github.com/gomarkdown/markdown v0.0.0-20220114203417-14399d5448c4
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/feeds v1.1.1
 	github.com/goware/urlx v0.3.1
 	github.com/grokify/html-strip-tags-go v0.0.1 // indirect
-	github.com/h2non/filetype v1.1.1
+	github.com/h2non/filetype v1.1.3
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/james4k/fmatter v0.0.0-20150827042251-377c8ea6259d
@@ -44,9 +45,8 @@ require (
 	github.com/lithammer/shortuuid/v3 v3.0.7
 	github.com/marksalpeter/sugar v0.0.0-20160713164314-a69afe358ea8 // indirect
 	github.com/marksalpeter/token/v2 v2.0.0
-	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d
-	github.com/microcosm-cc/bluemonday v1.0.16
+	github.com/microcosm-cc/bluemonday v1.0.17
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/naoina/go-stringutil v0.1.0 // indirect
@@ -54,6 +54,7 @@ require (
 	github.com/nicksnyder/go-i18n/v2 v2.1.2
 	github.com/nullrocks/identicon v0.0.0-20180626043057-7875f45b0022
 	github.com/patrickmn/go-cache v2.1.0+incompatible
+	github.com/petermattis/goid v0.0.0-20220111183729-e033e1e0bdb5 // indirect
 	github.com/prometheus/common v0.32.1 // indirect
 	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be // indirect
@@ -65,10 +66,11 @@ require (
 	github.com/securisec/go-keywords v0.0.0-20200619134240-769e7273f2ed
 	github.com/shopspring/decimal v1.3.1 // indirect
 	github.com/sirupsen/logrus v1.8.1
-	github.com/slok/go-http-metrics v0.9.0
-	github.com/spf13/cobra v1.2.1
+	github.com/slok/go-http-metrics v0.10.0
+	github.com/spf13/afero v1.8.0 // indirect
+	github.com/spf13/cobra v1.3.0
 	github.com/spf13/pflag v1.0.5
-	github.com/spf13/viper v1.9.0
+	github.com/spf13/viper v1.10.1
 	github.com/steambap/captcha v1.4.1
 	github.com/stretchr/testify v1.7.0
 	github.com/tebeka/selenium v0.9.9
@@ -78,17 +80,16 @@ require (
 	github.com/vcraescu/go-paginator v1.0.0
 	github.com/wblakecaldwell/profiler v0.0.0-20150908040756-6111ef1313a1
 	github.com/writeas/slug v1.2.0
-	golang.org/x/crypto v0.0.0-20211108221036-ceb1ce70b4fa
-	golang.org/x/exp v0.0.0-20211111183329-cb5df436b1a8 // indirect
+	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce
+	golang.org/x/exp v0.0.0-20220114162006-9d54fb35363c // indirect
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410 // indirect
-	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2
-	golang.org/x/sys v0.0.0-20211112193437-faf0a1b62c6b // indirect
+	golang.org/x/net v0.0.0-20220114011407-0dd24b26b47d
+	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 	golang.org/x/text v0.3.7
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
-	gopkg.in/ini.v1 v1.64.0 // indirect
 	gopkg.in/mail.v2 v2.3.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0
-	gorm.io/gorm v1.22.2 // indirect
+	gorm.io/gorm v1.22.5 // indirect
 	meow.tf/websub v1.0.0
 )

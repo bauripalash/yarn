@@ -195,6 +195,7 @@ function resetPostBox() {
   });
 
   var postbox = u("#postbox").clone();
+  postbox.removeClass("drawer");
 
   u("#postbox").remove();
   u("main").prepend(postbox);
