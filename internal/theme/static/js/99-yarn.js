@@ -190,23 +190,20 @@ function resetPostBox() {
     return;
   }
 
-  u('article').each(function(n, i){
+  u('article').each(function(n){
     u(n).removeClass('highlight');
   });
 
-  var form = u("#form").clone();
-  var toolbar = u("#toolbar").clone();
+  var postbox = u("#postbox").clone();
 
-  u("#form").remove();
-  u("#toolbar").remove();
+  u("#postbox").remove();
+  u("main").prepend(postbox);
 
-  u("main").prepend(form);
-  u("main").prepend(toolbar);
-
-  toolbar.removeClass("toolbar-reply");
-  form.removeClass("form-reply");
+  u("#toolbar").removeClass("toolbar-reply");
+  u("#form").removeClass("form-reply");
 
   u('.grid.h-feed').removeClass("bump-up");
+  u("main").scroll();
 }
 
 u("#theme select").on("change", function(e) {
