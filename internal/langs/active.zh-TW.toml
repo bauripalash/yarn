@@ -122,9 +122,17 @@ other = "回復訊息"
 hash = "sha1-7649c59ec35a7b5d82785e247c60b73c803b20eb"
 other = "編寫訊息"
 
-[ConversationJoinSummary]
-hash = "sha1-6943767c6276aeac0ca21fe8b9e8a6cc23913c79"
-other = "<a href=\"/login\">Login</a> to participate in this yarn."
+[ConversationJoinSummaryLogin]
+hash = "sha1-4c24ddee6ee7e7ae9a2a6da739f740a6e7d7d609"
+other = "<a href=\"/login\">Login</a> [[ regallow ]] to join in on this yarn."
+
+[ConversationJoinSummaryRegister]
+hash = "sha1-30ad4b346eb33e7d4eafdd98629a8758f5e59b7c"
+other = "or <a href=\"/register\">Register</a>"
+
+[ConversationJoinTitle]
+hash = "sha1-6189686e2e9c27d7e4c7b8f5136c06e0fd9e1bf0"
+other = "Participate"
 
 [ConversationSummary]
 hash = "sha1-aaa1126215232f08674eddb9c92731973e67b83d"
@@ -499,20 +507,20 @@ hash = "sha1-90eeb100838048513e8d2290a6892e18077c24f6"
 other = "跟隨"
 
 [ForgottenPasswordContent]
-hash = "sha1-122216d4af117201b618588c4a2969c8ee9a1c16"
-other = "如果您忘記了密碼, 只要您記住註冊時使用的的用戶名和電子郵件地址並對電子郵件有訪問權限，就可以請求 <a href=\"/resetPassword\">重置密碼</a>(<i>我們 <b>從不</b> 存儲您的郵件地址！</i>)"
+hash = "sha1-f6a964d4275e939efff27ff279dda09b5b04139f"
+other = "If you have forgotten your password you can request a <a href=\"/resetPassword\">password reset</a> as long as you remember your username and email address you signed up with and retain access to your email<br><br><em>We <strong>NEVER</strong> store your email address!</em>."
 
 [Instead]
 hash = "sha1-6568964b0e39083c6acb94093d9e6cd117dbe508"
 other = "."
 
 [LoginEmailSummary]
-hash = "sha1-2bce21acb11f01b2536b13986afd8fa4fe49846f"
-other = "Login to your Yarn.social account on {{ .InstanceName }} via your Email Address"
+hash = "sha1-03c7f05f45360aa1104947aff50c89adb4b76865"
+other = "Login to your Yarn.Social account on {{ .InstanceName }} via your Email Address"
 
 [LoginEmailTitle]
-hash = "sha1-aa4329dbd7315c0dc06b6373a96545ea5787fc12"
-other = "Sign in via Email"
+hash = "sha1-15bfa4e76b3774215b32e0778675ad18c23f71df"
+other = "Login via Email"
 
 [LoginFormEmailLogin]
 hash = "sha1-15bfa4e76b3774215b32e0778675ad18c23f71df"
@@ -535,8 +543,12 @@ hash = "sha1-84c29015de33e5d22422382a372caba5c58f8c01"
 other = "用戶名"
 
 [LoginHowToContent]
-hash = "sha1-6d1c8dfbc3dcf62d3b80879688f8d1df81f414c2"
-other = "      <p>\n        Login to your Yarn.social account on {{ .InstanceName }} by filling in\n        the Username and Password you used when you created your account.\n      </p>\n      <p>\n        Check the \"Remember Me\" box if you don't want to have to keep logging in\n        every few hours.\n      </p>\n      <p>\n        Don't have an account?\n        You can create a new account on the <a href=\"/register\">/register</a> form.\n      </p>\n"
+hash = "sha1-f434dda066da34aa54b8c6f06cd7c48caea6d2eb"
+other = "Login to your Yarn.Social account on {{ .InstanceName }} by filling in the Username and Password you used when you created your account.<br><br>Check the \"Remember Me\" box if you don't want to have to keep logging in every few hours.<br><br>Don't have an account? You can create a new account on the <a href=\"/register\">register</a> form."
+
+[LoginHowToSummary]
+hash = "sha1-9755be11397df0cf000dd5f31971c1b8e6f0d581"
+other = "Quick guide to help you login"
 
 [LoginHowToTitle]
 hash = "sha1-097f2ed883de33056433137a3d1ddc53da9931df"
@@ -551,20 +563,20 @@ hash = "sha1-f838dc11db151df79ee689f598453d38bbac6fe9"
 other = "還沒有賬號"
 
 [LoginSummary]
-hash = "sha1-2a0ca9329bc030eb18c50ceb59d0743b6b325713"
-other = "Login to your Yarn.social account on {{ .InstanceName }}"
+hash = "sha1-5e4c1a35a0a9248f7edded50e30f467fe11a8aad"
+other = "Login to your Yarn.Social account on {{ .InstanceName }}"
 
 [LoginTitle]
-hash = "sha1-ada2e9e96fa9ce85430225b412068b5b62b79800"
-other = "登錄"
+hash = "sha1-4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174"
+other = "Login"
 
 [LoginViaEmailAddress]
 hash = "sha1-ad29de09e95e0c8380a3679bc7773e4080905345"
 other = "Login with your Email Address"
 
 [LoginViaEmailAddressHowToContent]
-hash = "sha1-2933b5f9b01cfaeabb05d3fc2b4c3cd3d09bc555"
-other = "<p> You may also login via your Email account by simply supplying your Username and Email Address.</p><p> If the Username and Email Address match a valid account, an email will be sent to you with a link that you can click on to automatically log you in without requiring a password."
+hash = "sha1-fadb81dda858c41525f39cd0133fe0eb6db3aaaf"
+other = "You may also login via your Email account by simply supplying your Username and Email Address.<br><br>If the Username and Email Address match a valid account, an email will be sent to you with a link that you can click on to automatically log you in without requiring a password."
 
 [LoginViaUsernamePassword]
 hash = "sha1-44d1e821e75d13e05d7122c05a0af3a06a0dbdf9"
@@ -967,20 +979,24 @@ hash = "sha1-09f2d7efb99d67b64c2193d184c5bc760bc8c412"
 other = "我同意遵守 <a href='/abuse'>社區準則及相關政策</a>。"
 
 [RegisterHowToContent]
-hash = "sha1-4c6889a9c3b69cb27a47c0510514937eee14b936"
-other = "<p>\nYou are about to create a new <a href='https://yarn.social' target='_blank'>Yarn.social</a>\naccount on {{ .InstanceName }}\n</p>\n<p>\nBy registering an account on {{ .InstanceName }} you agree to abide\nby the Community Guidelines set out in the <a href='/abuse'>Abuse Policy</a>.\n</p>\n<p>\n<ul>\n<li>Pick a username</li>\n<li>Create a unique and secure password</li>\n<li>Enter your email address in case you forget your password</li>\n</ul>\n</p>\n<p>\nPick any username you like (<i>as long as it is available on {{ .InstanceName }}</i>).\n</p>\n<p>\nPlease note we <b>DO NOT</b> actually store your email address at all!\nIf you forget your email address or lose access to your email we are\nreally sorry but you will be unable to recover your account if you\nforget your password.\n</p>"
+hash = "sha1-cf85efded7dda3ab99f1e422a6648eb8d758536f"
+other = "<p>\nYou are about to create a new <a href='https://yarn.social' target='_blank'>Yarn.Social</a>\naccount on {{ .InstanceName }}\n</p>\n<p>\nBy registering an account on {{ .InstanceName }} you agree to abide\nby the Community Guidelines set out in the <a href='/abuse'>Abuse Policy</a>.\n</p>\n<p>\n<ul>\n<li>Pick a username</li>\n<li>Create a unique and secure password</li>\n<li>Enter your email address in case you forget your password</li>\n</ul>\n</p>\n<p>\nPick any username you like (<i>as long as it is available on {{ .InstanceName }}</i>).\n</p>\n<p>\nPlease note we <b>DO NOT</b> actually store your email address at all!\nIf you forget your email address or lose access to your email we are\nreally sorry but you will be unable to recover your account if you\nforget your password.\n</p>"
+
+[RegisterHowToSummary]
+hash = "sha1-c3fb98ef5c0ae7a410e0207f71fb54119203d293"
+other = "Quick quide to help you create an account"
 
 [RegisterHowToTitle]
-hash = "sha1-61b07a27c8f9b25d9065b26390b2884fb025586e"
-other = "如何創建賬號"
+hash = "sha1-3f4f547d73646d774e8f690b36333e8c9572894b"
+other = "Create an account"
 
 [RegisterLinkTitle]
 hash = "sha1-5b402e3dfa8bfeaa6620b1ee5bf38fb965bcbe3c"
 other = "註冊"
 
 [RegisterSummary]
-hash = "sha1-3776e729bcd9ac3844df66c792d7311a92b3456f"
-other = "Create and register a new Yarn.social account on {{ .InstanceName }}"
+hash = "sha1-489639728e679afe6a87b9e6ff6eacdd971a22fc"
+other = "Create and register a new Yarn.Social account on {{ .InstanceName }}"
 
 [RegisterTitle]
 hash = "sha1-0b81497c8589af2714a1ddbeb62b3a4be679c318"
@@ -1039,8 +1055,8 @@ hash = "sha1-dbc7f1cb535bc000b0f2b463b6b1552763dcf66a"
 other = "更新電子郵件"
 
 [SettingsFormChangeEmailSummary]
-hash = "sha1-510eb375ae95419b27876203e98b03ccc8f5c9e3"
-other = "<b>NOTE:</b>We DO NOT actually store this! If you forget\nor lose access to your Email account provided here, it will\nbe impossible to recover your Yarn.social account!"
+hash = "sha1-013af64840d8dd404b02981e439176e3565b296a"
+other = "<b>NOTE:</b>We DO NOT actually store this! If you forget\nor lose access to your Email account provided here, it will\nbe impossible to recover your Yarn.Social account!"
 
 [SettingsFormChangeEmailTitle]
 hash = "sha1-03e8c409bff190a9756ced3e3af8f175885d2bd3"

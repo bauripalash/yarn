@@ -1,3 +1,63 @@
-[SettingsFormDisplayImagesPreferenceLightbox]
-hash = "sha1-99f6a030c5134d53253c7442cb05c1be14229565"
-other = "Lightbox"
+[ConversationJoinSummaryLogin]
+hash = "sha1-4c24ddee6ee7e7ae9a2a6da739f740a6e7d7d609"
+other = "<a href=\"/login\">Login</a> [[ regallow ]] to join in on this yarn."
+
+[ConversationJoinSummaryRegister]
+hash = "sha1-30ad4b346eb33e7d4eafdd98629a8758f5e59b7c"
+other = "or <a href=\"/register\">Register</a>"
+
+[ConversationJoinTitle]
+hash = "sha1-6189686e2e9c27d7e4c7b8f5136c06e0fd9e1bf0"
+other = "Participate"
+
+[ForgottenPasswordContent]
+hash = "sha1-f6a964d4275e939efff27ff279dda09b5b04139f"
+other = "If you have forgotten your password you can request a <a href=\"/resetPassword\">password reset</a> as long as you remember your username and email address you signed up with and retain access to your email<br><br><em>We <strong>NEVER</strong> store your email address!</em>."
+
+[LoginEmailSummary]
+hash = "sha1-03c7f05f45360aa1104947aff50c89adb4b76865"
+other = "Login to your Yarn.Social account on {{ .InstanceName }} via your Email Address"
+
+[LoginEmailTitle]
+hash = "sha1-15bfa4e76b3774215b32e0778675ad18c23f71df"
+other = "Login via Email"
+
+[LoginHowToContent]
+hash = "sha1-f434dda066da34aa54b8c6f06cd7c48caea6d2eb"
+other = "Login to your Yarn.Social account on {{ .InstanceName }} by filling in the Username and Password you used when you created your account.<br><br>Check the \"Remember Me\" box if you don't want to have to keep logging in every few hours.<br><br>Don't have an account? You can create a new account on the <a href=\"/register\">register</a> form."
+
+[LoginHowToSummary]
+hash = "sha1-9755be11397df0cf000dd5f31971c1b8e6f0d581"
+other = "Quick guide to help you login"
+
+[LoginSummary]
+hash = "sha1-5e4c1a35a0a9248f7edded50e30f467fe11a8aad"
+other = "Login to your Yarn.Social account on {{ .InstanceName }}"
+
+[LoginTitle]
+hash = "sha1-4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174"
+other = "Login"
+
+[LoginViaEmailAddressHowToContent]
+hash = "sha1-fadb81dda858c41525f39cd0133fe0eb6db3aaaf"
+other = "You may also login via your Email account by simply supplying your Username and Email Address.<br><br>If the Username and Email Address match a valid account, an email will be sent to you with a link that you can click on to automatically log you in without requiring a password."
+
+[RegisterHowToContent]
+hash = "sha1-cf85efded7dda3ab99f1e422a6648eb8d758536f"
+other = "<p>\nYou are about to create a new <a href='https://yarn.social' target='_blank'>Yarn.Social</a>\naccount on {{ .InstanceName }}\n</p>\n<p>\nBy registering an account on {{ .InstanceName }} you agree to abide\nby the Community Guidelines set out in the <a href='/abuse'>Abuse Policy</a>.\n</p>\n<p>\n<ul>\n<li>Pick a username</li>\n<li>Create a unique and secure password</li>\n<li>Enter your email address in case you forget your password</li>\n</ul>\n</p>\n<p>\nPick any username you like (<i>as long as it is available on {{ .InstanceName }}</i>).\n</p>\n<p>\nPlease note we <b>DO NOT</b> actually store your email address at all!\nIf you forget your email address or lose access to your email we are\nreally sorry but you will be unable to recover your account if you\nforget your password.\n</p>"
+
+[RegisterHowToSummary]
+hash = "sha1-c3fb98ef5c0ae7a410e0207f71fb54119203d293"
+other = "Quick quide to help you create an account"
+
+[RegisterHowToTitle]
+hash = "sha1-3f4f547d73646d774e8f690b36333e8c9572894b"
+other = "Create an account"
+
+[RegisterSummary]
+hash = "sha1-489639728e679afe6a87b9e6ff6eacdd971a22fc"
+other = "Create and register a new Yarn.Social account on {{ .InstanceName }}"
+
+[SettingsFormChangeEmailSummary]
+hash = "sha1-013af64840d8dd404b02981e439176e3565b296a"
+other = "<b>NOTE:</b>We DO NOT actually store this! If you forget\nor lose access to your Email account provided here, it will\nbe impossible to recover your Yarn.Social account!"
