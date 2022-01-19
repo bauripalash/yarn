@@ -96,7 +96,7 @@ func (s *Server) PermalinkHandler() httprouter.Handle {
 		}
 
 		when := twt.Created().Format(time.RFC3339)
-		what := fmt.Sprintf("%t", twt)
+		what := fmt.Sprintf("%c", twt)
 
 		if subject, _ := GetTwtConvSubjectHash(s.cache, s.archive, twt); subject != "" {
 			what = strings.ReplaceAll(what, subject, "")

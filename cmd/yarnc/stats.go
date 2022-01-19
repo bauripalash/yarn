@@ -79,7 +79,7 @@ func runStats(args []string) {
 
 		doStats(res.Body)
 	default:
-		log.WithError(err).Error("unsupported url scheme: %s", url.Scheme)
+		log.WithError(err).Errorf("unsupported url scheme: %s", url.Scheme)
 		os.Exit(2)
 	}
 }

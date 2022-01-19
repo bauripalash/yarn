@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"git.mills.io/yarnsocial/yarn/types"
+	stripmd "github.com/writeas/go-strip-markdown/v2"
 	"golang.org/x/crypto/blake2b"
 )
 
@@ -265,11 +266,8 @@ func (n *Mention) FormatCompact(out io.Writer) {
 	line := ""
 
 	switch {
-	default:
-		line = fmt.Sprintf("@%s", n.name)
-
-	case n.name == "" && n.target != "":
-		line = fmt.Sprintf("@<%s>", n.target)
+	case n.name != "" && n.target != "":
+		line = fmt.Sprintf("@%s@%s", n.Name(), n.Domain())
 	}
 
 	_, _ = fmt.Fprint(out, line)
@@ -490,7 +488,11 @@ func (n *Text) IsNil() bool     { return n == nil }
 func (n *Text) Literal() string { return n.lit }
 func (n *Text) String() string  { return n.lit }
 func (n *Text) Format(state fmt.State, r rune) {
-	_, _ = state.Write([]byte(n.lit))
+	if r == 'c' {
+		_, _ = state.Write([]byte(stripmd.Strip(n.lit)))
+	} else {
+		_, _ = state.Write([]byte(n.lit))
+	}
 }
 func (n *Text) IsSpace() bool {
 	return strings.TrimSpace(n.lit) == ""
@@ -580,7 +582,7 @@ func (n *Link) Literal() string {
 	}
 }
 func (n *Link) Format(state fmt.State, r rune) {
-	if r == 't' {
+	if r == 't' || r == 'c' {
 		_, _ = state.Write([]byte(n.text))
 	} else {
 		_, _ = state.Write([]byte(n.Literal()))

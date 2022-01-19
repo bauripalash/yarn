@@ -807,6 +807,8 @@ github.com/vcraescu/go-paginator v1.0.0 h1:ilNmRhlgG8N44LuxfGoPI2u8guXMA6gUqaPGA
 github.com/vcraescu/go-paginator v1.0.0/go.mod h1:caZCjjt2qcA1O2aDzW7lwAcK4Rxw3LNvdEVF/ONxZWw=
 github.com/wblakecaldwell/profiler v0.0.0-20150908040756-6111ef1313a1 h1:Dz/PRieZRmOhDfOlkVpY1LYYIfNoTJjlDirAlagOr0s=
 github.com/wblakecaldwell/profiler v0.0.0-20150908040756-6111ef1313a1/go.mod h1:3+0F8oLB1rQlbIcRAuqDgGdzNi9X69un/aPz4cUAFV4=
+github.com/writeas/go-strip-markdown/v2 v2.1.1 h1:hAxUM21Uhznf/FnbVGiJciqzska6iLei22Ijc3q2e28=
+github.com/writeas/go-strip-markdown/v2 v2.1.1/go.mod h1:UvvgPJgn1vvN8nWuE5e7v/+qmDu3BSVnKAB6Gl7hFzA=
 github.com/writeas/slug v1.2.0 h1:EMQ+cwLiOcA6EtFwUgyw3Ge18x9uflUnOnR6bp/J+/g=
 github.com/writeas/slug v1.2.0/go.mod h1:RE8shOqQP3YhsfsQe0L3RnuejfQ4Mk+JjY5YJQFubfQ=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=

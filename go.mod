@@ -77,6 +77,7 @@ require (
 	github.com/unrolled/logger v0.0.0-20201216141554-31a3694fe979
 	github.com/vcraescu/go-paginator v1.0.0
 	github.com/wblakecaldwell/profiler v0.0.0-20150908040756-6111ef1313a1
+	github.com/writeas/go-strip-markdown/v2 v2.1.1
 	github.com/writeas/slug v1.2.0
 	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce
 	golang.org/x/exp v0.0.0-20220114162006-9d54fb35363c // indirect
