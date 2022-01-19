@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"git.mills.io/prologic/go-gopher"
+	"github.com/makeworld-the-better-one/go-gemini"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
@@ -68,6 +69,18 @@ func runStats(args []string) {
 		defer res.Body.Close()
 
 		doStats(res.Body)
+	case "gemini":
+		res, err := gemini.Fetch(url.String())
+		if err != nil {
+			log.WithError(err).Error("error reading Gemini feed")
+			os.Exit(2)
+		}
+		defer res.Body.Close()
+
+		doStats(res.Body)
+	default:
+		log.WithError(err).Error("unsupported url scheme: %s", url.Scheme)
+		os.Exit(2)
 	}
 }
 

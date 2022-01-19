@@ -15,7 +15,6 @@ require (
 	github.com/andyleap/microformats v0.0.0-20150523144534-25ae286f528b
 	github.com/audiolion/ipip v1.0.0
 	github.com/badgerodon/ioutil v0.0.0-20150716134133-06e58e34b867
-	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/creasty/defaults v1.5.2
 	github.com/cyphar/filepath-securejoin v0.2.3
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
@@ -23,14 +22,12 @@ require (
 	github.com/disintegration/imageorient v0.0.0-20180920195336-8147d86e83ec
 	github.com/dustin/go-humanize v1.0.0
 	github.com/elithrar/simple-scrypt v1.3.0
-	github.com/emicklei/go-restful v2.14.2+incompatible // indirect
-	github.com/fatih/color v1.13.0 // indirect
 	github.com/gabstv/merger v1.0.1
 	github.com/go-mail/mail v2.3.1+incompatible
+	github.com/go-playground/validator/v10 v10.9.0 // indirect
 	github.com/goccy/go-yaml v1.9.5
 	github.com/gofrs/flock v0.8.1 // indirect
 	github.com/gomarkdown/markdown v0.0.0-20220114203417-14399d5448c4
-	github.com/google/uuid v1.3.0 // indirect
 	github.com/gorilla/feeds v1.1.1
 	github.com/goware/urlx v0.3.1
 	github.com/grokify/html-strip-tags-go v0.0.1 // indirect
@@ -43,6 +40,7 @@ require (
 	github.com/justinas/nosurf v1.1.1
 	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/lithammer/shortuuid/v3 v3.0.7
+	github.com/makeworld-the-better-one/go-gemini v0.13.0
 	github.com/marksalpeter/sugar v0.0.0-20160713164314-a69afe358ea8 // indirect
 	github.com/marksalpeter/token/v2 v2.0.0
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d
@@ -91,5 +89,4 @@ require (
 	gopkg.in/mail.v2 v2.3.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/gorm v1.22.5 // indirect
-	meow.tf/websub v1.0.0
 )

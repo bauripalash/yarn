@@ -366,7 +366,7 @@ func (p *Peer) makeJsonRequest(conf *Config, path string) ([]byte, error) {
 	headers := make(http.Header)
 	headers.Set("Accept", "application/json")
 
-	res, err := Request(conf, http.MethodGet, p.URI+path, headers)
+	res, err := RequestHTTP(conf, http.MethodGet, p.URI+path, headers)
 	if err != nil {
 		return nil, err
 	}
@@ -796,7 +796,7 @@ func (cache *Cache) DetectPodFromUserAgent(ua TwtxtUserAgent) error {
 	headers := make(http.Header)
 	headers.Set("Accept", "application/json")
 
-	res, err := Request(cache.conf, http.MethodGet, podBaseURL+"/info", headers)
+	res, err := RequestHTTP(cache.conf, http.MethodGet, podBaseURL+"/info", headers)
 	if err != nil {
 		resetDummyPeer()
 		log.WithError(err).Errorf("error making /info request to pod running at %s", podBaseURL)
@@ -983,6 +983,62 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Fetch
 				return
 			}
 
+			// Handle Gemini feeds
+			// TODO: Refactor this into some kind of sensible interface
+			if strings.HasPrefix(feed.URL, "gemini://") {
+				res, err := RequestGemini(conf, feed.URL)
+				if err != nil {
+					cachedFeed.SetError(err)
+					twtsch <- nil
+					return
+				}
+
+				limitedReader := &io.LimitedReader{R: res.Body, N: conf.MaxFetchLimit}
+
+				tf, err := types.ParseFile(limitedReader, twter)
+				if err != nil {
+					cachedFeed.SetError(err)
+					twtsch <- nil
+					return
+				}
+				if !isLocalURL(twter.Avatar) {
+					GetExternalAvatar(conf, *twter)
+				}
+
+				future, twts, old := types.SplitTwts(tf.Twts(), conf.MaxCacheTTL, conf.MaxCacheItems)
+				if len(future) > 0 {
+					log.Warnf("feed %s has %d posts in the future, possible bad client or misconfigured timezone", feed, len(future))
+				}
+
+				// If N == 0 we possibly exceeded conf.MaxFetchLimit when
+				// reading this feed. Log it and bump a cache_limited counter
+				if limitedReader.N <= 0 {
+					log.Warnf("feed size possibly exceeds MaxFetchLimit of %s for %s", humanize.Bytes(uint64(conf.MaxFetchLimit)), feed)
+					metrics.Counter("cache", "limited").Inc()
+				}
+
+				// Archive twts (opportunistically)
+				archiveTwts := func(twts []types.Twt) {
+					for _, twt := range twts {
+						if !archive.Has(twt.Hash()) {
+							if err := archive.Archive(twt); err != nil {
+								log.WithError(err).Errorf("error archiving twt %s aborting", twt.Hash())
+								metrics.Counter("archive", "error").Inc()
+							} else {
+								metrics.Counter("archive", "size").Inc()
+							}
+						}
+					}
+				}
+				archiveTwts(old)
+				archiveTwts(twts)
+
+				cache.UpdateFeed(feed.URL, "", twts)
+
+				twtsch <- twts
+				return
+			}
+
 			headers := make(http.Header)
 
 			if publicFollowers != nil {
@@ -1014,7 +1070,7 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Fetch
 				headers.Set("If-Modified-Since", cachedFeed.GetLastModified())
 			}
 
-			res, err := Request(conf, http.MethodGet, feed.URL, headers)
+			res, err := RequestHTTP(conf, http.MethodGet, feed.URL, headers)
 			if err != nil {
 				cachedFeed.SetError(err)
 				twtsch <- nil

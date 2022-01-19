@@ -92,7 +92,7 @@ func FetchFeedSources(conf *Config, sources []string) *FeedSources {
 				wg.Done()
 			}()
 
-			res, err := Request(conf, http.MethodGet, url, nil)
+			res, err := RequestHTTP(conf, http.MethodGet, url, nil)
 			if err != nil {
 				log.WithError(err).Errorf("error fetching feedsource %s", url)
 				return

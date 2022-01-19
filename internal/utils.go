@@ -50,6 +50,7 @@ import (
 	"github.com/goware/urlx"
 	"github.com/h2non/filetype"
 	shortuuid "github.com/lithammer/shortuuid/v3"
+	"github.com/makeworld-the-better-one/go-gemini"
 	"github.com/microcosm-cc/bluemonday"
 	"github.com/nullrocks/identicon"
 	sync "github.com/sasha-s/go-deadlock"
@@ -264,10 +265,24 @@ func GetExternalAvatar(conf *Config, twter types.Twter) {
 	}
 }
 
+func RequestGemini(conf *Config, uri string) (*gemini.Response, error) {
+	res, err := gemini.Fetch(uri)
+	if err != nil {
+		log.WithError(err).Errorf("%s: gemini.Fetch fail: %s", uri, err)
+		return nil, err
+	}
+
+	if res.Status != gemini.StatusSuccess {
+		return nil, fmt.Errorf("non-success gemini %d response for %s", res.Status, uri)
+	}
+
+	return res, nil
+}
+
 func RequestGopher(conf *Config, uri string) (*gopher.Response, error) {
 	res, err := gopher.Get(uri)
 	if err != nil {
-		log.WithError(err).Errorf("%s: client.Do fail: %s", uri, err)
+		log.WithError(err).Errorf("%s: gopher.Get fail: %s", uri, err)
 		return nil, err
 	}
 
@@ -278,7 +293,7 @@ func RequestGopher(conf *Config, uri string) (*gopher.Response, error) {
 	return res, nil
 }
 
-func Request(conf *Config, method, url string, headers http.Header) (*http.Response, error) {
+func RequestHTTP(conf *Config, method, url string, headers http.Header) (*http.Response, error) {
 	req, err := http.NewRequest(method, url, nil)
 	if err != nil {
 		log.WithError(err).Errorf("%s: http.NewRequest fail: %s", url, err)
@@ -1010,8 +1025,14 @@ func ValidateFeed(conf *Config, nick, url string) (types.TwtFile, error) {
 			return nil, err
 		}
 		body = res.Body
+	} else if strings.HasPrefix(url, "gemini://") {
+		res, err := RequestGemini(conf, url)
+		if err != nil {
+			return nil, err
+		}
+		body = res.Body
 	} else {
-		res, err := Request(conf, http.MethodGet, url, nil)
+		res, err := RequestHTTP(conf, http.MethodGet, url, nil)
 		if err != nil {
 			return nil, err
 		}
@@ -1202,7 +1223,7 @@ func (ua *MultiUserAgent) Followers(conf *Config) types.Followers {
 	headers := make(http.Header)
 	headers.Set("Accept", "application/json")
 
-	res, err := Request(conf, http.MethodGet, ua.WhoFollowsURL, headers)
+	res, err := RequestHTTP(conf, http.MethodGet, ua.WhoFollowsURL, headers)
 	if err != nil {
 		log.WithError(err).Errorf("error fetching whoFollows from %s", ua)
 		return nil
