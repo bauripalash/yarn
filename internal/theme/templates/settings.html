@@ -22,7 +22,7 @@
 <article class="grid">
   <form action="/settings" enctype="multipart/form-data" method="POST">
     <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-    <div class="grid">
+    <div>
       <hgroup>
         <h2>{{ tr . "SettingsTitle" }}</h2>
         <h3>{{ tr . "SettingsSummary" }}</h3>
@@ -100,10 +100,14 @@
       </div>
       <div>
         <fieldset>
-          <legend>{{ tr . "SettingsFormTimelinePreferencesTitle" }}</legend>
-          <label for="hideReplies">
-            <input id="hideReplies" type="checkbox" name="hideRepliesPreference" aria-label="Hide replies in timeline" role="switch" {{ if .User.HideRepliesPreference }}checked{{ end }}>
-            {{ tr . "SettingsFormTimelineHideRepliesPreference" }}
+          <legend>{{ tr . "SettingsFormTimelinePreferenceTitle" }}</legend>
+          <label for="timelineList">
+            <input type="radio" name="displayTimelinePreference" value="list" {{ if eq $.User.DisplayTimelinePreference "list" }}checked{{ end }}>
+            List (default)
+          </label>
+          <label for="timelineFlat">
+            <input type="radio" name="displayTimelinePreference" value="flat" {{ if eq $.User.DisplayTimelinePreference "flat" }}checked{{ end }}>
+            Flat (hide replies)
           </label>
         </fieldset>
       </div>
@@ -128,19 +132,6 @@
       </div>
       <div>
         <fieldset>
-          <legend>Media settings:</legend>
-          <label for="displayMedia">
-            <input id="displayMedia" type="checkbox" name="displayMedia" aria-label="Display media at all" role="switch" {{ if .User.DisplayMedia }}checked{{ end }} />
-            Display Media
-          </label>
-          <label for="originalMedia">
-            <input id="originalMedia" type="checkbox" name="originalMedia" aria-label="Use original media" role="switch" {{ if .User.OriginalMedia }}checked{{ end }} />
-            Use Original Media
-          </label>
-        </fieldset>
-      </div>
-      <div>
-        <fieldset>
           <legend>{{ tr . "SettingsFormPrivacySettingsTitle" }}</legend>
           <label for="isBookmarksPubliclyVisible">
             <input id="isBookmarksPubliclyVisible" type="checkbox" name="isBookmarksPubliclyVisible" aria-label="Show bookmarks publicly" role="switch" {{ if .User.IsBookmarksPubliclyVisible }}checked{{ end }}>
@@ -158,6 +149,19 @@
       </div>
     </div>
     <div class="grid">
+      <div>
+        <fieldset>
+          <legend>Media settings:</legend>
+          <label for="displayMedia">
+            <input id="displayMedia" type="checkbox" name="displayMedia" aria-label="Display media at all" role="switch" {{ if .User.DisplayMedia }}checked{{ end }} />
+            Display Media
+          </label>
+          <label for="originalMedia">
+            <input id="originalMedia" type="checkbox" name="originalMedia" aria-label="Use original media" role="switch" {{ if .User.OriginalMedia }}checked{{ end }} />
+            Use Original Media
+          </label>
+        </fieldset>
+      </div>
       <div>
         <fieldset id="theme">
           <legend>{{ tr . "SettingsFormThemeTitle" }}</legend>

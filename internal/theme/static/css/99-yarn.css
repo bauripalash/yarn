@@ -910,10 +910,6 @@ pre {
     margin-top: 0.5rem;
   }
 
-  div.grid {
-    margin-top: -1rem;
-  }
-
   div.h-feed-empty:empty {
     margin-top: 2.25rem;
   }

@@ -94,6 +94,10 @@
   content: '\ef92';
 }
 
+.ti-help:before {
+  content: '\eabf';
+}
+
 .ti-ismuted:before {
   content: "\eb50";
 }

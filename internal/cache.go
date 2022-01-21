@@ -1718,7 +1718,7 @@ func (cache *Cache) GetByUser(u *User, refresh bool) types.Twts {
 	twts = cache.filterTwts(u, twts)
 	sort.Sort(twts)
 
-	if u.HideRepliesPreference {
+	if u.DisplayTimelinePreference == "flat" {
 		var yarns types.Yarns
 		subjects := GroupTwtsBy(twts, GroupBySubject)
 		for _, chain := range subjects {
