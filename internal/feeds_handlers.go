@@ -3,7 +3,6 @@ package internal
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"path/filepath"
 
 	"github.com/julienschmidt/httprouter"
@@ -162,7 +161,7 @@ func (s *Server) ManageFeedHandler() httprouter.Handle {
 			description := r.FormValue("description")
 			feed.Description = description
 
-			avatarFile, avatarType, err := r.FormFile("avatar_file")
+			avatarFile, _, err := r.FormFile("avatar_file")
 			if err != nil && err != http.ErrMissingFile {
 				log.WithError(err).Error("error parsing form file")
 				http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -170,11 +169,6 @@ func (s *Server) ManageFeedHandler() httprouter.Handle {
 			}
 
 			if avatarFile != nil {
-				oldAvatars, err := filepath.Glob(fmt.Sprintf("%s/%s/%s.*", s.config.Data, avatarsDir, feedName))
-				if err != nil {
-					log.WithError(err).Warnf("error globbing old avatars for %s", feedName)
-				}
-
 				opts := &ImageOptions{
 					Resize: true,
 					Width:  s.config.AvatarResolution,
@@ -182,26 +176,21 @@ func (s *Server) ManageFeedHandler() httprouter.Handle {
 				}
 				_, err = StoreUploadedImage(
 					s.config, avatarFile,
-					avatarsDir, ctx.Username,
+					avatarsDir, feedName,
 					opts,
 				)
 				if err != nil {
 					ctx.Error = true
-					ctx.Message = fmt.Sprintf("Error updating user: %s", err)
+					trdata["Error"] = err.Error()
+					ctx.Message = s.tr(ctx, "ErrorUpdateFeed", trdata)
 					s.render("error", w, ctx)
 					return
 				}
-
-				for _, oldAvatar := range oldAvatars {
-					os.Remove(oldAvatar)
-				}
-
-				ext := filepath.Ext(avatarType.Filename)
-				avatarFn := filepath.Join(s.config.Data, avatarsDir, fmt.Sprintf("%s%s", ctx.Username, ext))
+				avatarFn := filepath.Join(s.config.Data, avatarsDir, fmt.Sprintf("%s.png", feedName))
 				if avatarHash, err := FastHashFile(avatarFn); err == nil {
 					feed.AvatarHash = avatarHash
 				} else {
-					log.WithError(err).Warnf("error updating avatar hash for %s", ctx.Username)
+					log.WithError(err).Warnf("error updating avatar hash for %s", feedName)
 				}
 			}
 
