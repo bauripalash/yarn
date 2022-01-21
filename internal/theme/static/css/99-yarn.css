@@ -346,6 +346,11 @@ div .p-summary:not(.image-gallery)>.caption-wrap .caption {
   text-overflow: ellipsis;
 }
 
+.p-summary ul li,
+.p-summary ol li {
+  margin: 0 0.5rem;
+}
+
 .p-summary br {
   display: none;
 }
