@@ -30,7 +30,8 @@ import (
 	"time"
 
 	// Blank import so we can handle image/jpeg
-	_ "image/gif"
+
+	"image/gif"
 	_ "image/jpeg"
 	"image/png"
 
@@ -530,6 +531,27 @@ func UniqueKeyFor(kv map[string]string, k string) string {
 	return fmt.Sprintf("%s_???", k)
 }
 
+func IsGifImage(fn string) bool {
+	f, err := os.Open(fn)
+	if err != nil {
+		log.WithError(err).Warnf("error opening file %s", fn)
+		return false
+	}
+	defer f.Close()
+
+	head := make([]byte, 261)
+	if _, err := f.Read(head); err != nil {
+		log.WithError(err).Warnf("error reading from file %s", fn)
+		return false
+	}
+
+	imageType, err := filetype.Image(head)
+	if err != nil {
+		return false
+	}
+	return imageType.MIME.Type == "image" && imageType.MIME.Subtype == "gif"
+}
+
 func IsImage(fn string) bool {
 	f, err := os.Open(fn)
 	if err != nil {
@@ -803,6 +825,54 @@ func TranscodeAudio(conf *Config, ifn string, resource, name string, opts *Audio
 	), nil
 }
 
+func ResizeGif(srcFile string, width int, height int) (*gif.GIF, error) {
+	f, err := os.Open(srcFile)
+	if err != nil {
+		return nil, err
+	}
+	defer f.Close()
+
+	im, err := gif.DecodeAll(f)
+	if err != nil {
+		return nil, err
+	}
+
+	if width == 0 {
+		width = int(im.Config.Width * height / im.Config.Width)
+	} else if height == 0 {
+		height = int(width * im.Config.Height / im.Config.Width)
+	}
+
+	// reset the gif width and height
+	im.Config.Width = width
+	im.Config.Height = height
+
+	g := gift.New(
+		gift.Resize(width, height, gift.LanczosResampling),
+	)
+
+	newImages := []*image.Paletted{}
+	for _, i := range im.Image {
+		dst := image.NewPaletted(g.Bounds(i.Bounds()), i.Palette)
+		g.Draw(dst, i)
+		newImages = append(newImages, dst)
+	}
+	im.Image = newImages
+
+	return im, nil
+}
+
+// Save gif file
+func SaveGif(gifImg *gif.GIF, desFile string) error {
+	f, err := os.Create(desFile)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	return gif.EncodeAll(f, gifImg)
+}
+
 func ProcessImage(conf *Config, ifn string, resource, name string, opts *ImageOptions) (string, error) {
 	defer os.Remove(ifn)
 
@@ -817,13 +887,23 @@ func ProcessImage(conf *Config, ifn string, resource, name string, opts *ImageOp
 		tfn string
 	)
 
+	isGIF := IsGifImage(ifn)
+
+	var ext string
+
+	if isGIF {
+		ext = "gif"
+	} else {
+		ext = "png"
+	}
+
 	if name == "" {
 		uuid := shortuuid.New()
-		tfn = filepath.Join(p, fmt.Sprintf("%s.png", uuid))
-		ofn = filepath.Join(p, fmt.Sprintf("%s.orig.png", uuid))
+		tfn = filepath.Join(p, fmt.Sprintf("%s.%s", uuid, ext))
+		ofn = filepath.Join(p, fmt.Sprintf("%s.orig.%s", uuid, ext))
 	} else {
-		tfn = fmt.Sprintf("%s.png", filepath.Join(p, name))
-		ofn = fmt.Sprintf("%s.orig.png", filepath.Join(p, name))
+		tfn = fmt.Sprintf("%s.%s", filepath.Join(p, name), ext)
+		ofn = fmt.Sprintf("%s.orig.%s", filepath.Join(p, name), ext)
 	}
 
 	if _, err := copyFile(ifn, ofn); err != nil {
@@ -831,43 +911,55 @@ func ProcessImage(conf *Config, ifn string, resource, name string, opts *ImageOp
 		return "", err
 	}
 
-	f, err := os.Open(ifn)
-	if err != nil {
-		log.WithError(err).Error("error opening input file")
-		return "", err
-	}
-	defer f.Close()
-
-	img, _, err := imageorient.Decode(f)
-	if err != nil {
-		log.WithError(err).Error("imageorient.Decode failed")
-		return "", err
-	}
-
-	g := gift.New()
-
-	if opts != nil && opts.Resize {
-		if opts.Width > 0 && opts.Height > 0 {
-			g.Add(gift.ResizeToFit(opts.Width, opts.Height, gift.LanczosResampling))
-		} else if (opts.Width+opts.Height > 0) && (opts.Height > 0 || img.Bounds().Size().X > opts.Width) {
-			g.Add(gift.Resize(opts.Width, opts.Height, gift.LanczosResampling))
+	if isGIF {
+		gif, err := ResizeGif(ifn, opts.Width, opts.Height)
+		if err != nil {
+			log.WithError(err).Error("error downscaling GIF image")
+			return "", err
 		}
-	}
+		if err := SaveGif(gif, tfn); err != nil {
+			log.WithError(err).Error("error encoding GIF image")
+			return "", err
+		}
+	} else {
+		f, err := os.Open(ifn)
+		if err != nil {
+			log.WithError(err).Error("error opening input file")
+			return "", err
+		}
+		defer f.Close()
 
-	newImg := image.NewRGBA(g.Bounds(img.Bounds()))
+		img, _, err := imageorient.Decode(f)
+		if err != nil {
+			log.WithError(err).Error("imageorient.Decode failed")
+			return "", err
+		}
 
-	g.Draw(newImg, img)
+		g := gift.New()
 
-	of, err := os.OpenFile(tfn, os.O_WRONLY|os.O_CREATE, 0644)
-	if err != nil {
-		log.WithError(err).Error("error opening thumbnail file")
-		return "", err
-	}
-	defer of.Close()
+		if opts != nil && opts.Resize {
+			if opts.Width > 0 && opts.Height > 0 {
+				g.Add(gift.ResizeToFit(opts.Width, opts.Height, gift.LanczosResampling))
+			} else if (opts.Width+opts.Height > 0) && (opts.Height > 0 || img.Bounds().Size().X > opts.Width) {
+				g.Add(gift.Resize(opts.Width, opts.Height, gift.LanczosResampling))
+			}
+		}
 
-	if err := png.Encode(of, newImg); err != nil {
-		log.WithError(err).Error("error encoding image")
-		return "", err
+		newImg := image.NewRGBA(g.Bounds(img.Bounds()))
+
+		g.Draw(newImg, img)
+
+		of, err := os.OpenFile(tfn, os.O_WRONLY|os.O_CREATE, 0644)
+		if err != nil {
+			log.WithError(err).Error("error opening thumbnail file")
+			return "", err
+		}
+		defer of.Close()
+
+		if err := png.Encode(of, newImg); err != nil {
+			log.WithError(err).Error("error encoding image")
+			return "", err
+		}
 	}
 
 	return fmt.Sprintf(
