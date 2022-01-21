@@ -40,13 +40,13 @@
           {{ end }}
         </ol>
       {{ else }}
-        <small>
+        <p>
           {{ if $.User.Is .Profile.URI }}
             {{ (tr . "FollowersNoFollowersSummary" (dict "InstanceName" .InstanceName)) | html }}
           {{ else }}
             <b>{{ .Profile.Nick }}</b> {{ tr . "FollowersNoFollowers" }}
           {{ end }}
-        </small>
+        </p>
       {{ end }}
     </div>
   </article>

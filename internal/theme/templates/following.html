@@ -41,13 +41,13 @@
           {{ end }}
         </ol>
       {{ else }}
-        <small>
+        <p>
           {{ if $.User.Is .Profile.URI }}
             {{ (tr . "FollowingNoFollowingSummary" (dict "InstanceName" .InstanceName)) | html }}
           {{ else }}
             <b>{{ .Profile.Nick }}</b> {{ tr . "FollowingNoFollowing" }}
           {{ end }}
-        </small>
+        </p>
       {{ end }}
     </div>
   </article>
