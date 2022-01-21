@@ -256,9 +256,6 @@ u("#post").on("click", function(e) {
   form.submit();
 });
 
-u("#form").on("submit", function(e) {
-});
-
 u(".bookmarkBtn").on("click", function (e) {
   e.preventDefault();
   Twix.ajax({
@@ -796,7 +793,7 @@ u("body").on("keydown", function(e) {
         });
       }
 
-      if (e.key === "Tab" || e.key === "Enter") {
+      if (e.key === "Tab") {
         e.preventDefault();
 
         var selectedNodeIdx = u(".user-list__user").nodes.findIndex(function(
