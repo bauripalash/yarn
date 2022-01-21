@@ -117,6 +117,24 @@ func (s *Server) UserConfigHandler() httprouter.Handle {
 
 // AvatarHandler ...
 func (s *Server) AvatarHandler() httprouter.Handle {
+	avatarsBasePath := filepath.Join(s.config.Data, avatarsDir)
+
+	getAvatarFilename := func(nick string) (string, error) {
+		gifAvatar, err := securejoin.SecureJoin(avatarsBasePath, fmt.Sprintf("%s.gif", nick))
+		if err != nil {
+			return "", err
+		}
+		pngAvatar, err := securejoin.SecureJoin(avatarsBasePath, fmt.Sprintf("%s.png", nick))
+		if err != nil {
+			return "", err
+		}
+
+		if FileExists(gifAvatar) {
+			return gifAvatar, nil
+		}
+		return pngAvatar, nil
+	}
+
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		w.Header().Set("Cache-Control", "public, no-cache, must-revalidate")
 
@@ -131,7 +149,7 @@ func (s *Server) AvatarHandler() httprouter.Handle {
 			return
 		}
 
-		fn, err := securejoin.SecureJoin(filepath.Join(s.config.Data, avatarsDir), fmt.Sprintf("%s.png", nick))
+		fn, err := getAvatarFilename(nick)
 		if err != nil {
 			http.Error(w, "Bad Request", http.StatusBadRequest)
 			return

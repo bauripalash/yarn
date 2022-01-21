@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -57,7 +58,7 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		isFollowingPubliclyVisible := r.FormValue("isFollowingPubliclyVisible") == "on"
 		isBookmarksPubliclyVisible := r.FormValue("isBookmarksPubliclyVisible") == "on"
 
-		avatarFile, _, err := r.FormFile("avatar_file")
+		avatarFile, avatarType, err := r.FormFile("avatar_file")
 		if err != nil && err != http.ErrMissingFile {
 			log.WithError(err).Error("error parsing form file")
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -81,6 +82,11 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		}
 
 		if avatarFile != nil {
+			oldAvatars, err := filepath.Glob(fmt.Sprintf("%s/%s/%s.*", s.config.Data, avatarsDir, user.Username))
+			if err != nil {
+				log.WithError(err).Warnf("error globbing old avatars for %s", user.Username)
+			}
+
 			opts := &ImageOptions{
 				Resize: true,
 				Width:  s.config.AvatarResolution,
@@ -97,7 +103,13 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 				s.render("error", w, ctx)
 				return
 			}
-			avatarFn := filepath.Join(s.config.Data, avatarsDir, fmt.Sprintf("%s.png", ctx.Username))
+
+			for _, oldAvatar := range oldAvatars {
+				os.Remove(oldAvatar)
+			}
+
+			ext := filepath.Ext(avatarType.Filename)
+			avatarFn := filepath.Join(s.config.Data, avatarsDir, fmt.Sprintf("%s%s", ctx.Username, ext))
 			if avatarHash, err := FastHashFile(avatarFn); err == nil {
 				user.AvatarHash = avatarHash
 			} else {
@@ -119,7 +131,7 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		user.DisplayMedia = displayMedia
 		user.OriginalMedia = originalMedia
 
-		if user.DisplayTimelinePreference != user.DisplayTimelinePreference {
+		if displayTimelinePreference != user.DisplayTimelinePreference {
 			// Force User Views to be recalculated
 			s.cache.DeleteUserViews(ctx.User)
 		}
