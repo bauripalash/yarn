@@ -642,7 +642,9 @@ u("#mentioned-list").on("click", function(e) {
 
   u("textarea#text").first().setSelectionRange(startMention, startMention);
   insertText(u("textarea#text"), e.target.innerText.trim());
+
   u("#mentioned-list").first().classList.remove("show");
+  clearMentionedList();
 });
 
 var maxTaskWait = (1000 * 60 * 10); // ~10mins TODO: Make this configurable
