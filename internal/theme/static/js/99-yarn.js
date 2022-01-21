@@ -178,11 +178,14 @@ function movePostBox(e) {
   article.scroll();
 }
 
+/* Close the PostBox on Escape if we moved it */
 u("body").on("keyup", function(e) {
-  if (e.key === "Escape") {
-    e.preventDefault();
-    resetPostBox();
-    u("#text").first().value = "";
+  if (u("#postbox").hasClass("drawer")) {
+    if (e.key === "Escape") {
+      e.preventDefault();
+      resetPostBox();
+      u("#text").first().value = "";
+    }
   }
 });
 
@@ -332,6 +335,11 @@ u("#unmuteBtn").on("click", function (e) {
     },
   });
 });
+
+u.prototype.isHidden = function () {
+  var e = this.first();
+  return (e.offsetParent === null)
+};
 
 u.prototype.getSelection = function() {
   var e = this.first();
@@ -570,7 +578,7 @@ u("#imgBtn").on("click", function(e) {
 
 u("#usrBtn").on("click", function(e) {
   e.preventDefault();
-  if (u("#mentioned-list").attr("style")) {
+  if (!u("#mentioned-list").isHidden()) {
     u("textarea#text").first().focus();
     startMention = u("textarea#text").first().selectionStart + 1;
     insertText(u("textarea#text"), "@");
@@ -609,7 +617,7 @@ u("textarea#text").on("keyup", function(e) {
       showMentionedList();
     }
 
-    if (u("#mentioned-list").attr("style")) {
+    if (!u("#mentioned-list").isHidden()) {
       var searchStr = e.target.value.slice(startMention, idx);
       if (!prevSymbol.trim()) {
         clearMentionedList();
@@ -745,88 +753,88 @@ u("#burgerMenu").on("click", function(e) {
 });
 
 u("body").on("keydown", function(e) {
-  if (u("#mentioned-list").first()) {
-    if (u("#mentioned-list").attr("style")) {
-      if (e.key === "Escape") {
-        clearMentionedList();
-      }
-
-      if (
-        e.key === "ArrowUp" ||
-        e.key === "ArrowDown" ||
-        e.key === "Up" ||
-        e.key === "Down"
-      ) {
-        e.preventDefault();
-
-        var selectedIdx = u(".user-list__user").nodes.findIndex(function(
-          item
-        ) {
-          return item.classList.contains("selected");
-        });
-
-        var nextIdx;
-        var scrollOffset;
-
-        if (e.key === "ArrowDown" || e.key === "Down") {
-          nextIdx =
-            selectedIdx + 1 === u(".user-list__user").length ?
-            0 :
-            selectedIdx + 1;
-        } else if (e.key === "ArrowUp" || e.key === "Up") {
-          nextIdx =
-            selectedIdx - 1 < 0 ?
-            u(".user-list__user").length - 1 :
-            selectedIdx - 1;
-        }
-
-        scrollOffset =
-          u(".user-list__user").first().clientHeight * (nextIdx - 2);
-
-        u(".user-list__user").nodes.forEach(function(item, index) {
-          item.classList.remove("selected");
-          if (index === nextIdx) {
-            u("#mentioned-list-content").first().scrollTop =
-              scrollOffset > 0 ? scrollOffset : 0;
-            item.classList.add("selected");
-          }
-        });
-      }
-
-      if (e.key === "Tab") {
-        e.preventDefault();
-
-        var selectedNodeIdx = u(".user-list__user").nodes.findIndex(function(
-          item
-        ) {
-          return item.classList.contains("selected");
-        });
-
-        var selectedNode = u(".user-list__user").nodes[selectedNodeIdx];
-
-        var value = u("textarea#text").first().value;
-
-        u("textarea#text").first().value =
-          value.slice(0, startMention) +
-          value.slice(u("textarea#text").first().selectionEnd);
-
-        u("textarea#text")
-          .first()
-          .setSelectionRange(startMention, startMention);
-        insertText(u("textarea#text"), selectedNode.innerText.trim());
-        clearMentionedList();
-      }
-
-      var caret = u("textarea#text").first().selectionStart;
-      var prevSymbol = u("textarea#text")
-        .first()
-        .value.slice(caret - 1, 1);
-
-      if (e.key === "Backspace" && prevSymbol === "@") {
-        clearMentionedList();
-      }
-    }
+  if (u("#mentioned-list").isHidden()) {
+    return;
   }
+
+  if (e.key === "Escape") {
+    clearMentionedList();
+  }
+
+  if (
+    e.key === "ArrowUp" ||
+    e.key === "ArrowDown" ||
+    e.key === "Up" ||
+      e.key === "Down"
+    ) {
+      e.preventDefault();
+
+      var selectedIdx = u(".user-list__user").nodes.findIndex(function(
+        item
+      ) {
+        return item.classList.contains("selected");
+      });
+
+      var nextIdx;
+      var scrollOffset;
+
+      if (e.key === "ArrowDown" || e.key === "Down") {
+        nextIdx =
+          selectedIdx + 1 === u(".user-list__user").length ?
+          0 :
+          selectedIdx + 1;
+      } else if (e.key === "ArrowUp" || e.key === "Up") {
+        nextIdx =
+          selectedIdx - 1 < 0 ?
+          u(".user-list__user").length - 1 :
+          selectedIdx - 1;
+      }
+
+      scrollOffset =
+        u(".user-list__user").first().clientHeight * (nextIdx - 2);
+
+      u(".user-list__user").nodes.forEach(function(item, index) {
+        item.classList.remove("selected");
+        if (index === nextIdx) {
+          u("#mentioned-list-content").first().scrollTop =
+            scrollOffset > 0 ? scrollOffset : 0;
+          item.classList.add("selected");
+        }
+      });
+    }
+
+    if (e.key === "Tab" || e.key === "Enter") {
+      e.preventDefault();
+
+      var selectedNodeIdx = u(".user-list__user").nodes.findIndex(function(
+        item
+      ) {
+        return item.classList.contains("selected");
+      });
+
+      var selectedNode = u(".user-list__user").nodes[selectedNodeIdx];
+
+      var value = u("textarea#text").first().value;
+
+      u("textarea#text").first().value =
+        value.slice(0, startMention) +
+        value.slice(u("textarea#text").first().selectionEnd);
+
+      u("textarea#text")
+        .first()
+        .setSelectionRange(startMention, startMention);
+      insertText(u("textarea#text"), selectedNode.innerText.trim());
+      clearMentionedList();
+    }
+
+    var caret = u("textarea#text").first().selectionStart;
+    var prevSymbol = u("textarea#text")
+      .first()
+      .value.slice(caret - 1, 1);
+
+    if (e.key === "Backspace" && prevSymbol === "@") {
+      clearMentionedList();
+    }
 });
 
 function clearMentionedList() {
