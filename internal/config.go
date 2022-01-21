@@ -55,7 +55,7 @@ type Settings struct {
 
 	// XXX: Deprecated fields (See: https://git.mills.io/yarnsocial/yarn/pulls/711)
 	// TODO: Remove post v0.14.x
-	BlacklistedFeeds  []string `yarml:"blacklisted_feeds"`
+	BlacklistedFeeds  []string `yaml:"blacklisted_feeds"`
 	WhitelistedImages []string `yaml:"whitelisted_images"`
 
 	BlockedFeeds    []string      `yaml:"blocklisted_feeds"`
