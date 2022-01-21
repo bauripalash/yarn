@@ -753,7 +753,7 @@ u("#burgerMenu").on("click", function(e) {
 });
 
 u("body").on("keydown", function(e) {
-  if (u("#mentioned-list").isHidden()) {
+  if (!u("#mentioned-list").first() || u("#mentioned-list").isHidden()) {
     return;
   }
 
