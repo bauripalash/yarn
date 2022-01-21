@@ -86,6 +86,7 @@ function replyTo(e) {
 
   var reply = u(e.target).data("reply");
 
+  clearMentionedList();
 
   if (u("#replyTo").first().value != "") {
     reply = reply.replace("(" + u("#replyTo").first().value + ") ", "")
@@ -572,7 +573,7 @@ u("#imgBtn").on("click", function(e) {
 
 u("#usrBtn").on("click", function(e) {
   e.preventDefault();
-  if (!$mentionedList.classList.contains("show")) {
+  if (u("#mentioned-list").attr("style")) {
     u("textarea#text").first().focus();
     startMention = u("textarea#text").first().selectionStart + 1;
     insertText(u("textarea#text"), "@");
@@ -611,7 +612,7 @@ u("textarea#text").on("keyup", function(e) {
       showMentionedList();
     }
 
-    if ($mentionedList.classList.contains("show")) {
+    if (u("#mentioned-list").attr("style")) {
       var searchStr = e.target.value.slice(startMention, idx);
       if (!prevSymbol.trim()) {
         clearMentionedList();
@@ -642,9 +643,7 @@ u("#mentioned-list").on("click", function(e) {
 
   u("textarea#text").first().setSelectionRange(startMention, startMention);
   insertText(u("textarea#text"), e.target.innerText.trim());
-
-  u("#mentioned-list").first().classList.remove("show");
-  clearMentionedList();
+  u("#mentioned-list").attr("style", "display: none;");
 });
 
 var maxTaskWait = (1000 * 60 * 10); // ~10mins TODO: Make this configurable
@@ -750,7 +749,7 @@ u("#burgerMenu").on("click", function(e) {
 
 u("body").on("keydown", function(e) {
   if (u("#mentioned-list").first()) {
-    if (u("#mentioned-list").first().classList.contains("show")) {
+    if (u("#mentioned-list").attr("style")) {
       if (e.key === "Escape") {
         clearMentionedList();
       }
@@ -834,12 +833,12 @@ u("body").on("keydown", function(e) {
 });
 
 function clearMentionedList() {
-  $mentionedList.classList.remove("show");
+  u("#mentioned-list").attr("style", "display: none;");
   u("#mentioned-list-content").first().innerHTML = "";
 }
 
 function showMentionedList() {
-  $mentionedList.classList.add("show");
+  u("#mentioned-list").attr("style", "display: inherit;");
   u("#mentioned-list").first().style.top =
     u("textarea#text").first().clientHeight + 2 + "px";
 }
