@@ -60,8 +60,8 @@ type Context struct {
 	OpenProfiles      bool
 	DisableMedia      bool
 	DisableFfmpeg     bool
-	WhitelistedImages []string
-	BlacklistedFeeds  []string
+	PermittedImages   []string
+	BlocklistedFeeds  []string
 	EnabledFeatures   []string
 
 	Timezones []*timezones.Zoneinfo
@@ -173,8 +173,8 @@ func NewContext(s *Server, req *http.Request) *Context {
 		DisableMedia:      conf.DisableMedia,
 		DisableFfmpeg:     conf.DisableFfmpeg,
 		LastTwt:           types.NilTwt,
-		WhitelistedImages: conf.WhitelistedImages,
-		BlacklistedFeeds:  conf.BlacklistedFeeds,
+		PermittedImages:   conf.PermittedImages,
+		BlocklistedFeeds:  conf.BlocklistedFeeds,
 		EnabledFeatures:   conf.Features.AsStrings(),
 
 		DisplayDatesInTimezone:  conf.DisplayDatesInTimezone,

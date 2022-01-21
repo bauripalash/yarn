@@ -53,9 +53,14 @@ type Settings struct {
 	OpenProfiles      bool `yaml:"open_profiles"`
 	OpenRegistrations bool `yaml:"open_registrations"`
 
-	WhitelistedImages []string      `yaml:"whitelisted_images"`
-	BlacklistedFeeds  []string      `yaml:"blacklisted_feeds"`
-	Features          *FeatureFlags `yaml:"features"`
+	// XXX: Deprecated fields (See: https://git.mills.io/yarnsocial/yarn/pulls/711)
+	// TODO: Remove post v0.14.x
+	BlacklistedFeeds  []string `yarml:"blacklisted_feeds"`
+	WhitelistedImages []string `yaml:"whitelisted_images"`
+
+	BlockedFeeds    []string      `yaml:"blocklisted_feeds"`
+	PermittedImages []string      `yaml:"permitted_images"`
+	Features        *FeatureFlags `yaml:"features"`
 
 	// Pod Level Settings (overridable by Users)
 	DisplayDatesInTimezone  string `yaml:"display_dates_in_timezone"`
@@ -135,11 +140,11 @@ type Config struct {
 
 	baseURL *url.URL
 
-	whitelistedImages []*regexp.Regexp
-	WhitelistedImages []string
+	permittedImages []*regexp.Regexp
+	PermittedImages []string
 
-	blacklistedFeeds []*regexp.Regexp
-	BlacklistedFeeds []string
+	blocklistedFeeds []*regexp.Regexp
+	BlocklistedFeeds []string
 
 	Features *FeatureFlags
 
@@ -183,17 +188,17 @@ func (c *Config) Settings() *Settings {
 	return settings
 }
 
-// WhitelistedImage returns true if the domain name of an image's url provided
+// PermittedImage returns true if the domain name of an image's url provided
 // is a whiltelisted domain as per the configuration
-func (c *Config) WhitelistedImage(domain string) (bool, bool) {
+func (c *Config) PermittedImage(domain string) (bool, bool) {
 	// Always permit our own domain
 	ourDomain := strings.TrimPrefix(strings.ToLower(c.baseURL.Hostname()), "www.")
 	if domain == ourDomain {
 		return true, true
 	}
 
-	// Check against list of whitelistedImages (regexes)
-	for _, re := range c.whitelistedImages {
+	// Check against list of permittedImages (regexes)
+	for _, re := range c.permittedImages {
 		if re.MatchString(domain) {
 			return true, false
 		}
@@ -201,16 +206,16 @@ func (c *Config) WhitelistedImage(domain string) (bool, bool) {
 	return false, false
 }
 
-// BlacklistedFeed returns true if the feed uri matches any blacklisted feeds
-// per the pod's configuration, the pod itself cannot bee blacklisted.
-func (c *Config) BlacklistedFeed(uri string) bool {
+// BlocklistedFeed returns true if the feed uri matches any blocklisted feeds
+// per the pod's configuration, the pod itself cannot bee blocklisted.
+func (c *Config) BlocklistedFeed(uri string) bool {
 	// Never prohibit the pod itself!
 	if strings.HasPrefix(uri, c.BaseURL) {
 		return false
 	}
 
-	// Check against list of blacklistedFeeds (regexes)
-	for _, re := range c.blacklistedFeeds {
+	// Check against list of blocklistedFeeds (regexes)
+	for _, re := range c.blocklistedFeeds {
 		if re.MatchString(uri) {
 			return true
 		}
@@ -219,9 +224,9 @@ func (c *Config) BlacklistedFeed(uri string) bool {
 }
 
 // IsShadowed returns true if a feed has been Shadowed Banned by the Pod Owner/Operator (poderator)
-// This is currently functionally equivilent to Blacklisting a feed and uses the same configuration
+// This is currently functionally equivilent to Blocklisting a feed and uses the same configuration
 func (c *Config) IsShadowed(uri string) bool {
-	for _, re := range c.blacklistedFeeds {
+	for _, re := range c.blocklistedFeeds {
 		if re.MatchString(uri) {
 			return true
 		}
@@ -242,12 +247,12 @@ func (c *Config) Validate() error {
 	// Initlaization
 	//
 
-	if err := WithWhitelistedImages(c.WhitelistedImages)(c); err != nil {
-		return fmt.Errorf("error applying whitelisted image domains: %w", err)
+	if err := WithPermittedImages(c.PermittedImages)(c); err != nil {
+		return fmt.Errorf("error applying permitted image domains: %w", err)
 	}
 
-	if err := WithBlacklistedFeeds(c.BlacklistedFeeds)(c); err != nil {
-		return fmt.Errorf("error applying blacklisted feeds: %w", err)
+	if err := WithBlocklistedFeeds(c.BlocklistedFeeds)(c); err != nil {
+		return fmt.Errorf("error applying blocklisted feeds: %w", err)
 	}
 
 	// Automatically correct missing Scheme in Pod Base URL
@@ -344,6 +349,17 @@ func LoadSettings(path string) (*Settings, error) {
 
 	if settings.Features == nil {
 		settings.Features = NewFeatureFlags()
+	}
+
+	// XXX: Deprecated fields (See: https://git.mills.io/yarnsocial/yarn/pulls/711)
+	// TODO: Remove post v0.14.x
+	if len(settings.BlacklistedFeeds) > 0 && len(settings.BlockedFeeds) == 0 {
+		settings.BlockedFeeds = settings.BlacklistedFeeds[:]
+		settings.BlacklistedFeeds = nil
+	}
+	if len(settings.WhitelistedImages) > 0 && len(settings.PermittedImages) == 0 {
+		settings.PermittedImages = settings.WhitelistedImages[:]
+		settings.WhitelistedImages = nil
 	}
 
 	return &settings, nil

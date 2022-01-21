@@ -337,7 +337,7 @@ type Peer struct {
 
 	// Maybe we store future data about other peer pods in the future?
 	// Right now the above is basically what is exposed now as the pod's name, description and what version of yarnd is running.
-	// This information will likely be used for Pod Owner/Operators to manage Image Domain Whitelisting between pods and internal
+	// This information will likely be used for Pod Owner/Operators to manage Permitted Image Domains between pods and internal
 	// automated operations like Pod Gossiping of Twts for things like Missing Root Twts for conversation views, etc.
 
 	// lastSeen records the timestamp of when we last saw this pod.
@@ -882,9 +882,9 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Fetch
 			continue
 		}
 
-		// Skip feeds that are blacklisted.
-		if cache.conf.BlacklistedFeed(feed.URL) {
-			log.Warnf("attempt to fetch blacklisted feed %s", feed)
+		// Skip feeds that are blocklisted.
+		if cache.conf.BlocklistedFeed(feed.URL) {
+			log.Warnf("attempt to fetch blocklisted feed %s", feed)
 			continue
 		}
 

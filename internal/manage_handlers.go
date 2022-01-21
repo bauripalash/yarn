@@ -43,8 +43,8 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		mediaResolution := SafeParseInt(r.FormValue("mediaResolution"), s.config.MediaResolution)
 		openProfiles := r.FormValue("enableOpenProfiles") == "on"
 		openRegistrations := r.FormValue("enableOpenRegistrations") == "on"
-		whitelistedImages := r.FormValue("whitelistedImages")
-		blacklistedFeeds := r.FormValue("blacklistedFeeds")
+		permittedImages := r.FormValue("permittedImages")
+		blocklistedFeeds := r.FormValue("blocklistedFeeds")
 		enabledFeatures := r.FormValue("enabledFeatures")
 
 		displayDatesInTimezone := r.FormValue("displayDatesInTimezone")
@@ -58,8 +58,8 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		logo = strings.ReplaceAll(logo, "\r\n", "\n")
 		css = strings.ReplaceAll(css, "\r\n", "\n")
 
-		whitelistedImages = strings.Trim(strings.ReplaceAll(whitelistedImages, "\r\n", "\n"), "\n")
-		blacklistedFeeds = strings.Trim(strings.ReplaceAll(blacklistedFeeds, "\r\n", "\n"), "\n")
+		permittedImages = strings.Trim(strings.ReplaceAll(permittedImages, "\r\n", "\n"), "\n")
+		blocklistedFeeds = strings.Trim(strings.ReplaceAll(blocklistedFeeds, "\r\n", "\n"), "\n")
 		enabledFeatures = strings.Trim(strings.ReplaceAll(enabledFeatures, "\r\n", "\n"), "\n")
 
 		// Update pod name
@@ -108,18 +108,18 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		// Update open registrations
 		s.config.OpenRegistrations = openRegistrations
 
-		// Update WhitelistedImages
-		if err := WithWhitelistedImages(strings.Split(whitelistedImages, "\n"))(s.config); err != nil {
+		// Update PermittedImages
+		if err := WithPermittedImages(strings.Split(permittedImages, "\n"))(s.config); err != nil {
 			ctx.Error = true
-			ctx.Message = fmt.Sprintf("Error applying whitelist for images: %s", err)
+			ctx.Message = fmt.Sprintf("Error applying permitted images: %s", err)
 			s.render("error", w, ctx)
 			return
 		}
 
-		// Update BlacklistedFeeds
-		if err := WithBlacklistedFeeds(strings.Split(blacklistedFeeds, "\n"))(s.config); err != nil {
+		// Update BlocklistedFeeds
+		if err := WithBlocklistedFeeds(strings.Split(blocklistedFeeds, "\n"))(s.config); err != nil {
 			ctx.Error = true
-			ctx.Message = fmt.Sprintf("Error applying blacklist for feeds: %s", err)
+			ctx.Message = fmt.Sprintf("Error applying blocklist for feeds: %s", err)
 			s.render("error", w, ctx)
 			return
 		}

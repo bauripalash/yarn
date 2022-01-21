@@ -21,7 +21,7 @@
 
 > 从技术上讲，它twtxt是Web应用程序和api形式的多用户[twtxt](https://twtxt.readthedocs.io/en/latest/)客户端。它支持多个用户，还直接托管用户供稿，
 > 并以最少的用户配置文件提供熟悉的“社交”体验。
-> 
+>
 > 它还利用Markdown以及照片，视频甚至音频等多媒体来支持“丰富”文本。
 
 > App Store和Play Store还提供了一组[移动APP](https://jointwt.org/goryon/)。
@@ -36,7 +36,7 @@
 
 ![Demo_1](https://user-images.githubusercontent.com/15314237/90351548-cac74b80-dffd-11ea-8288-b347af548465.gif)
 
-## 移动 App 
+## 移动 App
 
 ![](https://jointwt.org/goryon/images/logo.svg)
 
@@ -63,7 +63,7 @@ Goryon for Twt可在App Store和Play商店中使用。
 
 ### 使用 Homebrew
 
-我们为 MacOS 用户提供了 [Homebrew](https://brew.sh) 包, 包含命令行客户(`yarn`)和服务端(`yarnd`)程序 
+我们为 MacOS 用户提供了 [Homebrew](https://brew.sh) 包, 包含命令行客户(`yarn`)和服务端(`yarnd`)程序
 
 ```console
 brew tap jointwt/twtxt
@@ -82,7 +82,7 @@ yarnd
 twt
 ```
 
-### 从源代码构建 
+### 从源代码构建
 
 如果您熟悉[Go](https://golang.org)开发, 可以使用这种方法:
 
@@ -134,7 +134,7 @@ INFO[0000] Using config file: /Users/prologic/.twt.yaml
 Username:
 ```
 
-2. 查看您的时间线 
+2. 查看您的时间线
 
 ```#!console
 $ ./yarn timeline
@@ -174,7 +174,7 @@ docker-compose up -d
 yarnd -R
 ```
 
-__NOTE:__ 默认是禁止用户注册的, 使用 `-R` 标记打开注册选项 
+__NOTE:__ 默认是禁止用户注册的, 使用 `-R` 标记打开注册选项
 
 然后访问: http://localhost:8000/
 
@@ -211,7 +211,7 @@ Usage of ./yarnd:
   -t, --theme string                set the default theme (default "dark")
   -T, --twts-per-page int           maximum twts per page to display (default 50)
   -v, --version                     display version information
-      --whitelist-domain strings    whitelist of external domains to permit for display of inline images (default [imgur\.com,giphy\.com,reactiongifs\.com,githubusercontent\.com])
+      --permitted-domain strings    external domains permitted for display of inline images (default [imgur\.com,giphy\.com,reactiongifs\.com,githubusercontent\.com])
 pflag: help requested
 ```
 
@@ -233,7 +233,7 @@ pflag: help requested
 
 为了配置用于密码恢复的电子邮件设置以及/support 和/abuse端点，您应该设置适当的`SMTP_`值
 
-**强烈建议**你设置以下值，以确保您的Pod安全: 
+**强烈建议**你设置以下值，以确保您的Pod安全:
 
 - `API_SIGNING_KEY`
 - `COOKIE_SECRET`

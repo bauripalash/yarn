@@ -163,9 +163,9 @@ var (
 		`Let's have a Yarn! ✋`,
 	}
 
-	// DefaultWhitelistedImages is the default list of image domains
-	// to whitelist for external images to display them inline
-	DefaultWhitelistedImages = []string{
+	// DefaultPermittedImages is the default list of image domains
+	// to permit for external images to display them inline
+	DefaultPermittedImages = []string{
 		`imgur\.com`,
 		`giphy\.com`,
 		`imgs\.xkcd\.com`,
@@ -174,9 +174,9 @@ var (
 		`githubusercontent\.com`,
 	}
 
-	// DefaultBlacklistedFeeds is the default list of feed uris thar are
-	// blacklisted and prohibuted from being fetched by the global feed cache
-	DefaultBlacklistedFeeds = []string{}
+	// DefaultBlocklistedFeeds is the default list of feed uris thar are
+	// blocklisted and prohibuted from being fetched by the global feed cache
+	DefaultBlocklistedFeeds = []string{}
 
 	// DefaultMaxCacheFetchers is the default maximun number of fetchers used
 	// by the global feed cache during update cycles. This controls how quickly
@@ -553,39 +553,39 @@ func WithAPISigningKey(key string) Option {
 	}
 }
 
-// WithWhitelistedImages sets the list of image domains whitelisted
-// and permitted for external iamges to display inline
-func WithWhitelistedImages(whitelistedImages []string) Option {
+// WithPermittedImages sets the list of image domains
+// permitted for external iamges to display inline
+func WithPermittedImages(permittedImages []string) Option {
 	return func(cfg *Config) error {
-		cfg.WhitelistedImages = whitelistedImages
-		for _, whitelistedImage := range whitelistedImages {
-			if whitelistedImage == "" {
+		cfg.PermittedImages = permittedImages
+		for _, permittedImage := range permittedImages {
+			if permittedImage == "" {
 				continue
 			}
-			re, err := regexp.Compile(whitelistedImage)
+			re, err := regexp.Compile(permittedImage)
 			if err != nil {
 				return err
 			}
-			cfg.whitelistedImages = append(cfg.whitelistedImages, re)
+			cfg.permittedImages = append(cfg.permittedImages, re)
 		}
 		return nil
 	}
 }
 
-// WithBlacklistedFeeds sets the list of feed uris blacklisted
+// WithBlocklistedFeeds sets the list of feed uris blocklisted
 // and prohibited from being fetched by the global feed cache
-func WithBlacklistedFeeds(blacklistedFeeds []string) Option {
+func WithBlocklistedFeeds(blocklistedFeeds []string) Option {
 	return func(cfg *Config) error {
-		cfg.BlacklistedFeeds = blacklistedFeeds
-		for _, blacklistedFeed := range blacklistedFeeds {
-			if blacklistedFeed == "" {
+		cfg.BlocklistedFeeds = blocklistedFeeds
+		for _, blocklistedFeed := range blocklistedFeeds {
+			if blocklistedFeed == "" {
 				continue
 			}
-			re, err := regexp.Compile(blacklistedFeed)
+			re, err := regexp.Compile(blocklistedFeed)
 			if err != nil {
 				return err
 			}
-			cfg.blacklistedFeeds = append(cfg.blacklistedFeeds, re)
+			cfg.blocklistedFeeds = append(cfg.blocklistedFeeds, re)
 		}
 		return nil
 	}

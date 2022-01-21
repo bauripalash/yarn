@@ -1853,9 +1853,9 @@ func PreprocessMedia(conf *Config, u *url.URL, title, alt, renderAs string, disp
 	// Normalize the domain name
 	domain := strings.TrimPrefix(strings.ToLower(u.Hostname()), "www.")
 
-	whitelisted, local := conf.WhitelistedImage(domain)
+	permitted, local := conf.PermittedImage(domain)
 
-	if whitelisted && display {
+	if permitted && display {
 		if local {
 			// Ensure all local links match our BaseURL scheme
 			u.Scheme = conf.baseURL.Scheme
@@ -1947,7 +1947,7 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 		full = p.user.OriginalMedia
 	}
 
-	// Ensure only whitelisted ![](url) images
+	// Ensure only permitted ![](url) images
 	image, ok := node.(*ast.Image)
 	if ok && entering {
 		u, err := url.Parse(string(image.Destination))
@@ -1988,7 +1988,7 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 		return ast.GoToNext, false
 	}
 
-	// Ensure only whitelisted img src=(s) and fix non-secure links
+	// Ensure only permitted img src=(s) and fix non-secure links
 	img := doc.Find("img")
 	if img.Length() > 0 {
 		src, ok := img.Attr("src")
@@ -2127,7 +2127,7 @@ func FormatTwtContextFactory(conf *Config, cache *Cache, archive Archiver) func(
 		}
 
 		renderHookProcessURLs := func(w io.Writer, node ast.Node, entering bool) (ast.WalkStatus, bool) {
-			// Ensure only whitelisted ![](url) images
+			// Ensure only permitted ![](url) images
 			image, ok := node.(*ast.Image)
 			if ok && entering {
 				u, err := url.Parse(string(image.Destination))
@@ -2171,7 +2171,7 @@ func FormatTwtContextFactory(conf *Config, cache *Cache, archive Archiver) func(
 				return ast.GoToNext, false
 			}
 
-			// Ensure only whitelisted img src=(s) and fix non-secure links
+			// Ensure only permitted img src=(s) and fix non-secure links
 			img := doc.Find("img")
 			if img.Length() > 0 {
 				src, ok := img.Attr("src")

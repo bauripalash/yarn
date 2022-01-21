@@ -97,13 +97,13 @@
             </label>
           </div>
         </div>
-        <label for="whitelistedImages">
-          Whitelisted Image Domains:
-          <textarea id="whitelistedImages" name="whitelistedImages" rows=5>{{ $.WhitelistedImages | join "\r\n" }}</textarea>
+        <label for="permittedImages">
+          Permitted Image Domains:
+          <textarea id="permittedImages" name="permittedImages" rows=5>{{ $.PermittedImages | join "\r\n" }}</textarea>
         </label>
-        <label for="blacklistedFeeds">
-          Blacklisted Feeds:
-          <textarea id="blacklistedFeeds" name="blacklistedFeeds" rows=5>{{ $.BlacklistedFeeds | join "\r\n" }}</textarea>
+        <label for="blocklistedFeeds">
+          Blocklisted Feeds:
+          <textarea id="blocklistedFeeds" name="blocklistedFeeds" rows=5>{{ $.BlocklistedFeeds | join "\r\n" }}</textarea>
         </label>
         <label for="enabledFeatures">
           Enabled Optional Features
