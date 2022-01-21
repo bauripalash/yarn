@@ -239,12 +239,23 @@ u(".deleteBtn").on("click", deleteTwt);
 
 u("#post").on("click", function(e) {
   e.preventDefault();
+  
+  var form = u("#form").first();
+
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
   localStorage.setItem('title', '');
   localStorage.setItem('text', '');
   u("#post").html('Posting...');
   u("#post").attr("aria-busy", true);
   u("#post").attr("disabled", true);
-  u("#form").first().submit();
+  form.submit();
+});
+
+u("#form").on("submit", function(e) {
 });
 
 u(".bookmarkBtn").on("click", function (e) {
