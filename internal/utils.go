@@ -114,6 +114,7 @@ var (
 	singleUserUARegex = regexp.MustCompile(`(.+) \(\+(https?://\S+/\S+); @(\S+)\)`)
 	multiUserUARegex  = regexp.MustCompile(`(.+) \(~(https?://\S+\/\S+); contact=(https?://\S+)\)`)
 	yarndUserUARegex  = regexp.MustCompile(`(.+) \(Pod: (\S+) Support: (https?://\S+)\)`)
+	mediaURIRegex     = regexp.MustCompile(`\/media\/[a-zA-Z0-9]{16,}\.(png|gif|mp4|mp3)`)
 
 	ErrInvalidFeedName  = errors.New("error: invalid feed name")
 	ErrBadRequest       = errors.New("error: request failed with non-200 response")
@@ -1845,12 +1846,33 @@ func RenderAudio(conf *Config, uri, title, renderAs string, full bool) string {
 
 // RenderImage ...
 func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) string {
+	// isMediaURI tries to guess whether the `uri` looks like it _might_ have come from another `yarnd` pod
+	// if so we _assume_ we can optionally download original quality media from it by appending ?full=1
+
+	var (
+		uuid       string
+		isMediaURI bool
+	)
+
+	u, err := url.Parse(uri)
+	if err != nil {
+		log.WithError(err).Warnf("error parsing uri: %s", uri)
+		return ""
+	}
+
+	if mediaURIRegex.MatchString(u.Path) {
+		isMediaURI = true
+		uuid = strings.TrimSuffix(strings.Split(u.Path, "/")[2], ".png")
+	} else {
+		uuid = u.Path
+	}
+
 	if alt != "" {
 		alt = ` alt="` + alt + `"`
 	}
 
 	if renderAs == "" || renderAs == "inline" {
-		if full {
+		if isMediaURI && full {
 			return fmt.Sprintf(`<img loading=lazy src="%s?full=1" title="%s"%s/>`, uri, caption, alt)
 		}
 		return fmt.Sprintf(`<img loading=lazy src="%s" title="%s"%s/>`, uri, caption, alt)
@@ -1858,24 +1880,16 @@ func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) st
 
 	isLocalURL := IsLocalURLFactory(conf)
 
-	u, err := url.Parse(uri)
-	if err != nil {
-		log.WithError(err).Warnf("error parsing uri: %s", uri)
-		return ""
-	}
 	imgURI := u.String()
-	if full {
+	if isMediaURI && full {
 		imgURI += "?full=1"
+	}
+	fullImgURI := u.String()
+	if isMediaURI {
+		fullImgURI += "?full=1"
 	}
 
 	title := "Open to view original quality"
-
-	var uuid string
-	if matched, err := regexp.MatchString(`\/media\/[a-zA-Z0-9]+(\.png)?`, u.Path); err == nil && matched {
-		uuid = strings.TrimSuffix(strings.Split(u.Path, "/")[2], ".png")
-	} else {
-		uuid = u.Path
-	}
 
 	if !isLocalURL(uri) {
 		title = fmt.Sprintf(
@@ -1901,11 +1915,11 @@ func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) st
 		 </div>
 		 <dialog id="%s">
         <figure>
-          <img loading=lazy src="%s?full=1" />
-          <figcaption><a id="img-dl" href="%s?full=1" download>Download</a>%s</figcaption>
+          <img loading=lazy src="%s" />
+          <figcaption><a id="img-dl" href="%s" download>Download</a>%s</figcaption>
         </figure>
       </dialog>`,
-		imgURI, title, alt, isCaption, imgURI, uuid, uuid, imgURI, imgURI, caption,
+		imgURI, title, alt, isCaption, imgURI, uuid, uuid, fullImgURI, fullImgURI, caption,
 	)
 }
 
