@@ -119,7 +119,7 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		user.DisplayMedia = displayMedia
 		user.OriginalMedia = originalMedia
 
-		if user.DisplayTimelinePreference != user.DisplayTimelinePreference {
+		if displayTimelinePreference != user.DisplayTimelinePreference {
 			// Force User Views to be recalculated
 			s.cache.DeleteUserViews(ctx.User)
 		}
