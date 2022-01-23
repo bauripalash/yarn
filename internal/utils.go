@@ -448,6 +448,17 @@ func IsLocalURLFactory(conf *Config) func(url string) bool {
 	}
 }
 
+func GetUserFromTwter(conf *Config, db Store, twter types.Twter) (*User, error) {
+	if !strings.HasPrefix(twter.URI, conf.BaseURL) {
+		return nil, fmt.Errorf("error: %s does not match our base url of %s", twter.URI, conf.BaseURL)
+	}
+
+	userURL := UserURL(twter.URI)
+	username := filepath.Base(userURL)
+
+	return db.GetUser(username)
+}
+
 func GetUserFromURL(conf *Config, db Store, url string) (*User, error) {
 	if !strings.HasPrefix(url, conf.BaseURL) {
 		return nil, fmt.Errorf("error: %s does not match our base url of %s", url, conf.BaseURL)

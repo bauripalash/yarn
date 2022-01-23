@@ -402,10 +402,51 @@ func (s *Server) processWebMention(source, target *url.URL, data *microformats.D
 		return
 	}
 
-	user, err := GetUserFromURL(s.config, s.db, target.String())
-	if err != nil {
-		log.WithError(err).WithField("target", target.String()).Warn("unable to get used from webmention target")
-		return err
+	var (
+		user      *User
+		userError error
+	)
+
+	if strings.HasPrefix(target.Path, "/twt/") {
+		hash := strings.TrimPrefix(target.Path, "/twt/")
+		if len(hash) < types.TwtHashLength {
+			log.Errorf("invalid twt %s from webmention target %s", hash, target.String())
+			return fmt.Errorf("invalid twt %s from webmention target %s", hash, target.String())
+		}
+
+		bs, err := DecodeHash(hash)
+		if err != nil || len(bs) < 2 {
+			log.WithError(err).Errorf("error decoding twt %s from webmention target %s", hash, target.String())
+			return fmt.Errorf("error decoding twt %s from webmention target %s", hash, target.String())
+		}
+
+		twt, inCache := s.cache.Lookup(hash)
+		if !inCache {
+			// If the twt is not in the cache look for it in the archive
+			if s.archive.Has(hash) {
+				twt, err = s.archive.Get(hash)
+				if err != nil {
+					log.WithError(err).Errorf("error loading twt %s from archive", hash)
+					return fmt.Errorf("error loading twt %s from archive", hash)
+				}
+			}
+		}
+
+		if twt == nil || twt.IsZero() {
+			log.Errorf("invalid twt %s processing webmention from %s", hash, target.String())
+			return fmt.Errorf("invalid twt %s processing webmention from %s", hash, target.String())
+		}
+
+		user, userError = GetUserFromTwter(s.config, s.db, twt.Twter())
+	} else if strings.HasPrefix(target.Path, "/user/") {
+		user, userError = GetUserFromURL(s.config, s.db, target.String())
+	} else {
+		log.Errorf("unable to process webmention from %s", target.String())
+		return fmt.Errorf("unable to process webmention from %s", target.String())
+	}
+	if userError != nil {
+		log.WithError(userError).Errorf("error loading user while processing webmention from %s", target.String())
+		return fmt.Errorf("error loading user while processing webmention from %s", target.String())
 	}
 
 	name, summary, feed, err := processData(data)

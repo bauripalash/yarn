@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"bufio"
 	"bytes"
 	"errors"
 	"fmt"
@@ -174,20 +175,14 @@ type NewUserEmailContext struct {
 	Username string
 }
 
-// indents a block of text with an indent string
+// Indent indents a block of text with an indent string
 func Indent(text, indent string) string {
-	if text[len(text)-1:] == "\n" {
-		result := ""
-		for _, j := range strings.Split(text[:len(text)-1], "\n") {
-			result += indent + j + "\n"
-		}
-		return result
-	}
 	result := ""
-	for _, j := range strings.Split(strings.TrimRight(text, "\n"), "\n") {
-		result += indent + j + "\n"
+	scanner := bufio.NewScanner(strings.NewReader(text))
+	for scanner.Scan() {
+		result += indent + scanner.Text() + "\n"
 	}
-	return result[:len(result)-1]
+	return result
 }
 
 func SendEmail(conf *Config, recipients []string, replyTo, subject string, body string) error {
