@@ -333,6 +333,17 @@ func RequestHTTP(conf *Config, method, url string, headers http.Header) (*http.R
 	return res, nil
 }
 
+func ResourceExists(conf *Config, url string) bool {
+	res, err := RequestHTTP(conf, http.MethodHead, url, nil)
+	if err != nil {
+		log.WithError(err).Errorf("error checking if %s exists", url)
+		return false
+	}
+	defer res.Body.Close()
+
+	return res.StatusCode/100 == 2
+}
+
 func LineCount(r io.Reader) (int, error) {
 	buf := make([]byte, 32*1024)
 	count := 0
@@ -2489,7 +2500,10 @@ func NewFeedLookup(conf *Config, db Store, user *User) types.FeedLookup {
 									uri = baseURI.ResolveReference(u).String()
 								}
 								log.Debugf("uri: %s", uri)
-								return &types.Twter{Nick: nick, URI: uri}
+								if ResourceExists(conf, uri) {
+									return &types.Twter{Nick: nick, URI: uri}
+								}
+								return &types.Twter{}
 							}
 						}
 					}
