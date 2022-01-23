@@ -15,6 +15,9 @@
       <link rel="icon" type="image/png" href="/img/{{ .Commit}}/favicon.png" />
     {{ end }}
 
+    <!-- WebMentions support-->
+    <link rel="webmention" href="/webmention" />
+
     {{ range .Alternatives }}
       <link rel="alternate" type="{{ .Type }}" title="{{ .Title }}" href="{{ .URL }}" />
     {{ end }}

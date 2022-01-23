@@ -84,15 +84,7 @@ func (s *Server) ConversationHandler() httprouter.Handle {
 		ks = append(ks, tags.Tags()...)
 
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		if strings.HasPrefix(twt.Twter().URI, s.config.BaseURL) {
-			w.Header().Set(
-				"Link",
-				fmt.Sprintf(
-					`<%s/user/%s/webmention>; rel="webmention"`,
-					s.config.BaseURL, twt.Twter().Nick,
-				),
-			)
-		}
+		w.Header().Set("Link", fmt.Sprintf(`<%s/webmention>; rel="webmention"`, s.config.BaseURL))
 
 		twts := s.cache.GetByUserView(ctx.User, fmt.Sprintf("subject:(#%s)", hash), false)[:]
 		if !inCache {
@@ -153,10 +145,6 @@ func (s *Server) ConversationHandler() httprouter.Handle {
 		}
 
 		if strings.HasPrefix(twt.Twter().URI, s.config.BaseURL) {
-			ctx.Links = append(ctx.Links, Link{
-				Href: fmt.Sprintf("%s/webmention", UserURL(twt.Twter().URI)),
-				Rel:  "webmention",
-			})
 			ctx.Alternatives = append(ctx.Alternatives, Alternatives{
 				Alternative{
 					Type:  "text/plain",

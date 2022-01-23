@@ -17,7 +17,6 @@ import (
 
 	"git.mills.io/prologic/observe"
 	"github.com/NYTimes/gziphandler"
-	"github.com/andyleap/microformats"
 	humanize "github.com/dustin/go-humanize"
 	"github.com/gabstv/merger"
 	"github.com/justinas/nosurf"
@@ -27,12 +26,14 @@ import (
 	metricsMiddleware "github.com/slok/go-http-metrics/middleware"
 	httproutermiddleware "github.com/slok/go-http-metrics/middleware/httprouter"
 	"github.com/unrolled/logger"
+	"willnorris.com/go/microformats"
 
 	"git.mills.io/yarnsocial/yarn"
 	"git.mills.io/yarnsocial/yarn/internal/auth"
 	"git.mills.io/yarnsocial/yarn/internal/passwords"
 	"git.mills.io/yarnsocial/yarn/internal/session"
 	"git.mills.io/yarnsocial/yarn/internal/webmention"
+	"git.mills.io/yarnsocial/yarn/types"
 )
 
 var (
@@ -331,15 +332,15 @@ func (s *Server) setupMetrics() {
 	s.AddRoute("GET", "/metrics", metrics.Handler())
 }
 
-func (s *Server) processWebMention(source, target *url.URL, sourceData *microformats.Data) error {
+func (s *Server) processWebMention(source, target *url.URL, data *microformats.Data) error {
 	log.
 		WithField("source", source).
 		WithField("target", target).
-		Infof("received webmention from %s to %s", source.String(), target.String())
+		Debugf("received webmention from %s to %s", source.String(), target.String())
 
-	getEntry := func(data *microformats.Data) (*microformats.MicroFormat, error) {
+	getEntry := func(data *microformats.Data) (*microformats.Microformat, error) {
 		if data != nil {
-			for _, item := range sourceData.Items {
+			for _, item := range data.Items {
 				if HasString(item.Type, "h-entry") {
 					return item, nil
 				}
@@ -348,11 +349,11 @@ func (s *Server) processWebMention(source, target *url.URL, sourceData *microfor
 		return nil, errors.New("error: no entry found")
 	}
 
-	getAuthor := func(entry *microformats.MicroFormat) (*microformats.MicroFormat, error) {
+	getAuthor := func(entry *microformats.Microformat) (*microformats.Microformat, error) {
 		if entry != nil {
 			authors := entry.Properties["author"]
 			if len(authors) > 0 {
-				if v, ok := authors[0].(*microformats.MicroFormat); ok {
+				if v, ok := authors[0].(*microformats.Microformat); ok {
 					return v, nil
 				}
 			}
@@ -360,38 +361,43 @@ func (s *Server) processWebMention(source, target *url.URL, sourceData *microfor
 		return nil, errors.New("error: no author found")
 	}
 
-	parseSourceData := func(data *microformats.Data) (string, string, error) {
+	processData := func(data *microformats.Data) (name, summary, feed string, err error) {
 		if data == nil {
-			return "", "", nil
+			return
 		}
 
 		entry, err := getEntry(data)
 		if err != nil {
 			log.WithError(err).Error("error getting entry")
-			return "", "", err
+			return
+		}
+
+		if summaries := entry.Properties["summary"]; len(summaries) > 0 {
+			if v, ok := summaries[0].(string); ok {
+				summary = strings.TrimSpace(v)
+			}
 		}
 
 		author, err := getAuthor(entry)
 		if err != nil {
 			log.WithError(err).Error("error getting author")
-			return "", "", err
+			return
 		}
 
-		var authorName string
-
-		if author != nil {
-			authorName = strings.TrimSpace(author.Value)
-		}
-
-		var sourceFeed string
-
-		for _, alternate := range sourceData.Alternates {
-			if alternate.Type == "text/plain" {
-				sourceFeed = alternate.URL
+		if names := author.Properties["name"]; len(names) > 0 {
+			if v, ok := names[0].(string); ok {
+				name = strings.TrimSpace(v)
 			}
 		}
 
-		return authorName, sourceFeed, nil
+		for url, rel := range data.RelURLs {
+			if rel.Type == "text/plain" {
+				feed = url
+				break
+			}
+		}
+
+		return
 	}
 
 	user, err := GetUserFromURL(s.config, s.db, target.String())
@@ -400,11 +406,14 @@ func (s *Server) processWebMention(source, target *url.URL, sourceData *microfor
 		return err
 	}
 
-	authorNick, sourceFeed, err := parseSourceData(sourceData)
+	name, summary, feed, err := processData(data)
 	if err != nil {
-		log.WithError(err).Warnf("error parsing mf2 source data from %s", source)
+		log.WithError(err).Warnf("error processing mf2 data from %s", source)
 		return err
 	}
+	log.Debugf("name: %q", name)
+	log.Debugf("summary: %q", summary)
+	log.Debugf("feed: %q", feed)
 
 	adminUser, err := s.db.GetUser(s.config.AdminUser)
 	if err != nil {
@@ -424,10 +433,10 @@ func (s *Server) processWebMention(source, target *url.URL, sourceData *microfor
 		user.Username, s.config.URLForUser(user.Username),
 	)
 
-	if authorNick != "" && sourceFeed != "" {
+	if name != "" && feed != "" {
 		mentionText += fmt.Sprintf(
 			"you were mentioned on %s by @<%s %s>",
-			source.String(), authorNick, sourceFeed,
+			source.String(), name, feed,
 		)
 	} else {
 		mentionText += fmt.Sprintf(
@@ -436,15 +445,33 @@ func (s *Server) processWebMention(source, target *url.URL, sourceData *microfor
 		)
 	}
 
+	mentionText += fmt.Sprintf("\n\n%s", strings.TrimSpace(Indent(summary, "> ")))
+
 	mentionText = CleanTwt(mentionText)
 
-	mentionTwt, err := s.AppendTwt(adminUser, supportFeed, mentionText)
-	if err != nil {
-		log.WithError(err).Warnf("error posting mention for %s", user.Username)
-		return err
+	// If the mention is an ordinary WebMention (no Source Feed)
+	// then inject a message notifying the user of the mention via
+	// @support feed.
+	if feed == "" {
+		mentionTwt, err := s.AppendTwt(adminUser, supportFeed, mentionText)
+		if err != nil {
+			log.WithError(err).Warnf("error posting mention for %s", user.Username)
+			return err
+		}
+		s.cache.InjectFeed(s.config.URLForUser(supportFeed.Name), mentionTwt)
+		if user.Follows(s.config.URLForUser(supportFeed.Name)) {
+			s.cache.DeleteUserViews(user)
+		}
+	} else {
+		// Otherwise if the mention came from a Yarn.social Pod (valid Source Feed)
+		// AND if the user doesn't already follow the feed and would see the
+		// mention normally, then fetch the feed as a once-off (on demand).
+		if !user.Follows(feed) {
+			sources := make(types.FetchFeedRequests)
+			sources[types.FetchFeedRequest{Nick: name, URL: feed}] = true
+			s.cache.FetchFeeds(s.config, s.archive, sources, nil)
+		}
 	}
-	s.cache.InjectFeed(s.config.URLForUser(supportFeed.Name), mentionTwt)
-	s.cache.DeleteUserViews(user)
 
 	return nil
 }
@@ -596,7 +623,7 @@ func (s *Server) initRoutes() {
 	s.router.GET("/user/:nick/bookmarks", httproutermiddleware.Handler("bookmarks", s.BookmarksHandler(), mdlw))
 
 	// WebMentions
-	s.router.POST("/user/:nick/webmention", httproutermiddleware.Handler("webmentions", s.WebMentionHandler(), mdlw))
+	s.router.POST("/webmention", httproutermiddleware.Handler("webmentions", s.WebMentionHandler(), mdlw))
 
 	// Syndication Formats (RSS, Atom, JSON Feed)
 	s.router.HEAD("/user/:nick/atom.xml", httproutermiddleware.Handler("user_atom", s.SyndicationHandler(), mdlw))
@@ -800,6 +827,7 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 
 	csrfHandler := nosurf.New(router)
 	csrfHandler.ExemptGlob("/api/v1/*")
+	csrfHandler.ExemptPath("/webmention")
 
 	// Useful for Safari / Mobile Safari when behind Cloudflare to streaming
 	// videos _actually_ works :O

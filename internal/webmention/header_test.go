@@ -1,17 +1,18 @@
 package webmention
 
 import (
-	"fmt"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestHeader(t *testing.T) {
+	assert := assert.New(t)
+
 	test := []string{`<http://alice.host/webmention-endpoint>; rel="webmention"`}
 
 	links := GetHeaderLinks(test)
-	for _, l := range links {
-		fmt.Println(l.URL)
-		fmt.Println(l.Params)
-	}
-
+	assert.Equal(1, len(links))
+	assert.Equal(links[0].URL.String(), "http://alice.host/webmention-endpoint")
+	assert.Equal(links[0].Params["rel"], []string{"webmention"})
 }

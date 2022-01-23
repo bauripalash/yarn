@@ -116,15 +116,7 @@ func (s *Server) PermalinkHandler() httprouter.Handle {
 
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		w.Header().Set("Last-Modified", twt.Created().Format(http.TimeFormat))
-		if strings.HasPrefix(twt.Twter().URI, s.config.BaseURL) {
-			w.Header().Set(
-				"Link",
-				fmt.Sprintf(
-					`<%s/user/%s/webmention>; rel="webmention"`,
-					s.config.BaseURL, twt.Twter().Nick,
-				),
-			)
-		}
+		w.Header().Set("Link", fmt.Sprintf(`<%s/webmention>; rel="webmention"`, s.config.BaseURL))
 
 		if r.Method == http.MethodHead {
 			defer r.Body.Close()
@@ -144,10 +136,6 @@ func (s *Server) PermalinkHandler() httprouter.Handle {
 			Keywords:    strings.Join(ks, ", "),
 		}
 		if strings.HasPrefix(twt.Twter().URI, s.config.BaseURL) {
-			ctx.Links = append(ctx.Links, Link{
-				Href: fmt.Sprintf("%s/webmention", UserURL(twt.Twter().URI)),
-				Rel:  "webmention",
-			})
 			ctx.Alternatives = append(ctx.Alternatives, Alternatives{
 				Alternative{
 					Type:  "text/plain",

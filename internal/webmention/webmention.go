@@ -7,15 +7,15 @@ import (
 	"strings"
 	"time"
 
-	"github.com/andyleap/microformats"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/html"
 	"golang.org/x/net/html/atom"
+	"willnorris.com/go/microformats"
 )
 
 type WebMention struct {
-	inbox       chan *mention
-	outbox      chan *mention
+	inbox       chan mention
+	outbox      chan mention
 	inboxTimer  *time.Timer
 	outboxTimer *time.Timer
 	Mention     func(source, target *url.URL, sourceData *microformats.Data) error
@@ -23,8 +23,8 @@ type WebMention struct {
 
 func New() *WebMention {
 	wm := &WebMention{
-		inbox:  make(chan *mention, 100),
-		outbox: make(chan *mention, 100),
+		inbox:  make(chan mention, 100),
+		outbox: make(chan mention, 100),
 	}
 	wm.inboxTimer = time.NewTimer(5 * time.Second)
 	wm.outboxTimer = time.NewTimer(5 * time.Second)
@@ -63,10 +63,9 @@ func (wm *WebMention) GetTargetEndpoint(target *url.URL) (*url.URL, error) {
 		}
 	}
 
-	parser := microformats.New()
-	mf2data := parser.Parse(res.Body, target)
+	data := microformats.Parse(res.Body, target)
 
-	for _, link := range mf2data.Rels["webmention"] {
+	for _, link := range data.Rels["webmention"] {
 		wmurl, err := url.Parse(link)
 		if err != nil {
 			log.WithError(err).Warn("error parsing webmention link")
@@ -79,19 +78,34 @@ func (wm *WebMention) GetTargetEndpoint(target *url.URL) (*url.URL, error) {
 }
 
 func (wm *WebMention) SendNotification(target *url.URL, source *url.URL) {
-	wm.outbox <- &mention{source, target}
+	wm.outbox <- mention{source, target}
 }
 
 func (wm *WebMention) WebMentionEndpoint(w http.ResponseWriter, r *http.Request) {
+	log.Debug("WebMentionEndpoint:")
 	source := r.FormValue("source")
 	target := r.FormValue("target")
+	log.Debugf("source: %s", source)
+	log.Debugf("target: %s", target)
 	if source != "" && target != "" {
-		sourceurl, _ := url.Parse(source)
-		targeturl, _ := url.Parse(target)
-		wm.inbox <- &mention{
+		sourceurl, err := url.Parse(source)
+		if err != nil {
+			log.WithError(err).Errorf("error parsing source url: %s", source)
+			http.Error(w, "Bad Source URL", http.StatusBadRequest)
+			return
+		}
+		targeturl, err := url.Parse(target)
+		if err != nil {
+			log.WithError(err).Errorf("error parsing target url: %s", source)
+			http.Error(w, "Bad Target URL", http.StatusBadRequest)
+			return
+		}
+
+		wm.inbox <- mention{
 			sourceurl,
 			targeturl,
 		}
+
 		w.WriteHeader(http.StatusAccepted)
 	} else {
 		http.Error(w, "Bad Request", http.StatusBadRequest)
@@ -101,36 +115,45 @@ func (wm *WebMention) WebMentionEndpoint(w http.ResponseWriter, r *http.Request)
 func (wm *WebMention) processInbox() {
 	mention := <-wm.inbox
 
+	log.Debugf("processing mention from %s to %s", mention.source, mention.target)
+
 	res, err := http.Get(mention.source.String())
-	if err != nil || res.StatusCode/100 != 2 {
-		log.Errorf("error getting source %s (%s): %s", mention.source, res.Status, err)
+	if err != nil {
+		log.WithError(err).Errorf("error verifying source: %s", mention.source.String())
 		return
 	}
 	defer res.Body.Close()
 
-	body, err := html.Parse(res.Body)
+	if res.StatusCode/100 != 2 {
+		log.Errorf("non-200 response %s verifying source: %s", res.Status, mention.source.String())
+		return
+	}
+
+	node, err := html.Parse(res.Body)
 	if err != nil {
 		log.Errorf("error parsing source %s: %s", mention.source, err)
 		return
 	}
 
-	found := searchLinks(body, mention.target)
+	found := searchLinks(node, mention.target)
 	if found {
-		p := microformats.New()
-		data := p.ParseNode(body, mention.source)
+		data := microformats.ParseNode(node, mention.source)
 		if err := wm.Mention(mention.source, mention.target, data); err != nil {
 			log.WithError(err).Error("error processing webmention")
 		}
 		return
 	}
+	log.Debugf("no links found in body, trying headers...")
 
 	links := GetHeaderLinks(res.Header.Values("Link"))
+	log.Debugf("links: %q", links)
 	if len(links) > 0 {
 		if err := wm.Mention(mention.source, mention.target, nil); err != nil {
 			log.WithError(err).Error("error processing webmention")
 		}
 		return
 	}
+	log.Debugf("no links found in heders, nothing to do!")
 }
 
 func (wm *WebMention) processOutbox() {
@@ -147,6 +170,8 @@ func (wm *WebMention) processOutbox() {
 	values := make(url.Values)
 	values.Set("source", mention.source.String())
 	values.Set("target", mention.target.String())
+	log.Debugf("Sending webmention to %s", endpoint.String())
+	log.Debugf("values: %q", values)
 	res, err := http.PostForm(endpoint.String(), values)
 	if err != nil || (res.StatusCode%100 != 2) {
 		log.WithError(err).Errorf(
@@ -156,7 +181,7 @@ func (wm *WebMention) processOutbox() {
 		return
 	}
 	defer res.Body.Close()
-	log.Infof(
+	log.Debugf(
 		"successfully sent webmention to %s (source=%s target=%s)",
 		endpoint.String(), mention.source.String(), mention.target.String(),
 	)
@@ -170,7 +195,7 @@ func searchLinks(node *html.Node, link *url.URL) bool {
 				if err == nil {
 					// pods have the form
 					// http://pod.domain.tld/external?uri=uri&nick=nick
-					if strings.HasPrefix(target.Path, "/external") && target.Query().Get("url") == link.String() {
+					if strings.HasPrefix(target.Path, "/external") && target.Query().Get("uri") == link.String() {
 						return true
 					}
 					if target.String() == link.String() {

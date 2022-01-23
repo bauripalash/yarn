@@ -12,7 +12,6 @@ require (
 	github.com/NYTimes/gziphandler v1.1.1
 	github.com/PuerkitoBio/goquery v1.8.0
 	github.com/andreadipersio/securecookie v0.0.0-20131119095127-e3c3b33544ec
-	github.com/andyleap/microformats v0.0.0-20150523144534-25ae286f528b
 	github.com/audiolion/ipip v1.0.0
 	github.com/badgerodon/ioutil v0.0.0-20150716134133-06e58e34b867
 	github.com/creasty/defaults v1.5.2
@@ -38,7 +37,6 @@ require (
 	github.com/jinzhu/gorm v1.9.16 // indirect
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/justinas/nosurf v1.1.1
-	github.com/kylelemons/godebug v1.1.0 // indirect
 	github.com/lithammer/shortuuid/v3 v3.0.7
 	github.com/makeworld-the-better-one/go-gemini v0.13.0
 	github.com/marksalpeter/sugar v0.0.0-20160713164314-a69afe358ea8 // indirect
@@ -90,4 +88,5 @@ require (
 	gopkg.in/mail.v2 v2.3.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/gorm v1.22.5 // indirect
+	willnorris.com/go/microformats v1.1.1
 )

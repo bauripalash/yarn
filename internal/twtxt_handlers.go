@@ -133,7 +133,7 @@ func (s *Server) TwtxtHandler() httprouter.Handle {
 		}
 
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		w.Header().Set("Link", fmt.Sprintf(`<%s/user/%s/webmention>; rel="webmention"`, s.config.BaseURL, nick))
+		w.Header().Set("Link", fmt.Sprintf(`<%s/webmention>; rel="webmention"`, s.config.BaseURL))
 		w.Header().Set("Powered-By", fmt.Sprintf("yarnd/%s (Pod: %s Support: %s)", yarn.FullVersion(), s.config.Name, URLForPage(s.config.BaseURL, "support")))
 
 		mrs := ioutil.NewMultiReadSeeker(strings.NewReader(preamble), pr)
