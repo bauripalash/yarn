@@ -2188,14 +2188,7 @@ func FormatTwtFactory(conf *Config, cache *Cache, archive Archiver) func(twt typ
 			}
 		}
 
-		markdownInput := twt.FormatText(types.MarkdownFmt, conf)
-		if subject, _ := GetTwtConvSubjectHash(cache, archive, twt); subject != "" {
-			markdownInput = strings.ReplaceAll(markdownInput, subject, "")
-			markdownInput = strings.TrimSpace(markdownInput)
-		}
-
-		md := []byte(markdownInput)
-		maybeUnsafeHTML := markdown.ToHTML(md, mdParser, renderer)
+		maybeUnsafeHTML := markdown.ToHTML([]byte(twt.FormatText(types.HTMLFmt, conf)), mdParser, renderer)
 
 		p := bluemonday.UGCPolicy()
 		p.AllowAttrs("id").OnElements("dialog")

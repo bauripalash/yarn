@@ -459,6 +459,10 @@ func (n *Subject) Text() string {
 func (n *Subject) Tag() types.TwtTag { return n.tag }
 func (n *Subject) Subject() string   { return n.subject }
 func (n *Subject) Format(state fmt.State, r rune) {
+	if state.Flag('-') {
+		return
+	}
+
 	_, _ = state.Write([]byte("("))
 	if n.tag != nil {
 		n.tag.Format(state, 'c')
@@ -949,7 +953,7 @@ func (twt *Twt) FormatText(mode types.TwtTextFormat, opts types.FmtOpts) string 
 
 	switch mode {
 	case types.HTMLFmt:
-		return fmt.Sprintf("%h", twt)
+		return fmt.Sprintf("%-h", twt)
 	case types.TextFmt:
 		return fmt.Sprintf("%t", twt)
 	case types.MarkdownFmt:

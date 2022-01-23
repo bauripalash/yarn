@@ -751,25 +751,25 @@ func TestParseTwt(t *testing.T) {
 
 			assert.True(twt != nil)
 			if twt != nil {
-				assert.Equal(fmt.Sprintf("%L", twt), fmt.Sprintf("%L", tt.twt))
+				assert.Equal(fmt.Sprintf("%L", tt.twt), fmt.Sprintf("%L", twt))
 
 				testParseTwt(t, tt.twt, twt)
 			}
 			if tt.text != "" {
-				assert.Equal(twt.FormatText(types.TextFmt, fmtOpts), tt.text)
+				assert.Equal(tt.text, twt.FormatText(types.TextFmt, fmtOpts))
 			}
 			if tt.md != "" {
-				assert.Equal(twt.FormatText(types.MarkdownFmt, fmtOpts), tt.md)
+				assert.Equal(tt.md, twt.FormatText(types.MarkdownFmt, fmtOpts))
 			}
 			if tt.html != "" {
-				assert.Equal(twt.FormatText(types.HTMLFmt, fmtOpts), tt.html)
+				assert.Equal(tt.html, twt.FormatText(types.HTMLFmt, fmtOpts))
 			}
 			if tt.subject != "" {
-				assert.Equal(fmt.Sprintf("%c", twt.Subject()), tt.subject)
+				assert.Equal(tt.subject, fmt.Sprintf("%c", twt.Subject()))
 			}
 			if tt.twter != nil {
-				assert.Equal(twt.Twter().Nick, tt.twter.Nick)
-				assert.Equal(twt.Twter().URI, tt.twter.URI)
+				assert.Equal(tt.twter.Nick, twt.Twter().Nick)
+				assert.Equal(tt.twter.URI, twt.Twter().URI)
 			}
 		})
 	}
