@@ -46,23 +46,23 @@ type Meta struct {
 type Context struct {
 	Debug bool
 
-	Logo              template.HTML
-	CSS               template.CSS
-	BaseURL           string
-	InstanceName      string
-	SoftwareVersion   SoftwareConfig
-	TwtsPerPage       int
-	TwtPrompt         string
-	MaxTwtLength      int
-	AvatarResolution  int
-	MediaResolution   int
-	RegisterDisabled  bool
-	OpenProfiles      bool
-	DisableMedia      bool
-	DisableFfmpeg     bool
-	PermittedImages   []string
-	BlocklistedFeeds  []string
-	EnabledFeatures   []string
+	Logo             template.HTML
+	CSS              template.CSS
+	BaseURL          string
+	InstanceName     string
+	SoftwareVersion  SoftwareConfig
+	TwtsPerPage      int
+	TwtPrompt        string
+	MaxTwtLength     int
+	AvatarResolution int
+	MediaResolution  int
+	RegisterDisabled bool
+	OpenProfiles     bool
+	DisableMedia     bool
+	DisableFfmpeg    bool
+	PermittedImages  []string
+	BlocklistedFeeds []string
+	EnabledFeatures  []string
 
 	Timezones []*timezones.Zoneinfo
 
@@ -89,6 +89,7 @@ type Context struct {
 	Commit      string
 
 	Page    string
+	View    string
 	Content template.HTML
 
 	Title        string
@@ -158,24 +159,24 @@ func NewContext(s *Server, req *http.Request) *Context {
 	ctx := &Context{
 		Debug: conf.Debug,
 
-		Logo:              logo,
-		CSS:               css,
-		BaseURL:           conf.BaseURL,
-		InstanceName:      conf.Name,
-		SoftwareVersion:   conf.Version,
-		TwtsPerPage:       conf.TwtsPerPage,
-		TwtPrompt:         conf.RandomTwtPrompt(),
-		MaxTwtLength:      conf.MaxTwtLength,
-		AvatarResolution:  conf.AvatarResolution,
-		MediaResolution:   conf.MediaResolution,
-		RegisterDisabled:  !conf.OpenRegistrations,
-		OpenProfiles:      conf.OpenProfiles,
-		DisableMedia:      conf.DisableMedia,
-		DisableFfmpeg:     conf.DisableFfmpeg,
-		LastTwt:           types.NilTwt,
-		PermittedImages:   conf.PermittedImages,
-		BlocklistedFeeds:  conf.BlocklistedFeeds,
-		EnabledFeatures:   conf.Features.AsStrings(),
+		Logo:             logo,
+		CSS:              css,
+		BaseURL:          conf.BaseURL,
+		InstanceName:     conf.Name,
+		SoftwareVersion:  conf.Version,
+		TwtsPerPage:      conf.TwtsPerPage,
+		TwtPrompt:        conf.RandomTwtPrompt(),
+		MaxTwtLength:     conf.MaxTwtLength,
+		AvatarResolution: conf.AvatarResolution,
+		MediaResolution:  conf.MediaResolution,
+		RegisterDisabled: !conf.OpenRegistrations,
+		OpenProfiles:     conf.OpenProfiles,
+		DisableMedia:     conf.DisableMedia,
+		DisableFfmpeg:    conf.DisableFfmpeg,
+		LastTwt:          types.NilTwt,
+		PermittedImages:  conf.PermittedImages,
+		BlocklistedFeeds: conf.BlocklistedFeeds,
+		EnabledFeatures:  conf.Features.AsStrings(),
 
 		DisplayDatesInTimezone:  conf.DisplayDatesInTimezone,
 		DisplayTimePreference:   conf.DisplayTimePreference,

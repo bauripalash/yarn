@@ -115,6 +115,8 @@ func (s *Server) render(name string, w http.ResponseWriter, ctx *Context) {
 		}
 	}
 
+	ctx.View = name
+
 	buf, err := s.tmplman.Exec(name, ctx)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
