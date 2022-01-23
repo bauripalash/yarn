@@ -128,7 +128,7 @@
     <ul>
       {{ if $.Authenticated }}
         <li><a class="replyBtn" href="#" data-reply="{{ $.User.Reply $.Twt }}"><i class="ti ti-message-plus" data-reply="{{ $.User.Reply $.Twt }}"></i> {{tr $.Ctx "TwtReplyLinkTitle"}}</a></li>
-        {{ if and (eq $.view "conv") (not (eq $.view "rootconv")) }}
+        {{ if and (eq $.view "conv") (not (eq $.Twt.Hash $.Ctx.Root.Hash)) }}
           {{ if lt (getForkLength $.Twt $.User) 1 }}
             <li><a class="forkBtn" href="#" data-fork="{{ $.User.Fork $.Twt }}"><i class="ti ti-messages" data-fork="{{ $.User.Fork $.Twt }}"></i> {{tr $.Ctx "TwtForkLinkTitle"}}</a></li>
           {{ end }}
@@ -138,12 +138,12 @@
           <li><a class="deleteBtn" href="#" data-hash="{{ $.Twt.Hash }}"><i class="ti ti-trash" data-hash="{{ $.Twt.Hash }}"></i> {{tr $.Ctx "TwtDeleteLinkTitle"}}</a></li>
         {{ end }}
       {{ end }}
-      {{ if and (eq $.view "conv") (not (eq $.view "rootconv")) }}
+      {{ if and (eq $.view "conv") (not (eq $.Twt.Hash $.Ctx.Root.Hash)) }}
         {{ if gt (getForkLength $.Twt $.User) 0 }}
           <li><a class="convBtn" href="{{ urlForFork $.Twt }}"><i class="ti ti-messages"></i> {{tr $.Ctx "TwtForkLinkTitle"}}<span class="yarn-count-badge">{{ getForkLength $.Twt $.User }}</span></a></li>
         {{ end }}
       {{ end }}
-      {{ if eq $.view "rootconv" }}
+      {{ if eq $.Twt.Hash $.Ctx.Root.Hash }}
         {{ with urlForRootConv $.Twt }}
           <li><a class="convBtn" href="{{ urlForRootConv $.Twt }}"><i class="ti ti-message"></i> Root</a></li>
         {{ end }}
@@ -184,7 +184,7 @@
 
 {{ define "pager" }}
 {{ if $.Pager.HasPages }}
-<nav class="pagination-nav">
+<nav class="{{ if $.Ctx.Root.IsZero }}timeline-nav{{ else }}yarn-nav{{ end }}">
   <ul>
     <li>
       {{ if $.Pager.HasPrev }}

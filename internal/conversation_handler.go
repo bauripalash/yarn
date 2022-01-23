@@ -54,6 +54,7 @@ func (s *Server) ConversationHandler() httprouter.Handle {
 			s.render("404", w, ctx)
 			return
 		}
+		ctx.Root = twt
 
 		var (
 			who   string

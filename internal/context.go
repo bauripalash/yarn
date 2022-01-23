@@ -97,12 +97,15 @@ type Context struct {
 	Links        Links
 	Alternatives Alternatives
 
-	Twter       types.Twter
-	Twts        types.Twts
+	Twter types.Twter
+	Twts  types.Twts
+	Root  types.Twt
+
+	Pager *paginator.Paginator
+
 	LocalFeeds  []*Feed
 	UserFeeds   []*Feed
 	FeedSources FeedSourceMap
-	Pager       *paginator.Paginator
 
 	// Time
 	TimelineUpdatedAt time.Time
@@ -218,6 +221,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 			OriginalMedia:           conf.OriginalMedia,
 		},
 		Twter: types.Twter{},
+		Root:  types.NilTwt,
 
 		CSRFToken: nosurf.Token(req),
 	}

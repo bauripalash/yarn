@@ -110,15 +110,7 @@ article.grid {
   margin-right: 1rem;
 }
 
-nav.pagination-nav {
-  margin: -0.5rem 1rem -1rem 1rem;
-}
-
-nav.pagination-nav:nth-of-type(2) {
-  margin: -1rem 1rem -2.5rem 1rem;
-}
-
-nav.pagination-nav a {
+nav.timeline-nav a {
   margin-top: -0.9rem;
 }
 
@@ -918,12 +910,20 @@ pre {
     margin-top: 2.25rem;
   }
 
-  nav.pagination-nav:nth-of-type(2) {
-    margin: -1rem 1rem -1.25rem 1rem;
+  nav.yarn-nav {
+    margin: -0.5rem 1rem -0.5rem 1rem;
   }
 
-  nav.pagination-nav {
-    margin: -0.5rem 1rem -1rem 1rem;
+  nav.timeline-nav {
+    margin: -2rem 1rem -0.5rem 1rem;
+  }
+
+  nav.yarn-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem 0.75rem 1rem;
+  }
+
+  nav.timeline-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -1.5rem 1rem;
   }
 
   .h-feed article:first-child {
@@ -954,7 +954,7 @@ pre {
 
 @media (min-width: 577px) and (max-width: 768px) {
   html {
-    overflow: -moz-scrollbars-vertical; 
+    overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
   }
 
@@ -981,12 +981,20 @@ pre {
     display: inherit;
   }
 
-  nav.pagination-nav {
-    margin: -1.25rem 1rem -1rem 1rem;
+  nav.yarn-nav {
+    margin: -0.5rem 1rem -0.5rem 1rem;
   }
 
-  nav.pagination-nav:nth-of-type(2) {
-    margin: -1rem 1rem -2rem 1rem;
+  nav.timeline-nav {
+    margin: -2rem 1rem -0.5rem 1rem;
+  }
+
+  nav.yarn-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -0.75rem 1rem;
+  }
+
+  nav.timeline-nav:nth-of-type(2) {
+    margin: -0.75rem 1rem -1.75rem 1rem;
   }
 
   .toolbar-reply {
@@ -1059,7 +1067,7 @@ pre {
 
 @media (min-width: 769px) and (max-width: 991px) {
   html {
-    overflow: -moz-scrollbars-vertical; 
+    overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
   }
 
@@ -1077,8 +1085,17 @@ pre {
     margin-left: 0.25rem;
   }
 
-  nav.pagination-nav:nth-of-type(2) {
-    margin: -1rem 1rem -2.5rem 1rem;
+  nav.yarn-nav,
+  nav.timeline-nav {
+    margin: -0.5rem 1rem -0.5rem 1rem;
+  }
+
+  nav.yarn-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -0.75rem 1rem;
+  }
+
+  nav.timeline-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -2rem 1rem;
   }
 
   .container article.container-fluid:last-child {
@@ -1088,7 +1105,7 @@ pre {
 
 @media (min-width: 992px) and (max-width: 1199px) {
   html {
-    overflow: -moz-scrollbars-vertical; 
+    overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
   }
 
@@ -1107,8 +1124,17 @@ pre {
     display: inherit;
   }
 
-  nav.pagination-nav:nth-of-type(2) {
-    margin: -1rem 1rem -3.25rem 1rem;
+  nav.yarn-nav,
+  nav.timeline-nav {
+    margin: -0.5rem 1rem -0.5rem 1rem;
+  }
+
+  nav.yarn-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -0.75rem 1rem;
+  }
+
+  nav.timeline-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -3rem 1rem;
   }
 
   .container article.container-fluid:last-child {
@@ -1118,7 +1144,7 @@ pre {
 
 @media (min-width: 1200px) {
   html {
-    overflow: -moz-scrollbars-vertical; 
+    overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
   }
 
@@ -1137,7 +1163,16 @@ pre {
     display: inherit;
   }
 
-  nav.pagination-nav:nth-of-type(2) {
-    margin: -1rem 1rem -4rem 1rem;
+  nav.yarn-nav,
+  nav.timeline-nav {
+    margin: -0.5rem 1rem -0.5rem 1rem;
+  }
+
+  nav.yarn-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -0.75rem 1rem;
+  }
+
+  nav.timeline-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -3.5rem 1rem;
   }
 }

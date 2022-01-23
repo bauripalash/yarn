@@ -202,13 +202,18 @@ function resetPostBox() {
   postbox.removeClass("drawer");
 
   u("#postbox").remove();
-  u("main").prepend(postbox);
+
+  if (window.location.href.indexOf('/conv/') > 0) {
+    u("main").append(postbox);
+  } else {
+    u("main").prepend(postbox);
+  }
 
   u("#toolbar").removeClass("toolbar-reply");
   u("#form").removeClass("form-reply");
 
   u('.grid.h-feed').removeClass("bump-up");
-  u("main").scroll();
+  u("#postbox").scroll();
 }
 
 u("#theme select").on("change", function(e) {
@@ -243,7 +248,7 @@ u(".deleteBtn").on("click", deleteTwt);
 
 u("#post").on("click", function(e) {
   e.preventDefault();
-  
+
   var form = u("#form").first();
 
   if (!form.checkValidity()) {
