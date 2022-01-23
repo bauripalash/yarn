@@ -18,6 +18,9 @@
     <!-- WebMentions support-->
     <link rel="webmention" href="/webmention" />
 
+    <!-- Vanity Twtxt/Yarn URI(s) -->
+    <meta name="yarn-uri" content="/user/%s/twtxt.txt" />
+
     {{ range .Alternatives }}
       <link rel="alternate" type="{{ .Type }}" title="{{ .Title }}" href="{{ .URL }}" />
     {{ end }}

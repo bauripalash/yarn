@@ -115,6 +115,7 @@ var (
 	multiUserUARegex  = regexp.MustCompile(`(.+) \(~(https?://\S+\/\S+); contact=(https?://\S+)\)`)
 	yarndUserUARegex  = regexp.MustCompile(`(.+) \(Pod: (\S+) Support: (https?://\S+)\)`)
 	mediaURIRegex     = regexp.MustCompile(`\/media\/[a-zA-Z0-9]{16,}\.(png|gif|mp4|mp3)`)
+	yarnURIRegex      = regexp.MustCompile(`@?(\S+)@(\S+)`)
 
 	ErrInvalidFeedName  = errors.New("error: invalid feed name")
 	ErrBadRequest       = errors.New("error: request failed with non-200 response")
@@ -2462,6 +2463,37 @@ func NewFeedLookup(conf *Config, db Store, user *User) types.FeedLookup {
 				}
 
 				return &types.Twter{Nick: followedAs, URI: followedURL}
+			}
+		}
+
+		// TODO: Refactor this into a function
+		// TODO: Add caching to avoid duplicate lookups on the same domain?
+		if match := yarnURIRegex.FindStringSubmatch(alias); match != nil {
+			log.Debugf("match: %v", match)
+			nick := match[1]
+			domain := match[2]
+			if baseURI, err := url.Parse(fmt.Sprintf("https://%s", domain)); err == nil {
+				if res, err := RequestHTTP(conf, http.MethodGet, fmt.Sprintf("https://%s", domain), nil); err == nil {
+					defer res.Body.Close()
+					if res.StatusCode == http.StatusOK {
+						if doc, err := goquery.NewDocumentFromReader(res.Body); err == nil {
+							if val, ok := doc.Find(`meta[name="yarn-uri"]`).Attr("content"); ok {
+								log.Debugf("val: %v", val)
+								var uri string
+								if strings.Contains(val, "%s") {
+									uri = fmt.Sprintf(val, nick)
+								} else {
+									uri = val
+								}
+								if u, err := url.Parse(uri); err == nil && !u.IsAbs() {
+									uri = baseURI.ResolveReference(u).String()
+								}
+								log.Debugf("uri: %s", uri)
+								return &types.Twter{Nick: nick, URI: uri}
+							}
+						}
+					}
+				}
 			}
 		}
 
