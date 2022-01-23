@@ -146,7 +146,7 @@ func (wm *WebMention) processInbox() {
 	log.Debugf("no links found in body, trying headers...")
 
 	links := GetHeaderLinks(res.Header.Values("Link"))
-	log.Debugf("links: %q", links)
+	log.Debugf("links: %v", links)
 	if len(links) > 0 {
 		if err := wm.Mention(mention.source, mention.target, nil); err != nil {
 			log.WithError(err).Error("error processing webmention")
