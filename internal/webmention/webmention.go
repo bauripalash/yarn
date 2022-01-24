@@ -178,7 +178,6 @@ func (wm *WebMention) processOutbox() {
 	}
 	if endpoint == nil {
 		log.Debugf("no endpoint found! requeueing (attempts %d)", mention.attempts)
-		wm.outbox <- mention
 		return
 	}
 	values := make(url.Values)
