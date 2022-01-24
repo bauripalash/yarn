@@ -1659,7 +1659,9 @@ func (cache *Cache) GetMentions(u *User, refresh bool) types.Twts {
 		return cached.GetTwts()
 	}
 
-	twts := cache.FilterBy(FilterByMentionFactory(u))
+	mentions := cache.FilterBy(FilterByMentionFactory(u))
+	twts := cache.filterTwts(u, mentions)
+	sort.Sort(twts)
 
 	cache.mu.Lock()
 	cache.Views[key] = NewCachedTwts(twts, "")

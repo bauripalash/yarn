@@ -1807,7 +1807,7 @@ func UnparseTwtFactory(conf *Config) func(text string) string {
 type FilterTwtsFunc func(user *User, twts types.Twts) types.Twts
 
 // FilterTwtsFactory returns a function that filters out Twts from users/feeds that a User has chosen to mute
-// or are otherwised shadowed by the Pod (as decided by a Pod Owner/Operatgor).
+// or are otherwise shadowed by the Pod (as decided by a Pod Owner/Operator).
 func FilterTwtsFactory(conf *Config) FilterTwtsFunc {
 	return func(user *User, twts types.Twts) types.Twts {
 		if user == nil || user.Username == "" {
