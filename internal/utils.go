@@ -653,10 +653,11 @@ func DownloadImage(conf *Config, url string, resource, name string, opts *ImageO
 	}
 	defer res.Body.Close()
 
-	tf, err := receiveFile(res.Body, "rss2twtxt-*")
+	tf, err := receiveFile(res.Body, "yarnd-avatar-*")
 	if err != nil {
 		return "", err
 	}
+	defer os.Remove(tf.Name())
 
 	if !IsImage(tf.Name()) {
 		return "", ErrInvalidImage
