@@ -575,6 +575,8 @@ func (u *User) Reply(twt types.Twt) string {
 	// only if the original twter isn't ourselves!
 	if u.Follows(twt.Twter().URI) && !u.Is(twt.Twter().URI) {
 		tokens = append(tokens, fmt.Sprintf("@%s", u.FollowsAs(twt.Twter().URI)))
+	} else if !u.Is(twt.Twter().URI) {
+		tokens = append(tokens, fmt.Sprintf("@%s", twt.Twter().DomainNick()))
 	}
 
 	return fmt.Sprintf("%s ", strings.Join(tokens, " "))
@@ -588,6 +590,8 @@ func (u *User) Fork(twt types.Twt) string {
 	// only if the original twter isn't ourselves!
 	if u.Follows(twt.Twter().URI) && !u.Is(twt.Twter().URI) {
 		tokens = append(tokens, fmt.Sprintf("@%s", twt.Twter().Nick))
+	} else if !u.Is(twt.Twter().URI) {
+		tokens = append(tokens, fmt.Sprintf("@%s", twt.Twter().DomainNick()))
 	}
 
 	return fmt.Sprintf("%s ", strings.Join(tokens, " "))
