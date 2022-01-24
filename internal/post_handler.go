@@ -156,6 +156,7 @@ func (s *Server) PostHandler() httprouter.Handle {
 			for _, m := range twt.Mentions() {
 				twter := m.Twter()
 				if !s.config.IsLocalURL(twter.URI) {
+					log.Debugf("queueing outgoing webmention for %s", twter)
 					if err := WebMention(twter.URI, URLForTwt(s.config.BaseURL, twt.Hash())); err != nil {
 						log.WithError(err).Warnf("error sending webmention to %s", twter.URI)
 					}

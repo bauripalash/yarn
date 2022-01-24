@@ -13,28 +13,32 @@ import (
 	"willnorris.com/go/microformats"
 )
 
+const (
+	maxWebMentionAttempts = 6
+)
+
 type WebMention struct {
-	inbox       chan mention
-	outbox      chan mention
-	inboxTimer  *time.Timer
-	outboxTimer *time.Timer
-	Mention     func(source, target *url.URL, sourceData *microformats.Data) error
+	inbox        chan *mention
+	outbox       chan *mention
+	inboxTicker  *time.Ticker
+	outboxTicker *time.Ticker
+	Mention      func(source, target *url.URL, sourceData *microformats.Data) error
 }
 
 func New() *WebMention {
 	wm := &WebMention{
-		inbox:  make(chan mention, 100),
-		outbox: make(chan mention, 100),
+		inbox:  make(chan *mention, 100),
+		outbox: make(chan *mention, 100),
 	}
-	wm.inboxTimer = time.NewTimer(5 * time.Second)
-	wm.outboxTimer = time.NewTimer(5 * time.Second)
+	wm.inboxTicker = time.NewTicker(5 * time.Second)
+	wm.outboxTicker = time.NewTicker(5 * time.Second)
 	go func() {
-		for range wm.inboxTimer.C {
+		for range wm.inboxTicker.C {
 			wm.processInbox()
 		}
 	}()
 	go func() {
-		for range wm.outboxTimer.C {
+		for range wm.outboxTicker.C {
 			wm.processOutbox()
 		}
 	}()
@@ -42,8 +46,9 @@ func New() *WebMention {
 }
 
 type mention struct {
-	source *url.URL
-	target *url.URL
+	source   *url.URL
+	target   *url.URL
+	attempts int
 }
 
 func (wm *WebMention) GetTargetEndpoint(target *url.URL) (*url.URL, error) {
@@ -55,6 +60,7 @@ func (wm *WebMention) GetTargetEndpoint(target *url.URL) (*url.URL, error) {
 	defer res.Body.Close()
 
 	links := GetHeaderLinks(res.Header["Link"])
+	log.Debugf("links: %v", links)
 	for _, link := range links {
 		for _, rel := range link.Params["rel"] {
 			if rel == "webmention" || rel == "http://webmention.org" {
@@ -62,9 +68,11 @@ func (wm *WebMention) GetTargetEndpoint(target *url.URL) (*url.URL, error) {
 			}
 		}
 	}
+	log.Debugf("no webmention endpoint found by HTTP Header Link")
 
 	data := microformats.Parse(res.Body, target)
 
+	log.Debugf("Rels: %v", data.Rels["webmention"])
 	for _, link := range data.Rels["webmention"] {
 		wmurl, err := url.Parse(link)
 		if err != nil {
@@ -73,12 +81,13 @@ func (wm *WebMention) GetTargetEndpoint(target *url.URL) (*url.URL, error) {
 		}
 		return wmurl, nil
 	}
+	log.Debugf("no webmention endpoint found in Document")
 
 	return nil, nil
 }
 
 func (wm *WebMention) SendNotification(target *url.URL, source *url.URL) {
-	wm.outbox <- mention{source, target}
+	wm.outbox <- &mention{source, target, 0}
 }
 
 func (wm *WebMention) WebMentionEndpoint(w http.ResponseWriter, r *http.Request) {
@@ -101,10 +110,7 @@ func (wm *WebMention) WebMentionEndpoint(w http.ResponseWriter, r *http.Request)
 			return
 		}
 
-		wm.inbox <- mention{
-			sourceurl,
-			targeturl,
-		}
+		wm.inbox <- &mention{sourceurl, targeturl, 0}
 
 		w.WriteHeader(http.StatusAccepted)
 	} else {
@@ -158,13 +164,21 @@ func (wm *WebMention) processInbox() {
 
 func (wm *WebMention) processOutbox() {
 	mention := <-wm.outbox
+	mention.attempts += 1
+
+	if mention.attempts > maxWebMentionAttempts {
+		log.Errorf("giving up processing outgoing webmention for %s after %d attempts", mention.target.String(), mention.attempts)
+		return
+	}
 
 	endpoint, err := wm.GetTargetEndpoint(mention.target)
 	if err != nil {
-		log.WithError(err).Error("error retrieving webmention endpoint")
+		log.WithError(err).Errorf("error retrieving webmention endpoint, requeueing (attempts %d)", mention.attempts)
 		return
 	}
 	if endpoint == nil {
+		log.Debugf("no endpoint found! requeueing (attempts %d)", mention.attempts)
+		wm.outbox <- mention
 		return
 	}
 	values := make(url.Values)
