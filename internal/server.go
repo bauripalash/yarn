@@ -458,44 +458,30 @@ func (s *Server) processWebMention(source, target *url.URL, data *microformats.D
 	log.Debugf("summary: %q", summary)
 	log.Debugf("feed: %q", feed)
 
-	adminUser, err := s.db.GetUser(s.config.AdminUser)
-	if err != nil {
-		log.WithError(err).Warn("error loading admin user object")
-		return err
-	}
+	if feed == "" {
+		adminUser, err := s.db.GetUser(s.config.AdminUser)
+		if err != nil {
+			log.WithError(err).Warn("error loading admin user object")
+			return err
+		}
 
-	supportFeed, err := s.db.GetFeed(supportSpecialUser)
-	if err != nil {
-		log.WithError(err).Warn("error loading support feed object")
-		return err
-	}
+		supportFeed, err := s.db.GetFeed(supportSpecialUser)
+		if err != nil {
+			log.WithError(err).Warn("error loading support feed object")
+			return err
+		}
 
-	// TODO: Make this configurable?
-	mentionText := fmt.Sprintf(
-		"👋 Hello @<%s %s>, ",
-		user.Username, s.config.URLForUser(user.Username),
-	)
-
-	if name != "" && feed != "" {
-		mentionText += fmt.Sprintf(
-			"you were mentioned on %s by @<%s %s>",
-			source.String(), name, feed,
-		)
-	} else {
-		mentionText += fmt.Sprintf(
-			"you were mentioned on %s",
+		// TODO: Make this configurable?
+		mentionText := fmt.Sprintf(
+			"👋 Hello @<%s %s>, you were web mentioned on %s",
+			user.Username, s.config.URLForUser(user.Username),
 			source.String(),
 		)
-	}
 
-	mentionText += fmt.Sprintf("\n\n%s", strings.TrimSpace(Indent(summary, "> ")))
+		mentionText += fmt.Sprintf("\n\n%s", strings.TrimSpace(Indent(summary, "> ")))
 
-	mentionText = CleanTwt(mentionText)
+		mentionText = CleanTwt(mentionText)
 
-	// If the mention is an ordinary WebMention (no Source Feed)
-	// then inject a message notifying the user of the mention via
-	// @support feed.
-	if feed == "" {
 		mentionTwt, err := s.AppendTwt(adminUser, supportFeed, mentionText)
 		if err != nil {
 			log.WithError(err).Warnf("error posting mention for %s", user.Username)
@@ -505,15 +491,19 @@ func (s *Server) processWebMention(source, target *url.URL, data *microformats.D
 		if user.Follows(s.config.URLForUser(supportFeed.Name)) {
 			s.cache.DeleteUserViews(user)
 		}
-	} else {
-		// Otherwise if the mention came from a Yarn.social Pod (valid Source Feed)
-		// AND if the user doesn't already follow the feed and would see the
-		// mention normally, then fetch the feed as a once-off (on demand).
-		if !user.Follows(feed) {
-			sources := make(types.FetchFeedRequests)
-			sources[types.FetchFeedRequest{Nick: name, URL: feed}] = true
-			s.cache.FetchFeeds(s.config, s.archive, sources, nil)
-		}
+		return nil
+	}
+
+	// If the mention is an ordinary WebMention (no Source Feed)
+	// then inject a message notifying the user of the mention via
+	// @support feed.
+	// Otherwise if the mention came from a Yarn.social Pod (valid Source Feed)
+	// AND if the user doesn't already follow the feed and would see the
+	// mention normally, then fetch the feed as a once-off (on demand).
+	if !user.Follows(feed) {
+		sources := make(types.FetchFeedRequests)
+		sources[types.FetchFeedRequest{Nick: name, URL: feed}] = true
+		s.cache.FetchFeeds(s.config, s.archive, sources, nil)
 	}
 
 	return nil
