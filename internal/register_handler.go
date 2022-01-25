@@ -22,14 +22,8 @@ func (s *Server) RegisterHandler() httprouter.Handle {
 			if s.config.OpenRegistrations {
 				s.render("register", w, ctx)
 			} else {
-				message := s.config.RegisterMessage
-
-				if message == "" {
-					message = s.tr(ctx, "ErrorRegisterDisabled")
-				}
-
 				ctx.Error = true
-				ctx.Message = message
+				ctx.Message = s.tr(ctx, "ErrorRegisterDisabled")
 				s.render("error", w, ctx)
 			}
 

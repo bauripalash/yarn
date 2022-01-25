@@ -95,16 +95,15 @@ type Config struct {
 	Logo              string
 	CSS               string
 	Description       string
-	Store             string
-	Theme             string
+	Store             string `json:"-"`
+	Theme             string `json:"-"`
 	Lang              string
 	BaseURL           string
-	AdminUser         string
-	AdminName         string
-	AdminEmail        string
+	AdminUser         string `json:"-"`
+	AdminName         string `json:"-"`
+	AdminEmail        string `json:"-"`
 	FeedSources       []string
-	RegisterMessage   string
-	CookieSecret      string
+	CookieSecret      string `json:"-"`
 	TwtPrompts        []string
 	TwtsPerPage       int
 	MaxUploadSize     int64
@@ -124,27 +123,27 @@ type Config struct {
 	SessionCacheTTL   time.Duration
 	TranscoderTimeout time.Duration
 
-	MagicLinkSecret string
+	MagicLinkSecret string `json:"-"`
 
-	SMTPHost string
-	SMTPPort int
-	SMTPUser string
-	SMTPPass string
-	SMTPFrom string
+	SMTPHost string `json:"-"`
+	SMTPPort int    `json:"-"`
+	SMTPUser string `json:"-"`
+	SMTPPass string `json:"-"`
+	SMTPFrom string `json:"-"`
 
 	MaxCacheFetchers int
 	MaxFetchLimit    int64
 
-	APISessionTime time.Duration
-	APISigningKey  string
+	APISessionTime time.Duration `json:"-"`
+	APISigningKey  string        `json:"-"`
 
 	baseURL *url.URL
 
 	permittedImages []*regexp.Regexp
-	PermittedImages []string
+	PermittedImages []string `json:"-"`
 
 	blocklistedFeeds []*regexp.Regexp
-	BlocklistedFeeds []string
+	BlocklistedFeeds []string `json:"-"`
 
 	Features *FeatureFlags
 

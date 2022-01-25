@@ -985,6 +985,9 @@ func (twt *Twt) ExpandMentions(opts types.FmtOpts, lookup types.FeedLookup) {
 					m.name = twter.Nick
 				}
 				m.target = twter.URI
+			} else if m.name == twter.Nick {
+				m.domain = twter.Domain()
+				m.target = twter.URI
 			}
 		}
 

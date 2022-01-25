@@ -66,9 +66,6 @@ const (
 	// DefaultDisableFfmpeg is the default for disabling ffmpeg support
 	DefaultDisableFfmpeg = false
 
-	// DefaultRegisterMessage is the default message displayed when  registrations are disabled
-	DefaultRegisterMessage = ""
-
 	// DefaultCookieSecret is the server's default cookie secret
 	DefaultCookieSecret = InvalidConfigValue
 
@@ -219,7 +216,6 @@ func NewConfig() *Config {
 		BaseURL:                 DefaultBaseURL,
 		AdminUser:               DefaultAdminUser,
 		FeedSources:             DefaultFeedSources,
-		RegisterMessage:         DefaultRegisterMessage,
 		CookieSecret:            DefaultCookieSecret,
 		TwtPrompts:              DefaultTwtPrompts,
 		TwtsPerPage:             DefaultTwtsPerPage,

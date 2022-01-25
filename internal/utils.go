@@ -2479,6 +2479,9 @@ func GetMediaNamesFromText(text string) []string {
 	return mediaNames
 }
 
+// NewFeedLookup returns a `types.FeedLookupFn` that resolves any @-mentions into
+// `types.Twter()` objects used for later expansion into the proper Twtxt URI
+// mention syntax @<nick url>
 func NewFeedLookup(conf *Config, db Store, user *User) types.FeedLookup {
 	return types.FeedLookupFn(func(alias string) *types.Twter {
 		for followedAs, followedURL := range user.Following {
