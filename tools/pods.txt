@@ -11,3 +11,4 @@ yarn.meff.me
 txt.quisquiliae.com
 yarn.mills.io
 devtxt.quisquiliae.com
+yarn.yarnpods.com
