@@ -90,7 +90,7 @@ type Config struct {
 
 	Debug bool
 
-	Data              string
+	Data              string `json:"-"`
 	Name              string
 	Logo              string
 	CSS               string
