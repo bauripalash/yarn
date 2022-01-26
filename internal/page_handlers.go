@@ -8,6 +8,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"sync"
+	"time"
 
 	"github.com/gomarkdown/markdown"
 	"github.com/gomarkdown/markdown/html"
@@ -34,33 +36,96 @@ type FrontMatter struct {
 	Description string
 }
 
+type Page struct {
+	Content      string
+	LastModified time.Time
+}
+
 // PageHandler ...
-func (s *Server) PageHandler(page string) httprouter.Handle {
-	var markdownTemplate string
+func (s *Server) PageHandler(name string) httprouter.Handle {
+	pagesBaseDir := filepath.Join(s.config.Data, pagesDir)
 
-	name := filepath.Join(pagesDir, fmt.Sprintf("%s.md", page))
-	fn := filepath.Join(s.config.Data, name)
+	pageMutex := &sync.RWMutex{}
+	pageCache := make(map[string]*Page)
 
-	if FileExists(fn) {
-		if data, err := os.ReadFile(fn); err != nil {
-			log.WithError(err).Errorf("error reading custom page %s", page)
-			markdownTemplate = markdownErrorPageTemplate
-		} else {
-			markdownTemplate = string(data)
+	getPage := func(name string) (*Page, error) {
+		fn := filepath.Join(pagesBaseDir, fmt.Sprintf("%s.md", name))
+
+		pageMutex.RLock()
+		page, isCached := pageCache[name]
+		pageMutex.RUnlock()
+
+		if isCached && FileExists(fn) {
+			if fileInfo, err := os.Stat(fn); err == nil {
+				if fileInfo.ModTime().After(page.LastModified) {
+					data, err := os.ReadFile(fn)
+					if err != nil {
+						log.WithError(err).Warnf("error reading page %s", name)
+						return page, nil
+					}
+					page.Content = string(data)
+					page.LastModified = fileInfo.ModTime()
+
+					pageMutex.Lock()
+					pageCache[name] = page
+					pageMutex.Unlock()
+
+					return page, nil
+				}
+			}
 		}
-	} else {
-		if data, err := builtinPages.ReadFile(name); err != nil {
-			log.WithError(err).Errorf("error reading custom page %s", page)
-			markdownTemplate = markdownErrorPageTemplate
+
+		page = &Page{}
+
+		if FileExists(fn) {
+			fileInfo, err := os.Stat(fn)
+			if err != nil {
+				log.WithError(err).Errorf("error getting page stats")
+				return nil, err
+			}
+			page.LastModified = fileInfo.ModTime()
+
+			data, err := os.ReadFile(fn)
+			if err != nil {
+				log.WithError(err).Errorf("error reading page %s", name)
+				return nil, err
+			}
+			page.Content = string(data)
 		} else {
-			markdownTemplate = string(data)
+			fn := filepath.Join(pagesDir, fmt.Sprintf("%s.md", name))
+			data, err := builtinPages.ReadFile(fn)
+			if err != nil {
+				log.WithError(err).Errorf("error reading custom page %s", name)
+				return nil, err
+			}
+			page.Content = string(data)
 		}
+
+		pageMutex.Lock()
+		pageCache[name] = page
+		pageMutex.Unlock()
+
+		return page, nil
 	}
 
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		ctx := NewContext(s, r)
 
-		markdownContent, err := RenderHTML(markdownTemplate, ctx)
+		page, err := getPage(name)
+		if err != nil {
+			if os.IsNotExist(err) {
+				ctx.Error = true
+				ctx.Message = s.tr(ctx, "PageNotFoundTitle")
+				s.render("404", w, ctx)
+				return
+			}
+			ctx.Error = true
+			ctx.Message = s.tr(ctx, "ErrorPageError")
+			s.render("message", w, ctx)
+			return
+		}
+
+		markdownContent, err := RenderHTML(page.Content, ctx)
 		if err != nil {
 			log.WithError(err).Errorf("error rendering page %s", name)
 			ctx.Error = true
