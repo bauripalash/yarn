@@ -1255,26 +1255,18 @@ func (cache *Cache) Converge(archive Archiver) {
 	metrics.Counter("cache", "missing_twts").Add(float64(len(missingRootTwts)))
 
 	for hash, peers := range missingRootTwts {
-		var (
-			peer       *Peer
-			missingTwt types.Twt
-		)
+		var missingTwt types.Twt
 		for _, possiblePeer := range peers {
 			if !cache.conf.IsLocalURL(possiblePeer.URI) {
 				if twt, err := possiblePeer.GetTwt(cache.conf, hash); err == nil {
 					missingTwt = twt
-					peer = possiblePeer
 					break
 				}
 			}
 		}
 		if missingTwt != nil {
-			if IsTwtAuthentic(cache.conf, missingTwt) {
-				cache.InjectFeed(missingTwt.Twter().URI, missingTwt)
-				GetExternalAvatar(cache.conf, missingTwt.Twter())
-			} else {
-				log.Warnf("peer %s has possible forged twt %s", peer, missingTwt.Hash())
-			}
+			cache.InjectFeed(missingTwt.Twter().URI, missingTwt)
+			GetExternalAvatar(cache.conf, missingTwt.Twter())
 		}
 	}
 

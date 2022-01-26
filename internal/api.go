@@ -79,7 +79,6 @@ func (a *API) initRoutes() {
 
 	router.POST("/post", a.isAuthorized(a.PostEndpoint()))
 	router.POST("/upload", a.isAuthorized(a.UploadMediaEndpoint()))
-	router.POST("/inject", a.isAuthorized(a.InjectEndpoint()))
 
 	router.GET("/settings", a.isAuthorized(a.SettingsEndpoint()))
 	router.POST("/settings", a.isAuthorized(a.SettingsEndpoint()))
@@ -902,49 +901,6 @@ func (a *API) UploadMediaEndpoint() httprouter.Handle {
 			w.WriteHeader(http.StatusAccepted)
 		}
 		_, _ = w.Write(data)
-	}
-}
-
-// InjectEndpoint ...
-func (a *API) InjectEndpoint() httprouter.Handle {
-	isAdminUser := IsAdminUserFactory(a.config)
-	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		loggedInUser := a.getLoggedInUser(r)
-
-		if !isAdminUser(loggedInUser) {
-			http.Error(w, "Unauthorized", http.StatusUnauthorized)
-			return
-		}
-
-		data, err := ioutil.ReadAll(r.Body)
-		if err != nil {
-			log.WithError(err).Error("error reading inject request body")
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			return
-		}
-
-		twt, err := types.DecodeJSON(data)
-		if err != nil {
-			log.WithError(err).Error("error parsing inject request")
-			http.Error(w, "Bad Request", http.StatusBadRequest)
-			return
-		}
-
-		if _, inCache := a.cache.Lookup(twt.Hash()); inCache || a.archive.Has(twt.Hash()) {
-			http.Error(w, "Already exists", http.StatusConflict)
-			return
-		}
-
-		GetExternalAvatar(a.config, twt.Twter())
-
-		a.cache.InjectFeed(twt.Twter().URI, twt)
-		if err := a.archive.Archive(twt); err != nil {
-			log.WithError(err).Warnf("error archiving injected twt %s", twt.Hash())
-		}
-
-		// No real response
-		w.Header().Set("Content-Type", "application/json")
-		_, _ = w.Write([]byte(`{}`))
 	}
 }
 

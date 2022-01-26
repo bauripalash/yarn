@@ -1133,22 +1133,6 @@ func NormalizeFeedName(name string) string {
 	return name
 }
 
-func IsTwtAuthentic(conf *Config, twt types.Twt) bool {
-	hash := twt.Hash()
-	twter := twt.Twter()
-	tf, err := ValidateFeed(conf, twter.Nick, twter.URI)
-	if err != nil {
-		log.WithError(err).Errorf("error validating feed %s to authenticate twt %s", twter, hash)
-		return false
-	}
-	for _, tfTwt := range tf.Twts() {
-		if tfTwt.Hash() == twt.Hash() {
-			return true
-		}
-	}
-	return false
-}
-
 func ValidateFeed(conf *Config, nick, url string) (types.TwtFile, error) {
 	var body io.ReadCloser
 
