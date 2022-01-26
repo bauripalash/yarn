@@ -1769,9 +1769,11 @@ func ValidateUsername(username string) error {
 }
 
 // UnparseTwtFactory is the opposite of CleanTwt and ExpandMentions/ExpandTags
-func UnparseTwtFactory(conf *Config) func(text string) string {
+func UnparseTwtFactory(conf *Config) func(twt types.Twt) string {
 	isLocalURL := IsLocalURLFactory(conf)
-	return func(text string) string {
+	return func(twt types.Twt) string {
+		text := twt.FormatText(types.LiteralFmt, conf)
+
 		text = strings.ReplaceAll(text, "\u2028", "\n")
 
 		re := regexp.MustCompile(`(@|#)<([^ ]+) *([^>]+)>`)
