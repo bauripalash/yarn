@@ -440,6 +440,7 @@ func NewCache(conf *Config) *Cache {
 
 		Version: feedCacheVersion,
 
+		List:  NewCached(),
 		Map:   make(map[string]types.Twt),
 		Peers: make(map[string]*Peer),
 		Feeds: make(map[string]*Cached),
@@ -1363,14 +1364,13 @@ func (cache *Cache) InjectFeed(url string, twt types.Twt) {
 		return
 	}
 
-	cache.mu.RLock()
+	cache.mu.Lock()
+	defer cache.mu.Unlock()
+
 	cached, ok := cache.Feeds[url]
-	cache.mu.RUnlock()
 
 	if !ok {
-		cache.mu.Lock()
 		cache.Feeds[url] = NewCachedTwts(types.Twts{twt}, time.Now().Format(http.TimeFormat))
-		cache.mu.Unlock()
 	} else {
 		cached.Inject(twt)
 	}
@@ -1378,9 +1378,6 @@ func (cache *Cache) InjectFeed(url string, twt types.Twt) {
 	// Update the Cache directly
 	// XXX: This code was directly lifed from Cache.Refresh()
 	// but designed to work with just a single Twt.
-
-	cache.mu.Lock()
-	defer cache.mu.Unlock()
 
 	// Update Cache.Map (hash -> Twt)
 	cache.Map[twt.Hash()] = twt
@@ -1390,11 +1387,17 @@ func (cache *Cache) InjectFeed(url string, twt types.Twt) {
 
 	// Update Cache.Views (Local)
 	if cache.conf.IsLocalURL(twt.Twter().URI) {
+		if cache.Views[localViewKey] == nil {
+			cache.Views[localViewKey] = NewCached()
+		}
 		cache.Views[localViewKey].Inject(twt)
 	}
 
 	// Update Cache.Views (Discover)
 	if FilterOutFeedsAndBotsFactory(cache.conf)(twt) {
+		if cache.Views[discoverViewKey] == nil {
+			cache.Views[discoverViewKey] = NewCached()
+		}
 		cache.Views[discoverViewKey].Inject(twt)
 	}
 
@@ -1414,7 +1417,6 @@ func (cache *Cache) InjectFeed(url string, twt types.Twt) {
 	}
 	for _, subject := range subjects {
 		key := "subject:" + subject
-
 		if _, ok := cache.Views[key]; !ok {
 			cache.Views[key] = NewCached()
 		}
@@ -1428,6 +1430,10 @@ func (cache *Cache) InjectFeed(url string, twt types.Twt) {
 
 		cache.Views[key].Inject(twt)
 	}
+
+	// Update cached Twters
+	twter := twt.Twter()
+	cache.Twters[twter.URI] = &twter
 }
 
 // SnipeFeed deletes a twt from a Cache.

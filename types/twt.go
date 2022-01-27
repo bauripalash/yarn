@@ -52,6 +52,17 @@ type Twter struct {
 	Metadata url.Values
 }
 
+func NewTwter(nick, uri string) Twter {
+	return Twter{
+		Nick:       nick,
+		URI:        uri,
+		HashingURI: uri,
+
+		Follow:   make(map[string]Twter),
+		Metadata: make(url.Values),
+	}
+}
+
 func (twter Twter) IsZero() bool {
 	return twter.Nick == "" && twter.URI == ""
 }

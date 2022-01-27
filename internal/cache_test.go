@@ -19,7 +19,7 @@ var (
 
 	testLocalNick  = "admin"
 	testLocalFeed  = "http://127.0.0.1:8000/user/admin/twtxt.txt"
-	testLocalTwter = types.Twter{Nick: testLocalNick, URI: testLocalFeed}
+	testLocalTwter = types.NewTwter(testLocalNick, testLocalFeed)
 
 	testLocalTwts = types.Twts{
 		types.MakeTwt(testLocalTwter, time.Time{}, "Hello World!"),
@@ -36,7 +36,7 @@ var (
 
 	testExternalNick  = "john"
 	testExternalFeed  = "https://example.com/twtxt.txt"
-	testExternalTwter = types.Twter{Nick: testExternalNick, URI: testExternalFeed}
+	testExternalTwter = types.NewTwter(testExternalNick, testExternalFeed)
 
 	testExternalTwts = types.Twts{
 		types.MakeTwt(
@@ -446,7 +446,7 @@ func TestCache_Snipe(t *testing.T) {
 	assert.Equal(t, 2, cache.TwtCount())
 
 	badtwt := types.MakeTwt(testExternalTwter, time.Time{}, "bad twt")
-	cache.InjectFeed(testExternalTwter.URL, badtwt)
+	cache.InjectFeed(testExternalTwter.URI, badtwt)
 	assert.Equal(t, 3, cache.TwtCount())
 
 	//
@@ -493,7 +493,7 @@ func TestCache_DeleteConsistency(t *testing.T) {
 	assert.Equal(t, 2, cache.TwtCount())
 
 	twt1 := types.MakeTwt(testExternalTwter, time.Time{}, "This will be deleted")
-	cache.InjectFeed(testExternalTwter.URL, twt1)
+	cache.InjectFeed(testExternalTwter.URI, twt1)
 	assert.Equal(t, 3, cache.TwtCount())
 
 	_, has := cache.Lookup(twt1.Hash())
@@ -514,12 +514,12 @@ func TestCache_InjectAndSnipe(t *testing.T) {
 
 	// Inject twt1.
 	twt1 := types.MakeTwt(testExternalTwter, time.Time{}, "Hello world")
-	cache.InjectFeed(testExternalTwter.URL, twt1)
+	cache.InjectFeed(testExternalTwter.URI, twt1)
 	assert.Equal(t, 3, cache.TwtCount())
 
 	// Inject twt2.
 	twt2 := types.MakeTwt(testExternalTwter, time.Time{}, "Yo world")
-	cache.InjectFeed(testExternalTwter.URL, twt2)
+	cache.InjectFeed(testExternalTwter.URI, twt2)
 	assert.Equal(t, 4, cache.TwtCount())
 
 	// Snipe twt1.
@@ -529,4 +529,17 @@ func TestCache_InjectAndSnipe(t *testing.T) {
 	// Snipe twt2.
 	cache.SnipeFeed(twt1.Twter().URL, twt1)
 	assert.Equal(t, 2, cache.TwtCount())
+}
+
+func TestCache_InjectUpdatesTwters(t *testing.T) {
+	assert := assert.New(t)
+
+	cache := NewCache(testConfig)
+
+	twt := types.MakeTwt(testExternalTwter, time.Time{}, "Hello world")
+	cache.InjectFeed(testExternalTwter.URI, twt)
+	assert.Equal(1, cache.TwtCount())
+
+	assert.Equal(&testExternalTwter, cache.GetTwter(testExternalTwter.URI))
+	assert.Equal(&testExternalTwter, cache.FindTwter(testExternalTwter.Nick))
 }
