@@ -2465,10 +2465,25 @@ func GetMediaNamesFromText(text string) []string {
 	return mediaNames
 }
 
-// NewFeedLookup returns a `types.FeedLookupFn` that resolves any @-mentions into
+// NewMultiFeedLookup returns a `types.FeedLookup` that resolves any @-mentions into
+// `types.Twter()` objects used for later expansion into the proper Twtxt URI
+// mention syntax @<nick url>; This relies on calling a chain of multiple `types.FeedLookup`(s)
+// in turn until one of them returns a non-nil / non-zero `types.Twter`.
+func NewMultiFeedLookup(feedLookupFns ...types.FeedLookup) types.FeedLookup {
+	return types.FeedLookupFn(func(alias string) *types.Twter {
+		for _, feedLookup := range feedLookupFns {
+			if twter := feedLookup.FeedLookup(alias); !twter.IsZero() {
+				return twter
+			}
+		}
+		return &types.Twter{}
+	})
+}
+
+// NewUserFollowedFeedLookup returns a `types.FeedLookup` that resolves any @-mentions into
 // `types.Twter()` objects used for later expansion into the proper Twtxt URI
 // mention syntax @<nick url>
-func NewFeedLookup(conf *Config, db Store, user *User) types.FeedLookup {
+func NewUserFollowedFeedLookup(user *User) types.FeedLookup {
 	return types.FeedLookupFn(func(alias string) *types.Twter {
 		for followedAs, followedURL := range user.Following {
 			if strings.EqualFold(alias, followedAs) {
@@ -2487,7 +2502,44 @@ func NewFeedLookup(conf *Config, db Store, user *User) types.FeedLookup {
 			}
 		}
 
-		// TODO: Refactor this into a function
+		return &types.Twter{}
+	})
+}
+
+// NewCachedFeedLookup returns a `types.FeedLookup` that resolves any @-mentions into
+// `types.Twter()` objects used for later expansion into the proper Twtxt URI
+// mention syntax @<nick url>; This check against local users and feeds.
+func NewCachedFeedLookup(cache *Cache) types.FeedLookup {
+	return types.FeedLookupFn(func(alias string) *types.Twter {
+		twter := cache.FindTwter(alias)
+		if !twter.IsZero() {
+			return twter
+		}
+
+		return &types.Twter{}
+	})
+}
+
+// NewLocalFeedLookup returns a `types.FeedLookup` that resolves any @-mentions into
+// `types.Twter()` objects used for later expansion into the proper Twtxt URI
+// mention syntax @<nick url>; This check against local users and feeds.
+func NewLocalFeedLookup(conf *Config, db Store) types.FeedLookup {
+	return types.FeedLookupFn(func(alias string) *types.Twter {
+		username := NormalizeUsername(alias)
+		if db.HasUser(username) || db.HasFeed(username) {
+			return &types.Twter{Nick: username, URI: URLForUser(conf.BaseURL, username)}
+		}
+
+		return &types.Twter{}
+	})
+}
+
+// NewRemoteFeedLookup returns a `types.FeedLookup` that resolves any @-mentions into
+// `types.Twter()` objects used for later expansion into the proper Twtxt URI
+// mention syntax @<nick url>; This uses a remote lookup mechanism based on a discovery
+// protocol as documetned here: xxx (TBD).
+func NewRemoteFeedLookup(conf *Config) types.FeedLookup {
+	return types.FeedLookupFn(func(alias string) *types.Twter {
 		// TODO: Add caching to avoid duplicate lookups on the same domain?
 		if match := yarnURIRegex.FindStringSubmatch(alias); match != nil {
 			log.Debugf("match: %v", match)
@@ -2520,12 +2572,6 @@ func NewFeedLookup(conf *Config, db Store, user *User) types.FeedLookup {
 				}
 			}
 		}
-
-		username := NormalizeUsername(alias)
-		if db.HasUser(username) || db.HasFeed(username) {
-			return &types.Twter{Nick: username, URI: URLForUser(conf.BaseURL, username)}
-		}
-
 		return &types.Twter{}
 	})
 }

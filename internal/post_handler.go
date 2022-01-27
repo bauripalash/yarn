@@ -15,7 +15,7 @@ import (
 //
 // TODO: Support deleting/patching last feed (`postas`) twt too.
 func (s *Server) PostHandler() httprouter.Handle {
-	var appendTwt = AppendTwtFactory(s.config, s.db)
+	var appendTwt = AppendTwtFactory(s.config, s.cache, s.db)
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		postAs := strings.ToLower(strings.TrimSpace(r.FormValue("postas")))
 		ctx := NewContext(s, r)

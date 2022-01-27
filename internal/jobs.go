@@ -100,7 +100,7 @@ type StatsJob struct {
 func NewStatsJob(conf *Config, cache *Cache, archive Archiver, db Store) Job {
 	return &StatsJob{
 		conf: conf, cache: cache, archive: archive, db: db,
-		appendTwt: AppendTwtFactory(conf, db),
+		appendTwt: AppendTwtFactory(conf, cache, db),
 	}
 }
 

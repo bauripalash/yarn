@@ -19,14 +19,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const (
-	pagesDir = "pages"
-
-	markdownErrorPageTemplate = `# Error loading page
-
-An error occurred trying to read the source of this page {{ .Page }}
-Please try again later...`
-)
+const pagesDir = "pages"
 
 //go:embed pages/*.md
 var builtinPages embed.FS

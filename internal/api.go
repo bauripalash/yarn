@@ -369,7 +369,7 @@ func (a *API) AuthEndpoint() httprouter.Handle {
 
 // PostEndpoint ...
 func (a *API) PostEndpoint() httprouter.Handle {
-	appendTwt := AppendTwtFactory(a.config, a.db)
+	appendTwt := AppendTwtFactory(a.config, a.cache, a.db)
 
 	return func(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		user := r.Context().Value(UserContextKey).(*User)

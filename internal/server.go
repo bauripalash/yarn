@@ -918,7 +918,7 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 	}
 
 	// Factory functions that require access to the Pod Config and Store
-	server.AppendTwt = AppendTwtFactory(config, db)
+	server.AppendTwt = AppendTwtFactory(config, cache, db)
 	server.FilterTwts = FilterTwtsFactory(config)
 
 	if err := server.setupJobs(); err != nil {

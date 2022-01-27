@@ -1780,6 +1780,22 @@ func (cache *Cache) GetByURL(url string) types.Twts {
 	return types.Twts{}
 }
 
+// Findtwter ...
+func (cache *Cache) FindTwter(s string) *types.Twter {
+	// TODO: Optimize this?
+	// TODO: Use a fuzzy search?
+
+	cache.mu.RLock()
+	defer cache.mu.RUnlock()
+
+	for _, twter := range cache.Twters {
+		if strings.EqualFold(s, twter.Nick) || strings.EqualFold(s, twter.DomainNick()) {
+			return twter
+		}
+	}
+	return &types.Twter{}
+}
+
 // GetTwter ...
 func (cache *Cache) GetTwter(uri string) *types.Twter {
 	cache.mu.RLock()

@@ -45,7 +45,7 @@ func DeleteLastTwt(conf *Config, user *User) error {
 
 type AppendTwtFunc func(user *User, feed *Feed, text string, args ...interface{}) (types.Twt, error)
 
-func AppendTwtFactory(conf *Config, db Store) AppendTwtFunc {
+func AppendTwtFactory(conf *Config, cache *Cache, db Store) AppendTwtFunc {
 	isAdminUser := IsAdminUserFactory(conf)
 	canPostAsFeed := func(user *User, feed *Feed) bool {
 		if user.OwnsFeed(feed.Name) {
@@ -90,7 +90,7 @@ func AppendTwtFactory(conf *Config, db Store) AppendTwtFunc {
 
 		// Support replacing/editing an existing Twt whilst preserving Created Timestamp
 		now := time.Now()
-		if len(args) == 1 {
+		if len(args) > 0 {
 			if t, ok := args[0].(time.Time); ok {
 				now = t
 			}
@@ -104,9 +104,16 @@ func AppendTwtFactory(conf *Config, db Store) AppendTwtFunc {
 			twter = feed.Twter(conf)
 		}
 
+		feedLookupFn := NewMultiFeedLookup(
+			NewUserFollowedFeedLookup(user),
+			NewCachedFeedLookup(cache),
+			NewLocalFeedLookup(conf, db),
+			NewRemoteFeedLookup(conf),
+		)
+
 		// XXX: This is a bit convoluted @xuu can we improve this somehow?
 		tmpTwt := types.MakeTwt(twter, now, strings.TrimSpace(text))
-		tmpTwt.ExpandMentions(conf, NewFeedLookup(conf, db, user))
+		tmpTwt.ExpandMentions(conf, feedLookupFn)
 		newText := tmpTwt.FormatText(types.LiteralFmt, conf)
 		twt := types.MakeTwt(twter, now, newText)
 
