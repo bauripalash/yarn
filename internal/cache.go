@@ -433,6 +433,35 @@ type Cache struct {
 	Twters    map[string]*types.Twter
 }
 
+func (cache *Cache) MarshalJSON() ([]byte, error) {
+	cache.mu.Lock()
+	defer cache.mu.Unlock()
+
+	return json.Marshal(struct {
+		Version int
+
+		List  *Cached
+		Map   map[string]types.Twt
+		Peers map[string]*Peer
+		Feeds map[string]*Cached
+		Views map[string]*Cached
+
+		Followers map[string]types.Followers
+		Twters    map[string]*types.Twter
+	}{
+		Version: cache.Version,
+
+		List:  cache.List,
+		Map:   cache.Map,
+		Peers: cache.Peers,
+		Feeds: cache.Feeds,
+		Views: cache.Views,
+
+		Followers: cache.Followers,
+		Twters:    cache.Twters,
+	})
+}
+
 func NewCache(conf *Config) *Cache {
 	return &Cache{
 		conf:       conf,
@@ -551,11 +580,10 @@ func FromOldCache(conf *Config) (*Cache, error) {
 	return cache, nil
 }
 
-// LoadCache ...
-func LoadCache(conf *Config) (*Cache, error) {
+// LoadCacheFromFile ...
+func LoadCacheFromFile(conf *Config, fn string) (*Cache, error) {
 	cache := NewCache(conf)
 
-	fn := filepath.Join(conf.Data, feedCacheFile)
 	f, err := os.Open(fn)
 	if err != nil {
 		if !os.IsNotExist(err) {
@@ -615,6 +643,12 @@ func LoadCache(conf *Config) (*Cache, error) {
 	log.Infof("Cache version %d", cache.Version)
 
 	return cache, nil
+}
+
+// LoadCache ...
+func LoadCache(conf *Config) (*Cache, error) {
+	fn := filepath.Join(conf.Data, feedCacheFile)
+	return LoadCacheFromFile(conf, fn)
 }
 
 // Store ...

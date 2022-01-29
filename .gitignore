@@ -12,6 +12,7 @@
 
 /yarnc
 /yarnd
+/dump_cache
 /.envrc
 
 /blake2b_base32
@@ -22,6 +23,7 @@
 /tests/tests
 /cmd/yarnc/yarnc
 /cmd/yarnd/yarnd
+/cmd/dump_cache/dump_cache
 
 /data/msgs
 /data/cache
