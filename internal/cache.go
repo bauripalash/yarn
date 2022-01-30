@@ -1590,6 +1590,11 @@ func (cache *Cache) FollowedBy(user *User, uri string) bool {
 	followers := cache.Followers[user.Username]
 	cache.mu.RUnlock()
 
+	// Fast Path
+	if user.Is(uri) {
+		return true
+	}
+
 	// TODO: Optimize and cache this as `Cache.FollowersByURI`
 	// e.g: map of `Username` to map of `uri` -> `bool`
 	followersByURL := make(map[string]bool)
