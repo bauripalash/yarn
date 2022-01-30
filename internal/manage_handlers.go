@@ -44,7 +44,7 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		openProfiles := r.FormValue("enableOpenProfiles") == "on"
 		openRegistrations := r.FormValue("enableOpenRegistrations") == "on"
 		permittedImages := r.FormValue("permittedImages")
-		blocklistedFeeds := r.FormValue("blocklistedFeeds")
+		blockedFeeds := r.FormValue("blockedFeeds")
 		enabledFeatures := r.FormValue("enabledFeatures")
 
 		displayDatesInTimezone := r.FormValue("displayDatesInTimezone")
@@ -59,7 +59,7 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		css = strings.ReplaceAll(css, "\r\n", "\n")
 
 		permittedImages = strings.Trim(strings.ReplaceAll(permittedImages, "\r\n", "\n"), "\n")
-		blocklistedFeeds = strings.Trim(strings.ReplaceAll(blocklistedFeeds, "\r\n", "\n"), "\n")
+		blockedFeeds = strings.Trim(strings.ReplaceAll(blockedFeeds, "\r\n", "\n"), "\n")
 		enabledFeatures = strings.Trim(strings.ReplaceAll(enabledFeatures, "\r\n", "\n"), "\n")
 
 		// Update pod name
@@ -116,10 +116,10 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 			return
 		}
 
-		// Update BlocklistedFeeds
-		if err := WithBlocklistedFeeds(strings.Split(blocklistedFeeds, "\n"))(s.config); err != nil {
+		// Update BlockedFeeds
+		if err := WithBlockedFeeds(strings.Split(blockedFeeds, "\n"))(s.config); err != nil {
 			ctx.Error = true
-			ctx.Message = fmt.Sprintf("Error applying blocklist for feeds: %s", err)
+			ctx.Message = fmt.Sprintf("Error applying blocked feeds: %s", err)
 			s.render("error", w, ctx)
 			return
 		}

@@ -109,9 +109,9 @@ var (
 	transcoderTimeout time.Duration
 
 	// permittedImages, Blocklists, Feedsources
-	feedSources       []string
+	feedSources     []string
 	permittedImages []string
-	blocklistedFeeds  []string
+	blockedFeeds    []string
 
 	// Optional Features
 	enabledFeatures flagSliceOfFeatureType
@@ -242,11 +242,11 @@ func init() {
 	)
 	flag.StringSliceVar(
 		&permittedImages, "permitted-images", internal.DefaultPermittedImages,
-		"external urls permitted for display of inline images",
+		"permitted image domain (regexes) for display of inline images",
 	)
 	flag.StringSliceVar(
-		&blocklistedFeeds, "blocklisted-feeds", internal.DefaultBlocklistedFeeds,
-		"blocklist of external feed uris to prohibit fetching",
+		&blockedFeeds, "blocked-feeds", internal.DefaultBlockedFeeds,
+		"blocked feeds (regexes) to prohibit fetching",
 	)
 
 	// Optional Features
@@ -360,7 +360,7 @@ func main() {
 		// PermittedImages, Blocklists, Feedsources
 		internal.WithFeedSources(feedSources),
 		internal.WithPermittedImages(permittedImages),
-		internal.WithBlocklistedFeeds(blocklistedFeeds),
+		internal.WithBlockedFeeds(blockedFeeds),
 
 		// Optional Features
 		internal.WithEnabledFeatures(enabledFeatures),

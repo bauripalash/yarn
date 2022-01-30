@@ -178,7 +178,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 		DisableFfmpeg:    conf.DisableFfmpeg,
 		LastTwt:          types.NilTwt,
 		PermittedImages:  conf.PermittedImages,
-		BlocklistedFeeds: conf.BlocklistedFeeds,
+		BlocklistedFeeds: conf.BlockedFeeds,
 		EnabledFeatures:  conf.Features.AsStrings(),
 
 		DisplayDatesInTimezone:  conf.DisplayDatesInTimezone,

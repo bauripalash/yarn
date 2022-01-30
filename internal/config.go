@@ -142,8 +142,8 @@ type Config struct {
 	permittedImages []*regexp.Regexp
 	PermittedImages []string `json:"-"`
 
-	blocklistedFeeds []*regexp.Regexp
-	BlocklistedFeeds []string `json:"-"`
+	blockedFeeds []*regexp.Regexp
+	BlockedFeeds []string `json:"-"`
 
 	Features *FeatureFlags
 
@@ -214,7 +214,7 @@ func (c *Config) BlocklistedFeed(uri string) bool {
 	}
 
 	// Check against list of blocklistedFeeds (regexes)
-	for _, re := range c.blocklistedFeeds {
+	for _, re := range c.blockedFeeds {
 		if re.MatchString(uri) {
 			return true
 		}
@@ -225,7 +225,7 @@ func (c *Config) BlocklistedFeed(uri string) bool {
 // IsShadowed returns true if a feed has been Shadowed Banned by the Pod Owner/Operator (poderator)
 // This is currently functionally equivilent to Blocklisting a feed and uses the same configuration
 func (c *Config) IsShadowed(uri string) bool {
-	for _, re := range c.blocklistedFeeds {
+	for _, re := range c.blockedFeeds {
 		if re.MatchString(uri) {
 			return true
 		}
@@ -250,7 +250,7 @@ func (c *Config) Validate() error {
 		return fmt.Errorf("error applying permitted image domains: %w", err)
 	}
 
-	if err := WithBlocklistedFeeds(c.BlocklistedFeeds)(c); err != nil {
+	if err := WithBlockedFeeds(c.BlockedFeeds)(c); err != nil {
 		return fmt.Errorf("error applying blocklisted feeds: %w", err)
 	}
 

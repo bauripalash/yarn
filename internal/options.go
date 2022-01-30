@@ -166,14 +166,17 @@ var (
 		`imgur\.com`,
 		`giphy\.com`,
 		`imgs\.xkcd\.com`,
-		`tube\.mills\.io`,
 		`reactiongifs\.com`,
 		`githubusercontent\.com`,
 	}
 
-	// DefaultBlocklistedFeeds is the default list of feed uris thar are
+	// DefaultBlockedFeeds is the default list of feed uris thar are
 	// blocklisted and prohibuted from being fetched by the global feed cache
-	DefaultBlocklistedFeeds = []string{}
+	DefaultBlockedFeeds = []string{
+		`port70\.dk`,
+		`enotty\.dk`,
+		`gopher\.floodgap\.com`,
+	}
 
 	// DefaultMaxCacheFetchers is the default maximun number of fetchers used
 	// by the global feed cache during update cycles. This controls how quickly
@@ -568,20 +571,20 @@ func WithPermittedImages(permittedImages []string) Option {
 	}
 }
 
-// WithBlocklistedFeeds sets the list of feed uris blocklisted
+// WithBlockedFeeds sets the list of feed uris blocklisted
 // and prohibited from being fetched by the global feed cache
-func WithBlocklistedFeeds(blocklistedFeeds []string) Option {
+func WithBlockedFeeds(blockedFeeds []string) Option {
 	return func(cfg *Config) error {
-		cfg.BlocklistedFeeds = blocklistedFeeds
-		for _, blocklistedFeed := range blocklistedFeeds {
-			if blocklistedFeed == "" {
+		cfg.BlockedFeeds = blockedFeeds
+		for _, blockedFeed := range blockedFeeds {
+			if blockedFeed == "" {
 				continue
 			}
-			re, err := regexp.Compile(blocklistedFeed)
+			re, err := regexp.Compile(blockedFeed)
 			if err != nil {
 				return err
 			}
-			cfg.blocklistedFeeds = append(cfg.blocklistedFeeds, re)
+			cfg.blockedFeeds = append(cfg.blockedFeeds, re)
 		}
 		return nil
 	}
