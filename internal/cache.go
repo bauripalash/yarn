@@ -26,7 +26,7 @@ import (
 
 const (
 	feedCacheFile    = "cache"
-	feedCacheVersion = 20 // increase this if breaking changes occur to cache file.
+	feedCacheVersion = 21 // increase this if breaking changes occur to cache file.
 
 	localViewKey    = "local"
 	discoverViewKey = "discover"
@@ -480,14 +480,13 @@ func NewCache(conf *Config) *Cache {
 	}
 }
 
-// FromOldCache attempts to load an oldver version of the on-disk cache stored
+// FromOldCacheFile attempts to load an oldver version of the on-disk cache stored
 // at /path/to/data/cache -- If you change the way the `*Cache` is stored on disk
 // by modifying `Cache.Store()` or any of the data structures, please modfy this
 // function to support loading the previous version of the on-disk cache.
-func FromOldCache(conf *Config) (*Cache, error) {
+func FromOldCacheFile(conf *Config, fn string) (*Cache, error) {
 	cache := NewCache(conf)
 
-	fn := filepath.Join(conf.Data, feedCacheFile)
 	f, err := os.Open(fn)
 	if err != nil {
 		if !os.IsNotExist(err) {
@@ -535,39 +534,10 @@ func FromOldCache(conf *Config) (*Cache, error) {
 
 	// Migrate old Cache ...
 
-	getLiteralTextFromTwt := func(twt types.Twt) string {
-		var obj struct{ Text string }
-		data, _ := json.Marshal(twt)
-		json.Unmarshal(data, &obj)
-		return obj.Text
-	}
-
 	cache.Version = feedCacheVersion
 
-	for uri, twter := range cache.Twters {
-		if twter.URI == "" {
-			twter.URI = twter.URL
-			twter.URL = ""
-		}
-		cache.Twters[uri] = twter
-	}
-
-	for uri, cached := range cache.Feeds {
-		twts := make(types.Twts, len(cached.GetTwts()))
-		for i, twt := range cached.GetTwts() {
-			twter := types.Twter{
-				Nick:      twt.Twter().Nick,
-				URI:       twt.Twter().URL,
-				Avatar:    twt.Twter().Avatar,
-				Tagline:   twt.Twter().Tagline,
-				Following: twt.Twter().Following,
-				Followers: twt.Twter().Followers,
-				Follow:    twt.Twter().Follow,
-			}
-			twts[i] = types.MakeTwt(twter, twt.Created(), getLiteralTextFromTwt(twt))
-		}
-		cache.Feeds[uri] = cached
-	}
+	// Reset Cache.Twters (let it rebuild correctly)
+	cache.Twters = make(map[string]*types.Twter)
 
 	cache.Refresh()
 
@@ -612,7 +582,7 @@ func LoadCacheFromFile(conf *Config, fn string) (*Cache, error) {
 			"cache.Version %d does not match %d, will try to load old cache v%d instead...",
 			cache.Version, feedCacheVersion, (feedCacheVersion - 1),
 		)
-		cache, err := FromOldCache(conf)
+		cache, err := FromOldCacheFile(conf, fn)
 		if err != nil {
 			log.WithError(err).Error("error loading old cache, removing corrupt file")
 			return cleanupCorruptCache()
