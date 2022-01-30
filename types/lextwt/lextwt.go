@@ -63,6 +63,10 @@ func ParseFile(r io.Reader, twter *types.Twter) (types.TwtFile, error) {
 					f.twters = append(f.twters, e.twter)
 				}
 			}
+		default:
+			log.Errorf("invalid feed or bad line parsing %#v", twter.URI)
+			nErrors++
+			continue
 		}
 	}
 	nErrors += len(parser.Errs())

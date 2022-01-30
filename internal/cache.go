@@ -945,7 +945,6 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Fetch
 					twter.URI = feed.URL
 					GetExternalAvatar(conf, *twter)
 				}
-				cache.SetTwter(feed.URL, twter)
 			}
 
 			// Handle Feed Refresh
@@ -1012,6 +1011,7 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Fetch
 				archiveTwts(old)
 				archiveTwts(twts)
 
+				cache.SetTwter(feed.URL, twter)
 				cache.UpdateFeed(feed.URL, "", twts)
 
 				twtsch <- twts
@@ -1068,6 +1068,7 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Fetch
 				archiveTwts(old)
 				archiveTwts(twts)
 
+				cache.SetTwter(feed.URL, twter)
 				cache.UpdateFeed(feed.URL, "", twts)
 
 				twtsch <- twts
@@ -1175,6 +1176,7 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Fetch
 				archiveTwts(twts)
 
 				lastmodified := res.Header.Get("Last-Modified")
+				cache.SetTwter(feed.URL, twter)
 				cache.UpdateFeed(feed.URL, lastmodified, twts)
 			case http.StatusNotModified: // 304
 				twts = cachedFeed.GetTwts()

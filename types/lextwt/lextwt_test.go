@@ -1171,11 +1171,13 @@ func TestInvalidFeed(t *testing.T) {
 		Input string
 		Error error
 	}{
+		// Junk feed (HTML doc?!)
 		{
 			Twter: types.NewTwter("foo", "https://foo.bar"),
 			Input: `<html>\n<title>Foo</title><body>Bar</body>\n<html>`,
 			Error: types.ErrInvalidFeed,
 		},
+		// Junk feed (`yarnd` View?! wtf?!)
 		{
 			Twter: types.NewTwter("twtxt-net-external", "https://twtxt.net/external?nick=lyse&uri=https%3A//lyse.isobeef.org/user/lyse/twtxt.txt"),
 			Input: `<!DOCTYPE html>
@@ -1281,6 +1283,21 @@ a <a href="https://yarn.social" target="_blank">Yarn.social</a> pod.
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="e305013a0226ea5a7d0d1baf-application/javascript" src="/js/69ca474/yarn.min.js"></script>
 <script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="e305013a0226ea5a7d0d1baf-|49" defer=""></script></body>
 </html>`,
+			Error: types.ErrInvalidFeed,
+		},
+		// Junk feed (Using spaces as delimiter?!)
+		{
+			Twter: types.NewTwter("foo", "https://foo.bar"),
+			Input: `# nick = foo
+2022-01-01T18:46:17+10:00.   Hello?
+`,
+			Error: types.ErrInvalidFeed,
+		},
+		// Junk feed (total garbage?!)lh(
+		{
+			Twter: types.NewTwter("foo", "https://foo.bar"),
+			Input: `This feed is total junk
+And basically just contains some rubbish test file!`,
 			Error: types.ErrInvalidFeed,
 		},
 	}
