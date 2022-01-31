@@ -74,7 +74,6 @@ func ParseFile(r io.Reader, twter *types.Twter) (types.TwtFile, error) {
 	nErrors += len(parser.Errs())
 
 	if nTwts == 0 && nErrors > 0 {
-		log.Warnf("erroneous feed dtected (%d twts parsed %d errors)", nTwts, nErrors)
 		return nil, types.ErrInvalidFeed
 	}
 
