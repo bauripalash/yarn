@@ -976,6 +976,55 @@ func TestParseFile(t *testing.T) {
 	}
 
 	tests := []fileTestCase{
+		// Test1: Empty Feed
+		{
+			twter:    &twter,
+			override: &override,
+			in: strings.NewReader(`# My Twtxt!
+# nick = override
+# url = https://example.com/twtxt.txt
+# follows = xuu@txt.sour.is https://txt.sour.is/users/xuu.txt
+#
+`),
+			out: lextwt.NewTwtFile(
+				override,
+
+				lextwt.Comments{
+					lextwt.NewComment("# My Twtxt!"),
+					lextwt.NewCommentValue("# nick = override", "nick", "override"),
+					lextwt.NewCommentValue("# url = https://example.com/twtxt.txt", "url", "https://example.com/twtxt.txt"),
+					lextwt.NewCommentValue("# follows = xuu@txt.sour.is https://txt.sour.is/users/xuu.txt", "follows", "xuu@txt.sour.is https://txt.sour.is/users/xuu.txt"),
+					lextwt.NewComment("#"),
+				},
+				nil,
+			),
+			err: nil,
+		},
+		// Test1: Empty Feed with empty lines
+		{
+			twter:    &twter,
+			override: &override,
+			in: strings.NewReader(`# My Twtxt!
+# nick = override
+# url = https://example.com/twtxt.txt
+# follows = xuu@txt.sour.is https://txt.sour.is/users/xuu.txt
+#
+
+`),
+			out: lextwt.NewTwtFile(
+				override,
+
+				lextwt.Comments{
+					lextwt.NewComment("# My Twtxt!"),
+					lextwt.NewCommentValue("# nick = override", "nick", "override"),
+					lextwt.NewCommentValue("# url = https://example.com/twtxt.txt", "url", "https://example.com/twtxt.txt"),
+					lextwt.NewCommentValue("# follows = xuu@txt.sour.is https://txt.sour.is/users/xuu.txt", "follows", "xuu@txt.sour.is https://txt.sour.is/users/xuu.txt"),
+					lextwt.NewComment("#"),
+				},
+				nil,
+			),
+			err: nil,
+		},
 		{
 			twter:    &twter,
 			override: &override,
@@ -1050,6 +1099,9 @@ func TestParseFile(t *testing.T) {
 		if tt.err != nil {
 			assert.True(err == tt.err)
 			assert.True(f == nil)
+			continue
+		} else {
+			assert.NoError(err)
 			continue
 		}
 

@@ -36,11 +36,13 @@ func ParseFile(r io.Reader, twter *types.Twter) (types.TwtFile, error) {
 		line := parser.ParseLine()
 
 		switch e := line.(type) {
+		case nil: // Handle empty lines (TODO: Maybe add a specific AST Node for this?)
+			continue
 		case *Comment:
 			f.comments = append(f.comments, e)
 		case *Twt:
 			if e.IsNil() {
-				log.Errorf("invalid feed or bad line parsing %#v", twter.URI)
+				log.Errorf("error parsing twt %#v (nil) while parsing feed %s", e, twter.URI)
 				nErrors++
 				continue
 			}
@@ -64,7 +66,7 @@ func ParseFile(r io.Reader, twter *types.Twter) (types.TwtFile, error) {
 				}
 			}
 		default:
-			log.Errorf("invalid feed or bad line parsing %#v", twter.URI)
+			log.Errorf("unexpected type %#v parsing feed %s", e, twter.URI)
 			nErrors++
 			continue
 		}
