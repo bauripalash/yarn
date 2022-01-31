@@ -22,6 +22,7 @@ require (
 	github.com/dustin/go-humanize v1.0.0
 	github.com/elithrar/simple-scrypt v1.3.0
 	github.com/gabstv/merger v1.0.1
+	github.com/gavv/httpexpect/v2 v2.3.1
 	github.com/go-mail/mail v2.3.1+incompatible
 	github.com/go-playground/validator/v10 v10.9.0 // indirect
 	github.com/goccy/go-yaml v1.9.5
@@ -81,6 +82,7 @@ require (
 	golang.org/x/exp v0.0.0-20220114162006-9d54fb35363c // indirect
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410 // indirect
 	golang.org/x/net v0.0.0-20220121210141-e204ce36a2ba
+	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211
 	golang.org/x/text v0.3.7

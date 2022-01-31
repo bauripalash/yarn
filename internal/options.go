@@ -223,6 +223,7 @@ func NewConfig() *Config {
 		TwtPrompts:              DefaultTwtPrompts,
 		TwtsPerPage:             DefaultTwtsPerPage,
 		MaxTwtLength:            DefaultMaxTwtLength,
+		FetchInterval:           DefaultFetchInterval,
 		AvatarResolution:        DefaultAvatarResolution,
 		MediaResolution:         DefaultMediaResolution,
 		OpenProfiles:            DefaultOpenProfiles,
