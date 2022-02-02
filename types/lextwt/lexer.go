@@ -81,6 +81,7 @@ type lexer struct {
 	r io.Reader
 
 	// simple ring buffer to xlate bytes to runes.
+	next rune
 	rune rune
 	last rune
 	buf  []byte
@@ -159,6 +160,7 @@ func NewLexer(r io.Reader) *lexer {
 		buf:     make([]byte, 4096),    // values lower than 2k seem to limit throughput.
 		Literal: make([]rune, 0, 1024), // an all text twt would default to be 288 runes. set to ~4x but will grow if needed.
 	}
+	l.readRune() // prime the lexer buffer.
 	l.readRune() // prime the lexer buffer.
 	return l
 }
@@ -290,9 +292,10 @@ func (l *lexer) NextTok() bool {
 			return true
 
 		default:
-			if l.loadIdentifier() {
+			if l.loadDomain() {
 				return true
 			}
+
 			l.loadString(" @#!:`<>()[]\u2028\n\t'\"")
 			return true
 		}
@@ -380,7 +383,8 @@ func (l *lexer) readRune() {
 	if l.rune == EOF {
 		return
 	}
-	l.last = l.rune
+
+	l.rune, l.last = l.next, l.rune
 
 	// If empty init the buffer.
 	if l.size-l.pos <= 0 {
@@ -388,7 +392,7 @@ func (l *lexer) readRune() {
 		l.readBuf()
 	}
 	if l.size-l.pos <= 0 {
-		l.rune = EOF
+		l.next = EOF
 		return
 	}
 
@@ -403,11 +407,11 @@ func (l *lexer) readRune() {
 	}
 	// If the new buffer is still a partial rune, EOF
 	if !utf8.FullRune(l.buf[l.pos:l.size]) {
-		l.rune = EOF
+		l.next = EOF
 		return
 	}
 
-	l.rune, size = utf8.DecodeRune(l.buf[l.pos:l.size])
+	l.next, size = utf8.DecodeRune(l.buf[l.pos:l.size])
 
 	l.pos += size
 	l.rpos = l.fpos
@@ -444,18 +448,28 @@ func (l *lexer) loadString(notaccept string) {
 		l.readRune()
 	}
 }
-func (l *lexer) loadIdentifier() bool {
-	// If the prior is a mention/tag/wiki modifier try to parse an identifier.
-	if !(l.last == '@' || l.last == '!' || l.last == '#') {
-		return false
-	}
+func isDomainChar(c rune) bool {
+	return c >= 0x30 && c <= 0x39 || // 0-9
+		c >= 0x41 && c <= 0x5A || // A-Z
+		c >= 0x61 && c <= 0x7A // a-z
+}
+func isDomainDelimiter(c rune) bool {
+	return c == 0x2D || c == 0x2E || c == 0x5F // - . _
+}
 
-	if !(l.rune == '_' || l.rune == '-' || unicode.IsLetter(l.rune) || unicode.IsNumber(l.rune)) {
+func (l *lexer) loadDomain() bool {
+	if !(isDomainChar(l.rune) || isDomainDelimiter(l.rune)) {
 		return false
 	}
 
 	l.Token = TokSTRING
-	for l.rune == '_' || l.rune == '-' || unicode.IsLetter(l.rune) || unicode.IsNumber(l.rune) {
+	l.Literal = append(l.Literal, l.rune)
+	l.readRune()
+
+	for isDomainChar(l.rune) || isDomainDelimiter(l.rune) {
+		if isDomainDelimiter(l.rune) && !isDomainChar(l.next) {
+			break
+		}
 		l.Literal = append(l.Literal, l.rune)
 		l.readRune()
 	}

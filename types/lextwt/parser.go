@@ -396,6 +396,19 @@ func (p *parser) ParseElem() Elem {
 	return e
 }
 
+func onlyDomainRunes(in []rune) bool {
+	for i := range in {
+		if isDomainChar(in[i]) {
+			continue
+		}
+		if isDomainDelimiter(in[i]) && i < len(in) - 1{
+			continue // string cant end in a delimiter.
+		}
+		return false
+	}
+	return true
+}
+
 // ParseMention from tokens
 // Forms parsed:
 //   @name
@@ -417,16 +430,17 @@ func (p *parser) ParseMention() *Mention {
 		p.append(p.curTok.Literal...)
 		p.next()
 
+		// form: @nick@domain
 		if p.curTokenIs(TokAT) && p.peekTokenIs(TokSTRING) {
-			p.append(p.curTok.Literal...)
+			p.append(p.curTok.Literal...) // @
 			p.next()
 
 			p.push()
-			p.append(p.curTok.Literal...) // domain text
-			for !p.nextTokenIs(TokGT, TokRPAREN, TokSPACE, TokEOF) {
-				p.next()
+			for p.curTokenIs(TokSTRING, TokDOT) && onlyDomainRunes(p.curTok.Literal) {
 				p.append(p.curTok.Literal...) // domain text
+				p.next()
 			}
+
 			m.domain = p.Literal()
 			p.pop()
 		}
@@ -461,17 +475,20 @@ func (p *parser) ParseMention() *Mention {
 			p.append(p.curTok.Literal...) // string
 			p.next()
 
-			p.append(p.curTok.Literal...) // @
-			p.next()
-
-			p.push()
-			p.append(p.curTok.Literal...) // domain text
-			for !p.nextTokenIs(TokGT, TokRPAREN, TokSPACE, TokEOF) {
+			// form: @nick@domain
+			if p.curTokenIs(TokAT) && p.peekTokenIs(TokSTRING) {
+				p.append(p.curTok.Literal...) // @
 				p.next()
-				p.append(p.curTok.Literal...) // domain text
+
+				p.push()
+				for p.curTokenIs(TokSTRING, TokDOT) && onlyDomainRunes(p.curTok.Literal) {
+					p.append(p.curTok.Literal...) // domain text
+					p.next()
+				}
+
+				m.domain = p.Literal()
+				p.pop()
 			}
-			m.domain = p.Literal()
-			p.pop()
 
 			if !p.curTokenIs(TokSPACE) {
 				return nil

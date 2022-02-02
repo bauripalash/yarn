@@ -19,7 +19,7 @@
               {{ if isLocalURL $f.URI }}
                 <a href="{{ $f.URI | trimSuffix "/twtxt.txt" }}">
               {{ else }}
-                <a href="/external?uri={{ $f.URI }}&nick={{ $f.Nick  }}">
+                <a href="/external?uri={{ $f.URI }}&nick={{ $f.Nick }}">
               {{ end }}
               {{ if $.User.Is $f.URI }}
                 {{ tr $ctx "MeLinkTitle" }}
