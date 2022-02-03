@@ -618,7 +618,12 @@ func LoadCacheFromFile(conf *Config, fn string) (*Cache, error) {
 // LoadCache ...
 func LoadCache(conf *Config) (*Cache, error) {
 	fn := filepath.Join(conf.Data, feedCacheFile)
-	return LoadCacheFromFile(conf, fn)
+	cache, err := LoadCacheFromFile(conf, fn)
+	if err != nil {
+		return nil, err
+	}
+	cache.Refresh()
+	return cache, nil
 }
 
 // Store ...
