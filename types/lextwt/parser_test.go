@@ -257,6 +257,16 @@ func TestParseLink(t *testing.T) {
 			lit:  "https://sour.is/search?tag=asdfasdf",
 			elem: lextwt.NewLink("", "https://sour.is/search?tag=asdfasdf", lextwt.LinkNaked),
 		},
+
+		{
+			lit:  "![alt text](https://sour.is/search?tag=asdfasdf 'title text')",
+			elem: lextwt.NewMedia("alt text", "https://sour.is/search?tag=asdfasdf", "'title text'"),
+		},
+
+		{ // test text via Lyse
+			lit:  `![Woooowooowoowww, this is number #13! Watch out, careful! Better close your eyes and also your browser window while you're at it. This is not safe. Like not at all. Quick! Hurry, it is cursed for sure. It must be. There's no other way. Run! You're still there? What's wrong with you?! Gooooo! … Well. Nothing happend yet. Then it's probably not as bad as we might have thought in the beginning. And now the alternative is starting to become a bit ridiculous. Yeah. You're still reading it. But wait! Does it mean, the number thirteen really is evil? I think, it does. Now look at you. It appears like you're truely hooked. You continue reading. You cannot stop. Oh my gosh! It's too late now. No, noo, nooooooooo! I told you right from the beginning that this is a very terrible idea. A really bad one. Like the worst you ever had. Man, this sucks! How can you escape that?! You must continue reading "until you die." Or a miracle happens. … Luckily it's over now. The spell is broken. Without any warning the alternative text of this photo ends abru](https://sour.is/search?tag=asdfasdf)`,
+			elem: lextwt.NewMedia(`Woooowooowoowww, this is number #13! Watch out, careful! Better close your eyes and also your browser window while you're at it. This is not safe. Like not at all. Quick! Hurry, it is cursed for sure. It must be. There's no other way. Run! You're still there? What's wrong with you?! Gooooo! … Well. Nothing happend yet. Then it's probably not as bad as we might have thought in the beginning. And now the alternative is starting to become a bit ridiculous. Yeah. You're still reading it. But wait! Does it mean, the number thirteen really is evil? I think, it does. Now look at you. It appears like you're truely hooked. You continue reading. You cannot stop. Oh my gosh! It's too late now. No, noo, nooooooooo! I told you right from the beginning that this is a very terrible idea. A really bad one. Like the worst you ever had. Man, this sucks! How can you escape that?! You must continue reading "until you die." Or a miracle happens. … Luckily it's over now. The spell is broken. Without any warning the alternative text of this photo ends abru`, "https://sour.is/search?tag=asdfasdf", ``),
+		},
 	}
 
 	for _, tt := range tests {
@@ -281,6 +291,12 @@ func testParseLink(t *testing.T, expect, elem *lextwt.Link) {
 	assert.Equal(expect.Literal(), elem.Literal())
 	assert.Equal(expect.Text(), elem.Text())
 	assert.Equal(expect.Target(), elem.Target())
+	assert.Equal(expect.Title(), elem.Title())
+	if elem.IsMedia() {
+		elem.TextToTitle()
+		expect.TextToTitle()
+		assert.Equal(expect.Title(), elem.Title())
+	}
 }
 
 type twtTestCase struct {

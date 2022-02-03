@@ -565,8 +565,8 @@ func (n *Link) Clone() Elem {
 	}
 }
 func (n *Link) TextToTitle() {
-	if n.title == "" {
-		n.title = `"` + n.text + `"`
+	if n.title == "" && n.text != "" {
+		n.title = `"` + strings.ReplaceAll(n.text, `"`, `\"`) + `"`
 	}
 }
 func (n *Link) IsNil() bool { return n == nil }
