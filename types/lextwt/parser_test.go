@@ -26,12 +26,11 @@ func TestParseDateTime(t *testing.T) {
 		{lit: "22021-02-03", errs: []error{lextwt.ErrParseToken}},
 		{lit: "2021-102-03", errs: []error{lextwt.ErrParseToken}},
 	}
-	for i, tt := range tests {
+	for _, tt := range tests {
 		r := strings.NewReader(tt.lit)
 		lexer := lextwt.NewLexer(r)
 		parser := lextwt.NewParser(lexer)
 		dt := parser.ParseDateTime()
-		t.Logf("TestParseDateTime %d - %v", i, tt.lit)
 
 		if tt.errs == nil {
 			assert.True(dt != nil)
@@ -84,9 +83,7 @@ func TestParseMention(t *testing.T) {
 		},
 	}
 
-	for i, tt := range tests[5:] {
-		t.Logf("TestParseMention %d - %v", i, tt.lit)
-
+	for _, tt := range tests[5:] {
 		r := strings.NewReader(tt.lit)
 		lexer := lextwt.NewLexer(r)
 		parser := lextwt.NewParser(lexer)
@@ -140,9 +137,7 @@ func TestParseTag(t *testing.T) {
 		},
 	}
 
-	for i, tt := range tests {
-		t.Logf("TestParseMention %d - %v", i, tt.lit)
-
+	for _, tt := range tests {
 		r := strings.NewReader(" " + tt.lit)
 		lexer := lextwt.NewLexer(r)
 		lexer.NextTok() // remove first token we added to avoid parsing as comment.
@@ -202,9 +197,7 @@ func TestParseSubject(t *testing.T) {
 		},
 	}
 
-	for i, tt := range tests {
-		t.Logf("TestParseMention %d - %v", i, tt.lit)
-
+	for _, tt := range tests {
 		r := strings.NewReader(" " + tt.lit)
 		lexer := lextwt.NewLexer(r)
 		lexer.NextTok() // remove first token we added to avoid parsing as comment.
@@ -266,9 +259,7 @@ func TestParseLink(t *testing.T) {
 		},
 	}
 
-	for i, tt := range tests {
-		t.Logf("TestParseLink %d - %v", i, tt.lit)
-
+	for _, tt := range tests {
 		r := strings.NewReader(" " + tt.lit)
 		lexer := lextwt.NewLexer(r)
 		lexer.NextTok() // remove first token we added to avoid parsing as comment.
@@ -540,6 +531,15 @@ func TestParseTwt(t *testing.T) {
 			),
 		},
 
+		{
+			lit: `2021-11-05T22:00:00+01:00	![alt 'with single quotes'](https://example.com/image.png)`,
+			twt: lextwt.NewTwt(
+				twter,
+				lextwt.NewDateTime(parseTime("2021-11-05T22:00:00+01:00"), "2021-11-05T22:00:00+01:00"),
+				lextwt.NewMedia("alt 'with single quotes'", "https://example.com/image.png", ""),
+			),
+		},
+
 		// "👋 Hey @<%s %s/twtxt.txt>, a new user (@<%s %s/twtxt.txt>) has joined your pod %s! 🥳"
 		{
 			lit: `2021-11-05T22:00:00+01:00	👋 Hey @<foo http://example.com/twtxt.txt>, a new user (@<bar http://example.com/twtxt.txt>) has joined your pod binbaz! 🥳`,
@@ -571,8 +571,6 @@ func TestParseTwt(t *testing.T) {
 	for i, tt := range tests {
 		t.Run(fmt.Sprintf("TestParseTwt %d", i), func(t *testing.T) {
 			assert := assert.New(t)
-
-			t.Log("\n", tt.twt)
 
 			r := strings.NewReader(tt.lit)
 			lexer := lextwt.NewLexer(r)
@@ -727,9 +725,7 @@ func TestParseComment(t *testing.T) {
 		{lit: "# link = My blog https://example.com/blog/?q=twtxt&sort=year#anchor\n",
 			key: "link", value: "My blog https://example.com/blog/?q=twtxt&sort=year#anchor"},
 	}
-	for i, tt := range tests {
-		t.Logf("TestComment %d - %v", i, tt.lit)
-
+	for _, tt := range tests {
 		r := strings.NewReader(tt.lit)
 		lexer := lextwt.NewLexer(r)
 		parser := lextwt.NewParser(lexer)
@@ -761,9 +757,7 @@ func TestParseText(t *testing.T) {
 			},
 		},
 	}
-	for i, tt := range tests {
-		t.Logf("TestText %d - %v", i, tt.lit)
-
+	for _, tt := range tests {
 		r := strings.NewReader(tt.lit)
 		lexer := lextwt.NewLexer(r)
 		parser := lextwt.NewParser(lexer)
@@ -775,7 +769,6 @@ func TestParseText(t *testing.T) {
 
 		assert.Equal(len(tt.elems), len(lis))
 		for i, expect := range tt.elems {
-			t.Logf("'%s' = '%s'", expect, lis[i])
 			assert.Equal(expect, lis[i])
 		}
 	}

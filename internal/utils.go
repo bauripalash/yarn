@@ -2200,7 +2200,7 @@ func FormatTwtFactory(conf *Config, cache *Cache, archive Archiver) func(twt typ
 		p.AllowAttrs("src", "type").OnElements("source")
 		p.AllowAttrs("aria-label", "class", "data-target", "target").OnElements("a")
 		p.AllowAttrs("class", "data-target").OnElements("i", "div")
-		p.AllowAttrs("alt", "loading", "data-target").OnElements("a", "img")
+		p.AllowAttrs("alt", "title", "loading", "data-target").OnElements("a", "img")
 		p.AllowAttrs("style").OnElements("a", "code", "img", "p", "pre", "span")
 		html := p.SanitizeBytes(maybeUnsafeHTML)
 

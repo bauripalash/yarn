@@ -31,7 +31,6 @@ func testLexerRunes(t *testing.T, lexer Lexer, values []rune) {
 	assert := assert.New(t)
 
 	for i, r := range values {
-		t.Logf("%d of %d - %v %v", i, len(values), string(lexer.Rune()), string(r))
 		assert.Equal(lexer.Rune(), r) // parsed == value
 		if i < len(values)-1 {
 			assert.True(lexer.NextRune())
@@ -172,9 +171,7 @@ func testLexerTokens(t *testing.T, lexer Lexer, values []lextwt.Token) {
 	assert := require.New(t)
 	for i, tt := range values {
 		_ = i
-		t.Logf("%d - %v %v", i, tt.Type, string(tt.Literal))
 		lexer.NextTok()
-		t.Logf(string(lexer.GetTok().Literal))
 		assert.Equal(tt, lexer.GetTok()) // parsed == value
 	}
 

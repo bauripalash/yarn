@@ -158,9 +158,7 @@ func TestParseFile(t *testing.T) {
 			err: types.ErrInvalidFeed,
 		},
 	}
-	for i, tt := range tests {
-		t.Logf("ParseFile %d", i)
-
+	for _, tt := range tests {
 		f, err := lextwt.ParseFile(tt.in, tt.twter)
 		if tt.err != nil {
 			assert.True(err == tt.err)
@@ -190,9 +188,6 @@ func TestParseFile(t *testing.T) {
 
 			assert.Equal(f.Info().String(), tt.out.Info().String())
 		}
-
-		t.Log(f.Info().Following())
-		t.Log(tt.out.Info().Following())
 
 		{
 			lis := f.Twts()
