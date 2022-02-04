@@ -343,7 +343,7 @@ div .p-summary:not(.image-gallery)>.caption-wrap .caption {
   margin: 0 0.5rem;
 }
 
-.p-summary br {
+.p-summary br :not(blockquote > br) {
   display: none;
 }
 
