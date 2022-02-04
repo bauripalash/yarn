@@ -1802,18 +1802,43 @@ func (cache *Cache) GetByURL(url string) types.Twts {
 	return types.Twts{}
 }
 
-// Findtwter ...
-func (cache *Cache) FindTwter(s string) *types.Twter {
+// FindTwter locates a valid cached Twter by searching the Cache for previously
+// fetched feeds and their Twter(s) using basic string matching
+// TODO: Add Fuzzy matching?
+func (cache *Cache) FindTwter(s string) (found *types.Twter) {
 	// TODO: Optimize this?
 	// TODO: Use a fuzzy search?
 
-	cache.mu.RLock()
-	defer cache.mu.RUnlock()
+	cache.mu.Lock()
+	defer cache.mu.Unlock()
 
-	for _, twter := range cache.Twters {
-		if strings.EqualFold(s, twter.Nick) || strings.EqualFold(s, twter.DomainNick()) {
-			return twter
+	var badKeys []string
+
+	for k, twter := range cache.Twters {
+		// XXX: Hack to remove bad data from Netbros pod :/
+		if k == "" || twter.URI == "" {
+			badKeys = append(badKeys, k)
+			continue
 		}
+		if twter != nil && twter.IsZero() {
+			badKeys = append(badKeys, k)
+			continue
+		}
+
+		if strings.EqualFold(s, twter.Nick) || strings.EqualFold(s, twter.DomainNick()) {
+			found = twter
+			break
+		}
+	}
+
+	if len(badKeys) > 0 {
+		for _, badKey := range badKeys {
+			delete(cache.Twters, badKey)
+		}
+	}
+
+	if found != nil {
+		return found
 	}
 	return &types.Twter{}
 }

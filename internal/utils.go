@@ -2511,12 +2511,7 @@ func NewUserFollowedFeedLookup(user *User) types.FeedLookup {
 // mention syntax @<nick url>; This check against local users and feeds.
 func NewCachedFeedLookup(cache *Cache) types.FeedLookup {
 	return types.FeedLookupFn(func(alias string) *types.Twter {
-		twter := cache.FindTwter(alias)
-		if !twter.IsZero() {
-			return twter
-		}
-
-		return &types.Twter{}
+		return cache.FindTwter(alias)
 	})
 }
 
