@@ -12,3 +12,4 @@ txt.quisquiliae.com
 yarn.mills.io
 devtxt.quisquiliae.com
 yarn.yarnpods.com
+yarnd.orbsmart.synology.me
