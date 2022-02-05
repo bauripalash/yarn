@@ -594,9 +594,8 @@ article .p-summary blockquote {
   margin-top: 0;
 }
 
-.h-feed .p-summary a em,
+.h-feed, .p-summary a em,
 em.twt-hash {
-  color: darkgray;
   font-style: normal;
   font-weight: 300;
   color: var(--muted-color);
