@@ -1,4 +1,80 @@
 
+<a name="0.13.0"></a>
+## [0.13.0](https://git.mills.io/yarnsocial/yarn/compare/0.12.0...0.13.0) (2022-02-05)
+
+### Bug Fixes
+
+* Fix style issue for blockquotes with hard line breaks whilst still preserving the fix in #668 (#781)
+* Fix RenderImage() bug which was  not permitting title attr on a or img elements during HTML sanitization
+* Fix handling of empty lines in feeds (#772)
+* Fix Cache.FollowedBy() to return true if user.Is(uri)
+* Fix bad Cache.Twters in Cache v20 and reset (letting it rebuild from source data) (#769)
+* Fix broken context for blocked feeds config/context
+* Fix ParseFile() to return types.ErrInvalidFeed on parser errors resulting in nil lines and only set Cache.Twters on successful parse (#767)
+* Fix blocked feeds configuration and add some default blocked feed patterns
+* Fix updating Cache.Twters when injecting twts and several other bad bugs found :/ (#760)
+* Fix Edit LastTwt so it works properly (#753)
+* Fix Privacy / User Preference bug in cache.GetMentions()
+* Fix bug in DownloadImage() leaking termporary files for external avatar downloads (#746)
+* Fix support for WebMentions (from the web) to /twt/<hash> permalinks as well as /user/<username> links (#741)
+* Fix the way we work out what the root twt is in conversation view (#739)
+* Fix CI
+* Fix WebMentions once and for all (#737)
+* Fix bug in deleting user cache views on timeline preference change
+* Fix RenderImage() to only append ?full=1 on Media URIs that actually look like they came from a Yarn pod (#735)
+* Fix bad event handling when there is no mentioned-list DOM elements :/
+* Fix some more JS bugs with the @-mention autocomplete and restore ENTER to complete behaviour (#733)
+* Fix ENTER clearing Text in KeyDown event for @-mention autocomplete (use TAB only)
+* Fix issue with @ mentions in reply boxes (#732)
+* Fix hiding @ mention list on selection (#729)
+* Fix minor spelling error (yarml > yaml) (#730)
+* Fix broken empty post behaviour (#726)
+* Fix removing drawer class on postbox in resetPostBox()
+* Fix drawer spacing issue on last yarn (#712)
+* Fix %t (text) and %c (compat) for lextwt.Mention node and strip subject hash from Permalink OG and Twitter Card rendering
+* Fix tests
+* Fix 0f333b3
+* Fix a minor bug with IPP and add some lgging
+* Fix spacing issues and remove 'register' link in particpate message for registration disabled pods.
+* Fix to smaller images scaling to full width
+* Fix lack of public followers mapping in FetchFeeds() call in IPP
+* Fix FeatureJumpTimelineAge to guard against Divide by Zero (See #688)
+* Fix code block
+* Fix filter by age parameter that hsould have been a query string
+* Fix check for anonymous users (no username)
+* Fix Cache.GetByUserView()
+* Fix Cache.IsShadowed()
+* Fix potential template rendering error when ConversationHanadler() tries to render an empty types.Twts{} slice due to muted feeds
+
+### Features
+
+* Add v0.13 Release Notes (#782)
+* Add first e2e integration test for InfoHandler() (#774)
+* Add unit tests for invalid feedds (#763)
+* Add support for cached pages with reload so Poderators can more easily customize Pod pages (#756)
+* Add yarn.yarnpods.com to known pods
+* Add support for setting the Reply text to initially @-mentino the Twter() even if the user doesn't follow them (#749)
+* Add two additional known pods
+* Add Context.View which is the name of the template/view being rendered (#740)
+* Add proper validated support for vanity URI(s) e.g: @prologic@twtxt.net (#738)
+* Add support for Avatar GIFs :D (#734)
+* Add first-class support for GIFs (#727)
+* Add support for fetching feeds over gemini://
+* Add support for %t (text) rendering to lextwt.Link node to improve OG and Twitter Card rendering
+* Add support for Twitter Summary Card (Fixes #706)
+* Add FixAdminFeeds job to cleanup @help and @twtxt feeds from AdminUser (Fixes #704)
+* Add missing download attribute db39c14 missed
+* Add support for pressing Escape to canel a Reply
+* Add small highlight to article on post box movement.
+* Add support for building and publishing two different Docker images (latest vs dev) (#693)
+* Add ability to jump to a certain 'X' hours ago on the timeline (#688)
+* Add support for configuring Twts Per Page in Manage Pod
+
+### Updates
+
+* Update langs
+
+
 <a name="0.12.0"></a>
 ## [0.12.0](https://git.mills.io/yarnsocial/yarn/compare/0.11.0...0.12.0) (2022-01-11)
 
@@ -39,6 +115,7 @@
 
 ### Updates
 
+* Update CHANGELOG for 0.12.0
 * Update Pod Logo and Favicon to simpler colors (#658)
 * Update translations
 * Update 'AUTHORS' file (#634)
