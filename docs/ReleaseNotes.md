@@ -1,28 +1,47 @@
+# yarnd v0.13 Aluminium Amarok
+
 Hello Yarners! 🤗
 
-What an absolute week it has been! Quite a bit of change for this Yarn release. Let me preface this by thanking everybody involved in this project; the developers, the UI/UX testers, and especially the users. 🤗
+What a month (_and a bit_) it has been! 😅 During this time we've closed out
+78 Pull Requests, 55 Issues from the hard work of 8 contributors over 174 commits!
 
-Without further ado, here are the following changes for out 0.12 release!
+This release `yarnd v0.13` is **special** because this will be the last release
+for a while. The project will be entering a "feature freeze" whilst the developers
+and active contributors slow down a bit and work on some other much-needed components.
 
-### General Fixes
+We will be working on improving documentation, deployment guides, builtin pages
+and other supporting services and components in the ecosystem. In addition a
+decision has been made to relicense all software components under a new license
+(AGPLv3) going forward. We hope this will not affect contributions in any way but
+will also serve to protect what we've all worked so hard to build.
 
-* Lots of minor alignment issues with logos, code tags and other margins and gaps!
-* Fixed the order of the ‘Hide Replies’ feature.
-* Icons size for profiles without avatars.
-* Fixed duplicate followers bug!
-* Language fixes to have more neutral text.
-* Fixed an issue with last seen text on profiles.
+But don't worry! We will still be committing to `main`, we just won't be adding
+and new significant new features for a while.
 
-### Highlights
+Without further ado, here are the following changes for our 0.12 release!
 
-* New image displays; Lightbox (as per default) and Gallery for those who prefer images below the text!
-* Variable image support; Preservation of original quality images and serving thumbnails and links to original media.
-* Support for configurable pod-level avatar and media resolutions
-* Added poderator support for deleting feeds in Manage Users
-* Basic onboarding flow for new users including automatic following of important feeds.
-* Backwards compatibility support
-* Can’t forget our CLI users; Adding of hash commands for constructing Twt hashes.
-* Added poderator support for clearing Yarn cache with the Refresh Cache option.
-* Update Pod Logo and Favicon to simpler colours.
+## Highlights
+
+First the important noteworthy bug-fixes: 🐞
+
+- Fixed various rendering issues with `blockquote`(s) and code snippets.
+- Fixed image alt and title rendering
+- Fixed various Cache consistency bugs
+- Fixed privacy issue in "Mentions" view
+- Fixed support for WebMentions and cross-pod mentions
+- Fixed weird behaviour when accidentally posting an empty Twt
+
+And finally the new shiny new features! 🥳
+
+- Pod Owner/Operators (_Poderators_) can now edit Pod pages in `data/pages/<name>.md` and changes are reflected live!
+- Users that reply to someone they don't follow now correctly @-mention them.
+- Users can now @-mention cross-pod as well as any Twtxt-supported feed using the now well supported syntax @nick@domain
+- Added first-class support for GIF(s) 🦋 Finally! 😅
+- Added support for fetching feeds over gemini://
+- Added support for Twitter Summary Card
+- Added support for pressing Escape to cancel a Reply
+- Added support for configuring Twts Per Page in Manage Pod
+
+----
 
 As per usual, please provide feedback to @prologic or reply to this Yarn 🤗
