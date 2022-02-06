@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"net"
 	"net/http"
 	"net/url"
 	"os"
@@ -26,6 +27,7 @@ import (
 	metricsMiddleware "github.com/slok/go-http-metrics/middleware"
 	httproutermiddleware "github.com/slok/go-http-metrics/middleware/httprouter"
 	"github.com/unrolled/logger"
+	"golang.org/x/crypto/acme/autocert"
 	"willnorris.com/go/microformats"
 
 	"git.mills.io/yarnsocial/yarn"
@@ -34,6 +36,10 @@ import (
 	"git.mills.io/yarnsocial/yarn/internal/session"
 	"git.mills.io/yarnsocial/yarn/internal/webmention"
 	"git.mills.io/yarnsocial/yarn/types"
+)
+
+const (
+	acmeDir = "acme"
 )
 
 var (
@@ -189,6 +195,46 @@ func (s *Server) Run() (err error) {
 
 // ListenAndServe ...
 func (s *Server) ListenAndServe() error {
+	_, port, err := net.SplitHostPort(s.bind)
+	if err != nil {
+		log.WithError(err).Errorf("error parsing bind hostport %s", s.bind)
+		return err
+	}
+
+	useLetsEncrypt := s.config.TLSKey == "" && s.config.TLSCert == ""
+
+	if s.config.TLS {
+		if useLetsEncrypt && (port == "443" || port == "https") {
+			log.Info("Setting up Lets Encrypt ...")
+
+			m := &autocert.Manager{
+				Cache:      autocert.DirCache(filepath.Join(s.config.Data, acmeDir)),
+				Prompt:     autocert.AcceptTOS,
+				Email:      s.config.AdminEmail,
+				HostPolicy: autocert.HostWhitelist(s.config.baseURL.Hostname()),
+			}
+			s.server.TLSConfig = m.TLSConfig()
+
+			httpServer := &http.Server{
+				Addr: ":http",
+				Handler: logger.New(logger.Options{
+					Prefix:               "yarnd-http",
+					RemoteAddressHeaders: []string{"X-Forwarded-For"},
+				}).Handler(m.HTTPHandler(nil)),
+			}
+
+			go func() {
+				if err := httpServer.ListenAndServe(); err != nil {
+					log.WithError(err).Fatalf("error running http server")
+				}
+			}()
+
+			return s.server.ListenAndServeTLS("", "")
+		}
+		log.Infof("Setting up TLS (key=%s cert=%s)", s.config.TLSKey, s.config.TLSCert)
+		return s.server.ListenAndServeTLS(s.config.TLSCert, s.config.TLSKey)
+	}
+	log.Warn("No TLS configured")
 	return s.server.ListenAndServe()
 }
 

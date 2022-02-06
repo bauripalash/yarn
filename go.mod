@@ -78,10 +78,10 @@ require (
 	github.com/wblakecaldwell/profiler v0.0.0-20150908040756-6111ef1313a1
 	github.com/writeas/go-strip-markdown/v2 v2.1.1
 	github.com/writeas/slug v1.2.0
-	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce
+	golang.org/x/crypto v0.0.0-20220131195533-30dcbda58838
 	golang.org/x/exp v0.0.0-20220114162006-9d54fb35363c // indirect
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410 // indirect
-	golang.org/x/net v0.0.0-20220121210141-e204ce36a2ba
+	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20220114195835-da31bd327af9 // indirect
 	golang.org/x/term v0.0.0-20210927222741-03fcf44c2211

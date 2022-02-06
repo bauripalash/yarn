@@ -95,6 +95,10 @@ type Config struct {
 
 	Debug bool
 
+	TLS     bool
+	TLSKey  string
+	TLSCert string
+
 	Data              string `json:"-"`
 	Name              string
 	Logo              string

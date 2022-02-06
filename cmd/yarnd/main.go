@@ -58,6 +58,11 @@ var (
 	debug   bool
 	version bool
 
+	// TLS options
+	tls     bool
+	tlsKey  string
+	tlsCert string
+
 	// Basic options
 	name        string
 	description string
@@ -121,6 +126,11 @@ func init() {
 	flag.BoolVarP(&debug, "debug", "D", false, "enable debug logging")
 	flag.StringVarP(&bind, "bind", "b", "0.0.0.0:8000", "[int]:<port> to bind to")
 	flag.BoolVarP(&version, "version", "v", false, "display version information")
+
+	// TLS options
+	flag.BoolVar(&tls, "tls", internal.DefaultTLS, "enable TLS (HTTPS)")
+	flag.StringVar(&tlsKey, "tls-key", internal.DefaultTLSKey, "path to TLS private key (if blank uses Let's Encrypt)")
+	flag.StringVar(&tlsCert, "tls-cert", internal.DefaultTLSCert, "path to TLS certificate (if blank uses Let's Encrypt)")
 
 	// Basic options
 	flag.StringVarP(&name, "name", "n", internal.DefaultName, "set the pod's name")
@@ -308,6 +318,11 @@ func main() {
 		// Debug mode
 		internal.WithDebug(debug),
 
+		// TLS options
+		internal.WithTLS(tls),
+		internal.WithTLSKey(tlsKey),
+		internal.WithTLSCert(tlsCert),
+
 		// Basic options
 		internal.WithName(name),
 		internal.WithDescription(description),
@@ -393,7 +408,7 @@ func main() {
 		}()
 	}
 
-	log.Infof("%s v%s listening on http://%s", path.Base(os.Args[0]), yarn.FullVersion(), bind)
+	log.Infof("%s v%s listening on %s", path.Base(os.Args[0]), yarn.FullVersion(), bind)
 	if err := svr.Run(); err != nil {
 		log.WithError(err).Fatal("error running or shutting down server")
 	}

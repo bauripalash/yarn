@@ -20,6 +20,15 @@ const (
 	// DefaultData is the default data directory for storage
 	DefaultData = "./data"
 
+	// DefaultTLS is the default for whether to enable TLS
+	DefaultTLS = false
+
+	// DefaultTLSKey is the default path to a TLS private key (if blank uses Let's Encrypt)
+	DefaultTLSKey = ""
+
+	// DefaultTLSCert is the default path to a TLS certificate (if blank uses Let's Encrypt)
+	DefaultTLSCert = ""
+
 	// DefaultStore is the default data store used for accounts, sessions, etc
 	DefaultStore = "bitcask://yarn.db"
 
@@ -261,10 +270,34 @@ func NewConfig() *Config {
 // Option is a function that takes a config struct and modifies it
 type Option func(*Config) error
 
-// WithDebug sets the debug mode lfag
+// WithDebug sets the debug mode flag
 func WithDebug(debug bool) Option {
 	return func(cfg *Config) error {
 		cfg.Debug = debug
+		return nil
+	}
+}
+
+// WithTLS sets the tls flag
+func WithTLS(tls bool) Option {
+	return func(cfg *Config) error {
+		cfg.TLS = tls
+		return nil
+	}
+}
+
+// WithTLSKey sets the path to a TLS private key
+func WithTLSKey(tlsKey string) Option {
+	return func(cfg *Config) error {
+		cfg.TLSKey = tlsKey
+		return nil
+	}
+}
+
+// WithTLSCert sets the path to a TLS certificate
+func WithTLSCert(tlsCert string) Option {
+	return func(cfg *Config) error {
+		cfg.TLSCert = tlsCert
 		return nil
 	}
 }
