@@ -31,6 +31,32 @@
           <textarea id="css" name="podCSS" rows=10>{{ $.CSS }}</textarea>
         </label>
         <div class="grid">
+          <label for="alertType">
+            {{ tr . "ManagePodAlertTypeTitle" }}
+            <select id="alertType" name="podAlertType">
+              <option value="safe" {{ if eq $.AlertType "safe" }}selected{{ end }}>{{ tr . "ManagePodAlertTypeSafe" }}</option>
+              <option value="warn" {{ if eq $.AlertType "warn" }}selected{{ end }}>{{ tr . "ManagePodAlertTypeWarn" }}</option>
+              <option value="panic" {{ if eq $.AlertType "panic" }}selected{{ end }}>{{ tr . "ManagePodAlertTypePanic" }}</option>
+              <option value="update" {{ if eq $.AlertType "update" }}selected{{ end }}>{{ tr . "ManagePodAlertTypeUpdate" }}</option>
+            </select>
+          </label>
+          <label for="alertMessage">
+            {{ tr . "ManagePodAlertMessageTitle" }}
+            <input id="alertMessage" type="text" name="podAlertMessage" maxlength="150" placeholder="{{ tr . "ManagePodAlertMessageHelp" }}" aria-label="{{ tr . "ManagePodAlertMessageHelp" }}" value="{{ $.AlertMessage }}">
+          </label>
+          <fieldset>
+            <legend>{{ tr . "ManagePodAlertOptions" }}</legend>
+            <label for="alertGuest">
+              <input id="alertGuest" type="checkbox" name="podAlertGuest" aria-label="{{ tr . "ManagePodAlertGuest" }}" role="switch" {{ if $.AlertGuest }}checked{{ end }} />
+              {{ tr . "ManagePodAlertGuest" }}
+            </label>
+            <label for="alertFloat">
+              <input id="alertFloat" type="checkbox" name="podAlertFloat" aria-label="{{ tr . "ManagePodAlertFloat" }}" role="switch" {{ if $.AlertFloat }}checked{{ end }} />
+              {{ tr . "ManagePodAlertFloat" }}
+            </label>
+          </fieldset>
+        </div>
+        <div class="grid">
           <div>
             <label for="maxTwtLength">
               Max Twt Length:

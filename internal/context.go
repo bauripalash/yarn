@@ -64,6 +64,11 @@ type Context struct {
 	BlockedFeeds     []string
 	EnabledFeatures  []string
 
+  AlertFloat   bool
+	AlertGuest   bool
+	AlertMessage string
+	AlertType    string
+
 	Timezones []*timezones.Zoneinfo
 
 	Reply         string
@@ -180,6 +185,11 @@ func NewContext(s *Server, req *http.Request) *Context {
 		PermittedImages:  conf.PermittedImages,
 		BlockedFeeds:     conf.BlockedFeeds,
 		EnabledFeatures:  conf.Features.AsStrings(),
+
+		AlertFloat:   conf.AlertFloat,
+		AlertGuest:   conf.AlertGuest,
+		AlertMessage: conf.AlertMessage,
+		AlertType:    conf.AlertType,
 
 		DisplayDatesInTimezone:  conf.DisplayDatesInTimezone,
 		DisplayTimePreference:   conf.DisplayTimePreference,

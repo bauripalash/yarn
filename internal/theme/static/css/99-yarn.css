@@ -2,6 +2,47 @@ main.container {
   padding-top: 3rem;
 }
 
+alert {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+}
+
+alert a {
+  color: white;
+  text-decoration: underline !important;
+}
+
+alert.float {
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 999999;
+}
+
+alert.safe {
+  background-color: #4f8811;
+}
+
+alert.warn {
+  background-color: #ff5500;
+}
+
+alert.panic {
+  background-color: #ee1515;
+}
+
+alert.update {
+  background-color: #2986cc;
+}
+
 article.container-fluid {
   padding-top: 0.5rem;
   padding-bottom: 1rem;
@@ -754,6 +795,10 @@ pre {
     margin-top: -3rem;
   }
 
+  alert {
+    height: 6rem;
+  }
+
   article.container-fluid {
     margin-bottom: 1rem;
   }
@@ -796,6 +841,10 @@ pre {
     vertical-align: top;
     text-align: left;
     margin: 0 0 0.5rem 1.25rem;
+  }
+
+  nav.float {
+    padding-top: 6rem !important;
   }
 
   .toolbar-nav {
@@ -961,6 +1010,10 @@ pre {
     margin-top: -2rem;
   }
 
+  alert {
+    height: 4rem;
+  }
+
   body>footer {
     margin-top: -0.5rem;
   }
@@ -978,6 +1031,10 @@ pre {
   #podMenu {
     margin-top: -1.15rem;
     display: inherit;
+  }
+
+  nav.float {
+    padding-top: 4.5rem !important;
   }
 
   nav.yarn-nav {
@@ -1070,6 +1127,10 @@ pre {
     overflow-y: scroll;
   }
 
+  alert {
+    height: 4rem;
+  }
+
   #mainNav {
     padding-top: 0.5rem;
     margin: 0 auto;
@@ -1082,6 +1143,10 @@ pre {
 
   footer .footer-menu a {
     margin-left: 0.25rem;
+  }
+
+  nav.float {
+    padding-top: 4.5rem !important;
   }
 
   nav.yarn-nav,
@@ -1108,6 +1173,10 @@ pre {
     overflow-y: scroll;
   }
 
+  alert {
+    height: 4rem;
+  }
+
   #mainNav {
     padding-top: 0.5rem;
     margin: 0 auto;
@@ -1121,6 +1190,10 @@ pre {
 
   #podMenu {
     display: inherit;
+  }
+
+  nav.float {
+    padding-top: 4.5rem !important;
   }
 
   nav.yarn-nav,
@@ -1147,6 +1220,10 @@ pre {
     overflow-y: scroll;
   }
 
+  alert {
+    height: 3rem;
+  }
+
   #mainNav {
     padding-top: 0.5rem;
     margin: 0 auto;
@@ -1160,6 +1237,10 @@ pre {
 
   #podMenu {
     display: inherit;
+  }
+
+  nav.float {
+    padding-top: 2.5rem !important;
   }
 
   nav.yarn-nav,

@@ -47,6 +47,11 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		blockedFeeds := r.FormValue("blockedFeeds")
 		enabledFeatures := r.FormValue("enabledFeatures")
 
+		alertFloat := r.FormValue("podAlertFloat") == "on"
+		alertGuest := r.FormValue("podAlertGuest") == "on"
+		alertMessage := strings.TrimSpace(r.FormValue("podAlertMessage"))
+		alertType := r.FormValue("podAlertType")
+
 		displayDatesInTimezone := r.FormValue("displayDatesInTimezone")
 		displayTimePreference := r.FormValue("displayTimePreference")
 		openLinksInPreference := r.FormValue("openLinksInPreference")
@@ -94,6 +99,12 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 			s.render("error", w, ctx)
 			return
 		}
+
+		// Update alert type and message
+		s.config.AlertFloat = alertFloat
+		s.config.AlertGuest = alertGuest
+		s.config.AlertMessage = alertMessage
+		s.config.AlertType = alertType
 
 		// Update Max Twt Length
 		s.config.MaxTwtLength = maxTwtLength

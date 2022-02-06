@@ -57,7 +57,14 @@
     {{ if gt (len $.CSS) 0 }}<style>{{ $.CSS }}</style>{{ end }}
   </head>
 <body class="preload">
-  <nav id="mainNav">
+  {{ if or (.Authenticated) ($.AlertGuest) }}
+  {{ if gt (len $.AlertMessage) 0 }}
+  <alert class="{{ $.AlertType }} {{ if $.AlertFloat }}float{{ end }}">
+    <div>{{ $.AlertMessage | abbrev 150 | html }}</div>
+  </alert>
+  {{ end }}
+  {{ end }}
+  <nav id="mainNav" {{ if $.AlertFloat }}class="float"{{ end }}>
     <ul id="podLogo">
       <li class="podLogo">
         <a href="/">{{ $.Logo }}</a>

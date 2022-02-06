@@ -45,6 +45,11 @@ type Settings struct {
 	CSS         string `yaml:"pod_css"`
 	Description string `yaml:"pod_description"`
 
+	AlertFloat   bool   `yaml:"pod_alert_float"`
+	AlertGuest   bool   `yaml:"pod_alert_guest"`
+	AlertMessage string `yaml:"pod_alert_message"`
+	AlertType    string `yaml:"pod_alert_type"`
+
 	MaxTwtLength     int `yaml:"max_twt_length"`
 	TwtsPerPage      int `yaml:"twts_per_page"`
 	MediaResolution  int `yaml:"media_resolution"`
@@ -97,6 +102,10 @@ type Config struct {
 	Description       string
 	Store             string `json:"-"`
 	Theme             string `json:"-"`
+	AlertFloat        bool
+	AlertGuest        bool
+	AlertMessage      string
+	AlertType         string
 	Lang              string
 	BaseURL           string
 	AdminUser         string `json:"-"`

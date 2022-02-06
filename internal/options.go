@@ -145,6 +145,12 @@ var (
 	// DefaultCSS should be empty
 	DefaultCSS string
 
+	// Default Alert type and message
+	DefaultAlertFloat bool
+	DefaultAlertGuest bool
+	DefaultAlertType = "safe"
+	DefaultAlertMessage string
+
 	// DefaultFeedSources is the default list of external feed sources
 	DefaultFeedSources = []string{
 		"https://feeds.twtxt.net/we-are-feeds.txt",
@@ -220,6 +226,10 @@ func NewConfig() *Config {
 		AdminUser:               DefaultAdminUser,
 		FeedSources:             DefaultFeedSources,
 		CookieSecret:            DefaultCookieSecret,
+		AlertFloat:              DefaultAlertFloat,
+		AlertGuest:              DefaultAlertGuest,
+		AlertMessage:            DefaultAlertMessage,
+		AlertType:               DefaultAlertType,
 		TwtPrompts:              DefaultTwtPrompts,
 		TwtsPerPage:             DefaultTwtsPerPage,
 		MaxTwtLength:            DefaultMaxTwtLength,
