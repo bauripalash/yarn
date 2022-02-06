@@ -8,6 +8,8 @@ BRANCH=$(shell git rev-parse --abbrev-ref HEAD)
 GOCMD=go
 GOVER=$(shell go version | grep -o -E 'go1\.17\.[0-9]+')
 
+DESTDIR=/usr/local/bin
+
 ifeq ($(BRANCH), main)
 IMAGE := prologic/yarnd
 TAG := latest
@@ -56,8 +58,8 @@ generate:
 	fi
 
 install: build
-	@$(GOCMD) install ./cmd/yarnc/...
-	@$(GOCMD) install ./cmd/yarnd/...
+	@install -D -m 755 yarnd $(DESTDIR)/yarnd
+	@install -D -m 755 yarnc $(DESTDIR)/yarnc
 
 ifeq ($(PUBLISH), 1)
 image:
