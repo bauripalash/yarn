@@ -2099,7 +2099,7 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 
 		html := PreprocessMedia(p.conf, u, string(image.Title), alt, renderAs, display, full)
 		// TODO: Use a const?
-		if display && renderAs == "gallary" {
+		if display && renderAs == "gallery" {
 			p.Images = append(p.Images, html)
 		} else {
 			_, _ = io.WriteString(w, html)
