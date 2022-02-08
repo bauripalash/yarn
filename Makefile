@@ -62,15 +62,15 @@ install: build
 	@install -D -m 755 yarnc $(DESTDIR)/yarnc
 
 ifeq ($(PUBLISH), 1)
-image:
+image: generate
 	@docker build --build-arg VERSION="$(VERSION)" --build-arg COMMIT="$(COMMIT)" -t $(IMAGE):$(TAG) .
 	@docker push $(IMAGE):$(TAG)
 else
-image:
+image: generate
 	@docker build --build-arg VERSION="$(VERSION)" --build-arg COMMIT="$(COMMIT)" -t $(IMAGE):$(TAG) .
 endif
 
-release:
+release: generate
 	@./tools/release.sh
 
 fmt:
