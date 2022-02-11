@@ -1,0 +1,45 @@
+#!/bin/sh
+
+get_dau() {
+  pod="$1"
+  if ! dau="$(curl -qfso - "https://$pod/metrics" | grep -E '^yarnd_server_dau' | awk '{ print $2 }')"; then
+    echo "0"
+  fi
+  if [ -z "$dau" ]; then
+    echo "0"
+  else 
+    echo "$dau"
+  fi
+}
+
+get_mau() {
+  pod="$1"
+  if ! mau="$(curl -qfso - "https://$pod/metrics" | grep -E '^yarnd_server_mau' | awk '{ print $2 }')"; then
+    echo "0"
+  fi
+  if [ -z "$mau" ]; then
+    echo "0"
+  else 
+    echo "$mau"
+  fi
+
+}
+
+(
+while IFS= read -r pod
+do
+  echo "$pod $(get_dau "$pod") $(get_mau "$pod")"
+done < pods.txt
+) > stats.txt
+
+(
+echo "Pod DAU MAU"
+cat stats.txt
+) | column -t
+
+total_dau="$(awk '{ print $2 }' < stats.txt | paste -s -d+ | bc)"
+total_mau="$(awk '{ print $3 }' < stats.txt | paste -s -d+ | bc)"
+
+echo
+echo "Total DAU: $total_dau"
+echo "Total MAU: $total_mau"
