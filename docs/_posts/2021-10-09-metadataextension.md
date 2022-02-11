@@ -43,7 +43,7 @@ Field values start after the first equal sign (`=`) if that follows a valid
 field name. They are case sensitive and can contain anything, there is no
 character restriction other than line breaks. Values end at the end of the
 line. Multiline values must use the Unicode line separator `U+2028` just like
-multiline twts do.
+[multiline twts](multilineextension.html) do.
 
 All whitespace around field names and values must be stripped. Both field names
 and values must not be empty. There must be no more than one hash sign (`#`)
