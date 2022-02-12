@@ -126,7 +126,7 @@ func (s *Server) RegisterHandler() httprouter.Handle {
 			// TODO: Make this configurable?
 			welcomeText := CleanTwt(
 				fmt.Sprintf(
-					"👋 Hello @<%s %s>, welcome to %s, a [Yarn.Social](https://yarn.social) Pod! To get started you may want to check out the pod's [Discover](/discover) feed to find users to follow and interact with. To follow new users, use the `⨁ Follow` button on their profile page or use the [Follow](/follow) form and enter a Twtxt URL. You may also find other feeds of interest via [Feeds](/feeds). Welcome! 🤗",
+					"👋 Hello @<%s %s>, welcome to %s, a [Yarn.social](https://yarn.social) Pod! To get started you may want to check out the pod's [Discover](/discover) feed to find users to follow and interact with. To follow new users, use the `⨁ Follow` button on their profile page or use the [Follow](/follow) form and enter a Twtxt URL. You may also find other feeds of interest via [Feeds](/feeds). Welcome! 🤗",
 					user.Username, s.config.URLForUser(user.Username),
 					s.config.Name,
 				),

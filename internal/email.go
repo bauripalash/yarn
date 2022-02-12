@@ -23,11 +23,11 @@ You have requested to login to your Yarn.social account on on {{ .Pod }} via ema
 
 To login to your account, please visit the following link:
 
-{{ .BaseURL}}/magiclinkauth?token={{ .Token }}
+{{ .BaseURL }}/magiclinkauth?token={{ .Token }}
 
 Kind regards,
 
-{{ .Pod}} Support
+{{ .Pod }} Support
 `))
 
 	passwordResetEmailTemplate = template.Must(template.New("email").Parse(`Hello {{ .Username }},
@@ -38,53 +38,51 @@ You have requested to have your password on {{ .Pod }} reset for your account.
 
 To reset your password, please visit the following link:
 
-{{ .BaseURL}}/newPassword?token={{ .Token }}
+{{ .BaseURL }}/newPassword?token={{ .Token }}
 
 Kind regards,
 
-{{ .Pod}} Support
+{{ .Pod }} Support
 `))
 
 	supportRequestEmailTemplate = template.Must(template.New("email").Parse(`Hello {{ .AdminUser }},
 
 {{ .Name }} <{{ .Email }} from {{ .Pod }} has sent the following support request:
 
-> Subject: {{ .Subject }}
->
+Subject: {{ .Subject }}
 {{ .Message }}
 
 Kind regards,
 
-{{ .Pod}} Support
+{{ .Pod }} Support
 `))
 
 	candidatesForDeletionEmailTemplate = template.Must(template.New("email").Parse(`Hello {{ .AdminUser }},
 
-	The following top 10 users are candidates for deletion as they have either never posted, updated their profile
-	or follow any feeds. Their usernames on {{ .Pod }} are shown below with their scores. The higher the score
-	the more likely the user has never used their account.
+The following top 10 users are candidates for deletion as they have either never posted, updated their profile
+or follow any feeds. Their usernames on {{ .Pod }} are shown below with their scores. The higher the score
+the more likely the user has never used their account.
 
-	{{ range $candidate := .Candidates }}
-	{{ $candidate.Username }}
-	Score: {{ $candidate.Score }}
-	{{ $.BaseURL }}/user/{{ $candidate.Username }}
-	{{ end }}
+{{ range $candidate := .Candidates }}
+{{ $candidate.Username }}
+Score: {{ $candidate.Score }}
+{{ $.BaseURL }}/user/{{ $candidate.Username }}
+{{ end }}
 
-	To delete any of these users visit:
+To delete any of these users visit:
 
-	{{ .BaseURL}}/manage/users
+{{ .BaseURL }}/manage/users
 
-	Kind regards,
+Kind regards,
 
-	{{ .Pod }} Support
+{{ .Pod }} Support
 `))
 
 	reportAbuseEmailTemplate = template.Must(template.New("email").Parse(`Hello {{ .AdminUser }},
 
-{{ .Name }} <{{ .Email }} from {{ .Pod }} has sent the following abuse report:
+{{ .Name }} {{ .Email }} from {{ .Pod }} has sent the following abuse report:
 
-> Category: {{ .Category }}
->
+Category: {{ .Category }}
 {{ .Message }}
 
 The offending user/feed in question is:
@@ -99,7 +97,7 @@ Kind regards,
 
 	newUserEmailTemplate = template.Must(template.New("email").Parse(`Hello {{ .AdminUser }},
 
-A New User has joined your {{ .Pod }} pod! 🥳
+A new user has joined your {{ .Pod }} pod!
 
 {{ .BaseURL }}/user/{{ .Username }}
 

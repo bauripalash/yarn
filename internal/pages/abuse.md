@@ -1,12 +1,12 @@
 ---
-title: Twtxt.net Abuse Policy and Community Guidelines
+title: {{ .InstanceName }} Abuse Policy and Community Guidelines
 ---
 
 # Abuse Policy
 
 >  Help us build and maintain a safe community.
 
-At Yarn.Social, we believe that everyone is free to express and share their
+At {{ .InstanceName }}, we believe that everyone is free to express and share their
 opinions, stories, ideas and thoughts!  You can even create your own pod with
 your own followers. Your posts are your own, your data is your own, your
 community is made by you, however Yarn.social pod owners and operators have a
@@ -16,17 +16,17 @@ The primary focus of the community guidelines will be `@-mentions`
 and Conversations posted to any pods managed either by the Yarn.social team or
 pods purchased through the Yarn.social hosting service. Pods created and hosted
 independently are not held to these community guidelines and are beyond
-Yarn.social's scope.
+{{ .InstanceName }}'s scope.
 
 Many great friendships and conversations happen at Yarn.social. Unfortunately
 from time to time users may engage in what is deemed abusive or harassing
-behaviour. 
+behaviour.
 
 **If you are being harassed on a Yarn.social pod, or if you notice someone else
 being harassed, please report the user by going to their profile page and
 selecting report user. You will be asked to provide an example(s) by providing
 links to offending Posts by either their URL(s) or Hashes. Alternatively
-contact the Pod Owner at the /support page.**
+contact the Pod Owner at the [/support](/support) page.**
 
 The following will not be tolerated as `@-mentions` to any user or in
 conversations (_including multimedia content_) on any Yarn.social Pod:
@@ -54,17 +54,17 @@ conversations (_including multimedia content_) on any Yarn.social Pod:
 
 ## What Happens If Someone Violates These Guidelines
 
-We recognize that the circumstances under which a violation has occurred will
+We recognise that the circumstances under which a violation has occurred will
 vary, and we will tailor our response to the situation that has been reported.
 We’ll review each abuse report on a case-by-case basis. In each case.
 The actions that we will take include, but are not limited to, the following:
 
-- A warning to discontinue behavior that violates the guidelines,
+- A warning to discontinue behaviour that violates the guidelines,
   with specific details on how the guidelines have been violated. Repeated
-  warnings will lead to the removal of the offending User's account and any Feeds they own.
-- Yarn.social account will be closed.
+  warnings will lead to the removal of the offending user account and any feeds they own.
+- The account associated with {{ .InstanceName }} will be closed.
 
 Thanks for helping us build and maintain a safe and welcoming community
-on Yarn.social and beyond!
+on {{ .InstanceName }} and beyond!
 
 We reserve the right to update these guidelines as needed.

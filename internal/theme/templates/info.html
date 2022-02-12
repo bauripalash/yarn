@@ -1,7 +1,7 @@
 {{ define "content" }}
   <article class="container-fluid">
     <hgroup>
-      <h2>{{ .InstanceName }} Information</h2>
+      <h2>{{ tr . "InstanceNameInfo" (dict "InstanceName" $.InstanceName) }}</h2>
     </hgroup>
     <table>
       <tr><td>Name</td><td>{{ .InstanceName }}</td></tr>

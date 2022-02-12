@@ -76,6 +76,16 @@ article.grid {
   padding: 0.5rem 1rem;
 }
 
+.help {
+  cursor: help;
+  border-bottom: 1px dotted var(--color);
+  padding: 0 0.2rem 0 0.2rem;
+}
+
+.help:hover {
+  text-shadow: 0 0 0.5rem var(--primary);
+}
+
 .preload * {
   transition: none;
 }
@@ -126,7 +136,7 @@ article.grid {
 
 .yarn-count-badge {
   background-color: var(--primary);
-  color: white;
+  color: var(--color);
   border-radius: 100px;
   padding: 0px 4px;
   font-size: 9px;
@@ -286,8 +296,20 @@ nav.timeline-nav a {
   word-break: break-all;
 }
 
-.manage-users {
-  margin-bottom: 1rem;
+.manage-options {
+  margin: 1rem -1rem;
+}
+
+.manage-options li {
+  display: inline-block;
+  list-style: none;
+  text-align: center;
+  margin: 0 0.3rem;
+}
+
+.manage-options i:after {
+  content: "\A";
+  white-space: pre-wrap;
 }
 
 .image-gallery {
@@ -585,18 +607,6 @@ video {
   padding-left: 0.25rem;
 }
 
-article.no-tb {
-  margin-top: -0.1rem;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-article.no-tb:nth-of-type(3) {
-  margin-bottom: -0.75rem;
-  border-radius: 0 0 var(--border-radius) var(--border-radius);
-  padding-bottom: 0.5rem;
-}
-
 article .p-summary {
   margin-bottom: -1rem;
   padding-top: 0.6rem;
@@ -849,6 +859,17 @@ pre {
 
   .toolbar-nav {
     margin: -1.6rem 0 -3.75rem 0.5rem;
+  }
+
+  .manage-options li {
+    display: block;
+    list-style: none;
+    text-align: left;
+    margin: 1rem 0;
+  }
+
+  .manage-options i:after {
+    white-space: normal;
   }
 
   .submit-bar>div {

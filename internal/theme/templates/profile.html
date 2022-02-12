@@ -6,7 +6,7 @@
   </div>
 
   <div class="profile-stats">
-    <a {{ if not (eq $.Profile.Type "External") }}href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}"{{ else }}href="/external?uri={{ $.Profile.URI}}&nick={{ $.Profile.Nick }}"{{ end }} class="u-url">
+    <a {{ if not (eq $.Profile.Type "External") }}href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}"{{ else }}href="/external?uri={{ $.Profile.URI }}&nick={{ $.Profile.Nick }}"{{ end }} class="u-url">
       {{ if .Profile.Muted }}<i class="ti ti-ismuted"></i>{{ end }}
       {{ if .Profile.Avatar }}
       <img class="avatar u-photo{{ if .Profile.Muted }} ismuted{{ end }}" {{ if not (eq $.Profile.Type "External") }}src="/user/{{ $.Profile.Nick }}/avatar"{{ else }}src="/externalAvatar?uri={{ $.Profile.URI }}"{{ end }} alt="" loading=lazy />
@@ -19,14 +19,14 @@
 
   <div class="profile-info">
     {{ if .Authenticated }}
-    {{ if .Profile.Muted }}<span class="profile-muted"><i class="ti ti-volume-3"></i> User currently muted</span>{{ end }}
-    {{ if not $.Profile.Muted }}<span class="profile-last-seen"><i class="ti ti-clock"></i> Last Seen: {{ .Profile.LastSeenAt | lastseen }}</span>{{ end }}
+    {{ if .Profile.Muted }}<span class="profile-muted"><i class="ti ti-volume-3"></i> {{ tr . "ProfileIsMuted" }}</span>{{ end }}
+    {{ if not $.Profile.Muted }}<span class="profile-last-seen"><i class="ti ti-clock"></i> {{ tr . "ProfileLastSeen" }} {{ .Profile.LastSeenAt | lastseen }}</span>{{ end }}
     {{ if .Profile.FollowedBy }}
     <div class="profile-popular">
       <a href="{{ .Profile.URI }}">{{ .Profile.Nick }}</a> {{ tr . "ProfileFollowsYou" }}
     </div>
     {{ else }}
-    {{ $splitFollow := split "(" (tr . "ProfileDoesNotFollowYou")}}
+    {{ $splitFollow := split "(" (tr . "ProfileDoesNotFollowYou") }}
     <div class="profile-popular">
       <a href="{{ .Profile.URI }}">{{ .Profile.Nick }}</a> {{ ((index $splitFollow "_0") | trimSuffix ")") | html }}
     </div>
@@ -40,10 +40,10 @@
 
   <div class="profile-links">
     {{ if .Authenticated }}
-    <a class="followBtn" style="display: {{ if not $.Profile.Follows }}inline{{ else }}none{{ end}};" href="/follow?nick={{ .Profile.Nick  }}&url={{ .Profile.URI }}">
+    <a class="followBtn" style="display: {{ if not $.Profile.Follows }}inline{{ else }}none{{ end }};" href="/follow?nick={{ .Profile.Nick  }}&url={{ .Profile.URI }}">
       <i class="ti ti-circle-plus"></i> {{ tr . "FollowLinkTitle" }}
     </a>
-    <a class="unfollowBtn" style="display: {{ if $.Profile.Follows }}inline{{ else }}none{{ end}};" href="/unfollow?nick={{ .Profile.Nick  }}">
+    <a class="unfollowBtn" style="display: {{ if $.Profile.Follows }}inline{{ else }}none{{ end }};" href="/unfollow?nick={{ .Profile.Nick  }}">
       <i class="ti ti-circle-minus"></i> {{ tr . "UnfollowLinkTitle" }}
     </a>
     {{ end }}

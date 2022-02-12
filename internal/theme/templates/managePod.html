@@ -2,32 +2,33 @@
   <article class="grid">
     <div>
       <hgroup>
-        <h2>Manage Pod<h2>
-        <h3>Administer your Pod and update settings here</h3>
+        <h2>{{ tr . "ManagePodLinkTitle" }}<h2>
+        <h3>{{ tr . "ManagePodSummary" }}</h3>
       </hgroup>
-      <div class="manage-users">
-        <a href="/manage/jobs"><i class="ti ti-heartbeat"></i> Manage Jobs</a><br /><br />
-        <a href="/manage/peers"><i class="ti ti-affiliate"></i> Manage Peers</a><br /><br />
-        <a href="/manage/users"><i class="ti ti-users"></i> Manage Users</a><br /><br />
-        <a href="/manage/refreshcache" onclick="return confirm('Are you sure you want to delete and refresh ths cache?')"><i class="ti ti-refresh"></i> Refresh Cache</a>
+      <div class="manage-options">
+        <ul>
+          <li><a href="/manage/jobs"><i class="ti ti-heartbeat"></i> {{ tr . "ManagePodOptionJobs" }}</a></li>
+          <li><a href="/manage/peers"><i class="ti ti-affiliate"></i> {{ tr . "ManagePodOptionPeers" }}</a></li>
+          <li><a href="/manage/users"><i class="ti ti-users"></i> {{ tr . "ManagePodOptionUsers" }}</a></li>
+          <li><a href="/manage/refreshcache" onclick="return confirm('{{ tr . "ManagePodOptionCacheConfirm" }}')"><i class="ti ti-refresh"></i> {{ tr . "ManagePodOptionCache" }}</a></li>
+        </ul>
       </div>
       <form action="/manage/pod" enctype="multipart/form-data" method="POST">
         <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
         <label for="podName">
-          Pod Name:
-          <input id="podName" type="text" name="podName" placeholder="Pod Name" aria-label="podName" value="{{ .InstanceName }}">
+          {{ tr . "ManagePodName" }}
+          <input id="podName" type="text" name="podName" placeholder="{{ tr . "ManagePodNameHelp" }}" aria-label="{{ tr . "ManagePodName" }}" value="{{ .InstanceName }}">
         </label>
         <label for="podDescription">
-          Pod Description:
-          <input id="podDescription" type="text" name="podDescription" placeholder="Pod Description" aria-label="podDescription" value="{{ .Meta.Description }}">
+          {{ tr . "ManagePodDescription" }}
+          <input id="podDescription" type="text" name="podDescription" placeholder="{{ tr . "ManagePodDescriptionHelp" }}" aria-label="{{ tr . "ManagePodDescription" }}" value="{{ .Meta.Description }}">
         </label>
         <label for="logo">
-          Custom Pod Logo:
+          {{ tr . "ManagePodCustomLogo" }} <span class="help" title="{{ (tr . "ManagePodCustomLogoHelp") | html }}"><i class="ti ti-help"></i></span>
           <textarea id="logo" name="podLogo" rows=10>{{ $.Logo }}</textarea>
         </label>
-        <p>You can use the template variable <pre>{{"{{"}} .PodName {{"}}"}}</pre> in your logo</p>
         <label for="css">
-          Custom Pod CSS:
+          {{ tr . "ManagePodCustomCSS" }} <span class="help" title="{{ (tr . "ManagePodCustomCSSHelp") | html }}"><i class="ti ti-help"></i></span>
           <textarea id="css" name="podCSS" rows=10>{{ $.CSS }}</textarea>
         </label>
         <div class="grid">
@@ -57,87 +58,85 @@
           </fieldset>
         </div>
         <div class="grid">
-          <div>
+          <fieldset>
             <label for="maxTwtLength">
-              Max Twt Length:
-              <input id="maxTwtLength" type="number" name="maxTwtLength" placeholder="Max Twt Length" aria-label="maxTwtLength" value="{{ .MaxTwtLength }}">
+              {{ tr . "ManagePodTwtMaxLength" }}
+              <input id="maxTwtLength" type="number" name="maxTwtLength" placeholder="{{ tr . "ManagePodTwtMaxLengthHelp" }}" aria-label="{{ tr . "ManagePodTwtMaxLength" }}" value="{{ .MaxTwtLength }}">
             </label>
-          </div>
-          <div>
+          </fieldset>
+          <fieldset>
             <label for="twtsPerPage">
-              Twts per Page
-              <input id="twtsPerPage" type="number" name="twtsPerPage" placeholder="Numbers of Twts to display per page" aria-label="twtsPerPage" value="{{ .TwtsPerPage }}">
+              {{ tr . "ManagePodTwtPerPage" }}
+              <input id="twtsPerPage" type="number" name="twtsPerPage" placeholder="{{ tr . "ManagePodTwtPerPageHelp" }}" aria-label="{{ tr . "ManagePodTwtPerPage" }}" value="{{ .TwtsPerPage }}">
             </label>
-          </div>
-          <div>
+          </fieldset>
+          <fieldset>
             <label for="avatarResolution">
-              Avatar Resolution
-              <input id="avatarResolution" type="number" name="avatarResolution" placeholder="Avatar Resolution in pixels" aria-label="avatarResolution" value="{{ .AvatarResolution }}">
+              {{ tr . "ManagePodResolutionAvatar" }}
+              <input id="avatarResolution" type="number" name="avatarResolution" placeholder="{{ tr . "ManagePodResolutionAvatarHelp" }}" aria-label="{{ tr . "ManagePodResolutionAvatar" }}" value="{{ .AvatarResolution }}">
             </label>
-          </div>
-          <div>
+          </fieldset>
+          <fieldset>
             <label for="mediaResolution">
-              Media Resolution
-              <input id="mediaResolution" type="number" name="mediaResolution" placeholder="Media Resolution in pixels" aria-label="mediaResolution" value="{{ .MediaResolution }}">
+              {{ tr . "ManagePodResolutionMedia" }}
+              <input id="mediaResolution" type="number" name="mediaResolution" placeholder="{{ tr . "ManagePodResolutionMediaHelp" }}" aria-label="{{ tr . "ManagePodResolutionMedia" }}" value="{{ .MediaResolution }}">
             </label>
-          </div>
+          </fieldset>
         </div>
         <div class="grid">
-          <div>
-            <fieldset>
-              <legend>{{ tr . "SettingsFormDisplayImagesPreferenceTitle" }}</legend>
-              <label for="inline">
-                <input id="inline" type="radio" name="displayImagesPreference" value="inline" {{ if eq $.DisplayImagesPreference "inline" }}checked{{ end }}>
-                {{ tr . "SettingsFormDisplayImagesPreferenceInline" }}
-              </label>
-              <label for="lightbox">
-                <input id="lightbox" type="radio" name="displayImagesPreference" value="lightbox" {{ if eq $.DisplayImagesPreference "lightbox" }}checked{{ end }}>
-                {{ tr . "SettingsFormDisplayImagesPreferenceLightbox" }}
-              </label>
-              <label for="gallery">
-                <input id="gallery" type="radio" name="displayImagesPreference" value="gallery" {{ if eq $.DisplayImagesPreference "gallery" }}checked{{ end }}>
-                {{ tr . "SettingsFormDisplayImagesPreferenceGallery" }}
-              </label>
-            </fieldset>
-          </div>
-          <div>
-            <legend>Media settings:</legend>
+          <fieldset>
+            <legend>{{ tr . "SettingsFormDisplayImagesPreferenceTitle" }}</legend>
+            <label for="inline">
+              <input id="inline" type="radio" name="displayImagesPreference" value="inline" {{ if eq $.DisplayImagesPreference "inline" }}checked{{ end }}>
+              {{ tr . "SettingsFormDisplayImagesPreferenceInline" }}
+            </label>
+            <label for="lightbox">
+              <input id="lightbox" type="radio" name="displayImagesPreference" value="lightbox" {{ if eq $.DisplayImagesPreference "lightbox" }}checked{{ end }}>
+              {{ tr . "SettingsFormDisplayImagesPreferenceLightbox" }}
+            </label>
+            <label for="gallery">
+              <input id="gallery" type="radio" name="displayImagesPreference" value="gallery" {{ if eq $.DisplayImagesPreference "gallery" }}checked{{ end }}>
+              {{ tr . "SettingsFormDisplayImagesPreferenceGallery" }}
+            </label>
+          </fieldset>
+          <fieldset>
+            <legend>{{ tr . "ManagePodMediaSettings" }}</legend>
             <label for="displayMedia">
-              <input id="displayMedia" type="checkbox" name="displayMedia" aria-label="Display media at all" role="switch" {{ if .DisplayMedia }}checked{{ end }} />
-              Display Media
+              <input id="displayMedia" type="checkbox" name="displayMedia" aria-label="{{ tr . "ManagePodMediaSettingsDisplay" }}" role="switch" {{ if .DisplayMedia }}checked{{ end }} />
+              {{ tr . "ManagePodMediaSettingsDisplay" }}
             </label>
             <label for="originalMedia">
-              <input id="originalMedia" type="checkbox" name="originalMedia" aria-label="Use original media" role="switch" {{ if .OriginalMedia }}checked{{ end }} />
-              Use Original Media
+              <input id="originalMedia" type="checkbox" name="originalMedia" aria-label="{{ tr . "ManagePodMediaSettingsOriginal" }}" role="switch" {{ if .OriginalMedia }}checked{{ end }} />
+              {{ tr . "ManagePodMediaSettingsOriginal" }}
             </label>
-          </div>
-          <div>
-            <legend>Other settings:</legend>
+          </fieldset>
+          <fieldset>
+            <legend>{{ tr . "ManagePodOtherSettings" }}</legend>
             <label for="enableOpenRegistrations">
-              <input id="enableOpenRegistrations" type="checkbox" name="enableOpenRegistrations" aria-label="Allow open registrations" role="switch" {{ if not .RegisterDisabled }}checked{{ end }} />
-              Allow open registrations
+              <input id="enableOpenRegistrations" type="checkbox" name="enableOpenRegistrations" aria-label="{{ tr . "ManagePodOtherSettingsRegistration" }}" role="switch" {{ if not .RegisterDisabled }}checked{{ end }} />
+              {{ tr . "ManagePodOtherSettingsRegistration" }}
             </label>
             <label for="enableOpenProfiles">
-              <input id="enableOpenProfiles" type="checkbox" name="enableOpenProfiles" aria-label="Allow open profiles" role="switch" {{ if .OpenProfiles }}checked{{ end }} />
-              Allow open profiles
+              <input id="enableOpenProfiles" type="checkbox" name="enableOpenProfiles" aria-label="{{ tr . "ManagePodOtherSettingsOpenProfile" }}" role="switch" {{ if .OpenProfiles }}checked{{ end }} />
+              {{ tr . "ManagePodOtherSettingsOpenProfile" }}
             </label>
-          </div>
+          </fieldset>
         </div>
         <label for="permittedImages">
-          Permitted Image Domains:
+          {{ tr . "ManagePodPermittedImageDomains" }}
           <textarea id="permittedImages" name="permittedImages" rows=5>{{ $.PermittedImages | join "\r\n" }}</textarea>
         </label>
         <label for="blockedFeeds">
-          Blocked Feeds:
+          {{ tr . "ManagePodBlockedFeeds" }}
           <textarea id="blockedFeeds" name="blockedFeeds" rows=5>{{ $.BlockedFeeds | join "\r\n" }}</textarea>
         </label>
         <label for="enabledFeatures">
-          Enabled Optional Features
+          {{ tr . "ManagePodOptionalFeatures" }}
           <textarea id="enabledFeatures" name="enabledFeatures" rows=3>{{ $.EnabledFeatures | join "\r\n" }}</textarea>
         </label>
         <div class="grid">
           <label for="displayDatesInTimezone">
-            {{tr . "SettingsFormTimezoneTitle"}}
+            {{ tr . "SettingsFormTimezoneTitle" }}
             <select id="displayDatesInTimezone" name="displayDatesInTimezone">
               {{ range .Timezones }}
               <option value="{{ .TzName }}" {{ if eq $.DisplayDatesInTimezone .TzName }}selected{{ end }}>{{ .NameWithOffset }}</option>
@@ -145,29 +144,27 @@
             </select>
           </label>
           <fieldset>
-            <legend>{{tr . "SettingsFormTimePreferenceTitle"}}</legend>
+            <legend>{{ tr . "SettingsFormTimePreferenceTitle" }}</legend>
             <label for="12h">
-              <input type="radio" name="displayTimePreference" value="12h" {{ if eq $.DisplayTimePreference "12h" }}checked{{ end }}>
-              12hr
+              <input type="radio" name="displayTimePreference" value="12h" {{ if eq $.DisplayTimePreference "12h" }}checked{{ end }}> 12hr
             </label>
             <label for="24h">
-              <input type="radio" name="displayTimePreference" value="24h" {{ if eq $.DisplayTimePreference "24h" }}checked{{ end }}>
-              24hr
+              <input type="radio" name="displayTimePreference" value="24h" {{ if eq $.DisplayTimePreference "24h" }}checked{{ end }}> 24hr
             </label>
           </fieldset>
           <fieldset>
             <legend>{{ tr . "SettingsFormOpenLinksInPreferenceTitle" }}</legend>
             <label for="samewindow">
               <input type="radio" name="openLinksInPreference" value="samewindow" {{ if eq $.OpenLinksInPreference "samewindow" }}checked{{ end }}>
-              Same Window
+              {{ tr . "SettingsFormOpenLinksInPreferenceSameWindow" }}
             </label>
             <label for="newwindow">
               <input type="radio" name="openLinksInPreference" value="newwindow" {{ if eq $.OpenLinksInPreference "newwindow" }}checked{{ end }}>
-              New Window (default)
+              {{ tr . "SettingsFormOpenLinksInPreferenceNewWindow" }}
             </label>
           </fieldset>
         </div>
-        <button type="submit" class="primary">Update</button>
+        <button type="submit" class="primary">{{ tr . "ManagePodUpdateButton" }}</button>
       </form>
     </div>
   </article>

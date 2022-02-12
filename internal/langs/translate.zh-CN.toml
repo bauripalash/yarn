@@ -1,63 +1,687 @@
-[ConversationJoinSummaryLogin]
-hash = "sha1-4c24ddee6ee7e7ae9a2a6da739f740a6e7d7d609"
-other = "<a href=\"/login\">Login</a> [[ regallow ]] to join in on this yarn."
+[AbuseEmailAddress]
+hash = "sha1-e1b1790da9f9c7d1cc2ecac3d1c4be2f6229f9ba"
+other = "Your email address"
 
-[ConversationJoinSummaryRegister]
-hash = "sha1-30ad4b346eb33e7d4eafdd98629a8758f5e59b7c"
-other = "or <a href=\"/register\">Register</a>"
+[AbuseFullName]
+hash = "sha1-ab42293e29e1ffb306c1403dd95144d664853a60"
+other = "Your name"
 
-[ConversationJoinTitle]
-hash = "sha1-6189686e2e9c27d7e4c7b8f5136c06e0fd9e1bf0"
-other = "Participate"
+[AbuseMessage]
+hash = "sha1-9f83399936698afef359610a610c848f9b075949"
+other = "We take all reports very seriously! If you are unsure about our community guidelines, please read the <a href=\"/abuse\">Abuse Policy</a>."
 
-[ForgottenPasswordContent]
-hash = "sha1-f6a964d4275e939efff27ff279dda09b5b04139f"
-other = "If you have forgotten your password you can request a <a href=\"/resetPassword\">password reset</a> as long as you remember your username and email address you signed up with and retain access to your email<br><br><em>We <strong>NEVER</strong> store your email address!</em>."
+[AbuseMessageCaptcha]
+hash = "sha1-e9312bd1b14ea0402dd548180b030e6c19d7c452"
+other = "Captcha"
+
+[AbuseMessageCaptchaMessage]
+hash = "sha1-88758c3aef244e41de7bf377918be88a1cc2a881"
+other = "Please solve this simple math problem below so we know you're a human!"
+
+[AbuseMessageExamples]
+hash = "sha1-b25d2a806bec2d3e25d116e7652dccc39df3c0eb"
+other = "Please provide examples by linking to the content in question. You may paste the /twt/xxxxxxx URLs or simply a list of the hashes. Please also give a brief reason why you believe the community guidelines and therefore <a href=\"/abuse\">Abuse Policy</a> is in direct violation."
+
+[AbuseMessageTitle]
+hash = "sha1-68f4145fee7dde76afceb910165924ad14cf0d00"
+other = "Message"
+
+[AbuseSelectOptionDoxxing]
+hash = "sha1-f369f62e5784256674e9f6f633db2965f34aa65d"
+other = "Posting private information"
+
+[AbuseSelectOptionHarassment]
+hash = "sha1-8fddd79e1918745ff44d284f37e6f5f49191ffb4"
+other = "Harassment"
+
+[AbuseSelectOptionHate]
+hash = "sha1-84c4456c82c202f3712b55542faf1aef9e6c91c9"
+other = "Hate speech"
+
+[AbuseSelectOptionIllegal]
+hash = "sha1-9fa67ba90161db8909e8b59d567ddb564f94f5b2"
+other = "Illegal activities"
+
+[AbuseSelectOptionThreat]
+hash = "sha1-4747e65e7967685183b1c1bd4ed2758db031efcf"
+other = "Threats of violence"
+
+[AbuseSelectTitle]
+hash = "sha1-0f50453f3a0cdfb029d1b33a0e9f9d4eee964ce2"
+other = "Select type of abuse..."
+
+[AbuseSubmitButton]
+hash = "sha1-1ca00033fee3d4e5ee3de55b2d380368d9310d48"
+other = "Submit Report"
+
+[AbuseTitle]
+hash = "sha1-32302082fdc130bbae32b4d8c1a1c8c175e42fa1"
+other = "Report Abuse"
+
+[AbuseWhyMessage]
+hash = "sha1-e463ea53f268bd719b416b3b6abef69a15eed615"
+other = "Please provide your name and email address so we may contact you for further information (<em>if necessary</em>) and so we can inform you of the outcome."
+
+[ConversationInReply]
+hash = "sha1-1fa700bd4a0b3dd0d97b3eb31673f4ce384382de"
+other = "In-reply-to"
+
+[ConversationOnTwtMessage]
+hash = "sha1-c8cedab48bf9e9ef61e2ed3535a99d933835a028"
+other = "Show conversation for #{{ .Hash }}"
+
+[ConversationRoot]
+hash = "sha1-e96857c58f716104caead648ee6aa61ab8e41cdc"
+other = "Root"
+
+[ConversationSearch]
+hash = "sha1-cea52dc23a28ef35adad2b1e509cb26a9ff7438e"
+other = "Search for this twt hash"
+
+[Copyright]
+hash = "sha1-493ddbf2f5fa671298131a839b8ce24252e15e61"
+other = "© 2022 <a href='https://git.mills.io/prologic' target='_blank'>James Mills</a>. All rights reserved."
+
+[CopyrightCreator]
+hash = "sha1-ea7ba214f4124bc29a22df99c1f67d5f413245ad"
+other = "Created with 💚 by <a href='https://git.mills.io/prologic' target='_blank'>James Mills</a>"
+
+[Error401Content]
+hash = "sha1-b4b65b244ddd4fcee92e9d10ecdb20f123e69260"
+other = "Ooops! The resource you are looking requires authorization or is not accessibly due to user preferences!"
+
+[Error401Title]
+hash = "sha1-1489108281fb1bf67186d5da87cf42ef0042f3c9"
+other = "401 Unauthorized"
+
+[Error403Content]
+hash = "sha1-f5bf5344073142bd6640d46ce4b58a6e0ede2275"
+other = "You are not permitted to access this resource!"
+
+[Error403Title]
+hash = "sha1-9b5ee969ca96ba0d4547a6041c5a86bf80fd4c96"
+other = "403 Forbidden"
+
+[Error404Content]
+hash = "sha1-538ef935a96f67775720f11c5c19e9a90e830f3e"
+other = "Ooops! The resource you are looking for is not here!"
+
+[Error404Title]
+hash = "sha1-5b65037351caeb0e5a48d963d7ffa88d0271d546"
+other = "404 Not Found"
+
+[ErrorCreateFeed]
+hash = "sha1-88578dc0772a1565b571e16be8cbd5c2ee584162"
+other = "Error creating: {{ .Error }}"
+
+[ErrorFollowAndValidate]
+hash = "sha1-ec2df6cad001a29f029a76ea9432923e4d7b7e6d"
+other = "Error following feed @<{{ .Nick }} {{ .URL }}>: {{ .Error }}"
+
+[ErrorInvalidFeedName]
+hash = "sha1-4f608638721d3b2c4558421b7cf4dbd47ffc00e7"
+other = "Invalid feed name: {{ .Error }}"
+
+[ErrorNoFeedByNick]
+hash = "sha1-bd7a6b509b846931f05fee9bccd3bfca6870115a"
+other = "No feed found by the nick {{ .Nick }}"
+
+[ErrorSetUser]
+hash = "sha1-9a04e65e018afb6ef6742adaba4e757b2e5b96ae"
+other = "Error following feed {{ .Nick }}: {{ .URL }}"
+
+[ErrorUnfollowingFeed]
+hash = "sha1-62c1d7321abb07ae0ffb2b73cbfa88c538bd8e55"
+other = "Error unfollowing feed {{ .Nick }}: {{ .URL }}"
+
+[ErrorValidateUsername]
+hash = "sha1-b86a2553887abbb01b95fe85ac6ac4ee9a92d63c"
+other = "Username validation failed: {{ .Error }}"
+
+[FollowExternal]
+hash = "sha1-6449ded9eb3838ce1579d2fc82ed24244cabe678"
+other = "Details on followers are not available on external feeds."
+
+[FooterPod]
+hash = "sha1-4a3b42640d5e1d2192eb37a74aa4cfdbc1c3f2d3"
+other = "a <a href=\"https://yarn.social\" target=\"_blank\">Yarn.social</a> pod."
+
+[FooterRunning]
+hash = "sha1-69418ea407467a104e1d4d11b1b06ad0ba862dd2"
+other = "Running <a href=\"https://git.mills.io/yarnsocial/yarn\" target=\"_blank\">yarnd</a>"
+
+[ImportSummary]
+hash = "sha1-1ba7ba788efa28833b0904c5777b4d2a0d77be94"
+other = "Import feeds to follow multiple users or feeds or import from another client"
+
+[ImportTip]
+hash = "sha1-4bda2451f2c1df94e77487e1f685d2385095cdf5"
+other = "Feeds in nick: url, one per line!"
+
+[ImportTitle]
+hash = "sha1-3f9c4097fa029c9ee234eac48f2ecf4792c29191"
+other = "Import Feeds"
+
+[InstanceNameInfo]
+hash = "sha1-b513d28ecb8417d0f64f277f68034d4b15d26cc0"
+other = "{{ .InstanceName }} Information"
 
 [LoginEmailSummary]
-hash = "sha1-03c7f05f45360aa1104947aff50c89adb4b76865"
-other = "Login to your Yarn.Social account on {{ .InstanceName }} via your Email Address"
-
-[LoginEmailTitle]
-hash = "sha1-15bfa4e76b3774215b32e0778675ad18c23f71df"
-other = "Login via Email"
+hash = "sha1-2bce21acb11f01b2536b13986afd8fa4fe49846f"
+other = "Login to your Yarn.social account on {{ .InstanceName }} via your Email Address"
 
 [LoginHowToContent]
-hash = "sha1-f434dda066da34aa54b8c6f06cd7c48caea6d2eb"
-other = "Login to your Yarn.Social account on {{ .InstanceName }} by filling in the Username and Password you used when you created your account.<br><br>Check the \"Remember Me\" box if you don't want to have to keep logging in every few hours.<br><br>Don't have an account? You can create a new account on the <a href=\"/register\">register</a> form."
-
-[LoginHowToSummary]
-hash = "sha1-9755be11397df0cf000dd5f31971c1b8e6f0d581"
-other = "Quick guide to help you login"
+hash = "sha1-a86f0e50201fbac8dad5c0e6f9d39167b1d6d83b"
+other = "Login to your Yarn.social account on {{ .InstanceName }} by filling in the Username and Password you used when you created your account.<br><br>Check the \"Remember Me\" box if you don't want to have to keep logging in every few hours.<br><br>Don't have an account? You can create a new account on the <a href=\"/register\">register</a> form."
 
 [LoginSummary]
-hash = "sha1-5e4c1a35a0a9248f7edded50e30f467fe11a8aad"
-other = "Login to your Yarn.Social account on {{ .InstanceName }}"
+hash = "sha1-2a0ca9329bc030eb18c50ceb59d0743b6b325713"
+other = "Login to your Yarn.social account on {{ .InstanceName }}"
 
-[LoginTitle]
-hash = "sha1-4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174"
-other = "Login"
+[ManageFeedDeleteConfirm]
+hash = "sha1-2ae4a1888687aa99dee6a9b565e323d1f3f338fe"
+other = "Are you sure you want to delete this feed?"
 
-[LoginViaEmailAddressHowToContent]
-hash = "sha1-fadb81dda858c41525f39cd0133fe0eb6db3aaaf"
-other = "You may also login via your Email account by simply supplying your Username and Email Address.<br><br>If the Username and Email Address match a valid account, an email will be sent to you with a link that you can click on to automatically log you in without requiring a password."
+[ManageFeedFormChangeAvatarTitle]
+hash = "sha1-e8d33553f61394cb4675e07f4b05e5735a734b93"
+other = "Change Avatar"
+
+[ManageFeedFormUploadAvatarTitle]
+hash = "sha1-eb634e962b0d38de3d6aef32f9c5ca4d42c5de13"
+other = "Upload avatar"
+
+[ManageFeedSummary]
+hash = "sha1-6e9f729d844f2857aeb53dbc980112ecb7d03c49"
+other = "Manage <strong>{{ .Username }}</strong> details"
+
+[ManageJobsRunButton]
+hash = "sha1-2af00e23c480ba779fddda60673b28364ccb8e89"
+other = "Run now"
+
+[ManageJobsSummary]
+hash = "sha1-a3cc5c3a7915a00414faddc3191b3be03d10d3d4"
+other = "Force run any of the scheduled background jobs"
+
+[ManageJobsTableLast]
+hash = "sha1-71edaf7caca42b6fb2aca455484d372048f7b3e2"
+other = "Last Run"
+
+[ManageJobsTableName]
+hash = "sha1-709a23220f2c3d64d1e1d6d18c4d5280f8d82fca"
+other = "Name"
+
+[ManageJobsTableNext]
+hash = "sha1-e560c48929c724831c1134ccfb6e514ff32f859d"
+other = "Next Run"
+
+[ManageJobsTitle]
+hash = "sha1-31842c70d9a4fe8fa0668614629dd17df4424893"
+other = "Manage Jobs"
+
+[ManagePeersDescription]
+hash = "sha1-55f8ebc805e65b5b71ddafdae390e3be2bcd69af"
+other = "Description"
+
+[ManagePeersLastSeen]
+hash = "sha1-20c226fb3237bbee6237cb37e62401bb00cbb011"
+other = "Last Seen"
+
+[ManagePeersLastSeenHelp]
+hash = "sha1-be328858e57406c260852ebc7064e303d6ad5f47"
+other = "When this pod fetched the peering pod's information the last time (once a day)"
+
+[ManagePeersLastUpdated]
+hash = "sha1-66f3e18075fb42d2003d95a74b5ddd36a1d5fca0"
+other = "Last Updated"
+
+[ManagePeersLastUpdatedHelp]
+hash = "sha1-be328858e57406c260852ebc7064e303d6ad5f47"
+other = "When this pod fetched the peering pod's information the last time (once a day)"
+
+[ManagePeersName]
+hash = "sha1-709a23220f2c3d64d1e1d6d18c4d5280f8d82fca"
+other = "Name"
+
+[ManagePeersSummary]
+hash = "sha1-469133ec0d66f4e07e5bf21a8eff4303ce2466c9"
+other = "Discovered {{ .Peers | len }} peering Pods"
+
+[ManagePeersTitle]
+hash = "sha1-db6cc34650aebce8c32e73a2caa4165fb376002a"
+other = "Manage Peers"
+
+[ManagePeersVersion]
+hash = "sha1-e77f785249446d822e05bd62647409f60b8dd3fb"
+other = "Pod Version"
+
+[ManagePodAlertFloat]
+hash = "sha1-5c855ee8150d593d5e92b72bc6f7c1d9beb45e62"
+other = "Floating Message"
+
+[ManagePodAlertGuest]
+hash = "sha1-fcc66745272797c64bce845ae3858f7b7e7bc132"
+other = "Include Guests"
+
+[ManagePodAlertMessageHelp]
+hash = "sha1-39f2e59961635799fabd732e04168d1be3816db8"
+other = "Leave empty to disable alert"
+
+[ManagePodAlertMessageTitle]
+hash = "sha1-ae282033ea198c09cb5cd3eabcd4db89f5a08b8e"
+other = "Pod Alert Message"
+
+[ManagePodAlertOptions]
+hash = "sha1-48d1cfaac400be410c963fda96488442cc595120"
+other = "Pod Alert Options"
+
+[ManagePodAlertTypePanic]
+hash = "sha1-4b6d6a30150a506f9b79caf45da5aecb76b0018e"
+other = "Important"
+
+[ManagePodAlertTypeSafe]
+hash = "sha1-9525ae1781bb71fc767a9bab4b6f299ac5cc8c5d"
+other = "Safe"
+
+[ManagePodAlertTypeTitle]
+hash = "sha1-517e3b1a07991cca5001d41653462c92bdabca82"
+other = "Pod Alert Type"
+
+[ManagePodAlertTypeUpdate]
+hash = "sha1-fb91e24fa52d8d2b32937bf04d843f730319a902"
+other = "Update"
+
+[ManagePodAlertTypeWarn]
+hash = "sha1-e9c45563358e813f157ba81b33143542165ba84e"
+other = "Warning"
+
+[ManagePodBlockedFeeds]
+hash = "sha1-4eef3cf1965b4c6b41f7f1394177f4a3c1a7d24d"
+other = "Blocked Feeds"
+
+[ManagePodCustomCSS]
+hash = "sha1-32e91ca2bc1fc72a1f229105a73d9f773266cdc3"
+other = "Custom Pod CSS"
+
+[ManagePodCustomCSSHelp]
+hash = "sha1-eb2da2cf6344adf47dff87c3ce337245d24dc098"
+other = "Use this to override any CSS styles that are present on this pod."
+
+[ManagePodCustomLogo]
+hash = "sha1-6f6458fd4a07273f71eff6e62afa40fecf42cebd"
+other = "Custom Pod Logo"
+
+[ManagePodCustomLogoHelp]
+hash = "sha1-cd8f0967141ae7119a3eeb5096f2718aa9154b0b"
+other = "You can use the template variable &#123;&#123; .PodName &#125;&#125; in your logo."
+
+[ManagePodDescription]
+hash = "sha1-5ab944b1026b65ab6232f61896dd72258e2b4b8e"
+other = "Pod Description"
+
+[ManagePodDescriptionHelp]
+hash = "sha1-1019e379fc7064e99628c34d0f2e70925af8f6c3"
+other = "Describe your Pod in detail, what is it about?"
+
+[ManagePodMediaSettings]
+hash = "sha1-924ed909c31c629b202e851d87cd7829d3010130"
+other = "Media Settings"
+
+[ManagePodMediaSettingsDisplay]
+hash = "sha1-549b4c14abe393afd6991826c465b14fcf7c0951"
+other = "Display media"
+
+[ManagePodMediaSettingsOriginal]
+hash = "sha1-696d3a3d75ad87aaae38aa497af6227d1acaa0bb"
+other = "Use original media"
+
+[ManagePodName]
+hash = "sha1-48554e123b4818a1fcfc125e8e6e712f17df3df5"
+other = "Pod Name"
+
+[ManagePodNameHelp]
+hash = "sha1-80d293afc5a85c9292cd8a0d7d2130356975e25e"
+other = "A unique name for your Pod"
+
+[ManagePodOptionCache]
+hash = "sha1-820f6b0deff7fdc081825ab624ce289175235630"
+other = "Refresh Cache"
+
+[ManagePodOptionCacheConfirm]
+hash = "sha1-18044ae10896a70f095b9c3d0544a5e7c40047d4"
+other = "Are you sure you want to delete and refresh ths cache?"
+
+[ManagePodOptionJobs]
+hash = "sha1-31842c70d9a4fe8fa0668614629dd17df4424893"
+other = "Manage Jobs"
+
+[ManagePodOptionPeers]
+hash = "sha1-db6cc34650aebce8c32e73a2caa4165fb376002a"
+other = "Manage Peers"
+
+[ManagePodOptionUsers]
+hash = "sha1-751f7d627ad7fe72372b355b1cd24895dc08b8f3"
+other = "Manage Users"
+
+[ManagePodOptionalFeatures]
+hash = "sha1-c8ca0a56d65d26dee24917a6c97b2b4ca338e82a"
+other = "Enabled Optional Features"
+
+[ManagePodOtherSettings]
+hash = "sha1-30b66a8e60d3305cc1ae4738fdf802f4d058b8c8"
+other = "Other Settings"
+
+[ManagePodOtherSettingsOpenProfile]
+hash = "sha1-9194b2225778f14125d770898cf913ec96f81d97"
+other = "Allow open profiles"
+
+[ManagePodOtherSettingsRegistration]
+hash = "sha1-3fc380063591b6a5bab8af2427c6959fbcca0ee1"
+other = "Allow open registrations"
+
+[ManagePodPermittedImageDomains]
+hash = "sha1-a952c8690fad918b77ef02568d923968ebe2b98a"
+other = "Permitted Image Domains"
+
+[ManagePodResolutionAvatar]
+hash = "sha1-a3ac7d77b58fcc0d988e63e92eb22efd856a0aa8"
+other = "Avatar Resolution"
+
+[ManagePodResolutionAvatarHelp]
+hash = "sha1-d9fb3d1ad8d4cabba84711fa96ac8a5f2e7dbec7"
+other = "Avatar resolution in pixels"
+
+[ManagePodResolutionMedia]
+hash = "sha1-0066b663336677a4e05a6cfdc5c900f5fbc797d1"
+other = "Media Resolution"
+
+[ManagePodResolutionMediaHelp]
+hash = "sha1-c872eb2b8cd61fb58cec982ccf308cc7e282d089"
+other = "Media resolution in pixels"
+
+[ManagePodSummary]
+hash = "sha1-b7359258ddccba06075ecae2e71e2d3b0c0ff7e9"
+other = "Administer your Pod and update settings here"
+
+[ManagePodTwtMaxLength]
+hash = "sha1-30e3525230b52765e241cf55880317cb91da515d"
+other = "Max Twt Length"
+
+[ManagePodTwtMaxLengthHelp]
+hash = "sha1-dca749e5215f71abc9ed657e5f92b1ad0007d291"
+other = "Number of characters allowed per twt"
+
+[ManagePodTwtPerPage]
+hash = "sha1-549dfb01094ea4baf528ac914c84c2d2f503d8b7"
+other = "Twts Per Page"
+
+[ManagePodTwtPerPageHelp]
+hash = "sha1-2ef2026f4405b8795c1de1e58afa0c95c0cdc8c9"
+other = "Number of Twts to display per page"
+
+[ManagePodUpdateButton]
+hash = "sha1-fb91e24fa52d8d2b32937bf04d843f730319a902"
+other = "Update"
+
+[ManageUsersFeedDelete]
+hash = "sha1-cdf081498909a5f915c8a8e2b9740d02c1f5c8e9"
+other = "Delete Feed"
+
+[ManageUsersFeedDeleteConfirm]
+hash = "sha1-0e16aa45a336097e3591a5e1b8575d4c6357c367"
+other = "Are you sure you want to delete this feed? This cannot be undone!"
+
+[ManageUsersFeedDeleteName]
+hash = "sha1-2934f77b579a3741475bea66fc720d664f292daa"
+other = "Feed Name"
+
+[ManageUsersSummary]
+hash = "sha1-a34ad52d0ced934ba3d0c0f1b750a5844fc70471"
+other = "Add / Remove Users"
+
+[ManageUsersUserAdd]
+hash = "sha1-874393854692c1377600a682c1b575b351a7625e"
+other = "Add User"
+
+[ManageUsersUserAddEmail]
+hash = "sha1-09ba557fd106f1019ec6739113e3e28dea4bd9a6"
+other = "Email Address"
+
+[ManageUsersUserAddHelp]
+hash = "sha1-c91f9e8f3a0bf9839867c821bcd18ba06d8b6b98"
+other = "Once created, the new user can reset their password via the \"Reset Password\" functionality."
+
+[ManageUsersUserAddUsername]
+hash = "sha1-84c29015de33e5d22422382a372caba5c58f8c01"
+other = "Username"
+
+[ManageUsersUserDelete]
+hash = "sha1-0a0a90f6c5a99223b71ca992b6c52fb82feb64b5"
+other = "Delete User"
+
+[ManageUsersUserDeleteConfirm]
+hash = "sha1-e2d5cdbc31dd97cb3606fbd52a62529f43352970"
+other = "Are you sure you want to delete this user? This cannot be undone!"
+
+[ManageUsersUserDeleteName]
+hash = "sha1-84c29015de33e5d22422382a372caba5c58f8c01"
+other = "Username"
+
+[ManageUsersUserReset]
+hash = "sha1-3fb75e3bfe4de94eb5198656fa9de95352dab915"
+other = "Reset Password"
+
+[ManageUsersUserResetConfirm]
+hash = "sha1-966e540195c8128741364a73828aa75f28146621"
+other = "Are you sure you want to reset the passsword for this user? This cannot be undone!"
+
+[ManageUsersUserResetUsername]
+hash = "sha1-84c29015de33e5d22422382a372caba5c58f8c01"
+other = "Username"
+
+[MsgCreateFeedSuccess]
+hash = "sha1-4e8b98f5645e7df81e37b92b428bba8b8cc6b9b1"
+other = "Successfully created feed: {{ .Feed }}"
+
+[MsgFollowUserSuccess]
+hash = "sha1-c72ead25f72dedac8809b9812faf735c7edd496b"
+other = "Successfully started following {{ .Nick }}: {{ .URL }}"
+
+[MsgUnfollowSuccess]
+hash = "sha1-e4fd3a2491a952f0d4dc235d1dcb885be44fff39"
+other = "Successfully stopped following {{ .Nick }}: {{ .URL }}"
+
+[NavLogoutConfirm]
+hash = "sha1-edf32e24669f25c93c3e21dae2bf7af6089e4934"
+other = "Are you sure you want logout?"
+
+[PageExternalProfileTitle]
+hash = "sha1-25e3a2cdf4c61d76ed548ad52ed0085498dd3b74"
+other = "External profile for @<{{ .Nick }} {{ .URL }}>"
+
+[PageManageFeedTitle]
+hash = "sha1-1b31888a297e82f551164a1dafade1decdfc1d45"
+other = "Manage feed {{ .Feed }}"
+
+[PageUserBookmarksTitle]
+hash = "sha1-fe5306fcab6e2462cd300af297cfc264a0b8ff48"
+other = "Bookmarked twts for {{ .Username }}"
+
+[PageUserFollowersTitle]
+hash = "sha1-bc5da4824bd51213fb2407a321ac16619fa77f22"
+other = "Followers for {{ .Username }}"
+
+[PageUserFollowingTitle]
+hash = "sha1-4f19dba3580d1f3ddcd3f45cc44739aa1f354071"
+other = "Users following {{ .Username }}"
+
+[PermalinkNothingFound]
+hash = "sha1-209ebf67d029ae59dd4df17ff417a84f2e0cb440"
+other = "<p>Nothing to see here. <a href=\"?unfiltered=1\">View Unfiltered</a></p>"
+
+[ProfileIsMuted]
+hash = "sha1-0205164b6c8b0be8d684aa988661df6d9b907b3c"
+other = "User currently muted"
+
+[ProfileLastPosted]
+hash = "sha1-145272e3d7b81f889df87206a429da750890c4ed"
+other = "last posted"
+
+[ProfileLastSeen]
+hash = "sha1-beb85e9d4e7f5bdc05eca7f144b881a95817d2dc"
+other = "Last Seen:"
+
+[ProfileNoTwts]
+hash = "sha1-1e9ef392a4bff24ed048ac19da0fcd4c5348c9b1"
+other = "Try checking out the <a href=\"/discover\">{{ .NavDiscover }}</a> timeline to see what's happenning on the {{ .InstanceName }} pod or <a href=\"/follow\">{{ .NavFollow }}</a> a feed"
+
+[RegisterFormEmailAddress]
+hash = "sha1-c94d3175a6560565410511df2cebab9cda96027e"
+other = "Email address"
+
+[RegisterFormGuidelines]
+hash = "sha1-09f2d7efb99d67b64c2193d184c5bc760bc8c412"
+other = "I agree to abide by the <a href='/abuse'>Community Guidelines</a>."
 
 [RegisterHowToContent]
-hash = "sha1-cf85efded7dda3ab99f1e422a6648eb8d758536f"
-other = "<p>\nYou are about to create a new <a href='https://yarn.social' target='_blank'>Yarn.Social</a>\naccount on {{ .InstanceName }}\n</p>\n<p>\nBy registering an account on {{ .InstanceName }} you agree to abide\nby the Community Guidelines set out in the <a href='/abuse'>Abuse Policy</a>.\n</p>\n<p>\n<ul>\n<li>Pick a username</li>\n<li>Create a unique and secure password</li>\n<li>Enter your email address in case you forget your password</li>\n</ul>\n</p>\n<p>\nPick any username you like (<i>as long as it is available on {{ .InstanceName }}</i>).\n</p>\n<p>\nPlease note we <b>DO NOT</b> actually store your email address at all!\nIf you forget your email address or lose access to your email we are\nreally sorry but you will be unable to recover your account if you\nforget your password.\n</p>"
-
-[RegisterHowToSummary]
-hash = "sha1-c3fb98ef5c0ae7a410e0207f71fb54119203d293"
-other = "Quick quide to help you create an account"
-
-[RegisterHowToTitle]
-hash = "sha1-3f4f547d73646d774e8f690b36333e8c9572894b"
-other = "Create an account"
+hash = "sha1-bf7ac2573fa5f1f64036e8f2d301aab10bbf8d83"
+other = "<p>\nYou are about to create a new <a href='https://yarn.social' target='_blank'>Yarn.social</a>\naccount on {{ .InstanceName }}\n</p>\n<p>\nBy registering an account on {{ .InstanceName }} you agree to abide\nby the Community Guidelines set out in the <a href='/abuse'>Abuse Policy</a>.\n</p>\n<p>\n<ul>\n<li>Pick a username</li>\n<li>Create a unique and secure password</li>\n<li>Enter your email address in case you forget your password</li>\n</ul>\n</p>\n<p>\nPick any username you like (<i>as long as it is available on {{ .InstanceName }}</i>).\n</p>\n<p>\nPlease note we <strong>DO NOT</strong> actually store your email address at all!\nIf you forget your email address or lose access to your email we are\nreally sorry but you will be unable to recover your account if you\nforget your password.\n</p>"
 
 [RegisterSummary]
-hash = "sha1-489639728e679afe6a87b9e6ff6eacdd971a22fc"
-other = "Create and register a new Yarn.Social account on {{ .InstanceName }}"
+hash = "sha1-3776e729bcd9ac3844df66c792d7311a92b3456f"
+other = "Create and register a new Yarn.social account on {{ .InstanceName }}"
+
+[ResetPasswordFormPassword]
+hash = "sha1-8be3c943b1609fffbfc51aad666d0a04adf83c9d"
+other = "Password"
+
+[ResetPasswordFormResetSummary]
+hash = "sha1-7bec90ce73f655b251d7bb9e865d9bcf2dce6156"
+other = "Enter your new password"
+
+[ResetPasswordHowToContent]
+hash = "sha1-dbe6de7dc0b9401529524364c060a7af13367ce9"
+other = " \n<p>\nUse the form on the left to recover your account and reset your\npassword. Simply fill in the username and email address you used\nto create your account.\n</p>\n<p>\nBe aware however that you must supply the same email address\nhere that you used to create your account in the first place.\nWe <strong>DO NOT</strong> actually store your email address on file so\nif you do not have access to or have forgotten your email address\nthen you will be unable to recover your account.\n</p>"
+
+[SearchSummary]
+hash = "sha1-8969afc3b960ccdb43afff65d3e087bd74db5eb1"
+other = "Twts matching {{ .SearchQuery }}"
+
+[SearchTitle]
+hash = "sha1-83512f3d83b2a10db88ec1c9be156d8d097c6172"
+other = "Searching {{ .InstanceName }}"
+
+[SettingsDeleteAccountSummary]
+hash = "sha1-717b43e3a25a8e80ab5653d3eb0fdd92f1f89c28"
+other = "<b>WARNING:</b> This is permanent and cannot be undone!"
+
+[SettingsFormChangeAvatarTitle]
+hash = "sha1-e8d33553f61394cb4675e07f4b05e5735a734b93"
+other = "Change Avatar"
 
 [SettingsFormChangeEmailSummary]
-hash = "sha1-013af64840d8dd404b02981e439176e3565b296a"
-other = "<b>NOTE:</b>We DO NOT actually store this! If you forget\nor lose access to your Email account provided here, it will\nbe impossible to recover your Yarn.Social account!"
+hash = "sha1-a4fd59d92d991511b1637d390ec59af9e9ff34d6"
+other = "We DO NOT actually store this! If you forget or lose access to your Email account provided here, it will be impossible to recover your Yarn.social account!"
+
+[SettingsFormChangeEmailTitle]
+hash = "sha1-12dffac0dc7d052b70b16ef9b915ec1e62f92c45"
+other = "Change Email"
+
+[SettingsFormChangePasswordTitle]
+hash = "sha1-49289db43e663a3df5e2c70714722ecc54895565"
+other = "Change Password"
+
+[SettingsFormChangeTagline]
+hash = "sha1-deb480b650f5f6b9a15caf70fa2e57a95f7200d4"
+other = "A short description, catchphrase, or slogan about yourself"
+
+[SettingsFormChangeTaglineTitle]
+hash = "sha1-fce038d40061fbf85fd68ef534dc15e3bdbc2639"
+other = "Update Tagline"
+
+[SettingsFormDisplayImagesPreferenceTitle]
+hash = "sha1-e51d60bd693b10dc7da750381a02d6b90846057a"
+other = "Display Images As"
+
+[SettingsFormOpenLinksInPreferenceNewWindow]
+hash = "sha1-b1a8bf37d9ca8643193b898991289deb3b77bcf9"
+other = "New window (default)"
+
+[SettingsFormOpenLinksInPreferenceSameWindow]
+hash = "sha1-2b605fa62584f3f5e2df36fa839a6cf01268d1a9"
+other = "Same window"
+
+[SettingsFormOpenLinksInPreferenceTitle]
+hash = "sha1-48581bb767f6f2cc2af98759ce9b6a3734c4d228"
+other = "Open Links In"
+
+[SettingsFormPrivacySettingsTitle]
+hash = "sha1-af95411fcc562c72d8401d289430eccb5aa057b9"
+other = "Privacy Settings"
+
+[SettingsFormThemeTitle]
+hash = "sha1-a797e30923ac1be590300ce6b08e63b4e6dc6688"
+other = "Theme"
+
+[SettingsFormTimePreferenceTitle]
+hash = "sha1-2dd59fb7f2003295add3420b5b6666037deecd42"
+other = "Display Time In"
+
+[SettingsFormTimelinePreferenceFlat]
+hash = "sha1-df9ab5272730acc2c431d735f894f40544cc278c"
+other = "Flat (hide replies)"
+
+[SettingsFormTimelinePreferenceList]
+hash = "sha1-4594096bd023df50dcaf509208f80ca0fabb9cd7"
+other = "List (default)"
+
+[SettingsFormTimelinePreferenceTitle]
+hash = "sha1-018514a3d58aa08353dd5e387ee29de45981c409"
+other = "Timeline"
+
+[SettingsFormTimezoneTitle]
+hash = "sha1-9ccde74eff12ffe9d4644302891ba5626a4a17d6"
+other = "Display Dates In Timezone"
+
+[ThemeDarkClassic]
+hash = "sha1-aa049ec36cbadac378bcfd759c534a820c60ba0a"
+other = "Yarn.social Dark"
+
+[ThemeLightClassic]
+hash = "sha1-d2b3b0a0dd7776b5e7c34513c1e6e35f3b432cd3"
+other = "Yarn.social Light"
+
+[ToolbarButtonBold]
+hash = "sha1-19e07430eed6d97d6d73cb4a2967b1f316520f54"
+other = "Bold"
+
+[ToolbarButtonCode]
+hash = "sha1-adac69379a626c2436948a4ef1792c7d719ef929"
+other = "Code"
+
+[ToolbarButtonImage]
+hash = "sha1-e33ff771df08f325351684b81006ca4c0098f190"
+other = "Image Link"
+
+[ToolbarButtonItalic]
+hash = "sha1-3b9b0722d0d43e4d14ff92cca723a64b8e24e4f0"
+other = "Italics"
+
+[ToolbarButtonLink]
+hash = "sha1-35953e1185b465b38f47753e1ee7263aba96436a"
+other = "URL Link"
+
+[ToolbarButtonMedia]
+hash = "sha1-7718b73ae92054eb6f20367e99bd542db90ba3ef"
+other = "Upload Media"
+
+[ToolbarButtonMention]
+hash = "sha1-5125802181632dd0c88305491076bea9fda85d39"
+other = "Mention"
+
+[ToolbarButtonStrikethrough]
+hash = "sha1-a93b9a6808a95ca93515164188159659017155cb"
+other = "Strikethrough"
+
+[TransferFeedWarning]
+hash = "sha1-717b43e3a25a8e80ab5653d3eb0fdd92f1f89c28"
+other = "<b>WARNING:</b> This is permanent and cannot be undone!"

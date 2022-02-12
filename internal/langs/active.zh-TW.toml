@@ -1,67 +1,3 @@
-[BlogCommentJoinSummary]
-hash = "sha1-a9f494cea249198e7e7e25947a7ce7a6d94a06ba"
-other = "You must be <a href=\"/login\" referrerpolicy=\"same-origin\">Logged in</a> to comment."
-
-[BlogCommentPostSummary]
-hash = "sha1-78f1b7a5d6dd8e9fce43c7dfd651c994b41ca867"
-other = "發表內容，參與討論！"
-
-[BlogCommentPostTitle]
-hash = "sha1-58a6da790f3ba0fff150eaed33c8d34d60e139a8"
-other = "想說點什麼么？"
-
-[BlogCommentsSummary]
-hash = "sha1-28fa7623aebf4bf99d794bf3beaa91cb506b2be2"
-other = "Recent twts in reply to this post."
-
-[BlogCommentsTitle]
-hash = "sha1-e4ed7f96515dbdbe5f5d0ecace105efe68e6c3ec"
-other = "評論："
-
-[BlogCreated]
-hash = "sha1-accf40c89baa4fa88e6a7ff11e1f805beecafd3f"
-other = "已創建"
-
-[BlogDeleteLinkTitle]
-hash = "sha1-f6fdbe48dc54dd86f63097a03bd24094dedd713a"
-other = "刪除"
-
-[BlogDraft]
-hash = "sha1-0e7766b460fd2a39a2fd81d4a3a636b033b52be4"
-other = "草稿"
-
-[BlogEditLinkTitle]
-hash = "sha1-5301648dcf6b53cefc9ed52999aaa92d4603cae0"
-other = "編輯"
-
-[BlogLinkTitle]
-hash = "sha1-0b9d2b2362bc33581ba11fddcb0cf0590ebd3a7a"
-other = "博客"
-
-[BlogPublishLinkTitle]
-hash = "sha1-5656400564f25dcbe129f43deea78952060bee36"
-other = "發表"
-
-[BlogPublished]
-hash = "sha1-483bf2075c12023a5e849d12a42027be89c5e94b"
-other = "發表"
-
-[BlogsFollowLinkTitle]
-hash = "sha1-66587a7a62a90fc91c4c88f1872bedaa52d23a35"
-other = "跟隨"
-
-[BlogsForUserLinkTitle]
-hash = "sha1-61488fb76586945c474ad5574cf7856f94384656"
-other = "{{ .Username }} 的博客"
-
-[BlogsMyLinkTitle]
-hash = "sha1-90ae4fffc47a576c3e57b419e8adae295ae697f8"
-other = "我的博客"
-
-[BlogsUnfollowLinkTitle]
-hash = "sha1-e3a6fe565c7f64204f2dd182dc8b8ca9fe725d99"
-other = "取消跟隨"
-
 [BookmarkAddTwt]
 hash = "sha1-ac2bfa54407bb541fb8664b510bf56b33ca79222"
 other = "加入書籤"
@@ -140,15 +76,7 @@ other = "Recent twts in reply to"
 
 [ConversationTitle]
 hash = "sha1-4de67a4d313139fb2f1d0ad9d2c13d0921ddb131"
-other = "Yarn"
-
-[Copyright]
-hash = "sha1-ed6768b21eb5e05d75dd18c9cb9ed38e56de94d6"
-other = "&copy; 2020 <a href='https://github.com/prologic' target='_blank'>James Mills</a>. 版權所有."
-
-[CopyrightCreator]
-hash = "sha1-e7946380febed70ea56d525f57b79799b220e087"
-other = "由 <a href='https://github.com/prologic' target='_blank'>James Mills</a> 創建"
+other = "紗"
 
 [DefaultTwtPrompts]
 hash = "sha1-f585553bb01b2326a11e091a6e07c6426d8c5c35"
@@ -174,17 +102,9 @@ other = "您的賬號將被永久刪除！"
 hash = "sha1-ee1b9a9f2347505649f78cec43af6e1e86231474"
 other = "刪除賬號"
 
-[EmailAddress]
-hash = "sha1-c94d3175a6560565410511df2cebab9cda96027e"
-other = "電子郵件"
-
 [ErrorArchivingFeed]
 hash = "sha1-265e11d3ae2f17ae0711f20540f860031e2fcc96"
 other = "Feed 歸檔出錯"
-
-[ErrorCreateFeed]
-hash = "sha1-2ccc0dcebeac6bd910e18123fb9cbe852718c866"
-other = "創建 Feed 錯誤：{{.Error}}"
 
 [ErrorDeleteLastTwt]
 hash = "sha1-cd9626a561e932d586d048805638b6137b3aa683"
@@ -202,10 +122,6 @@ other = "刪除令牌出錯"
 hash = "sha1-d01bdf9ce19f5e183eb2058e4d58a7b5b472f3d4"
 other = "沒有找到 Feed"
 
-[ErrorFollowAndValidate]
-hash = "sha1-0ba152accd240ca7f4e4116a0b1117bfdebb3ba5"
-other = "跟隨 Feed  @<{{.Nick}} {{.URL}}> 出錯: {{.Error}}"
-
 [ErrorFollowingUser]
 hash = "sha1-431d16794490a3bb584a8e13faae06e877902831"
 other = "跟隨用戶出錯"
@@ -221,10 +137,6 @@ other = "獲取用戶出錯"
 [ErrorHasUserOrFeed]
 hash = "sha1-db844234365b0824c1f33d0f76b7548f2bb866b4"
 other = "用戶名 或 Feed 名稱已經存在，請選擇其它名稱！"
-
-[ErrorInvalidFeedName]
-hash = "sha1-1606900b2144070d4c2393341723eb83d2ebaa3b"
-other = "無效的 Feed 名稱：{{.Error}}"
 
 [ErrorInvalidPassword]
 hash = "sha1-52b29810c7c76d469feec362b5c77ccb7531718b"
@@ -286,10 +198,6 @@ other = "沒有找到外部 Feed"
 hash = "sha1-deeac7f92541e6e5f348dc5becc59db7accdf8aa"
 other = "沒有 Feed 指定"
 
-[ErrorNoFeedByNick]
-hash = "sha1-de30a4714a243dc78cfe242419ba447532603673"
-other = "沒有找到 {{.Nick}} 的 Feed"
-
 [ErrorNoMatchingTwt]
 hash = "sha1-526a0a4c76372ff65d69af750d50c42d1ba6a9fa"
 other = "沒有找到匹配的推文"
@@ -326,10 +234,6 @@ other = "加載頁面出錯，請聯繫客服。"
 hash = "sha1-53f11f7d64c54fdbe51c1650696a7a5f1f4fc011"
 other = "更新 Feed 出錯"
 
-[ErrorSetUser]
-hash = "sha1-20ba10642a8bd3a4141e40b98deee101889ee1e1"
-other = "跟隨 Feed {{.Nick}}: {{.URL}} 出錯"
-
 [ErrorTimelineLoad]
 hash = "sha1-aab0d6f0ea631fdcbe5ec82b50b086ae23c5c82a"
 other = "加載數據時發生了錯誤"
@@ -341,10 +245,6 @@ other = "錯誤"
 [ErrorTokenExpired]
 hash = "sha1-498985f21872ea50ace30f4f2e3c0f95392ba812"
 other = "Token has expired"
-
-[ErrorUnfollowingFeed]
-hash = "sha1-430f3f412e0802c05e45dc4f23d83059d08079e9"
-other = "{{.Nick}}: {{.URL}} 取消跟隨出錯"
 
 [ErrorUpdatingUser]
 hash = "sha1-4f65c2690abff8c08713b6d3c5027fdc8eea0f67"
@@ -365,10 +265,6 @@ other = "錯誤！電子郵件址與註冊時填寫地址不匹配"
 [ErrorUsernameExists]
 hash = "sha1-a66924d2fc116739aecea8d10e3ff1fe0570b476"
 other = "用戶(已刪除)名稱已經存在，請選擇其它名稱！"
-
-[ErrorValidateUsername]
-hash = "sha1-c4a43aec4a570bfe3db1ea4b81b58fd2db069d86"
-other = "用戶名稱驗證失敗：{{.Error}}"
 
 [FeedManageLinkTitle]
 hash = "sha1-bf58d17e561b1b858e35f9202f811297dac2e9db"
@@ -408,7 +304,7 @@ other = "Create your own feed or topic of interest you want to share with others
 
 [FeedsLocalFeedsContent]
 hash = "sha1-bb7ef9ae3dba4dfeb18a7534df1c6becf5086077"
-other = "這是您可以訂閱並關注的本地 Feed 列表。這些是由用戶在 {{.InstanceName}} 上創建，實際上是“興趣”，“主題”或“群組”，通過這些 Feed，用戶可以以個人身份發布有趣的內容"
+other = "這是您可以訂閱並關注的本地 Feed 列表。這些是由用戶在 {{ .InstanceName }} 上創建，實際上是“興趣”，“主題”或“群組”，通過這些 Feed，用戶可以以個人身份發布有趣的內容"
 
 [FeedsLocalFeedsSummary]
 hash = "sha1-8738599c8ca4c87588afd38e42f6cf5edce79b74"
@@ -452,7 +348,7 @@ other = "URL"
 
 [FollowHowToContent]
 hash = "sha1-28d94b74e71b2b65f4299219080260f2b556fa95"
-other = "需要從另一個客戶端導入列表嗎？使用<a href=\"/import\">導入</a>功能。您還可以在 <a href=\"/discover\">發現</a> 頁面上的{{.InstanceName}} 實例上找到其他用戶（假設他們已發文），或在 <a href=\"/feeds\">Feeds</a> 頁面上找到其它外部 Feed 來源。"
+other = "需要從另一個客戶端導入列表嗎？使用<a href=\"/import\">導入</a>功能。您還可以在 <a href=\"/discover\">發現</a> 頁面上的{{ .InstanceName }} 實例上找到其他用戶（假設他們已發文），或在 <a href=\"/feeds\">Feeds</a> 頁面上找到其它外部 Feed 來源。"
 
 [FollowLinkTitle]
 hash = "sha1-66587a7a62a90fc91c4c88f1872bedaa52d23a35"
@@ -514,10 +410,6 @@ other = "If you have forgotten your password you can request a <a href=\"/resetP
 hash = "sha1-6568964b0e39083c6acb94093d9e6cd117dbe508"
 other = "."
 
-[LoginEmailSummary]
-hash = "sha1-03c7f05f45360aa1104947aff50c89adb4b76865"
-other = "Login to your Yarn.Social account on {{ .InstanceName }} via your Email Address"
-
 [LoginEmailTitle]
 hash = "sha1-15bfa4e76b3774215b32e0778675ad18c23f71df"
 other = "Login via Email"
@@ -542,10 +434,6 @@ other = "記住我?"
 hash = "sha1-84c29015de33e5d22422382a372caba5c58f8c01"
 other = "用戶名"
 
-[LoginHowToContent]
-hash = "sha1-f434dda066da34aa54b8c6f06cd7c48caea6d2eb"
-other = "Login to your Yarn.Social account on {{ .InstanceName }} by filling in the Username and Password you used when you created your account.<br><br>Check the \"Remember Me\" box if you don't want to have to keep logging in every few hours.<br><br>Don't have an account? You can create a new account on the <a href=\"/register\">register</a> form."
-
 [LoginHowToSummary]
 hash = "sha1-9755be11397df0cf000dd5f31971c1b8e6f0d581"
 other = "Quick guide to help you login"
@@ -561,10 +449,6 @@ other = "還沒有賬號"
 [LoginNoAccountTitle]
 hash = "sha1-f838dc11db151df79ee689f598453d38bbac6fe9"
 other = "還沒有賬號"
-
-[LoginSummary]
-hash = "sha1-5e4c1a35a0a9248f7edded50e30f467fe11a8aad"
-other = "Login to your Yarn.Social account on {{ .InstanceName }}"
 
 [LoginTitle]
 hash = "sha1-4e5a2893bdcc7d239c1db72e4c4ffbe4bea73174"
@@ -590,10 +474,6 @@ other = "Your feed will be deleted permanently!"
 hash = "sha1-cdf081498909a5f915c8a8e2b9740d02c1f5c8e9"
 other = "Delete Feed"
 
-[ManageFeedFormChangeAvatarTitle]
-hash = "sha1-60f2e98ebe1b8c0c354734b807e898fd56146b83"
-other = "修改頭像"
-
 [ManageFeedFormDescription]
 hash = "sha1-e132e63f2c89c89b6ca9faa87847f37c38948200"
 other = "關於這個 Feed 的描述"
@@ -605,10 +485,6 @@ other = "描述"
 [ManageFeedFormUpdate]
 hash = "sha1-fb91e24fa52d8d2b32937bf04d843f730319a902"
 other = "更新"
-
-[ManageFeedSummary]
-hash = "sha1-7478c8fe59205658879ceac3f6ddb87c42209cdb"
-other = "管理 <b>{{ .Username}}</b> "
 
 [ManageFeedTitle]
 hash = "sha1-9c0a564e987c4e336259158190de22d7fa2085af"
@@ -698,10 +574,6 @@ other = "您收到的訊息列表"
 hash = "sha1-e5204fc48e8ac1f01ba1f391a69aa88ba367d672"
 other = "訊息"
 
-[MsgCreateFeedSuccess]
-hash = "sha1-6c4ce8b4a48e6461594c84e727c722730f967af1"
-other = "創建 {{.Feed}} 成功！"
-
 [MsgDeleteAccountSuccess]
 hash = "sha1-ccbff76316ef62fbbfc9257e5ca8e6c69401175c"
 other = "賬號刪除成功"
@@ -713,10 +585,6 @@ other = "Successfully deleted feed"
 [MsgDeleteTokenSuccess]
 hash = "sha1-065262182c05fd1ffe90891963591d5589fc1581"
 other = "刪除令牌成功"
-
-[MsgFollowUserSuccess]
-hash = "sha1-4633defa720997f5a179070ffe8ebc6264424ecc"
-other = "{{.Nick}}: {{.URL}} 跟隨成功"
 
 [MsgMagicLinkAuthEmailSent]
 hash = "sha1-829053641637a3b55c93d950e8105d7862a6fc87"
@@ -733,10 +601,6 @@ other = "密碼重置成功"
 [MsgTransferFeedSuccess]
 hash = "sha1-562fb7a829c098116e4f3e5eedea209998209fd9"
 other = "改變 Feed 所有者成功"
-
-[MsgUnfollowSuccess]
-hash = "sha1-afaf49fe9f7ccb11463b3d5beebe99bca5759402"
-other = "{{.Nick}}: {{.URL}} 取消跟隨成功"
 
 [MsgUpdateFeedSuccess]
 hash = "sha1-66f1077cea3b2c7b753c549d65d17a1627f70d59"
@@ -790,10 +654,6 @@ other = "設置"
 hash = "sha1-018514a3d58aa08353dd5e387ee29de45981c409"
 other = "動態"
 
-[NoBlogs]
-hash = "sha1-160983df3739e9e41947731c7f1e865f89e0169b"
-other = "還沒有貼文，稍候再來！"
-
 [NoTwts]
 hash = "sha1-5b57a49ebae0d4b1b458af42b9ed71896504614b"
 other = "還沒有推文... 稍候再來！"
@@ -806,10 +666,6 @@ other = "發現"
 hash = "sha1-88e71a5e3d7dc4362e87f92a2cdcfa4905d395a5"
 other = "{{ .DomainNick }} is following"
 
-[PageExternalProfileTitle]
-hash = "sha1-3b7d3a2f266ef12cc74e125fd87a67d6a082898f"
-other = "外部配置 @<{{.Nick}} {{.URL}}>"
-
 [PageFeedsTitle]
 hash = "sha1-ffe8e99492ee9b850395d53f6c519938952fde0d"
 other = "Feeds"
@@ -821,10 +677,6 @@ other = "跟隨"
 [PageLocalTimelineTitle]
 hash = "sha1-c69cd8d5a9c8ce344bc8d779a0b8a2710ebca482"
 other = "本地動態"
-
-[PageManageFeedTitle]
-hash = "sha1-95a527881370b8830bb7f5057be0948581d7ed04"
-other = "Feed（{{.Feed}}）管理"
 
 [PageMentionsTitle]
 hash = "sha1-85e12bc6f2e56024e47cc826a14968247a52dc54"
@@ -849,22 +701,6 @@ other = "設置"
 [PageSupportTitle]
 hash = "sha1-2b658ffd9420a73ab8def21ea11ec05a7927cf2c"
 other = "支持"
-
-[PageUserBlogsTitle]
-hash = "sha1-1cb26d4c6d6078d442aab35d90d440247f63b98e"
-other = "{{.Username}} 的博客"
-
-[PageUserBookmarksTitle]
-hash = "sha1-8e9534124c7acc82957be8d1cf482efa8821c6a8"
-other = "{{.Username}} 的書籤"
-
-[PageUserFollowersTitle]
-hash = "sha1-c14219d1dfc95b5a97e6e9e5a66a142059ab861d"
-other = "{{.Username}} 的粉絲"
-
-[PageUserFollowingTitle]
-hash = "sha1-8f95f4e7fb12ac3a084936579ea6af9c06e8b692"
-other = "{{.Username}} 的跟隨"
 
 [PageUserTimelineTitle]
 hash = "sha1-018514a3d58aa08353dd5e387ee29de45981c409"
@@ -901,10 +737,6 @@ other = " <p>如果此用戶或Feed違反了 Pod({{ .InstanceName }}) 實例的�
 [ProfileBlockUserTitle]
 hash = "sha1-ef0754928f9eec23313a4e9f46f10b061e5ead48"
 other = "屏蔽 / 報告"
-
-[ProfileBlogsLinkTitle]
-hash = "sha1-5ef4439786692eab160ee60be0da2bb3a8597d9a"
-other = "博客"
 
 [ProfileBookmarksLinkTitle]
 hash = "sha1-6a5a0b75f31c888349fd59ca3242acef5c6fe291"
@@ -974,14 +806,6 @@ other = "註冊"
 hash = "sha1-84c29015de33e5d22422382a372caba5c58f8c01"
 other = "用戶名"
 
-[RegisterGuidelines]
-hash = "sha1-09f2d7efb99d67b64c2193d184c5bc760bc8c412"
-other = "我同意遵守 <a href='/abuse'>社區準則及相關政策</a>。"
-
-[RegisterHowToContent]
-hash = "sha1-cf85efded7dda3ab99f1e422a6648eb8d758536f"
-other = "<p>\nYou are about to create a new <a href='https://yarn.social' target='_blank'>Yarn.Social</a>\naccount on {{ .InstanceName }}\n</p>\n<p>\nBy registering an account on {{ .InstanceName }} you agree to abide\nby the Community Guidelines set out in the <a href='/abuse'>Abuse Policy</a>.\n</p>\n<p>\n<ul>\n<li>Pick a username</li>\n<li>Create a unique and secure password</li>\n<li>Enter your email address in case you forget your password</li>\n</ul>\n</p>\n<p>\nPick any username you like (<i>as long as it is available on {{ .InstanceName }}</i>).\n</p>\n<p>\nPlease note we <b>DO NOT</b> actually store your email address at all!\nIf you forget your email address or lose access to your email we are\nreally sorry but you will be unable to recover your account if you\nforget your password.\n</p>"
-
 [RegisterHowToSummary]
 hash = "sha1-c3fb98ef5c0ae7a410e0207f71fb54119203d293"
 other = "Quick quide to help you create an account"
@@ -993,10 +817,6 @@ other = "Create an account"
 [RegisterLinkTitle]
 hash = "sha1-5b402e3dfa8bfeaa6620b1ee5bf38fb965bcbe3c"
 other = "註冊"
-
-[RegisterSummary]
-hash = "sha1-489639728e679afe6a87b9e6ff6eacdd971a22fc"
-other = "Create and register a new Yarn.Social account on {{ .InstanceName }}"
 
 [RegisterTitle]
 hash = "sha1-0b81497c8589af2714a1ddbeb62b3a4be679c318"
@@ -1013,10 +833,6 @@ other = "重置密碼"
 [ResetPasswordFormUsername]
 hash = "sha1-84c29015de33e5d22422382a372caba5c58f8c01"
 other = "用戶名"
-
-[ResetPasswordHowToContent]
-hash = "sha1-45d5213488cd6a327e101b5b57d2f2d9660660c9"
-other = " \n<p>\nUse the form on the left to recover your account and reset your\npassword. Simply fill in the username and email address you used\nto create your account.\n</p>\n<p>\nBe aware however that you must supply the same email address\nhere that you used to create your account in the first place.\nWe <b>DO NOT</b> actually store your email address on file so\nif you do not have access to or have forgotten your email address\nthen you will be unable to recover your account.\n</p>"
 
 [ResetPasswordHowToTitle]
 hash = "sha1-8b19f439204c9f765b9d0ddc81459d9dff6e5a1b"
@@ -1038,45 +854,17 @@ other = "重置密碼"
 hash = "sha1-f6fdbe48dc54dd86f63097a03bd24094dedd713a"
 other = "刪除"
 
-[SettingsDeleteAccountSummary]
-hash = "sha1-41ca954236b0b07da7e04fb4880a5ab6718c65f8"
-other = "<b>WARNING:</b>&nbsp;This is permanent and cannot be undone!"
-
 [SettingsDeleteAccountTitle]
 hash = "sha1-1753c2061c676db8dd89101b51b92f09a277f51c"
 other = "刪除賬號"
-
-[SettingsFormChangeAvatarTitle]
-hash = "sha1-60f2e98ebe1b8c0c354734b807e898fd56146b83"
-other = "改變頭像"
 
 [SettingsFormChangeEmail]
 hash = "sha1-dbc7f1cb535bc000b0f2b463b6b1552763dcf66a"
 other = "更新電子郵件"
 
-[SettingsFormChangeEmailSummary]
-hash = "sha1-013af64840d8dd404b02981e439176e3565b296a"
-other = "<b>NOTE:</b>We DO NOT actually store this! If you forget\nor lose access to your Email account provided here, it will\nbe impossible to recover your Yarn.Social account!"
-
-[SettingsFormChangeEmailTitle]
-hash = "sha1-03e8c409bff190a9756ced3e3af8f175885d2bd3"
-other = "修改電子郵件"
-
 [SettingsFormChangePassword]
 hash = "sha1-148a65a983e878a68d6a62f2a066789fb82df14a"
 other = "更新密碼"
-
-[SettingsFormChangePasswordTitle]
-hash = "sha1-635e3f03e27f1e818f2fbc600399950632963bcc"
-other = "修改密碼"
-
-[SettingsFormChangeTagline]
-hash = "sha1-cbeefd0bc1b8b18c1d03094f993cfa16059ba7fb"
-other = "關於您的簡短描述，標語或口號"
-
-[SettingsFormChangeTaglineTitle]
-hash = "sha1-3547a41d0344427489dfcd825bfb6578a88672b3"
-other = "標語"
 
 [SettingsFormDisplayImagesPreferenceGallery]
 hash = "sha1-9c30a3485a5887f1ba5abd2a291d304a01863e55"
@@ -1090,22 +878,6 @@ other = "Inline (default)"
 hash = "sha1-99f6a030c5134d53253c7442cb05c1be14229565"
 other = "Lightbox"
 
-[SettingsFormDisplayImagesPreferenceTitle]
-hash = "sha1-5d428d87d94503379f6512b29f24a4e5c0a0ebb4"
-other = "Display images as:"
-
-[SettingsFormOpenLinksInPreferenceNewWindow]
-hash = "sha1-7eecda05e76aae1ed5a63efd76922671016394ea"
-other = "New Window (default)"
-
-[SettingsFormOpenLinksInPreferenceSameWindow]
-hash = "sha1-47fe42805e5b5f60cbf932f83344ccbf07ef8753"
-other = "Same Window"
-
-[SettingsFormOpenLinksInPreferenceTitle]
-hash = "sha1-dd45efe84cbbcd4cd578759db58e58ed8e459ec0"
-other = "Open links in:"
-
 [SettingsFormPrivacySettingsShowBookmarks]
 hash = "sha1-85f2f3c4327bfaba4df1a06109ba94535d647f91"
 other = "Bookmarks are public"
@@ -1117,30 +889,6 @@ other = "Followers are public"
 [SettingsFormPrivacySettingsShowFollowings]
 hash = "sha1-ede3207e5e77027a6c6276678af39f9a9c8f409f"
 other = "Followings are public"
-
-[SettingsFormPrivacySettingsTitle]
-hash = "sha1-f41f1bc7002fffee32655b2ca02e0019efa27671"
-other = "隱私設置"
-
-[SettingsFormThemeTitle]
-hash = "sha1-0485a026596091082310d7d66c39c579a9ab6566"
-other = "主題"
-
-[SettingsFormTimePreferenceTitle]
-hash = "sha1-60943c74c5d7bee85b570834fed90fd6d303ac9b"
-other = "Display time in:"
-
-[SettingsFormTimelineHideRepliesPreference]
-hash = "sha1-5b937ab3095e70b47cc9583cef7f5545d3951bf0"
-other = "Hide replies"
-
-[SettingsFormTimelinePreferencesTitle]
-hash = "sha1-ea21d1cc3d87fe31130f1df72e829036475bc0b5"
-other = "Timeline options:"
-
-[SettingsFormTimezoneTitle]
-hash = "sha1-cc6b7d5a9e6ad370824bc702023b0d2e44d5eb2b"
-other = "時區"
 
 [SettingsFormUpdate]
 hash = "sha1-fb91e24fa52d8d2b32937bf04d843f730319a902"
@@ -1220,19 +968,11 @@ other = "自動"
 
 [ThemeDark]
 hash = "sha1-60c6abbfc36bba55c1e4edb03714191eaa82238d"
-other = "Pico Dark"
-
-[ThemeDarkClassic]
-hash = "sha1-63c444fda42d9dc96f92d0dc5c347b5a0666f44a"
-other = "Yarn.Social Dark"
+other = "Pico 黑暗"
 
 [ThemeLight]
 hash = "sha1-8e40c7069dd442c9c4e462b02bcb49bbafaec64f"
-other = "Pico Light"
-
-[ThemeLightClassic]
-hash = "sha1-0b89cf1bf3d43dd4a6b6338a196e0edfd3705933"
-other = "Yarn.Social Light"
+other = "Pico 光"
 
 [TransferFeedFormConfirm]
 hash = "sha1-1d1a2a5ca176b94b13d6393b44db100201c5cd98"
@@ -1250,17 +990,13 @@ other = "變更 Feed 所有者"
 hash = "sha1-4e53af8290e2777a78e62676813bdf64e62940b9"
 other = "Feed 轉移"
 
-[TransferFeedWarning]
-hash = "sha1-41ca954236b0b07da7e04fb4880a5ab6718c65f8"
-other = "<b>警告：</b>&nbsp; 這是個永久性操作，無法撤消！"
-
 [TransferUserFeedSummary]
 hash = "sha1-82a625ec39852607779e48c250bbc3b9a1afa838"
 other = "改變 <b>{{ .Username }}</b> 所有者"
 
 [TwtConversationLinkTitle]
 hash = "sha1-4de67a4d313139fb2f1d0ad9d2c13d0921ddb131"
-other = "Yarn"
+other = "紗"
 
 [TwtDeleteLinkTitle]
 hash = "sha1-f6fdbe48dc54dd86f63097a03bd24094dedd713a"
@@ -1272,7 +1008,7 @@ other = "編輯"
 
 [TwtForkLinkTitle]
 hash = "sha1-471121e27a3e0f2a208ec3e9a0b109102268a22f"
-other = "Fork"
+other = "叉"
 
 [TwtFormPost]
 hash = "sha1-7858ac3ff63354f37161bd349efe11edd13b89cb"

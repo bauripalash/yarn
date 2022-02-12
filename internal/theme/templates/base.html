@@ -12,7 +12,7 @@
       <link rel="icon" type="image/png" href="/img/favicon.png" />
     {{ else }}
       <link href="/css/{{ .Commit }}/yarn.min.css" rel="stylesheet" />
-      <link rel="icon" type="image/png" href="/img/{{ .Commit}}/favicon.png" />
+      <link rel="icon" type="image/png" href="/img/{{ .Commit }}/favicon.png" />
     {{ end }}
 
     <!-- WebMentions support-->
@@ -101,7 +101,7 @@
         </a>
       </li>
       <li class="logoutBtn">
-        <a class="secondary" href="/logout" onclick="return confirm('Are you sure you want logout?')">
+        <a class="secondary" href="/logout" onclick="return confirm('{{ tr . "NavLogoutConfirm" }}')">
           <i class="ti ti-door-exit"></i> {{ tr . "NavLogout" }}
         </a>
       </li>
@@ -126,20 +126,20 @@
   </main>
   <footer class="container">
     <div class="footer-menu">
-      <a href="/about" class="menu-item">{{tr . "MenuAbout"}}</a>
-      <a href="/privacy" class="menu-item">{{tr . "MenuPrivacy"}}</a>
-      <a href="/abuse" class="menu-item">{{tr . "MenuAbuse"}}</a>
-      <a href="/help" class="menu-item">{{tr . "MenuHelp"}}</a>
-      <a href="/support" class="menu-item">{{tr . "MenuSupport"}}</a>
+      <a href="/about" class="menu-item">{{ tr . "MenuAbout" }}</a>
+      <a href="/privacy" class="menu-item">{{ tr . "MenuPrivacy" }}</a>
+      <a href="/abuse" class="menu-item">{{ tr . "MenuAbuse" }}</a>
+      <a href="/help" class="menu-item">{{ tr . "MenuHelp" }}</a>
+      <a href="/support" class="menu-item">{{ tr . "MenuSupport" }}</a>
       <a href="/atom.xml" class="menu-item"><i class="ti ti-rss"></i></a>
       {{ if .IsAdmin }}
       <a href="/manage/pod" class="menu-item"><i class="ti ti-device-analytics"></i></a>
       {{ end }}
     </div>
     <div class="footer-copyright">
-      Running <a href="https://git.mills.io/yarnsocial/yarn" target="_blank">yarnd</a>
-      <a href="/info">{{ .SoftwareVersion.FullVersion }}</a> &mdash;
-      a <a href="https://yarn.social" target="_blank">Yarn.social</a> pod.
+      {{ tr . "FooterRunning" | html }}
+      <a href="/info" data-tooltip="{{ .SoftwareVersion.Commit }}">{{ .SoftwareVersion.Version }}</a> &mdash;&nbsp;
+      {{ tr . "FooterPod" | html }}
     </div>
   </footer>
   {{ if $.Debug }}

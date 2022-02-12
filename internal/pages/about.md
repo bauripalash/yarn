@@ -4,7 +4,7 @@ title: About {{ .InstanceName }}
 
 # About {{ .InstanceName }}
 
-{{ .InstanceName}} is a [Yarn.social](https://yarn.social) Pod; a Self-Hosted,
+{{ .InstanceName }} is a [Yarn.social](https://yarn.social) Pod; a Self-Hosted,
 Twitter™-like Decentralised micro-Blogging platform. No ads, no tracking,
 your content, your data!
 
