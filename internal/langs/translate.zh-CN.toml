@@ -162,13 +162,29 @@ other = "Feeds in nick: url, one per line!"
 hash = "sha1-3f9c4097fa029c9ee234eac48f2ecf4792c29191"
 other = "Import Feeds"
 
+[IndieAuthApprove]
+hash = "sha1-7b2c7f146abaceddea3a325e15cfbbf2fa9b976e"
+other = "Approve"
+
+[IndieAuthCancel]
+hash = "sha1-77dfd2135f4db726c47299bb55be26f7f4525a46"
+other = "Cancel"
+
+[IndieAuthMessage]
+hash = "sha1-df56eaed9d3e8336edbadac3f05d206a397821c9"
+other = "The app <b>%s</b> wants to access your <b>%s</b> account."
+
+[IndieAuthTitle]
+hash = "sha1-013e6cef1a9b52183ef3df75be734b94ce222c25"
+other = "Authorise Login"
+
 [InstanceNameInfo]
 hash = "sha1-b513d28ecb8417d0f64f277f68034d4b15d26cc0"
 other = "{{ .InstanceName }} Information"
 
 [LoginEmailSummary]
-hash = "sha1-2bce21acb11f01b2536b13986afd8fa4fe49846f"
-other = "Login to your Yarn.social account on {{ .InstanceName }} via your Email Address"
+hash = "sha1-03c7f05f45360aa1104947aff50c89adb4b76865"
+other = "Login to your Yarn.Social account on {{ .InstanceName }} via your Email Address"
 
 [LoginHowToContent]
 hash = "sha1-a86f0e50201fbac8dad5c0e6f9d39167b1d6d83b"

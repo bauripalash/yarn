@@ -441,6 +441,22 @@ video {
   box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.2);
 }
 
+#twobutton {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1rem;
+}
+
+#twobutton a {
+  flex: 1;
+}
+
+#twobutton i {
+  margin-top: 0.1rem;
+  margin-right: 0.5rem;
+  font-size: 1.25rem;
+}
+
 #mainNav {
   margin-top: 0.5rem;
   text-align: center;

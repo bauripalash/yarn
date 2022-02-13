@@ -15,6 +15,10 @@
       <link rel="icon" type="image/png" href="/img/{{ .Commit }}/favicon.png" />
     {{ end }}
 
+    <!-- IndieAuth support-->
+    <link rel="authorization_endpoint" href="/indieauth/auth" />
+    <link rel="me" href="/" />
+
     <!-- WebMentions support-->
     <link rel="webmention" href="/webmention" />
 

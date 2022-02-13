@@ -54,12 +54,20 @@
   content: "\eb5f";
 }
 
+.ti-circle-check:before {
+  content: "\ea67";
+}
+
 .ti-circle-minus:before {
   content: "\ea68";
 }
 
 .ti-circle-plus:before {
   content: "\ea69";
+}
+
+.ti-circle-x:before {
+  content: "\ea6a";
 }
 
 .ti-clock:before {

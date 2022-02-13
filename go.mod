@@ -12,6 +12,7 @@ require (
 	github.com/NYTimes/gziphandler v1.1.1
 	github.com/PuerkitoBio/goquery v1.8.0
 	github.com/andreadipersio/securecookie v0.0.0-20131119095127-e3c3b33544ec
+	github.com/andyleap/microformats v0.0.0-20150523144534-25ae286f528b
 	github.com/audiolion/ipip v1.0.0
 	github.com/badgerodon/ioutil v0.0.0-20150716134133-06e58e34b867
 	github.com/creasty/defaults v1.5.2

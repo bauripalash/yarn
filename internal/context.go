@@ -64,7 +64,7 @@ type Context struct {
 	BlockedFeeds     []string
 	EnabledFeatures  []string
 
-  AlertFloat   bool
+	AlertFloat   bool
 	AlertGuest   bool
 	AlertMessage string
 	AlertType    string
@@ -88,6 +88,7 @@ type Context struct {
 
 	Error       bool
 	Message     string
+	Callback    string
 	Lang        string // language
 	AcceptLangs string // accept languages
 	Theme       string // not to be confused with the config.Theme
@@ -144,6 +145,13 @@ type Context struct {
 
 	// Profile post box user handle
 	PostText string
+
+	// Prompt text
+	PromptTitle    string
+	PromptMessage  string
+	PromptCallback string
+	PromptApprove  string
+	PromptCancel   string
 }
 
 func NewContext(s *Server, req *http.Request) *Context {

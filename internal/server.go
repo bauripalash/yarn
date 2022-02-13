@@ -686,6 +686,9 @@ func (s *Server) initRoutes() {
 
 	// TODO: Figure out how to internally rewrite/proxy /~:nick -> /user/:nick
 
+	// XXX: HEAD is always exposed for IndieAuth Authorization Discovery
+	s.router.HEAD("/user/:nick", s.ProfileHandler())
+
 	if s.config.OpenProfiles {
 		s.router.GET("/user/:nick/", httproutermiddleware.Handler("user", s.ProfileHandler(), mdlw))
 		s.router.GET("/user/:nick/config.yaml", httproutermiddleware.Handler("user_config", s.UserConfigHandler(), mdlw))
@@ -729,6 +732,11 @@ func (s *Server) initRoutes() {
 	// Syndication Formats (RSS, Atom, JSON Feed)
 	s.router.HEAD("/~:nick/atom.xml", httproutermiddleware.Handler("user_atom", s.SyndicationHandler(), mdlw))
 	s.router.GET("/~:nick/atom.xml", httproutermiddleware.Handler("user_atom", s.SyndicationHandler(), mdlw))
+
+	// IndieAuth  Authorization Endpoint
+	s.router.GET("/indieauth/auth", httproutermiddleware.Handler("indieauth_auth", s.am.MustAuth(s.IndieAuthHandler()), mdlw))
+	s.router.POST("/indieauth/auth", httproutermiddleware.Handler("indieauth_verify", s.IndieAuthVerifyHandler(), mdlw))
+	s.router.GET("/indieauth/callback", httproutermiddleware.Handler("indieauth_callback", s.am.MustAuth(s.IndieAuthCallbackHandler()), mdlw))
 
 	// External Feeds
 	s.router.GET("/external", httproutermiddleware.Handler("external", s.ExternalHandler(), mdlw))
@@ -906,6 +914,7 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 
 	csrfHandler := nosurf.New(router)
 	csrfHandler.ExemptGlob("/api/v1/*")
+	csrfHandler.ExemptGlob("/indieauth/*")
 	csrfHandler.ExemptPath("/webmention")
 
 	// Useful for Safari / Mobile Safari when behind Cloudflare to streaming
