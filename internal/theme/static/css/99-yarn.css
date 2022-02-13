@@ -390,27 +390,27 @@ figcaption #img-dl:after {
   content: "\A";
 }
 
-div .p-summary:not(.image-gallery)>div {
+div .e-content:not(.image-gallery)>div {
   margin: 1.5rem 0 0.25rem 0;
 }
 
-div .p-summary:not(.image-gallery)>.caption-wrap .caption {
+div .e-content:not(.image-gallery)>.caption-wrap .caption {
   margin-bottom: 1.25rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.p-summary ul li,
-.p-summary ol li {
+.e-content ul li,
+.e-content ol li {
   margin: 0 0.5rem;
 }
 
-.p-summary br :not(blockquote > br) {
+.e-content br :not(blockquote > br) {
   display: none;
 }
 
-.p-summary pre:last-child {
+.e-content pre:last-child {
   margin-bottom: 1.5rem;
 }
 
@@ -602,14 +602,14 @@ video {
   margin-left: 0.5rem;
 }
 
-.publish-time {
+.dt-publish {
   margin-top: -0.15rem;
   font-size: 0.7rem;
   font-weight: 300;
   color: var(--primary);
 }
 
-.publish-time span {
+.dt-publish span {
   color: var(--contrast);
 }
 
@@ -617,13 +617,13 @@ video {
   border-bottom: none;
 }
 
-.feed-gap .p-summary {
+.feed-gap .e-content {
   margin-top: -0.5rem;
   padding-bottom: 1.25rem;
   padding-left: 0.25rem;
 }
 
-article .p-summary {
+article .e-content {
   margin-bottom: -1rem;
   padding-top: 0.6rem;
   overflow-wrap: break-word;
@@ -636,14 +636,14 @@ article .p-summary {
 }
 
 /* Video Summary Content Styling */
-article .p-summary p video,
-article .p-summary p img {
+article .e-content p video,
+article .e-content p img {
   max-width: 100%;
   margin-bottom: 0.5rem;
 }
 
 /* Blockquotes */
-article .p-summary blockquote {
+article .e-content blockquote {
   border-left: 5px solid var(--primary);
   margin: 1.5em 10px;
   padding: 0 10px 0 25px;
@@ -661,7 +661,7 @@ article .p-summary blockquote {
   margin-top: 0;
 }
 
-.h-feed, .p-summary a em,
+.h-feed, .e-content a em,
 em.twt-hash {
   font-style: normal;
   font-weight: 300;
@@ -683,7 +683,7 @@ em.twt-hash {
 }
 
 /* Twt Context */
-.h-feed .p-summary a small,
+.h-feed .e-content a small,
 small.twt-context {
   font-style: normal;
   font-weight: 300;
@@ -706,7 +706,7 @@ small.twt-context strong {
   font-weight: 300;
 }
 
-.p-summary p:nth-of-type(1) {
+.e-content p:nth-of-type(1) {
   padding-top: 0.25rem;
 }
 
