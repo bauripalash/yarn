@@ -1,17 +1,20 @@
 {{ define "content" }}
-  <article class="container-fluid">
-    <hgroup>
-      <h2>{{ tr . "InstanceNameInfo" (dict "InstanceName" $.InstanceName) }}</h2>
-    </hgroup>
-    <table>
-      <tr><td>Name</td><td>{{ .InstanceName }}</td></tr>
-      <tr><td>Software</td><td>{{ .SoftwareVersion.Software }}</td></tr>
-      <tr><td>FullVersion</td><td>{{ .SoftwareVersion.FullVersion }}</td></tr>
-      <tr><td>Version</td><td>{{ .SoftwareVersion.Version }}</td></tr>
-      <tr><td>Commit</td><td>{{ .SoftwareVersion.Commit }}</td></tr>
-      <tr><td>Author</td><td>{{ .SoftwareVersion.Author }}</td></tr>
-      <tr><td>License</td><td>{{ .SoftwareVersion.License }}</td></tr>
-      <tr><td>Copyright</td><td>{{ .SoftwareVersion.Copyright }}</td></tr>
-    </table>
+  <article class="grid">
+    <div>
+      <hgroup>
+        <h2>{{ tr . "InstanceTitle" }}</h2>
+        <h3>{{ tr . "InstanceNameInfo" (dict "InstanceName" $.InstanceName) | html }}</h3>
+      </hgroup>
+      <div id="versionInfo">
+        <span title="PodName">{{ .InstanceName }}</span>
+        <span title="Software">{{ .SoftwareVersion.Software }}</span>
+        <span title="FullVersion">{{ .SoftwareVersion.FullVersion }}</span>
+        <span title="Version">{{ .SoftwareVersion.Version }}</span>
+        <span title="Commit">{{ .SoftwareVersion.Commit }}</span>
+        <span title="Author">{{ .SoftwareVersion.Author }}</span>
+        <span title="License">{{ .SoftwareVersion.License }}</span>
+        <span title="Copyright">{{ .SoftwareVersion.Copyright }}</span>
+      </div>
+    </div>
   </article>
 {{ end }}

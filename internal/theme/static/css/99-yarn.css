@@ -136,7 +136,7 @@ article.grid {
 
 .yarn-count-badge {
   background-color: var(--primary);
-  color: var(--color);
+  color: var(--contrast);
   border-radius: 100px;
   padding: 0px 4px;
   font-size: 9px;
@@ -814,6 +814,54 @@ pre {
   border-style: solid;
   border-color: var(--form-element-focus-color);
   border-width: 0 0.15rem 0.15rem 0.15rem;
+}
+
+/* Version Information Panel */
+#versionInfo span {
+  display: block;
+  font-family: monospace;
+  font-size: 0.85rem;
+  margin-right: 2rem;
+  margin-bottom: 0.25rem;
+}
+
+#versionInfo span:before {
+  font-weight: bold;
+  content: attr(title) ": ";
+  font-family: var(--font-family);
+  font-size: 1rem;
+}
+
+span[title="PodName"]:before {
+  margin-right: 1rem;
+}
+
+span[title="Software"]:before {
+  margin-right: 1.3rem;
+}
+
+span[title="FullVersion"]:before {
+  margin-right: 0.25rem;
+}
+
+span[title="Version"]:before {
+  margin-right: 2.01rem;
+}
+
+span[title="Commit"]:before {
+  margin-right: 1.84rem;
+}
+
+span[title="Author"]:before {
+  margin-right: 2.32rem;
+}
+
+span[title="License"]:before {
+  margin-right: 2.09rem;
+}
+
+span[title="Copyright"]:before {
+  margin-right: 0.96rem;
 }
 
 @media (max-width: 576px) {
