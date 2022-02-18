@@ -1,21 +1,33 @@
 {{ define "content" }}
-<div>
-  <div class="profile-name">
-    <span class="p-name p-name-profile">{{ .User.Username }}</span>
-    <span class="p-org p-org-profile">{{ .User.URL | hostnameFromURL }}</span>
-  </div>
-  <div class="profile-stats">
-    <a href="{{ $.User.URL | trimSuffix "/twtxt.txt" }}" class="u-url">
-      <img class="avatar u-photo" src="/user/{{ $.User.Username }}/avatar" alt="" loading=lazy />
-    </a>
+<article class="profile-header">
+  <a id="profile-avatar" href="{{ $.User.URL | trimSuffix "/twtxt.txt" }}" class="u-url">
+    <img class="avatar u-photo" src="/user/{{ $.User.Username }}/avatar" alt="" loading=lazy />
+  </a>
+  <hgroup>
+    <h3>{{ .User.Username }}</h3>
+    <h2>{{ .User.URL | hostnameFromURL }}</h2>
+  </hgroup>
+  <p>{{ if gt (len .User.Tagline) 0 }}{{ .User.Tagline }}{{ else }}<em>{{ tr . "SettingsInfoMissingTagline" }}</em>{{ end }}</p>
+</article>
+<div class="profile-side">
+  <article id="profile-info">
+    <hgroup>
+      <h3>{{ tr . "SettingsInfoUserInfo" }}</h3>
+      <h2><hr></h2>
+    </hgroup>
     {{ template "followStats" (dict "Profile" .Profile "Ctx" .) }}
-  </div>
-  <div class="profile-tagline">
-    {{ if gt (len .User.Tagline) 0 }}<p>{{ .User.Tagline }}</p>{{ end }}
-  </div>
-  <div class="profile-links">
-    {{ template "profileLinks" (dict "Profile" (.User.Profile .BaseURL .User) "Ctx" .) }}
-  </div>
+  </article>
+  <article id="profile-links">
+    <hgroup>
+      <h3>{{ tr . "SettingsInfoUserLinks" }}</h3>
+      <h2><hr></h2>
+    </hgroup>
+    <div>
+      <ul>
+        {{ template "profileLinks" (dict "Profile" .Profile "Ctx" .) }}
+      </ul>
+    </div>
+  </article>
 </div>
 <article class="grid">
   <form action="/settings" enctype="multipart/form-data" method="POST">

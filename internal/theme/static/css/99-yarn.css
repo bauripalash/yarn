@@ -1,3 +1,49 @@
+.profile-side {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+#profile-links, #profile-info {
+  flex-wrap: wrap;
+  flex: 1 15rem;
+}
+
+#profile-avatar, .profile-header hgroup {
+  margin-top: 0.25rem;
+}
+
+.profile-header p {
+  margin: -0.5rem 0 -0.75rem 0;
+}
+
+#profile-avatar {
+  float: left;
+  margin: 0.45rem 0.75rem 0 0;
+}
+
+#profile-info hgroup, #profile-links hgroup {
+  margin-bottom: 0.75rem;
+}
+
+#profile-info li, #profile-links li {
+  list-style: none;
+  margin-left: -1rem;
+}
+
+#profile-info details, #profile-links details {
+  border: none;
+  margin-bottom: -2rem;
+}
+
+#profile-info summary, #profile-links summary {
+  color: var(--primary);
+}
+
+#following {
+  margin-bottom: 0.5rem;
+}
+
 main.container {
   padding-top: 3rem;
 }
@@ -899,6 +945,10 @@ span[title="Copyright"]:before {
     margin: 0 0 0.5rem 1.25rem;
   }
 
+  #profile-info {
+    margin-bottom: -1rem;
+  }
+
   nav.float {
     padding-top: 6rem !important;
   }
@@ -1098,6 +1148,10 @@ span[title="Copyright"]:before {
   #podMenu {
     margin-top: -1.15rem;
     display: inherit;
+  }
+
+  #profile-info {
+    margin-bottom: -1rem;
   }
 
   nav.float {

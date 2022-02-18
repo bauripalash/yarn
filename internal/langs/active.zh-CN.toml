@@ -586,10 +586,6 @@ other = "The app <b>%s</b> wants to access your <b>%s</b> account."
 hash = "sha1-013e6cef1a9b52183ef3df75be734b94ce222c25"
 other = "Authorise Login"
 
-[InstanceNameInfo]
-hash = "sha1-b513d28ecb8417d0f64f277f68034d4b15d26cc0"
-other = "{{ .InstanceName }} Information"
-
 [Instead]
 hash = "sha1-6568964b0e39083c6acb94093d9e6cd117dbe508"
 other = "."
@@ -1266,14 +1262,6 @@ other = "<p>Nothing to see here. <a href=\"?unfiltered=1\">View Unfiltered</a></
 hash = "sha1-41dded417052424bdcf3c39f6c8664147fae6806"
 other = "Atom"
 
-[ProfileBlockUserContent]
-hash = "sha1-d2aeb6f1e3c14710c48aa32a21a783114bc610f5"
-other = " <p>如果此用户或Feed违反了 Pod({{ .InstanceName }})实例的社区准则及相关<a href=\"/abuse\">政策</a>，请立即举报！</p><p>您还可以取消关注或屏蔽此用户或Feed。禁言也会从您的视图中删除该用户/ Feed的内容，并且您将不再在任何地方看到该用户或Feed的内容。</p>"
-
-[ProfileBlockUserTitle]
-hash = "sha1-ef0754928f9eec23313a4e9f46f10b061e5ead48"
-other = "屏蔽 / 报告"
-
 [ProfileBookmarksLinkTitle]
 hash = "sha1-6a5a0b75f31c888349fd59ca3242acef5c6fe291"
 other = "书签"
@@ -1281,10 +1269,6 @@ other = "书签"
 [ProfileConfigLinkTitle]
 hash = "sha1-8851142da56fd885ce668a165b33fee7003e858d"
 other = "配置"
-
-[ProfileDoesNotFollowYou]
-hash = "sha1-4c0c8a13e9d3be9b9493e9f970f6c1feb51bc509"
-other = "does not follow you (<i>your replies may go unnoticed.</i>)"
 
 [ProfileFollowersLinkTitle]
 hash = "sha1-60307d4b8f5c2d8eb88f9f031a041fe636c05f43"

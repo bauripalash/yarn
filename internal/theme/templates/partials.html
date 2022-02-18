@@ -224,28 +224,26 @@
 
 {{ define "followStats" }}
 {{ if $.Profile.ShowFollowing }}
-<div>
+<div id="following">
   {{ if eq $.Profile.Type "External" }}
-    <a href="/externalFollowing?uri={{ $.Profile.URI }}"><strong>{{ tr $.Ctx "ProfileFollowingLinkTitle" | trimSuffix ":" }}</strong><br/>{{ $.Profile.NFollowing }}</a>
+    <a href="/externalFollowing?uri={{ $.Profile.URI }}">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a> {{ $.Profile.NFollowing }}
   {{ else }}
-    <a href="/user/{{ $.Profile.Nick }}/following"><strong>{{ tr $.Ctx "ProfileFollowingLinkTitle" | trimSuffix ":" }}</strong><br/>{{ $.Profile.NFollowing }}</a>
+    <a href="/user/{{ $.Profile.Nick }}/following">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a> {{ $.Profile.NFollowing }}
   {{ end }}
 </div>
 {{ end }}
 {{ if $.Profile.ShowFollowers }}
-<div>
+<div id="followers">
   {{ if eq $.Profile.Type "External" }}
-    <a href="#" title="{{ tr $.Ctx "FollowExternal" }}"><strong>{{ tr $.Ctx "ProfileFollowersLinkTitle" | trimSuffix ":" }}</strong><br/>{{ $.Profile.NFollowers }}</a>
+    <a href="#" title="{{ tr $.Ctx "FollowExternal" }}">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a> {{ $.Profile.NFollowers }}
   {{ else }}
-    <a href="/user/{{ $.Profile.Nick }}/followers"><strong>{{ tr $.Ctx "ProfileFollowersLinkTitle" | trimSuffix ":" }}</strong><br/>{{ $.Profile.NFollowers }}</a>
+    <a href="/user/{{ $.Profile.Nick }}/followers">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a> {{ $.Profile.NFollowers }}
   {{ end }}
 </div>
 {{ end }}
 {{ end }}
 
 {{ define "profileLinks" }}
-<a target="_blank" href="{{ $.Profile.URI }}"><i class="ti ti-link-profile"></i> {{ tr $.Ctx "ProfileTwtxtLinkTitle" }}</a>
-<a target="_blank" href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}/atom.xml"><i class="ti ti-rss-profile"></i> {{ tr $.Ctx "ProfileAtomLinkTitle" }}</a>
-<a href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}/bookmarks"><i class="ti ti-bookmarks"></i> {{ tr $.Ctx "ProfileBookmarksLinkTitle" | trimSuffix ":" }}</a>
-<a target="_blank" href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}/config.yaml"><i class="ti ti-settings"></i> {{ tr $.Ctx "ProfileConfigLinkTitle" }}</a>
+<li><a target="_blank" href="{{ $.Profile.URI }}"><i class="ti ti-link-profile"></i> {{ tr $.Ctx "ProfileTwtxtLinkTitle" }}</a></li>
+<li><a href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}/bookmarks"><i class="ti ti-bookmarks"></i> {{ tr $.Ctx "ProfileBookmarksLinkTitle" | trimSuffix ":" }}</a></li>
 {{ end }}
