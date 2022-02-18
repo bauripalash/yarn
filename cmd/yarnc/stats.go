@@ -14,8 +14,8 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
-	"git.mills.io/yarnsocial/yarn/types"
-	"git.mills.io/yarnsocial/yarn/types/lextwt"
+	"go.yarn.social/lextwt"
+	"go.yarn.social/types"
 )
 
 // statsCmd represents the stats command

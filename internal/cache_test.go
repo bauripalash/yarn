@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

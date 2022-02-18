@@ -5,9 +5,9 @@ import (
 	"strings"
 	"time"
 
-	"git.mills.io/yarnsocial/yarn/types"
 	"github.com/dustin/go-humanize"
 	"github.com/russross/blackfriday"
+	"go.yarn.social/types"
 )
 
 /* red Currently unused

@@ -14,7 +14,7 @@ import (
 
 	"git.mills.io/yarnsocial/yarn"
 	"git.mills.io/yarnsocial/yarn/internal/session"
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	"github.com/justinas/nosurf"
 	"github.com/theplant-retired/timezones"
 )

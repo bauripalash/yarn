@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/viper"
 	"golang.org/x/term"
 
-	"git.mills.io/yarnsocial/yarn/client"
+	"go.yarn.social/client"
 )
 
 // loginCmd represents the pub command

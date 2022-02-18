@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"git.mills.io/yarnsocial/yarn"
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	"github.com/badgerodon/ioutil"
 	securejoin "github.com/cyphar/filepath-securejoin"
 	"github.com/julienschmidt/httprouter"

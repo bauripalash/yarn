@@ -84,7 +84,7 @@ coverage:
 	@$(GOCMD) tool cover -html=coverage.out
 
 bench: bench-yarn.txt
-	go test -race -benchtime=1x -cpu 16 -benchmem -bench "^(Benchmark)" git.mills.io/yarnsocial/yarn/types
+	go test -race -benchtime=1x -cpu 16 -benchmem -bench "^(Benchmark)" go.yarn.social/types
 
 bench-yarn.txt:
 	curl -s https://twtxt.net/user/prologic/twtxt.txt > $@

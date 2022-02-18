@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"git.mills.io/yarnsocial/yarn/types"
-	"git.mills.io/yarnsocial/yarn/types/lextwt"
+	"go.yarn.social/types"
+	"go.yarn.social/types/lextwt"
 	"github.com/stretchr/testify/assert"
 )
 

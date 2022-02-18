@@ -15,7 +15,7 @@ import (
 	"github.com/vcraescu/go-paginator"
 	"github.com/vcraescu/go-paginator/adapter"
 
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 )
 
 // ConversationHandler ...

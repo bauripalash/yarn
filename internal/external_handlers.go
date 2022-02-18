@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	securejoin "github.com/cyphar/filepath-securejoin"
 	"github.com/julienschmidt/httprouter"
 	log "github.com/sirupsen/logrus"

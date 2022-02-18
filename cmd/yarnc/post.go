@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/viper"
 	"github.com/tj/go-editor"
 
-	"git.mills.io/yarnsocial/yarn/client"
+	"go.yarn.social/client"
 )
 
 // postCmd represents the pub command

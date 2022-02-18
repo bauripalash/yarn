@@ -37,8 +37,6 @@ import (
 
 	"git.mills.io/prologic/go-gopher"
 	"git.mills.io/yarnsocial/yarn"
-	"git.mills.io/yarnsocial/yarn/types"
-	"git.mills.io/yarnsocial/yarn/types/lextwt"
 	"github.com/PuerkitoBio/goquery"
 	"github.com/audiolion/ipip"
 	"github.com/disintegration/gift"
@@ -57,6 +55,8 @@ import (
 	sync "github.com/sasha-s/go-deadlock"
 	log "github.com/sirupsen/logrus"
 	"github.com/writeas/slug"
+	"go.yarn.social/lextwt"
+	"go.yarn.social/types"
 	"golang.org/x/crypto/blake2b"
 )
 

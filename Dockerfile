@@ -41,8 +41,6 @@ COPY ./internal/auth/*.go ./internal/auth/
 COPY ./internal/session/*.go ./internal/session/
 COPY ./internal/passwords/*.go ./internal/passwords/
 COPY ./internal/webmention/*.go ./internal/webmention/
-COPY ./types/*.go ./types/
-COPY ./types/lextwt/*.go ./types/lextwt/
 COPY ./cmd/yarnd/*.go ./cmd/yarnd/
 
 # Version/Commit (there there is no .git in Docker build context)

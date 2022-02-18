@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"git.mills.io/yarnsocial/yarn/client"
+	"go.yarn.social/client"
 )
 
 // timelineCmd represents the pub command

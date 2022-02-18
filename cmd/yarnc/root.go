@@ -12,8 +12,8 @@ import (
 	"github.com/spf13/viper"
 
 	"git.mills.io/yarnsocial/yarn"
-	"git.mills.io/yarnsocial/yarn/client"
-	_ "git.mills.io/yarnsocial/yarn/types/lextwt"
+	"go.yarn.social/client"
+	_ "go.yarn.social/lextwt"
 )
 
 const (

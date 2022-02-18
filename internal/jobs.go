@@ -7,7 +7,7 @@ import (
 	"sort"
 	"time"
 
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	"github.com/dustin/go-humanize"
 	log "github.com/sirupsen/logrus"
 )

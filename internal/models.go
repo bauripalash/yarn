@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	"github.com/creasty/defaults"
 	log "github.com/sirupsen/logrus"
 )

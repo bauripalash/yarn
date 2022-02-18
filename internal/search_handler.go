@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	"github.com/julienschmidt/httprouter"
 	"github.com/vcraescu/go-paginator"
 	"github.com/vcraescu/go-paginator/adapter"

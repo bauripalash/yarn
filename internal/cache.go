@@ -18,7 +18,7 @@ import (
 	"time"
 
 	"git.mills.io/yarnsocial/yarn"
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	"github.com/dustin/go-humanize"
 	sync "github.com/sasha-s/go-deadlock"
 	log "github.com/sirupsen/logrus"

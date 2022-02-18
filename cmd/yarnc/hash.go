@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )

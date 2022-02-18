@@ -12,7 +12,7 @@ import (
 	"github.com/securisec/go-keywords"
 	log "github.com/sirupsen/logrus"
 
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 )
 
 const (

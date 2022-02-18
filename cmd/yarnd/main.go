@@ -16,8 +16,8 @@ import (
 
 	"git.mills.io/yarnsocial/yarn"
 	"git.mills.io/yarnsocial/yarn/internal"
-	_ "git.mills.io/yarnsocial/yarn/types/lextwt"
 	sync "github.com/sasha-s/go-deadlock"
+	_ "go.yarn.social/lextwt"
 )
 
 type flagSliceOfFeatureType []internal.FeatureType

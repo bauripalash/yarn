@@ -35,7 +35,7 @@ import (
 	"git.mills.io/yarnsocial/yarn/internal/passwords"
 	"git.mills.io/yarnsocial/yarn/internal/session"
 	"git.mills.io/yarnsocial/yarn/internal/webmention"
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 )
 
 const (

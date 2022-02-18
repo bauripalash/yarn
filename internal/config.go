@@ -14,7 +14,7 @@ import (
 	"time"
 
 	"git.mills.io/yarnsocial/yarn"
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	"github.com/gabstv/merger"
 	"github.com/goccy/go-yaml"
 	"github.com/robfig/cron"

@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"git.mills.io/yarnsocial/yarn/types"
+	"go.yarn.social/types"
 	"github.com/julienschmidt/httprouter"
 	log "github.com/sirupsen/logrus"
 )
