@@ -14,9 +14,9 @@ import (
 	"strings"
 	"time"
 
-	"go.yarn.social/types"
 	"github.com/creasty/defaults"
 	log "github.com/sirupsen/logrus"
+	"go.yarn.social/types"
 )
 
 const (
@@ -592,7 +592,7 @@ func (u *User) Fork(twt types.Twt) string {
 	// If we follow the original twt's Twter, add them as the first mention
 	// only if the original twter isn't ourselves!
 	if u.Follows(twt.Twter().URI) && !u.Is(twt.Twter().URI) {
-		tokens = append(tokens, fmt.Sprintf("@%s", twt.Twter().Nick))
+		tokens = append(tokens, fmt.Sprintf("@%s", u.FollowsAs(twt.Twter().URI)))
 	} else if !u.Is(twt.Twter().URI) {
 		tokens = append(tokens, fmt.Sprintf("@%s", twt.Twter().DomainNick()))
 	}
