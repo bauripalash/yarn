@@ -1984,7 +1984,6 @@ func PreprocessMedia(conf *Config, u *url.URL, title, alt, renderAs string, disp
 
 	// Normalize the domain name
 	domain := strings.TrimPrefix(strings.ToLower(u.Hostname()), "www.")
-
 	permitted, local := conf.PermittedImage(domain)
 
 	if permitted && display {
@@ -2005,19 +2004,32 @@ func PreprocessMedia(conf *Config, u *url.URL, title, alt, renderAs string, disp
 			html = RenderImage(conf, u.String(), title, alt, renderAs, full)
 		}
 	} else {
+		var mtype, mtypeIcon string
+		switch filepath.Ext(u.Path) {
+		case ".mp4":
+			mtype = "Video"
+			mtypeIcon = "ti-movie"
+		case ".mp3":
+			mtype = "Audio"
+			mtypeIcon = "ti-device-speaker"
+		default:
+			mtype = "Image"
+			mtypeIcon = "ti-photo"
+		}
+
 		if alt != "" {
 			alt = ` alt="` + alt + `"`
 		}
 		src := u.String()
 		if full {
 			html = fmt.Sprintf(
-				`<a href="%s?full=1" title="%s"%s target="_blank"><i class="external-image"></i></a>`,
-				src, title, alt,
+				`<a data-tooltip="Not Approved Domain" href="%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
+				src, title, alt, mtypeIcon, mtype,
 			)
 		} else {
 			html = fmt.Sprintf(
-				`<a href="%s" title="%s"%s target="_blank"><i class="external-image"></i></a>`,
-				src, title, alt,
+				`<a data-tooltip="Not Approved Domain" href="%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
+				src, title, alt, mtypeIcon, mtype,
 			)
 		}
 	}
@@ -2057,15 +2069,15 @@ type URLProcessor struct {
 }
 
 func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool) (ast.WalkStatus, bool) {
-	// renderAs (one of inline, lightbox or gallery)
+	// renderAs (one of inline or lightbox)
 	var renderAs string
-	if (p.user != nil && p.user.DisplayImagesPreference == "gallery") || (p.user == nil && p.conf.DisplayImagesPreference == "gallery") {
-		renderAs = "gallery"
-	} else if (p.user != nil && p.user.DisplayImagesPreference == "lightbox") || (p.user == nil && p.conf.DisplayImagesPreference == "lightbox") {
+
+	switch p.conf.DisplayImagesPreference {
+	case "lightbox":
 		renderAs = "lightbox"
-	} else if (p.user != nil && p.user.DisplayImagesPreference == "inline") || (p.user == nil && p.conf.DisplayImagesPreference == "inline") {
+	case "inline":
 		renderAs = "inline"
-	} else {
+	default:
 		renderAs = "inline"
 	}
 
@@ -2098,12 +2110,7 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 		}
 
 		html := PreprocessMedia(p.conf, u, string(image.Title), alt, renderAs, display, full)
-		// TODO: Use a const?
-		if display && renderAs == "gallery" {
-			p.Images = append(p.Images, html)
-		} else {
-			_, _ = io.WriteString(w, html)
-		}
+		_, _ = io.WriteString(w, html)
 
 		return ast.SkipChildren, true
 	}
@@ -2138,11 +2145,7 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 		}
 
 		html := PreprocessMedia(p.conf, u, title, alt, renderAs, display, full)
-		if display && renderAs == "gallery" {
-			p.Images = append(p.Images, html)
-		} else {
-			_, _ = io.WriteString(w, html)
-		}
+		_, _ = io.WriteString(w, html)
 
 		return ast.GoToNext, true
 	}
@@ -2200,15 +2203,9 @@ func FormatTwtFactory(conf *Config, cache *Cache, archive Archiver) func(twt typ
 		p.AllowAttrs("src", "type").OnElements("source")
 		p.AllowAttrs("aria-label", "class", "data-target", "target").OnElements("a")
 		p.AllowAttrs("class", "data-target").OnElements("i", "div")
-		p.AllowAttrs("alt", "title", "loading", "data-target").OnElements("a", "img")
+		p.AllowAttrs("alt", "title", "loading", "data-target", "data-tooltip").OnElements("a", "img")
 		p.AllowAttrs("style").OnElements("a", "code", "img", "p", "pre", "span")
 		html := p.SanitizeBytes(maybeUnsafeHTML)
-
-		if len(up.Images) > 0 && ((user != nil && user.DisplayImagesPreference == "gallery") || (user == nil && conf.DisplayImagesPreference == "gallery")) {
-			html = append(html, []byte(`<div class="image-gallery">`)...)
-			html = append(html, []byte(strings.Join(up.Images, ""))...)
-			html = append(html, []byte(`</div>`)...)
-		}
 
 		return template.HTML(html)
 	}
@@ -2357,12 +2354,13 @@ func FormatTwtContextFactory(conf *Config, cache *Cache, archive Archiver) func(
 		maybeUnsafeHTML := markdown.ToHTML(md, mdParser, renderer)
 
 		p := bluemonday.UGCPolicy()
+		p.AllowAttrs("id").OnElements("dialog")
 		p.AllowAttrs("id", "controls").OnElements("audio")
 		p.AllowAttrs("id", "controls", "playsinline", "preload", "poster").OnElements("video")
 		p.AllowAttrs("src", "type").OnElements("source")
-		p.AllowAttrs("target").OnElements("a")
-		p.AllowAttrs("class").OnElements("i")
-		p.AllowAttrs("alt", "loading").OnElements("a", "img")
+		p.AllowAttrs("aria-label", "class", "data-target", "target").OnElements("a")
+		p.AllowAttrs("class", "data-target").OnElements("i", "div")
+		p.AllowAttrs("alt", "title", "loading", "data-target", "data-tooltip").OnElements("a", "img")
 		p.AllowAttrs("style").OnElements("a", "code", "img", "p", "pre", "span")
 		html := p.SanitizeBytes(maybeUnsafeHTML)
 
@@ -2442,11 +2440,8 @@ func FormatRequest(r *http.Request) string {
 }
 
 func GetMediaNamesFromText(text string) []string {
-
 	var mediaNames []string
-
 	textSplit := strings.Split(text, "![](")
-
 	for i, textSplitItem := range textSplit {
 		if i > 0 {
 			mediaEndIndex := strings.Index(textSplitItem, ")")
@@ -2461,7 +2456,6 @@ func GetMediaNamesFromText(text string) []string {
 			}
 		}
 	}
-
 	return mediaNames
 }
 

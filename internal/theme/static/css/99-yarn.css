@@ -312,16 +312,10 @@ nav.timeline-nav a {
   white-space: pre-wrap;
 }
 
-.image-gallery {
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .image-inline {
   display: inline-block;
 }
 
-.image-gallery div,
 .image-inline div {
   margin-bottom: 1.25rem;
 }
@@ -390,17 +384,6 @@ figcaption #img-dl:after {
   content: "\A";
 }
 
-div .e-content:not(.image-gallery)>div {
-  margin: 1.5rem 0 0.25rem 0;
-}
-
-div .e-content:not(.image-gallery)>.caption-wrap .caption {
-  margin-bottom: 1.25rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .e-content ul li,
 .e-content ol li {
   margin: 0 0.5rem;
@@ -427,18 +410,17 @@ video {
   max-width: 100%;
   width: 100%;
   margin-top: 0.5rem;
-}
-
-audio {
-  filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
-  height: 25px;
-}
-
-video {
   object-fit: contain;
   height: auto;
   background: var(--background-color);
-  box-shadow: 0 3px 7px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.5);
+  border-radius: var(--border-radius);
+}
+
+audio {
+  filter: sepia(25%) saturate(75%) grayscale(1) contrast(95%) invert(10%);
+  height: 32px;
+  margin-bottom: 0.45rem;
 }
 
 #twobutton {

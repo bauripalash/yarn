@@ -117,10 +117,6 @@
             <input id="lightbox" type="radio" name="displayImagesPreference" value="lightbox" {{ if eq $.User.DisplayImagesPreference "lightbox" }}checked{{ end }}>
             {{ tr . "SettingsFormDisplayImagesPreferenceLightbox" }}
           </label>
-          <label for="gallery">
-            <input id="gallery" type="radio" name="displayImagesPreference" value="gallery" {{ if eq $.User.DisplayImagesPreference "gallery" }}checked{{ end }}>
-            {{ tr . "SettingsFormDisplayImagesPreferenceGallery" }}
-          </label>
         </fieldset>
       </div>
       <div>

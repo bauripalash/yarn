@@ -86,6 +86,10 @@
   content: "\ee72";
 }
 
+.ti-device-speaker:before {
+  content: "\ea8b";
+}
+
 .ti-door-enter:before {
   content: "\ef4c";
 }
@@ -144,6 +148,10 @@
 
 .ti-moon:before {
   content: "\eaf8";
+}
+
+.ti-movie:before {
+  content: "\eafa";
 }
 
 .ti-photo:before {

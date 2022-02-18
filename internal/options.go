@@ -210,7 +210,7 @@ var (
 	DefaultOpenLinksInPreference = "newwindow"
 
 	// DisplayImagesPreference is the default Pod-level image display behaviour
-	// (inline or gallery) for displaying images (overridable by Users).j
+	// (inline or lightbox) for displaying images (overridable by Users).
 	DefaultDisplayImagesPreference = "inline"
 
 	// DisplayMedia is the default for whether or not to display media at all or just link it
