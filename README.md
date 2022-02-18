@@ -1,13 +1,31 @@
-# yarn
+<p align="center">
+  <a href="https://yarn.social/">
+    <img alt="Yarn social" src="https://git.mills.io/yarnsocial/assets/raw/branch/master/yarn.svg" width="220"/>
+  </a>
+</p>
+<h1 align="center">Yarn - a decentralised self-hosted social media that has a privacy-first focus.</h1>
 
-[![Build Status](https://ci.mills.io/api/badges/yarnsocial/yarn/status.svg)](https://ci.mills.io/yarnsocial/yarn)
+<p align="center">
+  <a href="https://drone.mills.io/yarnsocial/yarn" title="Build Status">
+    <img src="https://drone.mills.io/api/badges/yarnsocial/yarn/status.svg?ref=refs/heads/main">
+  </a>
+  <a href="https://goreportcard.com/report/git.mills.io/yarnsocial/yarn" title="Go Report Card">
+    <img src="https://goreportcard.com/badge/git.mills.io/yarnsocial/yarn">
+  </a>
+  <a href="https://pkg.go.dev/git.mills.io/yarnsocial/yarn" title="GoDoc">
+    <img src="https://pkg.go.dev/git.mills.io/yarnsocial/yarn?status.svg">
+  </a>
+  <a href="https://opensource.org/licenses/AGPLv3" title="License: AGPLv3">
+    <img src="https://img.shields.io/badge/License-AGPLv3-blue.svg">
+  </a>
+  <a href="https://hub.docker.com/u/prologic/yarnd" title="Docker Pulls">
+    <img src="https://img.shields.io/docker/pulls/prologic/yarnd">
+  </a>
+</p>
 
-📕 yarn is a Self-Hosted, Twitter™-like Decentralised micro-Blogging platform. No ads, no tracking, your content, your data!
-
-- `yarnd` is the [Yarn.social](https://yarn.social) pod backend server
-- `yarnc` is the command-line client to `yarnd` API and command-line Twtxt client
-
-See [Yarn.social](https://yarn.social) for more deatils
+<p align="center">
+  <a href="README_ZH.md">View the chinese version of this document</a>
+</p>
 
 ## Installation
 
@@ -261,4 +279,4 @@ You can find an [AUTHORS](/AUTHORS) file where we keep a list of contributors to
 
 ## License
 
-`yarn` is licensed under the terms of the [MIT License](/LICENSE)
+`yarn` is licensed under the terms of the [AGPLv3 License](/LICENSE)

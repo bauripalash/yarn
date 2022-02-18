@@ -1,3 +1,6 @@
+// Copyright 2020-present Yarn.social
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 package passwords
 
 // Passwords is an interface for creating and verifying secure passwords

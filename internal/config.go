@@ -30,8 +30,8 @@ func init() {
 	version = SoftwareConfig{
 		Software:    "yarnd",
 		Author:      "Yarn.social",
-		Copyright:   "Copyright (C) 2021-present Yarn.social",
-		License:     "MIT License",
+		Copyright:   "Copyright (C) 2020-present Yarn.social",
+		License:     "AGPLv3 License",
 		FullVersion: yarn.FullVersion(),
 		Version:     yarn.Version,
 		Commit:      yarn.Commit,
