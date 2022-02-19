@@ -37,7 +37,7 @@ available on the [Releases](https://git.mills.io/yarnsocial/yarn/releases) page.
 ### Using Homebrew
 
 We provide [Homebrew](https://brew.sh) formulae for macOS users for both the
-command-line client (`yarn`) as well as the server (`yarnd`).
+command-line client (`yarnc`) as well as the server (`yarnd`).
 
 ```console
 brew tap yarnsocial/yarn https://git.mills.io/yarnsocial/homebrew-yarn.git
@@ -53,7 +53,7 @@ yarnd
 Run the command-line client:
 
 ```console
-yarn
+yarnc
 ```
 
 ### Building from source
@@ -81,7 +81,10 @@ FreeBSD:
 
 - Install `gmake`
 - Install `pkgconf` that brings `pkg-config`
-`gmake deps`
+
+```console
+gmake deps
+```
 
 3. Build the binaries
 
@@ -105,7 +108,7 @@ gmake
 1. Login to  your [Yarn.social](https://yarn.social) pod:
 
 ```#!console
-$ ./yarn login
+$ ./yarnc login
 INFO[0000] Using config file: /Users/prologic/.twt.yaml
 Username:
 ```
@@ -113,7 +116,7 @@ Username:
 2. Viewing your timeline
 
 ```#!console
-$ ./yarn timeline
+$ ./yarnc timeline
 INFO[0000] Using config file: /Users/prologic/.twt.yaml
 > prologic (50 minutes ago)
 Hey @rosaelefanten 👋 Nice to see you have a Twtxt feed! Saw your [Tweet](https://twitter.com/koehr_in/status/1326914925348982784?s=20) (_or at least I assume it was yours?_). Never heard of `aria2c` till now! 🤣 TIL
@@ -125,7 +128,7 @@ Angry Techn Writers ‣ https://dilbert.com/strip/2020-11-14
 3. Making a Twt (_post_):
 
 ```#!console
-$ ./yarn post
+$ ./yarnc post
 INFO[0000] Using config file: /Users/prologic/.twt.yaml
 Testing `yarn` the command-line client
 INFO[0015] posting twt...
@@ -153,10 +156,10 @@ Available Commands:
 
 Flags:
   -c, --config string   set a custom config file (default "/Users/prologic/.yarnc.yml")
-  -d, --debug           Enable debug logging
+  -D, --debug           Enable debug logging
   -h, --help            help for yarnc
   -t, --token string    yarnd API token to use to authenticate to endpoints (default "$YARNC_TOKEN")
-  -u, --uri string      yarnd API endpoint URI to connect to (default "http://localhost:8000/api/v1/")
+  -U, --uri string      yarnd API endpoint URI to connect to (default "http://localhost:8000/api/v1/")
 
 Use "yarnc [command] --help" for more information about a command.
 ```
