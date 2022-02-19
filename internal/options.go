@@ -158,9 +158,9 @@ var (
 	DefaultCSS string
 
 	// Default Alert type and message
-	DefaultAlertFloat bool
-	DefaultAlertGuest bool
-	DefaultAlertType = "safe"
+	DefaultAlertFloat   bool
+	DefaultAlertGuest   bool
+	DefaultAlertType    = "safe"
 	DefaultAlertMessage string
 
 	// DefaultFeedSources is the default list of external feed sources
@@ -259,6 +259,7 @@ func NewConfig() *Config {
 		DisplayTimePreference:   DefaultDisplayTimePreference,
 		OpenLinksInPreference:   DefaultOpenLinksInPreference,
 		DisplayImagesPreference: DefaultDisplayImagesPreference,
+		DisplayMedia:            DefaultDisplayMedia,
 		SessionExpiry:           DefaultSessionExpiry,
 		MagicLinkSecret:         DefaultMagicLinkSecret,
 		SMTPHost:                DefaultSMTPHost,
