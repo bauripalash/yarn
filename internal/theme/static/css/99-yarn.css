@@ -700,7 +700,8 @@ article .e-content blockquote {
 .container .h-entry,
 .h-feed>div .h-entry {
   margin: 1rem 0;
-  padding: 0.75rem 0.75rem 0.5rem 0.75rem;
+  padding: 0.75rem 0.75rem 1rem 0.75rem;
+  overflow: visible;
 }
 
 .h-feed article:first-child {
