@@ -264,81 +264,57 @@ u("#post").on("click", function(e) {
   form.submit();
 });
 
-u(".bookmarkBtn").on("click", function (e) {
-  e.preventDefault();
+function optionChange(e, primary, secondary) {
   Twix.ajax({
     type: "GET",
-    url: u(e.target).closest("a.bookmarkBtn").attr("href"),
+    url: u(e.target).closest("a." + primary).attr("href"),
     success: function(data) {
-      u(e.target).closest("a.bookmarkBtn").attr("style", "display: none;");
-      u(e.target).parent().parent().find("a.unbookmarkBtn").attr("style", "display: inline;");
+      u(e.target).closest("a." + primary).attr("style", "display: none !important;");
+      u(e.target).parent().find("a." + secondary).attr("style", "display: inline !important;");
     },
   });
+}
+
+u(".bookmarkBtn").on("click", function (e) {
+  e.preventDefault();
+  optionChange(e, "bookmarkBtn", "unbookmarkBtn");
 });
 
 u(".unbookmarkBtn").on("click", function (e) {
   e.preventDefault();
-
-  Twix.ajax({
-    type: "GET",
-    url: u(e.target).closest("a.unbookmarkBtn").attr("href"),
-    success: function(data) {
-      u(e.target).closest("a.unbookmarkBtn").attr("style", "display: none;");
-      u(e.target).parent().parent().find("a.bookmarkBtn").attr("style", "display: inline;");
-    },
-  });
+  optionChange(e, "unbookmarkBtn", "bookmarkBtn");
 });
 
 u(".followBtn").on("click", function (e) {
   e.preventDefault();
-
-  Twix.ajax({
-    type: "GET",
-    url: u(e.target).closest("a.followBtn").attr("href"),
-    success: function(data) {
-      u(e.target).closest("a.followBtn").attr("style", "display: none;");
-      u(e.target).parent().find("a.unfollowBtn").attr("style", "display: inline;");
-    },
-  });
+  u(".followBtn").disabled = true;
+  u(".unfollowBtn").disabled = false;
+  optionChange(e, "followBtn", "unfollowBtn");
 });
 
 u(".unfollowBtn").on("click", function (e) {
   e.preventDefault();
-
-  Twix.ajax({
-    type: "GET",
-    url: u(e.target).closest("a.unfollowBtn").attr("href"),
-    success: function(data) {
-      u(e.target).closest("a.unfollowBtn").attr("style", "display: none;");
-      u(e.target).parent().find("a.followBtn").attr("style", "display: inline;");
-    },
-  });
+  u(".followBtn").disabled = false;
+  u(".unfollowBtn").disabled = true;
+  optionChange(e, "unfollowBtn", "followBtn");
 });
 
-u("#muteBtn").on("click", function (e) {
+u(".muteBtn").on("click", function (e) {
   e.preventDefault();
-
-  Twix.ajax({
-    type: "GET",
-    url: u(e.target).attr("href"),
-    success: function(data) {
-      u(e.target).attr("style", "display: none;");
-      u("#unmuteBtn").attr("style", "display: inline;");
-    },
-  });
+  u(".muteBtn").disabled = true;
+  u(".unmuteBtn").disabled = false;
+  optionChange(e, "muteBtn", "unmuteBtn");
+  u("#profile-avatar i").addClass("ti-ismuted");
+  u("#profile-avatar img").addClass("ismuted");
 });
 
-u("#unmuteBtn").on("click", function (e) {
+u(".unmuteBtn").on("click", function (e) {
   e.preventDefault();
-
-  Twix.ajax({
-    type: "GET",
-    url: u(e.target).attr("href"),
-    success: function(data) {
-      u(e.target).attr("style", "display: none;");
-      u("#muteBtn").attr("style", "display: inline;");
-    },
-  });
+  u(".muteBtn").disabled = false;
+  u(".unmuteBtn").disabled = true;
+  optionChange(e, "unmuteBtn", "muteBtn");
+  u("#profile-avatar i").removeClass("ti-ismuted");
+  u("#profile-avatar img").removeClass("ismuted");
 });
 
 u.prototype.isHidden = function () {

@@ -226,18 +226,18 @@
 {{ if $.Profile.ShowFollowing }}
 <div id="following">
   {{ if eq $.Profile.Type "External" }}
-    <a href="/externalFollowing?uri={{ $.Profile.URI }}">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a> {{ $.Profile.NFollowing }}
+    {{ $.Profile.NFollowing }} <a href="/externalFollowing?uri={{ $.Profile.URI }}">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a>
   {{ else }}
-    <a href="/user/{{ $.Profile.Nick }}/following">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a> {{ $.Profile.NFollowing }}
+    {{ $.Profile.NFollowing }} <a href="/user/{{ $.Profile.Nick }}/following">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a>
   {{ end }}
 </div>
 {{ end }}
 {{ if $.Profile.ShowFollowers }}
 <div id="followers">
   {{ if eq $.Profile.Type "External" }}
-    <a href="#" title="{{ tr $.Ctx "FollowExternal" }}">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a> {{ $.Profile.NFollowers }}
+    {{ $.Profile.NFollowers }} <a href="#" title="{{ tr $.Ctx "FollowExternal" }}">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a>
   {{ else }}
-    <a href="/user/{{ $.Profile.Nick }}/followers">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a> {{ $.Profile.NFollowers }}
+    {{ $.Profile.NFollowers }} <a href="/user/{{ $.Profile.Nick }}/followers">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a>
   {{ end }}
 </div>
 {{ end }}

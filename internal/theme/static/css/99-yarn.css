@@ -1,12 +1,21 @@
+.profile-button {
+  display: flex;
+  gap: 1rem;
+}
+
+.profile-button a {
+  flex: 1;
+}
+
 .profile-side {
   display: flex;
-  gap: 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 #profile-links, #profile-info {
   flex-wrap: wrap;
-  flex: 1 15rem;
+  flex: 1 21rem;
 }
 
 #profile-avatar, .profile-header hgroup {
@@ -1006,6 +1015,7 @@ span[title="Copyright"]:before {
     padding-bottom: 0.15rem;
   }
 
+  .profile-button i,
   .ti-message-circle,
   .ti-compass,
   .ti-bell-ringing,
@@ -1018,6 +1028,7 @@ span[title="Copyright"]:before {
     font-size: 1.3rem;
   }
 
+  .profile-button a,
   .editBtn,
   .deleteBtn,
   .replyBtn,
@@ -1045,14 +1056,11 @@ span[title="Copyright"]:before {
     padding-top: 1rem;
   }
 
-  .ti-circle-plus,
-  .ti-circle-minus,
   .ti-settings,
   .ti-link-profile,
   .ti-rss-profile,
   .ti-bookmarks {
     font-size: 1.3rem;
-    color: var(--primary);
   }
 
   .yarn-count-badge {
@@ -1183,6 +1191,10 @@ span[title="Copyright"]:before {
     padding-bottom: 0.5rem;
   }
 
+  .profile-button a:last-of-type i {
+    margin: 0.16rem 0.2rem;
+  }
+
   .timelineBtn,
   .discoverBtn,
   .mentionsBtn,
@@ -1213,14 +1225,11 @@ span[title="Copyright"]:before {
     color: var(--background-color);
   }
 
-  .ti-circle-plus,
-  .ti-circle-minus,
   .ti-settings,
   .ti-link-profile,
   .ti-rss-profile,
   .ti-bookmarks {
     font-size: 1.3rem;
-    color: var(--primary);
   }
 
   .submit-bar>div {
@@ -1260,6 +1269,10 @@ span[title="Copyright"]:before {
 
   #podMenu {
     display: inherit;
+  }
+
+  .profile-button a:last-of-type i {
+    margin: 0.16rem 0.2rem;
   }
 
   footer .footer-menu a {
@@ -1313,6 +1326,10 @@ span[title="Copyright"]:before {
     display: inherit;
   }
 
+  .profile-button a:last-of-type i {
+    margin: 0.16rem 0.2rem;
+  }
+
   nav.float {
     padding-top: 4.5rem !important;
   }
@@ -1358,6 +1375,10 @@ span[title="Copyright"]:before {
 
   #podMenu {
     display: inherit;
+  }
+
+  .profile-button a:last-of-type i {
+    margin: 0.16rem 0.2rem;
   }
 
   nav.float {
