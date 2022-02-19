@@ -149,7 +149,7 @@ Usage:
 Available Commands:
   completion  generate the autocompletion script for the specified shell
   help        Help about any command
-  login       Login and euthenticate to a Yarn.social pod
+  login       Login and authenticate to a Yarn.social pod
   post        Post a new twt to a Yarn.social pod
   stats       Parses and performs statistical analytis on a Twtxt feed given a URL or local file
   timeline    Display your timeline

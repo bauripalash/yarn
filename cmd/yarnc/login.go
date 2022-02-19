@@ -21,7 +21,7 @@ import (
 var loginCmd = &cobra.Command{
 	Use:     "login [flags]",
 	Aliases: []string{"auth"},
-	Short:   "Login and euthenticate to a Yarn.social pod",
+	Short:   "Login and authenticate to a Yarn.social pod",
 	Long: `The login command allows you to login a user ot login to a
 Yarn.social pod running yarnd. Once successfully authenticated with a valid
 account a API token is generated on the account and a configuration file is
