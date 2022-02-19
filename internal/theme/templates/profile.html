@@ -74,8 +74,10 @@
     {{ template "post" (dict "Authenticated" $.Authenticated "User" $.User "TwtPrompt" $.TwtPrompt "MaxTwtLength" $.MaxTwtLength "PostText" $.PostText "Reply" $.Reply "AutoFocus" false "CSRFToken" $.CSRFToken "Ctx" .) }}
   </div>
   {{ end }}
+  {{ if gt (len $.Twts) 0 }}
   <div class="profile-recent">
     <h2>{{ tr . "RecentTwtsSummary" (dict "Username" .Profile.Nick) }}</h2>
   </div>
   {{ template "feed" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Pager" $.Pager "Twts" $.Twts "Ctx" . "view" "profile") }}
+  {{ end }}
 {{ end }}
