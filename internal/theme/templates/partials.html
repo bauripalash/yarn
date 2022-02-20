@@ -2,24 +2,22 @@
 {{ if $.Authenticated }}
 <div id="postbox">
   <nav id="toolbar" class="toolbar-nav">
-    <ul>
-      <li class="toolbar-form-button"><a id="bBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonBold" }}"><i class="ti ti-bold"></i></a></li>
-      <li class="toolbar-form-button"><a id="iBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonItalic" }}"><i class="ti ti-italic"></i></a></li>
-      <li class="toolbar-form-button"><a id="sBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonStrikethrough" }}"><i class="ti ti-strikethrough"></i></a></li>
-      <li class="toolbar-form-button"><a id="cBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonCode" }}"><i class="ti ti-code"></i></a></li>
-      <li class="toolbar-form-button"><a id="usrBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonMention" }}"><i class="ti ti-user-circle"></i></a></li>
-      <li class="toolbar-form-button"><a id="lnkBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonLink" }}"><i class="ti ti-link"></i></a></li>
-      <li class="toolbar-form-button"><a id="imgBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonImage" }}"><i class="ti ti-photo"></i></a></li>
+      <div class="toolbar-form-button"><a id="bBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonBold" }}" role="button"><i class="ti ti-bold"></i></a></div>
+      <div class="toolbar-form-button"><a id="iBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonItalic" }}" role="button"><i class="ti ti-italic"></i></a></div>
+      <div class="toolbar-form-button"><a id="sBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonStrikethrough" }}" role="button"><i class="ti ti-strikethrough"></i></a></div>
+      <div class="toolbar-form-button"><a id="cBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonCode" }}" role="button"><i class="ti ti-code"></i></a></div>
+      <div class="toolbar-form-button"><a id="usrBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonMention" }}" role="button"><i class="ti ti-user-circle"></i></a></div>
+      <div class="toolbar-form-button"><a id="lnkBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonLink" }}" role="button"><i class="ti ti-link"></i></a></div>
+      <div class="toolbar-form-button"><a id="imgBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonImage" }}" role="button"><i class="ti ti-photo"></i></a></div>
       {{ if not $.Ctx.DisableMedia }}
-      <li class="toolbar-form-button-media">
+      <div class="toolbar-form-button">
         <form id="mediaUploadForm" action="/upload" enctype="multipart/form-data" method="POST" title="{{ tr $.Ctx "ToolbarButtonMedia" }}">
           <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-          <label for="uploadMedia"><i id="uploadMediaButton" class="ti ti-upload"></i></label>
+          <label for="uploadMedia" role="button"><i id="uploadMediaButton" class="ti ti-upload"></i></label>
           <input id="uploadMedia" class="invisible width-none" type="file" accept="image/*{{ if not $.Ctx.DisableFfmpeg }},audio/*,video/*{{ end }}" name="media_file" />
         </form>
-      </li>
+      </div>
       {{ end }}
-    </ul>
   </nav>
   <form id="form" action="/post" method="POST">
     <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
