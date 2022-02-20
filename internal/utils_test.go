@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"go.yarn.social/types"
-	"go.yarn.social/types/lextwt"
 	"github.com/stretchr/testify/assert"
+	"go.yarn.social/lextwt"
+	"go.yarn.social/types"
 )
 
 func TestParseUserAgent(t *testing.T) {
