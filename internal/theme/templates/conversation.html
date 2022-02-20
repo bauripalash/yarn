@@ -1,5 +1,5 @@
 {{ define "content" }}
-  <article class="container-fluid">
+  <article id="twt-conv" class="container-fluid">
     <hgroup>
       <h2>{{ tr . "ConversationTitle" }}</h2>
       <h3>{{ tr . "ConversationSummary" }} <a href="/twt/{{ $.Root.Hash }}">#{{ $.Root.Hash }}</a></h3>
@@ -7,9 +7,9 @@
   </article>
   {{ template "feed" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Pager" $.Pager "Twts" $.Twts "Ctx" . "view" "conv") }}
   {{ if .Authenticated }}
-  {{ template "post" (dict "Authenticated" $.Authenticated "User" $.User "TwtPrompt" $.TwtPrompt "MaxTwtLength" $.MaxTwtLength "Reply" $.Reply "AutoFocus" false "CSRFToken" $.CSRFToken "Ctx" .) }}
+  {{ template "post" (dict "Authenticated" $.Authenticated "User" $.User "TwtPrompt" $.TwtPrompt "MaxTwtLength" $.MaxTwtLength "Reply" $.Reply "AutoFocus" false "CSRFToken" $.CSRFToken "Ctx" . "view" "conv") }}
   {{ else }}
-  <article class="container-fluid">
+  <article id="twt-join" class="container-fluid">
     <hgroup>
       <h2>{{ tr . "ConversationJoinTitle" }}</h2>
       <h3>{{ if .RegisterDisabled }}

@@ -2,24 +2,24 @@
 {{ if $.Authenticated }}
 <div id="postbox">
   <nav id="toolbar" class="toolbar-nav">
-      <div class="toolbar-form-button"><a id="bBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonBold" }}" role="button"><i class="ti ti-bold"></i></a></div>
-      <div class="toolbar-form-button"><a id="iBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonItalic" }}" role="button"><i class="ti ti-italic"></i></a></div>
-      <div class="toolbar-form-button"><a id="sBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonStrikethrough" }}" role="button"><i class="ti ti-strikethrough"></i></a></div>
-      <div class="toolbar-form-button"><a id="cBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonCode" }}" role="button"><i class="ti ti-code"></i></a></div>
-      <div class="toolbar-form-button"><a id="usrBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonMention" }}" role="button"><i class="ti ti-user-circle"></i></a></div>
-      <div class="toolbar-form-button"><a id="lnkBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonLink" }}" role="button"><i class="ti ti-link"></i></a></div>
-      <div class="toolbar-form-button"><a id="imgBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonImage" }}" role="button"><i class="ti ti-photo"></i></a></div>
-      {{ if not $.Ctx.DisableMedia }}
-      <div class="toolbar-form-button">
-        <form id="mediaUploadForm" action="/upload" enctype="multipart/form-data" method="POST" title="{{ tr $.Ctx "ToolbarButtonMedia" }}">
-          <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-          <label for="uploadMedia" role="button"><i id="uploadMediaButton" class="ti ti-upload"></i></label>
-          <input id="uploadMedia" class="invisible width-none" type="file" accept="image/*{{ if not $.Ctx.DisableFfmpeg }},audio/*,video/*{{ end }}" name="media_file" />
-        </form>
-      </div>
-      {{ end }}
+    <div class="toolbar-form-button"><a id="bBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonBold" }}" role="button"><i class="ti ti-bold"></i></a></div>
+    <div class="toolbar-form-button"><a id="iBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonItalic" }}" role="button"><i class="ti ti-italic"></i></a></div>
+    <div class="toolbar-form-button"><a id="sBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonStrikethrough" }}" role="button"><i class="ti ti-strikethrough"></i></a></div>
+    <div class="toolbar-form-button"><a id="cBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonCode" }}" role="button"><i class="ti ti-code"></i></a></div>
+    <div class="toolbar-form-button"><a id="usrBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonMention" }}" role="button"><i class="ti ti-user-circle"></i></a></div>
+    <div class="toolbar-form-button"><a id="lnkBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonLink" }}" role="button"><i class="ti ti-link"></i></a></div>
+    <div class="toolbar-form-button"><a id="imgBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonImage" }}" role="button"><i class="ti ti-photo"></i></a></div>
+    {{ if not $.Ctx.DisableMedia }}
+    <div class="toolbar-form-button">
+      <form id="mediaUploadForm" action="/upload" enctype="multipart/form-data" method="POST" title="{{ tr $.Ctx "ToolbarButtonMedia" }}">
+        <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+        <label for="uploadMedia" role="button"><i id="uploadMediaButton" class="ti ti-upload"></i></label>
+        <input id="uploadMedia" class="invisible width-none" type="file" accept="image/*{{ if not $.Ctx.DisableFfmpeg }},audio/*,video/*{{ end }}" name="media_file" />
+      </form>
+    </div>
+    {{ end }}
   </nav>
-  <form id="form" action="/post" method="POST">
+  <form id="form"{{ if eq $.view "conv" }} class="conv-post" {{ end }}action="/post" method="POST">
     <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
     <input type="hidden" id="replaceTwt" name="hash" value="" />
     <input type="hidden" id="replyTo" name="reply" value="{{ $.Reply }}" />
@@ -111,46 +111,55 @@
     {{ formatTwt $.Twt $.User }}
   </div>
   <hr />
-  {{ if $.Authenticated }}
-    <span class="twt-bookmark">
-      <a class="bookmarkBtn" style="display: {{ if not ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkAddTwt" }}">
-        <i class="ti ti-bookmark"></i>
-      </a>
-      <a class="unbookmarkBtn" style="display: {{ if ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkRemoveTwt" }}">
-        <i class="ti ti-bookmark-off"></i>
-      </a>
-    </span>
-  {{ end }}
-  <a href="/search?tag={{ $.Twt.Hash }}" title="{{ tr $.Ctx "ConversationSearch" }}"><em class="twt-hash">#{{ $.Twt.Hash }}</em></a>
   <nav class="twt-nav">
-    <ul>
-      {{ if $.Authenticated }}
-        <li><a class="replyBtn" href="#" data-reply="{{ $.User.Reply $.Twt }}"><i class="ti ti-message-plus" data-reply="{{ $.User.Reply $.Twt }}"></i> {{ tr $.Ctx "TwtReplyLinkTitle" }}</a></li>
-        {{ if and (eq $.view "conv") (not (eq $.Twt.Hash $.Ctx.Root.Hash)) }}
-          {{ if lt (getForkLength $.Twt $.User) 1 }}
-            <li><a class="forkBtn" href="#" data-fork="{{ $.User.Fork $.Twt }}"><i class="ti ti-messages" data-fork="{{ $.User.Fork $.Twt }}"></i> {{ tr $.Ctx "TwtForkLinkTitle" }}</a></li>
-          {{ end }}
-        {{ end }}
-        {{ if eq $.LastTwt.Hash $.Twt.Hash }}
-          <li><a class="editBtn" href="#" data-hash="{{ $.Twt.Hash }}" data-text="{{ $.Twt | unparseTwt }}"><i class="ti ti-edit" data-hash="{{ $.Twt.Hash }}" data-text="{{ $.Twt | unparseTwt }}"></i> {{ tr $.Ctx "TwtEditLinkTitle" }}</a></li>
-          <li><a class="deleteBtn" href="#" data-hash="{{ $.Twt.Hash }}"><i class="ti ti-trash" data-hash="{{ $.Twt.Hash }}"></i> {{ tr $.Ctx "TwtDeleteLinkTitle" }}</a></li>
-        {{ end }}
+    {{ if $.Authenticated }}
+    <a class="replyBtn" href="#" data-reply="{{ $.User.Reply $.Twt }}">
+      <i class="ti ti-message-plus" data-reply="{{ $.User.Reply $.Twt }}"></i> {{ tr $.Ctx "TwtReplyLinkTitle" }}
+    </a>
+    {{ if and (eq $.view "conv") (not (eq $.Twt.Hash $.Ctx.Root.Hash)) (lt (getForkLength $.Twt $.User) 1) }}
+    <a class="forkBtn" href="#" data-fork="{{ $.User.Fork $.Twt }}">
+      <i class="ti ti-messages" data-fork="{{ $.User.Fork $.Twt }}"></i> {{ tr $.Ctx "TwtForkLinkTitle" }}
+    </a>
+    {{ end }}
+    {{ if eq $.LastTwt.Hash $.Twt.Hash }}
+    <a class="editBtn" href="#" data-hash="{{ $.Twt.Hash }}" data-text="{{ $.Twt | unparseTwt }}">
+      <i class="ti ti-edit" data-hash="{{ $.Twt.Hash }}" data-text="{{ $.Twt | unparseTwt }}"></i> {{ tr $.Ctx "TwtEditLinkTitle" }}
+    </a>
+    <a class="deleteBtn" href="#" data-hash="{{ $.Twt.Hash }}">
+      <i class="ti ti-trash" data-hash="{{ $.Twt.Hash }}"></i> {{ tr $.Ctx "TwtDeleteLinkTitle" }}
+    </a>
+    {{ end }}
+    {{ end }}
+    {{ if and (eq $.view "conv") (not (eq $.Twt.Hash $.Ctx.Root.Hash)) (gt (getForkLength $.Twt $.User) 0) }}
+    <a class="convBtn" href="{{ urlForFork $.Twt }}">
+      <i class="ti ti-messages"></i> {{ tr $.Ctx "TwtForkLinkTitle" }}
+      <span class="yarn-count-badge">{{ getForkLength $.Twt $.User }}</span>
+    </a>
+    {{ end }}
+    {{ if eq $.Twt.Hash $.Ctx.Root.Hash }}
+    {{ with urlForRootConv $.Twt }}
+    <a class="convBtn" href="{{ urlForRootConv $.Twt }}">
+      <i class="ti ti-message"></i> {{ tr $.Ctx "ConversationRoot" }}
+    </a>
+    {{ end }}
+    {{ else if not (eq $.view "conv") }}
+    {{ with urlForConv $.Twt }}
+    <a class="convBtn" href="{{ urlForConv $.Twt }}">
+      <i class="ti ti-message"></i> {{ tr $.Ctx "TwtConversationLinkTitle" }}
+      {{ if gt (getConvLength $.Twt $.User) 1 }}
+      <span class="yarn-count-badge">{{ getConvLength $.Twt $.User }}</span>
       {{ end }}
-      {{ if and (eq $.view "conv") (not (eq $.Twt.Hash $.Ctx.Root.Hash)) }}
-        {{ if gt (getForkLength $.Twt $.User) 0 }}
-          <li><a class="convBtn" href="{{ urlForFork $.Twt }}"><i class="ti ti-messages"></i> {{ tr $.Ctx "TwtForkLinkTitle" }}<span class="yarn-count-badge">{{ getForkLength $.Twt $.User }}</span></a></li>
-        {{ end }}
-      {{ end }}
-      {{ if eq $.Twt.Hash $.Ctx.Root.Hash }}
-        {{ with urlForRootConv $.Twt }}
-          <li><a class="convBtn" href="{{ urlForRootConv $.Twt }}"><i class="ti ti-message"></i> {{ tr $.Ctx "ConversationRoot" }}</a></li>
-        {{ end }}
-      {{ else if not (eq $.view "conv") }}
-        {{ with urlForConv $.Twt }}
-        <li><a class="convBtn" href="{{ urlForConv $.Twt }}"><i class="ti ti-message"></i> {{ tr $.Ctx "TwtConversationLinkTitle" }}{{ if gt (getConvLength $.Twt $.User) 1 }}<span class="yarn-count-badge">{{ getConvLength $.Twt $.User }}</span>{{ end }}</a></li>
-        {{ end }}
-      {{ end }}
-    </ul>
+    </a>
+    {{ end }}
+    {{ end }}
+    {{ if $.Authenticated }}
+    <a class="bookmarkBtn" style="display: {{ if not ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkAddTwt" }}">
+      <i class="ti ti-bookmark"></i>
+    </a>
+    <a class="unbookmarkBtn" style="display: {{ if ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkRemoveTwt" }}">
+      <i class="ti ti-bookmark-off"></i>
+    </a>
+    {{ end }}
   </nav>
 </article>
 {{ end }}
@@ -158,20 +167,18 @@
 {{ define "feed" }}
   {{ if gt (len $.Twts) 0 }}
   <div class="grid h-feed">
-    <div>
-      {{ template "pager" (dict "Pager" $.Pager "Ctx" $.Ctx) }}
-      {{ range $idx, $twt := $.Twts }}
-      {{ template "twt" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Twt" $twt "Ctx" $.Ctx "view" $.view) }}
+    {{ template "pager" (dict "Pager" $.Pager "Ctx" $.Ctx) }}
+    {{ range $idx, $twt := $.Twts }}
+    {{ template "twt" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Twt" $twt "Ctx" $.Ctx "view" $.view) }}
+    {{ else }}
+      {{ if eq $.view "timeline" }}
+        <p>{{ tr $.Ctx "NoTwts" }}</p>
+        <p>{{ tr $.Ctx "ProfileNoTwts" (dict ".InstanceName" $.Ctx.InstanceName ".NavDiscover" (tr $.Ctx "NavDiscover") ".NavFollow" (tr $.Ctx "NavFollow")) | html }}</p>
       {{ else }}
-        {{ if eq $.view "timeline" }}
-          <p>{{ tr $.Ctx "NoTwts" }}</p>
-          <p>{{ tr $.Ctx "ProfileNoTwts" (dict ".InstanceName" $.Ctx.InstanceName ".NavDiscover" (tr $.Ctx "NavDiscover") ".NavFollow" (tr $.Ctx "NavFollow")) | html }}</p>
-        {{ else }}
-          <p>{{ .Profile.Nick }} {{ tr $.Ctx "ProfileLastPosted" }} {{ .Profile.LastPostedAt | time }}</p>
-        {{ end }}
+        <p>{{ .Profile.Nick }} {{ tr $.Ctx "ProfileLastPosted" }} {{ .Profile.LastPostedAt | time }}</p>
       {{ end }}
-      {{ template "pager" (dict "Pager" $.Pager "Ctx" $.Ctx) }}
-    </div>
+    {{ end }}
+    {{ template "pager" (dict "Pager" $.Pager "Ctx" $.Ctx) }}
   </div>
   {{ else }}
   <div class="h-feed-empty"></div>
