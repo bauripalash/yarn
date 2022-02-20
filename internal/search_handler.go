@@ -27,6 +27,7 @@ func (s *Server) SearchHandler() httprouter.Handle {
 			ctx.Error = true
 			ctx.Message = s.tr(ctx, "ErrorNoTag")
 			s.render("error", w, ctx)
+			return
 		}
 
 		var twts types.Twts

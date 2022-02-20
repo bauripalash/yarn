@@ -1,5 +1,4 @@
 {{ define "content" }}
-
   <article id="followFeed">
     <hgroup>
         <h2>{{ tr . "FeedsFollowFeedTitle" }}</h2>
@@ -20,7 +19,6 @@
       </fieldset>
     </form>
   </article>
-
   <article id="createFeed">
     <hgroup>
       <h2>{{ tr . "FeedsTitle" }}</h2>
@@ -41,7 +39,6 @@
       </fieldset>
     </form>
   </article>
-
   <article id="myFeed">
     <hgroup>
       <h2>{{ tr . "FeedsMyFeedsTitle" }}</h2>
@@ -85,7 +82,6 @@
       <p><small>{{ (tr . "FeedsNoFeedsSummary") | html }}</small></p>
     {{ end }}
   </article>
-
   <article id="localFeed">
     <hgroup>
       <h2>{{ tr . "FeedsLocalFeedsTitle" }}</h2>
@@ -125,7 +121,6 @@
       {{ end }}
     {{ end }}
   </article>
-
   <article id="externalFeed">
     <hgroup>
       <h2>{{ tr . "FeedsExternalFeedsTitle" }}</h2>
@@ -166,5 +161,4 @@
     </details>
     {{ end }}
   </article>
-
 {{ end }}

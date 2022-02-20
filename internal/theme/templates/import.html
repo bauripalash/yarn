@@ -1,16 +1,13 @@
 {{ define "content" }}
-  <article class="grid">
-    <div>
-      <hgroup>
-        <h2>{{ tr . "ImportTitle" }}</h2>
-        <h3>{{ tr . "ImportSummary" }}</h3>
-      </hgroup>
-      <form action="/import" method="POST">
-        <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-        <textarea id="feeds" name="feeds" placeholder='{{ tr . "ImportTip" }}' rows=24 autofocus required></textarea>
-        <button type="submit" class="primary">Import</button>
-      </form>
-    </div>
-    <div></div>
+  <article>
+    <hgroup>
+      <h2>{{ tr . "ImportTitle" }}</h2>
+      <h3>{{ tr . "ImportSummary" }}</h3>
+    </hgroup>
+    <form action="/import" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+      <textarea id="feeds" name="feeds" placeholder='{{ tr . "ImportTip" }}' rows=24 autofocus required></textarea>
+      <button type="submit" class="primary">Import</button>
+    </form>
   </article>
 {{ end }}

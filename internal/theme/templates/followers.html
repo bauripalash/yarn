@@ -1,53 +1,51 @@
 {{ define "content" }}
-  <article class="grid">
-    <div>
-      <hgroup>
-        <h2>{{ tr . "FollowersTitle" }}</h2>
-        <h3>
-          {{ if $.User.Is .Profile.URI }}
-            {{ tr . "FollowersFollowingYou" }}
-          {{ else }}
-            {{ (tr . "FollowersFollowingUser" (dict "Username" .Profile.Nick)) | html }}
-          {{ end }}
-        </h3>
-      </hgroup>
-      {{ if .Profile.Followers }}
-        <ol>
-          {{ $ctx:=. }}
-          {{ range $f := .Profile.Followers }}
-            <li>
-              {{ if $.User.Is $f.URI }}
-                <a href="{{ $f.URI | trimSuffix "/twtxt.txt" }}">{{ tr $ctx "MeLinkTitle" }}</a>
+  <article>
+    <hgroup>
+      <h2>{{ tr . "FollowersTitle" }}</h2>
+      <h3>
+        {{ if $.User.Is .Profile.URI }}
+          {{ tr . "FollowersFollowingYou" }}
+        {{ else }}
+          {{ (tr . "FollowersFollowingUser" (dict "Username" .Profile.Nick)) | html }}
+        {{ end }}
+      </h3>
+    </hgroup>
+    {{ if .Profile.Followers }}
+      <ol>
+        {{ $ctx:=. }}
+        {{ range $f := .Profile.Followers }}
+          <li>
+            {{ if $.User.Is $f.URI }}
+              <a href="{{ $f.URI | trimSuffix "/twtxt.txt" }}">{{ tr $ctx "MeLinkTitle" }}</a>
+            {{ else }}
+              {{ if isLocalURL $f.URI }}
+                <a href="{{ $f.URI | trimSuffix "/twtxt.txt" }}">{{ $f.Nick }}</a>
               {{ else }}
-                {{ if isLocalURL $f.URI }}
-                  <a href="{{ $f.URI | trimSuffix "/twtxt.txt" }}">{{ $f.Nick }}</a>
-                {{ else }}
-                  <a href="/external?uri={{ $f.URI }}&nick={{ $f.Nick }}">{{ $f.Nick }}</a>
-                  (<a href="{{ $f.URI }}" title="{{ $f.LastSeenAt | time }}">{{ $f.URI }}</a>)
-                {{ end }}
-                {{ if $.Authenticated }}
-                  <a class="followBtn" style="display: {{ if not ($.User.Follows $f.URI) }}inline{{ else }}none{{ end }};" href="/follow?nick={{ $f.Nick }}&url={{ $f.URI }}">
-                    <i class="ti ti-circle-plus"></i>
-                    {{ tr $ctx "FollowLinkTitle" }}
-                  </a>
-                  <a class="unfollowBtn" style="display: {{ if $.User.Follows $f.URI }}inline{{ else }}none{{ end }};" href="/unfollow?nick={{ $f.Nick }}">
-                    <i class="ti ti-circle-minus"></i>
-                    {{ tr $ctx "UnfollowLinkTitle" }}
-                  </a>
-                {{ end }}
+                <a href="/external?uri={{ $f.URI }}&nick={{ $f.Nick }}">{{ $f.Nick }}</a>
+                (<a href="{{ $f.URI }}" title="{{ $f.LastSeenAt | time }}">{{ $f.URI }}</a>)
               {{ end }}
-            </li>
-          {{ end }}
-        </ol>
-      {{ else }}
-        <p>
-          {{ if $.User.Is .Profile.URI }}
-            {{ (tr . "FollowersNoFollowersSummary" (dict "InstanceName" .InstanceName)) | html }}
-          {{ else }}
-            <b>{{ .Profile.Nick }}</b> {{ tr . "FollowersNoFollowers" }}
-          {{ end }}
-        </p>
-      {{ end }}
-    </div>
+              {{ if $.Authenticated }}
+                <a class="followBtn" style="display: {{ if not ($.User.Follows $f.URI) }}inline{{ else }}none{{ end }};" href="/follow?nick={{ $f.Nick }}&url={{ $f.URI }}">
+                  <i class="ti ti-circle-plus"></i>
+                  {{ tr $ctx "FollowLinkTitle" }}
+                </a>
+                <a class="unfollowBtn" style="display: {{ if $.User.Follows $f.URI }}inline{{ else }}none{{ end }};" href="/unfollow?nick={{ $f.Nick }}">
+                  <i class="ti ti-circle-minus"></i>
+                  {{ tr $ctx "UnfollowLinkTitle" }}
+                </a>
+              {{ end }}
+            {{ end }}
+          </li>
+        {{ end }}
+      </ol>
+    {{ else }}
+      <p>
+        {{ if $.User.Is .Profile.URI }}
+          {{ (tr . "FollowersNoFollowersSummary" (dict "InstanceName" .InstanceName)) | html }}
+        {{ else }}
+          <b>{{ .Profile.Nick }}</b> {{ tr . "FollowersNoFollowers" }}
+        {{ end }}
+      </p>
+    {{ end }}
   </article>
 {{ end }}

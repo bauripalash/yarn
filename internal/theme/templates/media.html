@@ -1,11 +1,9 @@
 {{ define "content" }}
-  <article class="grid">
-    <div>
-      <hgroup>
-        <h2>{{ .Title }}</h2>
-        <h3>{{ .Message }}</h3>
-      </hgroup>
-      <div>{{ .Content }}</div>
-    </div>
+  <article>
+    <hgroup>
+      <h2>{{ .Title }}</h2>
+      <h3>{{ .Message }}</h3>
+    </hgroup>
+    <div>{{ .Content }}</div>
   </article>
 {{ end }}
