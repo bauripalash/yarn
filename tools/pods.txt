@@ -15,3 +15,4 @@ yarn.yarnpods.com
 yarnd.orbsmart.synology.me
 twt.rjp.is
 yarn.zn80.net
+netbros.com
