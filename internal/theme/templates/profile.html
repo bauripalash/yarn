@@ -49,9 +49,8 @@
         <b>{{ .Profile.Nick }}</b> {{ tr . "ProfileFollowsYou" }}
       </div>
       {{ else }}
-      {{ $splitFollow := split "(" (tr . "ProfileDoesNotFollowYou") }}
       <div>
-        <b>{{ .Profile.Nick }}</b> {{ ((index $splitFollow "_0") | trimSuffix ")") | html }}
+        <b>{{ .Profile.Nick }}</b> {{ tr . "ProfileDoesNotFollowYou" }}
       </div>
       {{ end }}
       {{ end }}
@@ -71,7 +70,7 @@
   </div>
   {{ if .Authenticated }}
   <div class="profile-post">
-    {{ template "post" (dict "Authenticated" $.Authenticated "User" $.User "TwtPrompt" $.TwtPrompt "MaxTwtLength" $.MaxTwtLength "PostText" $.PostText "Reply" $.Reply "AutoFocus" false "CSRFToken" $.CSRFToken "Ctx" .) }}
+    {{ template "post" (dict "Authenticated" $.Authenticated "User" $.User "TwtPrompt" $.TwtPrompt "MaxTwtLength" $.MaxTwtLength "PostText" $.PostText "Reply" $.Reply "AutoFocus" false "CSRFToken" $.CSRFToken "Ctx" . "view" "profile") }}
   </div>
   {{ end }}
   {{ if gt (len $.Twts) 0 }}
