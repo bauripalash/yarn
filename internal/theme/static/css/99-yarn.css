@@ -933,6 +933,7 @@ span[title="Copyright"]:before {
   }
 
   #podLogo {
+    height: 100%;
     margin-top: 0.5rem;
   }
 
@@ -985,12 +986,12 @@ span[title="Copyright"]:before {
   }
 
   .toolbar-form-button i {
-    margin-top: -0.35rem;
+    margin-top: -0.4rem;
   }
 
   #uploadMediaButton {
     position: absolute;
-    margin: -0.3rem 0 0 -0.475rem;
+    margin: -0.4rem 0 0 -0.475rem;
   }
 
   #profile-info {
