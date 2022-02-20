@@ -32,6 +32,7 @@
       </div>
     </div>
     <div class="submit-bar">
+      {{ if gt (len $.User.Feeds) 0 }}
       <div>
         <select id="postas" class="postas" name="postas">
           <option value="{{ $.User.Username }}" selected>{{ tr $.Ctx "TwtFormPostAs" (dict "Username" $.User.Username) }}</option>
@@ -40,6 +41,7 @@
           {{ end }}
         </select>
       </div>
+      {{ end }}
       <div>
         <button id="post" type="submit">
           <i class="ti ti-send"></i> {{ tr $.Ctx "TwtFormPost" }}
