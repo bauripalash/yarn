@@ -14,11 +14,11 @@ import (
 	"time"
 
 	"git.mills.io/yarnsocial/yarn"
-	"go.yarn.social/types"
 	"github.com/gabstv/merger"
 	"github.com/goccy/go-yaml"
 	"github.com/robfig/cron"
 	log "github.com/sirupsen/logrus"
+	"go.yarn.social/types"
 )
 
 var (
@@ -63,7 +63,7 @@ type Settings struct {
 	BlacklistedFeeds  []string `yaml:"blacklisted_feeds"`
 	WhitelistedImages []string `yaml:"whitelisted_images"`
 
-	BlockedFeeds    []string      `yaml:"blocklisted_feeds"`
+	BlockedFeeds    []string      `yaml:"blocked_feeds"`
 	PermittedImages []string      `yaml:"permitted_images"`
 	Features        *FeatureFlags `yaml:"features"`
 
@@ -218,15 +218,15 @@ func (c *Config) PermittedImage(domain string) (bool, bool) {
 	return false, false
 }
 
-// BlocklistedFeed returns true if the feed uri matches any blocklisted feeds
-// per the pod's configuration, the pod itself cannot bee blocklisted.
-func (c *Config) BlocklistedFeed(uri string) bool {
+// BlockedFeed returns true if the feed uri matches any blocked feeds
+// per the pod's configuration, the pod itself cannot be blocked.
+func (c *Config) BlockedFeed(uri string) bool {
 	// Never prohibit the pod itself!
 	if strings.HasPrefix(uri, c.BaseURL) {
 		return false
 	}
 
-	// Check against list of blocklistedFeeds (regexes)
+	// Check against list of blocked feeds (regexes)
 	for _, re := range c.blockedFeeds {
 		if re.MatchString(uri) {
 			return true
@@ -264,7 +264,7 @@ func (c *Config) Validate() error {
 	}
 
 	if err := WithBlockedFeeds(c.BlockedFeeds)(c); err != nil {
-		return fmt.Errorf("error applying blocklisted feeds: %w", err)
+		return fmt.Errorf("error applying blocked feeds: %w", err)
 	}
 
 	// Automatically correct missing Scheme in Pod Base URL

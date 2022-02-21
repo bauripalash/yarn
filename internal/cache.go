@@ -21,10 +21,10 @@ import (
 	"time"
 
 	"git.mills.io/yarnsocial/yarn"
-	"go.yarn.social/types"
 	"github.com/dustin/go-humanize"
 	sync "github.com/sasha-s/go-deadlock"
 	log "github.com/sirupsen/logrus"
+	"go.yarn.social/types"
 )
 
 const (
@@ -895,9 +895,9 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Fetch
 			continue
 		}
 
-		// Skip feeds that are blocklisted.
-		if cache.conf.BlocklistedFeed(feed.URL) {
-			log.Warnf("attempt to fetch blocklisted feed %s", feed)
+		// Skip feeds that are blocked by the Pod
+		if cache.conf.BlockedFeed(feed.URL) {
+			log.Warnf("attempt to fetch blocked feed %s", feed)
 			continue
 		}
 

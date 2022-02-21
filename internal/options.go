@@ -188,8 +188,8 @@ var (
 		`githubusercontent\.com`,
 	}
 
-	// DefaultBlockedFeeds is the default list of feed uris thar are
-	// blocklisted and prohibuted from being fetched by the global feed cache
+	// DefaultBlockedFeeds is the default list of feed uris that are
+	// blocked and prohibuted from being fetched by the global feed cache
 	DefaultBlockedFeeds = []string{
 		`port70\.dk`,
 		`enotty\.dk`,
@@ -619,7 +619,7 @@ func WithPermittedImages(permittedImages []string) Option {
 	}
 }
 
-// WithBlockedFeeds sets the list of feed uris blocklisted
+// WithBlockedFeeds sets the list of feed uris blocked
 // and prohibited from being fetched by the global feed cache
 func WithBlockedFeeds(blockedFeeds []string) Option {
 	return func(cfg *Config) error {
