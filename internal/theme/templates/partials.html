@@ -251,6 +251,8 @@
 {{ end }}
 
 {{ define "profileLinks" }}
-<li><a target="_blank" href="{{ $.Profile.URI }}"><i class="ti ti-link-profile"></i> {{ tr $.Ctx "ProfileTwtxtLinkTitle" }}</a></li>
-<li><a href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}/bookmarks"><i class="ti ti-bookmarks"></i> {{ tr $.Ctx "ProfileBookmarksLinkTitle" | trimSuffix ":" }}</a></li>
+  <li><a target="_blank" href="{{ $.Profile.URI }}"><i class="ti ti-link-profile"></i> {{ tr $.Ctx "ProfileTwtxtLinkTitle" }}</a></li>
+  {{ if ne $.Profile.Type "External" }}
+    <li><a href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}/bookmarks"><i class="ti ti-bookmarks"></i> {{ tr $.Ctx "ProfileBookmarksLinkTitle" | trimSuffix ":" }}</a></li>
+  {{ end }}
 {{ end }}
