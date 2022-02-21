@@ -1,5 +1,5 @@
 ---
-title: About {{ .InstanceName }}
+title: About
 ---
 
 # About {{ .InstanceName }}

@@ -175,7 +175,6 @@ function movePostBox(e) {
   u("#form").addClass("form-reply");
 
   u(".grid.h-feed").addClass("bump-up");
-  article.scroll();
 }
 
 /* Close the PostBox on Escape if we moved it */

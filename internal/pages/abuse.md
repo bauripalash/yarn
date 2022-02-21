@@ -1,8 +1,8 @@
 ---
-title: {{ .InstanceName }} Abuse Policy and Community Guidelines
+title: Abuse Policy and Community Guidelines
 ---
 
-# Abuse Policy
+# Abuse Policy for {{ .InstanceName }}
 
 >  Help us build and maintain a safe community.
 

@@ -2,7 +2,7 @@
 title: Help on how to use a Yarn.social pod
 ---
 
-# Help
+# Help for {{ .InstanceName }}
 
 ## Why do I need an account?
 

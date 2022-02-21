@@ -245,7 +245,7 @@ nav.timeline-nav a {
 .toolbar-nav {
   margin-top: 0.5rem;
   display: flex;
-  height: 3.5rem;
+  height: 3.25rem;
   width: 50%;
   gap: 1rem;
 }
@@ -253,15 +253,18 @@ nav.timeline-nav a {
 #mediaUploadForm label,
 .toolbar-form-button a {
   margin: 0;
-  width: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
-#mediaUploadForm label {
-  height: 2.7rem;
+.toolbar-form-button i {
+  font-size: 1.1rem;
+  margin-top: -0.2rem;
 }
 
 #uploadMediaButton {
-  vertical-align: top;
+  display: block;
+  margin-left: -0.35rem;
 }
 
 .submit-bar {
@@ -345,7 +348,8 @@ nav.timeline-nav a {
 }
 
 .profile-recent {
-  margin-bottom: -2rem;
+  margin-top: 3rem;
+  margin-bottom: -3rem;
 }
 
 .profile-recent h2 {
@@ -922,6 +926,10 @@ span[title="Copyright"]:before {
 }
 
 @media (max-width: 576px) {
+  body {
+    padding-top: 0.5rem;
+  }
+
   main.container {
     margin: -4.75rem 0 -2rem 0;
   }
@@ -964,7 +972,7 @@ span[title="Copyright"]:before {
     display: block;
     float: right;
     font-size: 2rem;
-    padding: 1.5rem 1.5rem;
+    padding: 1.25rem 1.75rem;
   }
 
   #podMenu {
@@ -979,7 +987,15 @@ span[title="Copyright"]:before {
   #postbox {
     display: flex;
     flex-flow: row wrap;
-    margin-bottom: -1.25rem;
+    margin: 1.5rem 0 -1.25rem 0;
+  }
+
+  #postbox.single-twt {
+    margin: 1.5rem 0 -2.5rem 0;
+  }
+
+  #postbox.single-twt.drawer {
+    margin: -2.45rem 0.5rem 2.45rem 0.5rem !important;
   }
 
   #postbox form {
@@ -987,7 +1003,7 @@ span[title="Copyright"]:before {
   }
 
   #postbox.drawer {
-    margin-top: -0.4rem !important;
+    margin: -0.4rem 0.25rem 0.5rem 0.25rem !important;
   }
 
   #postbox.drawer .toolbar-nav  {
@@ -998,7 +1014,7 @@ span[title="Copyright"]:before {
     flex: 1;
     display: flex;
     height: 2rem;
-    margin: 0 0 0.85rem -0.15rem;
+    margin: 0 0 0.85rem -0.15rem !important;
     gap: 0;
   }
 
@@ -1017,12 +1033,13 @@ span[title="Copyright"]:before {
   }
 
   .toolbar-form-button i {
-    margin-top: -0.4rem;
+    font-size: 1.2rem;
+    margin-top: -0.5rem;
   }
 
   #uploadMediaButton {
     position: absolute;
-    margin: -0.4rem 0 0 -0.475rem;
+    margin: -0.5rem 0 0 -0.575rem;
   }
 
   #profile-info {
@@ -1070,11 +1087,11 @@ span[title="Copyright"]:before {
     border-bottom: none;
   }
 
-  #postbox.drawer {
-    margin: -0.9rem 0.25rem 1rem 0.25rem;
+  .profile-recent {
+    margin: 1rem 0 -1.75rem 0;
   }
 
-  .conv-post {
+  .conv-post:not(.form-reply) {
     margin-bottom: 3rem;
   }
 
@@ -1170,11 +1187,15 @@ span[title="Copyright"]:before {
   }
 
   nav.yarn-nav:nth-of-type(2) {
-    margin: -0.25rem 1rem 0.5rem 1rem;
+    margin: -0.25rem 1rem -0.5rem 1rem;
   }
 
   nav.timeline-nav:nth-of-type(2) {
     margin: -0.75rem 1rem 1rem 1rem;
+  }
+
+  article.single-twt {
+    margin: 1.5rem 0 2.5rem 0 !important;
   }
 
   .h-feed article:first-child {
@@ -1204,8 +1225,21 @@ span[title="Copyright"]:before {
   }
 
   #twt-join {
-    margin-top: -0.75rem;
+    margin-top: 0.5rem;
     padding-bottom: 1.5rem !important;
+  }
+
+  footer.container {
+    margin-top: 1.75rem !important;
+  }
+
+  .footer-copyright {
+    width: 9rem;
+  }
+
+  .footer-menu {
+    margin-right: -1.5rem;
+    width: 11rem;
   }
 }
 
@@ -1239,12 +1273,15 @@ span[title="Copyright"]:before {
   }
 
   #postbox {
-    margin: 1.5rem 0 -1.5rem 0;
+    margin: 2rem 0 -1.5rem 0;
+  }
+
+  #postbox.single-twt {
+    margin: 1.75rem 0 1.75rem 0;
   }
 
   .toolbar-nav {
-    margin: -1.35rem 0 0 0.6rem;
-    gap: 0.78rem;
+    margin: -1.35rem 0 0 0;
   }
 
   #mediaUploadForm {
@@ -1261,6 +1298,10 @@ span[title="Copyright"]:before {
 
   #profile-links {
     padding-bottom: 0;
+  }
+
+  .conv-post:not(.form-reply) {
+    margin-bottom: 3rem;
   }
 
   nav.float {
@@ -1290,6 +1331,11 @@ span[title="Copyright"]:before {
   .form-reply {
     margin: 0 0.5rem;
     padding-bottom: 0.5rem;
+  }
+
+  .profile-recent {
+    margin-top: 3rem;
+    margin-bottom: -2rem;
   }
 
   #timelineBtn,
@@ -1347,9 +1393,26 @@ span[title="Copyright"]:before {
     padding: 0.5rem 1.5rem 2rem 1.5rem;
   }
 
+  article.single-twt {
+    margin: 0.5rem 0 1rem 0 !important;
+  }
+
+  #postbox.single-twt.drawer {
+    margin: -0.9rem 0.5rem 1.25rem 0.5rem !important;
+  }
+
   #twt-join {
     margin: 0.5rem 0 0.5rem 0;
     padding-bottom: 1.5rem !important;
+  }
+
+  .footer-copyright {
+    width: 9rem;
+  }
+
+  .footer-menu {
+    margin-top: 0.5rem;
+    width: 19rem;
   }
 }
 
@@ -1373,6 +1436,14 @@ span[title="Copyright"]:before {
 
   #postbox {
     margin: 0 0 1.75rem 0;
+  }
+
+  #postbox.single-twt {
+    margin: 0.5rem 0 2.25rem 0;
+  }
+
+  #postbox.single-twt.drawer {
+    margin: -0.9rem 0.5rem 1.45rem 0.5rem !important;
   }
 
   .profile-button a:last-of-type i {
@@ -1400,8 +1471,17 @@ span[title="Copyright"]:before {
     margin: 0 0 -1.4rem 0;
   }
 
+  article.single-twt {
+    margin: 0.5rem 0 1rem 0 !important;
+  }
+
   .profile-post {
     margin-top: 1rem;
+  }
+
+  .profile-recent {
+    margin-top: 2rem;
+    margin-bottom: -2rem;
   }
 
   #twt-join {
@@ -1416,12 +1496,24 @@ span[title="Copyright"]:before {
     overflow-y: scroll;
   }
 
+  article.grid {
+    grid-column-gap: 2rem;
+  }
+
   alert {
     height: 4rem;
   }
 
   #podMenu {
     margin: 1.75rem 1.5rem 0 0;
+  }
+
+  #postbox.single-twt {
+    margin: 0.5rem 0 2.25rem 0;
+  }
+
+  #postbox.single-twt.drawer {
+    margin: -0.4rem 0.5rem 1rem 0.5rem !important;
   }
 
   .h-feed {
@@ -1454,8 +1546,17 @@ span[title="Copyright"]:before {
     margin: 0 0 -2.4rem 0;
   }
 
+  .profile-recent {
+    margin-top: 2rem;
+    margin-bottom: -2.5rem;
+  }
+
   .profile-post {
     margin-top: 1rem;
+  }
+
+  article.single-twt {
+    margin: 0.5rem 0 0.5rem 0 !important;
   }
 
   #twt-join {
@@ -1470,6 +1571,14 @@ span[title="Copyright"]:before {
     overflow-y: scroll;
   }
 
+  body {
+    padding-top: 0.5rem;
+  }
+
+  article.grid {
+    grid-column-gap: 2rem;
+  }
+
   alert {
     height: 3rem;
   }
@@ -1480,6 +1589,14 @@ span[title="Copyright"]:before {
 
   #podMenu {
     margin: 1.75rem 1.5rem 0 0;
+  }
+
+  #postbox.single-twt {
+    margin: 0.5rem 0 2.25rem 0;
+  }
+
+  #postbox.single-twt.drawer {
+    margin: -0.4rem 0.5rem 1rem 0.5rem !important;
   }
 
   .h-feed {
@@ -1508,8 +1625,17 @@ span[title="Copyright"]:before {
     margin: -0.5rem 1rem -1rem 1rem;
   }
 
+  .profile-recent {
+    margin-top: 2rem;
+    margin-bottom: -2.5rem;
+  }
+
   .profile-post {
     margin-top: 1rem;
+  }
+
+  article.single-twt {
+    margin: 0.5rem 0 0.5rem 0 !important;
   }
 
   #twt-join {

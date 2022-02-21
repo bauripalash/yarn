@@ -1,5 +1,5 @@
 ---
-title: {{ .InstanceName }} Privacy Policy
+title: Privacy Policy
 ---
 
 # Privacy Policy for {{ .InstanceName }}

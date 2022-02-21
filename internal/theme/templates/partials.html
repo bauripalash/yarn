@@ -1,6 +1,6 @@
 {{ define "post" }}
 {{ if $.Authenticated }}
-<div id="postbox">
+<div id="postbox" class="{{ if eq $.view "permalink" }}single-twt{{ end }}">
   <nav id="toolbar" class="toolbar-nav">
     <div class="toolbar-form-button"><a id="bBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonBold" }}" role="button"><i class="ti ti-bold"></i></a></div>
     <div class="toolbar-form-button"><a id="iBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonItalic" }}" role="button"><i class="ti ti-italic"></i></a></div>
@@ -19,7 +19,7 @@
     </div>
     {{ end }}
   </nav>
-  <form id="form"{{ if eq $.view "conv" }} class="conv-post" {{ end }}action="/post" method="POST">
+  <form id="form" class="{{ if eq $.view "conv" }}conv-post{{ end }}" action="/post" method="POST">
     <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
     <input type="hidden" id="replaceTwt" name="hash" value="" />
     <input type="hidden" id="replyTo" name="reply" value="{{ $.Reply }}" />
@@ -54,7 +54,7 @@
 {{ end }}
 
 {{ define "twt" }}
-<article id="{{ $.Twt.Hash }}" class="h-entry">
+<article id="{{ $.Twt.Hash }}" class="h-entry {{ if eq $.view "permalink" }}single-twt{{ end }}">
   <div class="u-author h-card">
     <div>
       {{ if $.User.Is $.Twt.Twter.URI }}
