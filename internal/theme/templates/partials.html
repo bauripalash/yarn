@@ -105,7 +105,7 @@
         <small class="twt-context">
           &rdsh;
           <a href="{{ urlForRootConv $.Twt }}#{{ $.Twt.Hash }}" title="{{ tr $.Ctx "ConversationOnTwtMessage" (dict "Hash" $rootTwt.Hash) }}">{{ tr $.Ctx "ConversationInReply" }}</a>
-          &gt;
+          &raquo;
           {{ formatTwtContext $.Twt $.User }}
         </small>
       {{ end }}
