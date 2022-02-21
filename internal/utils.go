@@ -2113,9 +2113,7 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 		}
 
 		html := PreprocessMedia(p.conf, u, string(image.Title), alt, renderAs, display, full)
-		// XXX: This feels hacky but I'm not sure how else to deal with this?
-		// Without this hack HTML structure can break for non-inline image display
-		if renderAs != "inline" {
+		if _, ok := node.GetParent().(*ast.Paragraph); ok && renderAs != "inline" {
 			html = fmt.Sprintf("</p>%s<p>", html)
 		}
 		_, _ = io.WriteString(w, html)
@@ -2153,9 +2151,7 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 		}
 
 		html := PreprocessMedia(p.conf, u, title, alt, renderAs, display, full)
-		// XXX: This feels hacky but I'm not sure how else to deal with this?
-		// Without this hack HTML structure can break for non-inline image display
-		if renderAs != "inline" {
+		if _, ok := node.GetParent().(*ast.Paragraph); ok && renderAs != "inline" {
 			html = fmt.Sprintf("</p>%s<p>", html)
 		}
 		_, _ = io.WriteString(w, html)
