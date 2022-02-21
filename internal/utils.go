@@ -1937,8 +1937,7 @@ func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) st
 
 	return fmt.Sprintf(
 		`<div class="center-cropped caption-wrap">
-			 <a class="img-orig-open" href="%s" title="%s"%s target="_blank">
-				 %s
+			 <a class="img-orig-open" href="%s" title="%s"%s target="_blank">%s
 				 <img loading=lazy src="%s" data-target="%s" />
 			 </a>
 		 </div>
@@ -2026,12 +2025,12 @@ func PreprocessMedia(conf *Config, u *url.URL, title, alt, renderAs string, disp
 		src := u.String()
 		if full {
 			html = fmt.Sprintf(
-				`<a data-tooltip="Not Approved Domain" href="%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
+				`<a href="%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
 				src, title, alt, mtypeIcon, mtype,
 			)
 		} else {
 			html = fmt.Sprintf(
-				`<a data-tooltip="Not Approved Domain" href="%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
+				`<a href="%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
 				src, title, alt, mtypeIcon, mtype,
 			)
 		}
@@ -2075,12 +2074,13 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 	// renderAs (one of inline or lightbox)
 	var renderAs string
 
-	switch p.conf.DisplayImagesPreference {
-	case "lightbox":
+	if (p.user != nil && p.user.DisplayImagesPreference == "gallery") || (p.user == nil && p.conf.DisplayImagesPreference == "gallery") {
 		renderAs = "lightbox"
-	case "inline":
+	} else if (p.user != nil && p.user.DisplayImagesPreference == "lightbox") || (p.user == nil && p.conf.DisplayImagesPreference == "lightbox") {
+		renderAs = "lightbox"
+	} else if (p.user != nil && p.user.DisplayImagesPreference == "inline") || (p.user == nil && p.conf.DisplayImagesPreference == "inline") {
 		renderAs = "inline"
-	default:
+	} else {
 		renderAs = "inline"
 	}
 
