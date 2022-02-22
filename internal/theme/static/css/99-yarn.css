@@ -953,7 +953,7 @@ span[title="Copyright"]:before {
     margin-bottom: 0.5rem;
   }
 
-  .container article:last-of-type:not(#profile-links):not(.h-entry):not(.profile-header) {
+  .container article:last-of-type:not(#profile-links):not(.h-entry):not(.profile-header):not(.search-header) {
     padding-bottom: 0;
     margin-bottom: 2.25rem;
   }

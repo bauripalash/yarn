@@ -1,5 +1,5 @@
 {{ define "content" }}
-  <article class="container-fluid">
+  <article class="container-fluid search-header">
     <hgroup>
       <h2>{{ tr . "SearchTitle" (dict "InstanceName" $.InstanceName) }}</h2>
       <h3>{{ tr . "SearchSummary" (dict "SearchQuery" .SearchQuery) }}</h3>
