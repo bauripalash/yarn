@@ -16,7 +16,7 @@ steps:
       repo: prologic/yarnd
       tags: latest
       build_args:
-        - VERSION=master
+        - VERSION=edge
         - COMMIT=${DRONE_COMMIT_SHA:0:8}
       username:
         from_secret: dockerhub_username
