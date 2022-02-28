@@ -269,7 +269,7 @@ function optionChange(e, primary, secondary) {
     url: u(e.target).closest("a." + primary).attr("href"),
     success: function(data) {
       u(e.target).closest("a." + primary).attr("style", "display: none !important;");
-      u(e.target).parent().find("a." + secondary).attr("style", "display: inline !important;");
+      u(e.target).parent().parent().find("a." + secondary).attr("style", "display: inline !important;");
     },
   });
 }
@@ -296,6 +296,18 @@ u(".unfollowBtn").on("click", function (e) {
   u(".followBtn").disabled = false;
   u(".unfollowBtn").disabled = true;
   optionChange(e, "unfollowBtn", "followBtn");
+});
+
+u(".muteTwtBtn").on("click", function (e) {
+  e.preventDefault();
+
+  Twix.ajax({
+    type: "GET",
+    url: u(e.target).closest("a").attr("href"),
+    success: function(data) {
+      u(e.target).closest("article").remove();
+    },
+  });
 });
 
 u(".muteBtn").on("click", function (e) {

@@ -155,12 +155,17 @@
     {{ end }}
     {{ end }}
     {{ if $.Authenticated }}
-    <a class="bookmarkBtn" style="display: {{ if not ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkAddTwt" }}">
-      <i class="ti ti-bookmark"></i>
-    </a>
-    <a class="unbookmarkBtn" style="display: {{ if ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkRemoveTwt" }}">
-      <i class="ti ti-bookmark-off"></i>
-    </a>
+    <div id="twt-options">
+      <a class="muteTwtBtn" href="/mute/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "TwtMute" }}">
+        <i class="ti ti-volume-3"></i>
+      </a>
+      <a class="bookmarkBtn" style="display: {{ if not ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkAddTwt" }}">
+        <i class="ti ti-bookmark"></i>
+      </a>
+      <a class="unbookmarkBtn" style="display: {{ if ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkRemoveTwt" }}">
+        <i class="ti ti-bookmark-off"></i>
+      </a>
+    </div>
     {{ end }}
   </nav>
 </article>

@@ -232,10 +232,19 @@ article.grid {
   padding-right: 0.25rem !important;
 }
 
-.twt-nav .bookmarkBtn,
-.twt-nav .unbookmarkBtn {
+#twt-options {
+  display: flex;
+  float: right;
   margin-left: auto;
-  margin-right: -0.75rem;
+  margin-right: -2rem;
+}
+
+#twt-options a {
+  flex: 1;
+}
+
+#twt-options a:focus {
+  height: 1.5rem;
 }
 
 nav.timeline-nav a {
@@ -1129,22 +1138,25 @@ span[title="Copyright"]:before {
     font-size: 0;
   }
 
-  .ti-edit,
-  .ti-trash,
-  .ti-message,
-  .ti-messages,
-  .ti-message-plus,
-  .ti-bookmark,
-  .ti-bookmark-off {
+  .twt-nav .ti-edit,
+  .twt-nav .ti-trash,
+  .twt-nav .ti-message,
+  .twt-nav .ti-messages,
+  .twt-nav .ti-message-plus,
+  .twt-nav .ti-volume-3,
+  .twt-nav .ti-bookmark,
+  .twt-nav .ti-bookmark-off {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     font-size: 1.3rem;
   }
 
-  .ti-bookmark,
-  .ti-bookmark-off {
-    position: absolute;
-    margin: 0 -1.5rem;
+  #twt-options {
+    margin-right: -2.75rem;
+  }
+
+  #twt-options a:first-child {
+    margin-right: 0.5rem;
   }
 
   .profile-links a {

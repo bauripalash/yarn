@@ -14,12 +14,12 @@ import (
 	"strings"
 	"time"
 
-	"go.yarn.social/types"
 	securejoin "github.com/cyphar/filepath-securejoin"
 	"github.com/julienschmidt/httprouter"
 	log "github.com/sirupsen/logrus"
 	"github.com/vcraescu/go-paginator"
 	"github.com/vcraescu/go-paginator/adapter"
+	"go.yarn.social/types"
 )
 
 // ExternalHandler ...

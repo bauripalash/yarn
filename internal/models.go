@@ -215,25 +215,16 @@ func LoadUser(data []byte) (user *User, err error) {
 
 	user.muted = make(map[string]string)
 	for n, u := range user.Muted {
-		if u = NormalizeURL(u); u == "" {
-			continue
-		}
 		user.muted[u] = n
 	}
 
 	user.remotes = make(map[string]string)
 	for n, u := range user.Followers {
-		if u = NormalizeURL(u); u == "" {
-			continue
-		}
 		user.remotes[u] = n
 	}
 
 	user.sources = make(map[string]string)
 	for n, u := range user.Following {
-		if u = NormalizeURL(u); u == "" {
-			continue
-		}
 		user.sources[u] = n
 	}
 
@@ -369,18 +360,18 @@ func (u *User) FollowedBy(url string) bool {
 	return ok
 }
 
-func (u *User) Mute(nick, url string) {
-	if !u.HasMuted(url) {
-		u.Muted[nick] = url
-		u.muted[url] = nick
+func (u *User) Mute(key, value string) {
+	if !u.HasMuted(value) {
+		u.Muted[key] = value
+		u.muted[value] = key
 	}
 }
 
-func (u *User) Unmute(nick string) {
-	url, ok := u.Muted[nick]
+func (u *User) Unmute(key string) {
+	value, ok := u.Muted[key]
 	if ok {
-		delete(u.Muted, nick)
-		delete(u.muted, url)
+		delete(u.Muted, key)
+		delete(u.muted, value)
 	}
 }
 
@@ -462,8 +453,8 @@ func (u *User) Unfollow(alias string) {
 	}
 }
 
-func (u *User) HasMuted(url string) bool {
-	_, ok := u.muted[NormalizeURL(url)]
+func (u *User) HasMuted(value string) bool {
+	_, ok := u.muted[value]
 	return ok
 }
 
@@ -562,7 +553,7 @@ func (u *User) Filter(twts []types.Twt) (filtered []types.Twt) {
 
 	filtered = make([]types.Twt, 0)
 	for _, twt := range twts {
-		if u.HasMuted(twt.Twter().URI) {
+		if u.HasMuted(twt.Hash()) || u.HasMuted(twt.Subject().String()) || u.HasMuted(twt.Twter().URI) {
 			continue
 		}
 		filtered = append(filtered, twt)
