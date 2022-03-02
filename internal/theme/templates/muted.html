@@ -1,0 +1,39 @@
+{{ define "content" }}
+  <article>
+    <hgroup>
+      <h2>{{ tr . "MutedTitle" }}</h2>
+      <h3>{{ tr . "MutedSummary" }}</h3>
+    </hgroup>
+    {{ if $.User.Muted }}
+      <ol>
+        {{ $ctx:=. }}
+        {{ range $key, $value  := $.User.Muted }}
+          <li>
+            {{ if hasPrefix "#" $key }}
+              <a href="/twt/{{ $value }}">#{{ $value }}</a>
+            {{ else }}
+              {{ if isLocalURL $value }}
+                <a href="/user/{{ $key }}">{{ $key }}</a>
+              {{ else  }}
+                <a href="/external?uri={{ $value }}&nick={{ $key }}">
+              {{ end }}
+            {{ end }}
+            {{ if $.Authenticated }}
+              {{ if hasPrefix "#" $key }}
+                <a class="unmuteBtn" href="/unmute/{{ $value }}">
+                  <i class="ti ti-circle-minus"></i>
+                </a>
+              {{ else  }}
+                <a class="unmuteBtn" href="/unmute?nick={{ $key }}">
+                  <i class="ti ti-circle-minus"></i>
+                </a>
+              {{ end }}
+            {{ end }}
+          </li>
+        {{ end }}
+      </ol>
+    {{ else }}
+      <p>{{ tr . "MutedListEmpty" }}</p>
+    {{ end }}
+  </article>
+{{ end }}

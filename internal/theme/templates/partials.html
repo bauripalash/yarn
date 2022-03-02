@@ -255,6 +255,12 @@
 {{ end }}
 {{ end }}
 
+{{ define "mutedStats" }}
+<div id="muted">
+  {{ $.User.Muted | len }} <a href="/muted">{{ tr $.Ctx "MutedLinkTitle" }}</a>
+</div>
+{{ end }}
+
 {{ define "profileLinks" }}
   <li><a target="_blank" href="{{ $.Profile.URI }}"><i class="ti ti-link-profile"></i> {{ tr $.Ctx "ProfileTwtxtLinkTitle" }}</a></li>
   {{ if ne $.Profile.Type "External" }}

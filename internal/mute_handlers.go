@@ -37,8 +37,7 @@ func (s *Server) MuteHandler() httprouter.Handle {
 		if nick != "" && url != "" {
 			user.Mute(nick, NormalizeURL(url))
 		} else if hash != "" {
-			user.Mute(fmt.Sprintf("twt:%s", hash), hash)
-			user.Mute(fmt.Sprintf("yarn:%s", hash), fmt.Sprintf("(#%s)", hash))
+			user.Mute(fmt.Sprintf("#%s", hash), hash)
 		}
 
 		if err := s.db.SetUser(ctx.Username, user); err != nil {
@@ -57,6 +56,15 @@ func (s *Server) MuteHandler() httprouter.Handle {
 			ctx.Message = fmt.Sprintf("Successfully muted %s: %s", nick, url)
 		}
 		s.render("error", w, ctx)
+	}
+}
+
+// MutedHandler ...
+func (s *Server) MutedHandler() httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		ctx := NewContext(s, r)
+
+		s.render("muted", w, ctx)
 	}
 }
 
@@ -83,8 +91,7 @@ func (s *Server) UnmuteHandler() httprouter.Handle {
 		if nick != "" {
 			user.Unmute(nick)
 		} else if hash != "" {
-			user.Unmute(fmt.Sprintf("twt:%s", hash))
-			user.Unmute(fmt.Sprintf("yarn:%s", hash))
+			user.Unmute(fmt.Sprintf("#%s", hash))
 		}
 
 		if err := s.db.SetUser(ctx.Username, user); err != nil {

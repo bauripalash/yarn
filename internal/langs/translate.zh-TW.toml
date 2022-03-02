@@ -6,9 +6,45 @@ other = "About the <b>{{ .InstanceName }}</b> Yarn.social pod."
 hash = "sha1-914e2403bda42fb7ddb728a9337741354d4ab938"
 other = "Pod Information"
 
+[LoginFormEmailAddress]
+hash = "sha1-09ba557fd106f1019ec6739113e3e28dea4bd9a6"
+other = "Email Address"
+
+[MutedLinkTitle]
+hash = "sha1-b9e78ced88a4641f8289a36049516182b46cf836"
+other = "Muted"
+
+[MutedListEmpty]
+hash = "sha1-9f27cee950e7706c88d5794d4c2c37dc0df64be9"
+other = "No muted feeds or twts"
+
+[MutedSummary]
+hash = "sha1-2f33216832429a7e6a4096810d30bd69739b8b3d"
+other = "Manage your list of muted feeds and twts"
+
+[MutedTitle]
+hash = "sha1-5676c5efddc9def1ccc551c636da39b379b7589a"
+other = "Muted Feeds and Twts"
+
+[ProfileBookmarksLinkTitle]
+hash = "sha1-ca3cddd25bd8f6bc4ce35a262e2e1398541ecf3d"
+other = "Bookmarks"
+
 [ProfileDoesNotFollowYou]
-hash = "sha1-7a19de4a06edde3c1acac1919d17b8a26c8b6bc9"
-other = "does not follow you... (<small>your replies may go unnoticed</small>)"
+hash = "sha1-f08bf47c8b22676dcb96bee4895f001deb8e7e80"
+other = "does not follow you"
+
+[ProfileFollowersLinkTitle]
+hash = "sha1-78eaabf4a629795fe52f523f44f5000c6b204f2f"
+other = "Followers"
+
+[ProfileFollowingLinkTitle]
+hash = "sha1-90eeb100838048513e8d2290a6892e18077c24f6"
+other = "Following"
+
+[ProfileLastSeen]
+hash = "sha1-56462f81b82a2d76b46ff441b40d364b6505f1d8"
+other = "Last seen"
 
 [ProfileMuteUser]
 hash = "sha1-30772b5b5cde04fdc46e43460d1b7096cb8a2601"
@@ -29,3 +65,11 @@ other = "User Info"
 [SettingsInfoUserLinks]
 hash = "sha1-96348083f320cb5fc4ea1736274b4072f6277689"
 other = "User Links"
+
+[TwtMute]
+hash = "sha1-203f6d112001097875a993a5fb6d97ddc6fa3916"
+other = "Mute Twt"
+
+[TwtUnmute]
+hash = "sha1-2a240200d1965be765e7baf15d948a2b28725d9a"
+other = "Unmute Twt"

@@ -799,6 +799,7 @@ func (s *Server) initRoutes() {
 
 	s.router.GET("/mute", httproutermiddleware.Handler("mute", s.am.MustAuth(s.MuteHandler()), mdlw))
 	s.router.POST("/mute", httproutermiddleware.Handler("mute", s.am.MustAuth(s.MuteHandler()), mdlw))
+	s.router.GET("/muted", httproutermiddleware.Handler("muted", s.am.MustAuth(s.MutedHandler()), mdlw))
 	s.router.GET("/unmute", httproutermiddleware.Handler("unmute", s.am.MustAuth(s.UnmuteHandler()), mdlw))
 	s.router.POST("/unmute", httproutermiddleware.Handler("unmute", s.am.MustAuth(s.UnmuteHandler()), mdlw))
 

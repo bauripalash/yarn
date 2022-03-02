@@ -553,9 +553,14 @@ func (u *User) Filter(twts []types.Twt) (filtered []types.Twt) {
 
 	filtered = make([]types.Twt, 0)
 	for _, twt := range twts {
-		if u.HasMuted(twt.Hash()) || u.HasMuted(twt.Subject().String()) || u.HasMuted(twt.Twter().URI) {
+		if u.HasMuted(twt.Hash()) || u.HasMuted(twt.Twter().URI) {
 			continue
 		}
+		subjectHash := ExtractHashFromSubject(twt.Subject().String())
+		if subjectHash != "" && u.HasMuted(subjectHash) {
+			continue
+		}
+
 		filtered = append(filtered, twt)
 	}
 	return

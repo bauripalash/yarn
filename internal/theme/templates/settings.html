@@ -16,6 +16,7 @@
       <h2><hr></h2>
     </hgroup>
     {{ template "followStats" (dict "Profile" .Profile "Ctx" .) }}
+    {{ template "mutedStats" (dict "User" .User "Ctx" .) }}
   </article>
   <article id="profile-links">
     <hgroup>

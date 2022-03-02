@@ -586,6 +586,14 @@ other = "The app <b>%s</b> wants to access your <b>%s</b> account."
 hash = "sha1-013e6cef1a9b52183ef3df75be734b94ce222c25"
 other = "Authorise Login"
 
+[InstanceNameInfo]
+hash = "sha1-bb97ffe973568947d8903b91c044bd17dee96723"
+other = "About the <b>{{ .InstanceName }}</b> Yarn.social pod."
+
+[InstanceTitle]
+hash = "sha1-914e2403bda42fb7ddb728a9337741354d4ab938"
+other = "Pod Information"
+
 [Instead]
 hash = "sha1-6568964b0e39083c6acb94093d9e6cd117dbe508"
 other = "."
@@ -597,6 +605,10 @@ other = "Login to your Yarn.Social account on {{ .InstanceName }} via your Email
 [LoginEmailTitle]
 hash = "sha1-15bfa4e76b3774215b32e0778675ad18c23f71df"
 other = "Login via Email"
+
+[LoginFormEmailAddress]
+hash = "sha1-09ba557fd106f1019ec6739113e3e28dea4bd9a6"
+other = "Email Address"
 
 [LoginFormEmailLogin]
 hash = "sha1-15bfa4e76b3774215b32e0778675ad18c23f71df"
@@ -1118,6 +1130,22 @@ other = "更新設置成功"
 hash = "sha1-a3b2c11ab0b4c328326d2f3e629f52543d4eb230"
 other = "賬號恢復請求已發送！請查收郵件並按說明操作"
 
+[MutedLinkTitle]
+hash = "sha1-b9e78ced88a4641f8289a36049516182b46cf836"
+other = "Muted"
+
+[MutedListEmpty]
+hash = "sha1-9f27cee950e7706c88d5794d4c2c37dc0df64be9"
+other = "No muted feeds or twts"
+
+[MutedSummary]
+hash = "sha1-2f33216832429a7e6a4096810d30bd69739b8b3d"
+other = "Manage your list of muted feeds and twts"
+
+[MutedTitle]
+hash = "sha1-5676c5efddc9def1ccc551c636da39b379b7589a"
+other = "Muted Feeds and Twts"
+
 [NavDiscover]
 hash = "sha1-4827ea22716a74aaf8bbe499fc314bb93f73c65e"
 other = "發現"
@@ -1263,20 +1291,24 @@ hash = "sha1-41dded417052424bdcf3c39f6c8664147fae6806"
 other = "Atom"
 
 [ProfileBookmarksLinkTitle]
-hash = "sha1-6a5a0b75f31c888349fd59ca3242acef5c6fe291"
-other = "書籤"
+hash = "sha1-ca3cddd25bd8f6bc4ce35a262e2e1398541ecf3d"
+other = "Bookmarks"
 
 [ProfileConfigLinkTitle]
 hash = "sha1-8851142da56fd885ce668a165b33fee7003e858d"
 other = "配置"
 
+[ProfileDoesNotFollowYou]
+hash = "sha1-f08bf47c8b22676dcb96bee4895f001deb8e7e80"
+other = "does not follow you"
+
 [ProfileFollowersLinkTitle]
-hash = "sha1-60307d4b8f5c2d8eb88f9f031a041fe636c05f43"
-other = "粉絲:"
+hash = "sha1-78eaabf4a629795fe52f523f44f5000c6b204f2f"
+other = "Followers"
 
 [ProfileFollowingLinkTitle]
-hash = "sha1-3bdfc897922908283888272081e3df5ea78d8a7a"
-other = "跟隨:"
+hash = "sha1-90eeb100838048513e8d2290a6892e18077c24f6"
+other = "Following"
 
 [ProfileFollowsYou]
 hash = "sha1-9c3afad24345228d89b18f923e7212b2e4cc266b"
@@ -1291,12 +1323,16 @@ hash = "sha1-145272e3d7b81f889df87206a429da750890c4ed"
 other = "last posted"
 
 [ProfileLastSeen]
-hash = "sha1-beb85e9d4e7f5bdc05eca7f144b881a95817d2dc"
-other = "Last Seen:"
+hash = "sha1-56462f81b82a2d76b46ff441b40d364b6505f1d8"
+other = "Last seen"
 
 [ProfileMuteLinkTitle]
 hash = "sha1-0f0973483d912464153b3be374a94b58e6cd0ef6"
 other = "禁言"
+
+[ProfileMuteUser]
+hash = "sha1-30772b5b5cde04fdc46e43460d1b7096cb8a2601"
+other = "You are free to Unfollow or Mute this user or feed.&#10;Muting will also remove that user/feed's content from your view.&#10;You will no longer see content from that user/feed anywhere."
 
 [ProfileNoTwts]
 hash = "sha1-1e9ef392a4bff24ed048ac19da0fcd4c5348c9b1"
@@ -1305,6 +1341,10 @@ other = "Try checking out the <a href=\"/discover\">{{ .NavDiscover }}</a> timel
 [ProfileReportLinkTitle]
 hash = "sha1-ee45c30326b750387589752c0f75e1dd87ddc7e4"
 other = "報告"
+
+[ProfileReportUser]
+hash = "sha1-8ea1aab3d7221d789f3a6b80ef950d80b6ccb65b"
+other = "If this user/feed is violating this Pod's ({{ .InstanceName }})&#10;community guidelines as set out in the Abuse Policy,&#10;please report them immediately!"
 
 [ProfileTwtxtLinkTitle]
 hash = "sha1-45c9437b0fb70f8f31804a3d49137e3bec03d99d"
@@ -1542,6 +1582,18 @@ other = "更新"
 hash = "sha1-b98795a246f09961ab85071a7f50013203007e9f"
 other = "查看用戶詳情"
 
+[SettingsInfoMissingTagline]
+hash = "sha1-fe3f10ae47cf6f826ac900b3c510bfe6745352da"
+other = "No description provided."
+
+[SettingsInfoUserInfo]
+hash = "sha1-9486a1afca121ed3afba4b9aaef1d564acff2b5a"
+other = "User Info"
+
+[SettingsInfoUserLinks]
+hash = "sha1-96348083f320cb5fc4ea1736274b4072f6277689"
+other = "User Links"
+
 [SettingsPodManagementTitle]
 hash = "sha1-9a2d74e99197deb098f491ce7fc19ecca9a7c1b1"
 other = "Pod 管理"
@@ -1714,9 +1766,17 @@ other = "保存"
 hash = "sha1-768e0c1c69573fb588f61f1308a015c11468e05f"
 other = "標題"
 
+[TwtMute]
+hash = "sha1-203f6d112001097875a993a5fb6d97ddc6fa3916"
+other = "Mute Twt"
+
 [TwtReplyLinkTitle]
 hash = "sha1-6c2bb735a46a8ff307fe2e638d581295b2a49e09"
 other = "回復"
+
+[TwtUnmute]
+hash = "sha1-2a240200d1965be765e7baf15d948a2b28725d9a"
+other = "Unmute Twt"
 
 [UnfollowLinkTitle]
 hash = "sha1-e3a6fe565c7f64204f2dd182dc8b8ca9fe725d99"
