@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -501,6 +502,7 @@ func (u *User) Profile(baseURL string, viewer *User) types.Profile {
 	for title, url := range u.Links {
 		links = append(links, types.Link{Title: title, URL: url})
 	}
+	sort.Sort(links)
 
 	if viewer != nil {
 		if viewer.Is(u.URL) {
