@@ -15,7 +15,7 @@
               {{ if isLocalURL $value }}
                 <a href="/user/{{ $key }}">{{ $key }}</a>
               {{ else  }}
-                <a href="/external?uri={{ $value }}&nick={{ $key }}">
+                <a href="/external?uri={{ $value }}&nick={{ $key }}">{{ $key }}</a>
               {{ end }}
             {{ end }}
             {{ if $.Authenticated }}
