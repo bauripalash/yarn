@@ -1930,17 +1930,17 @@ func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) st
 	isCaption := ""
 	if caption != "" {
 		isCaption = fmt.Sprintf(
-			`<div class="caption" data-target="%s">%s</div>`,
+			`<lightbox class="caption" data-target="%s">%s</lightbox>`,
 			uuid, caption,
 		)
 	}
 
 	return fmt.Sprintf(
-		`<div class="center-cropped caption-wrap">
+		`<lightbox class="center-cropped caption-wrap">
 			 <a class="img-orig-open" href="%s" title="%s"%s target="_blank">%s
 				 <img loading=lazy src="%s" data-target="%s" />
 			 </a>
-		 </div>
+		 </lightbox>
 		 <dialog id="%s">
         <figure>
           <img loading=lazy src="%s" />
@@ -2205,13 +2205,18 @@ func FormatTwtFactory(conf *Config, cache *Cache, archive Archiver) func(twt typ
 
 		maybeUnsafeHTML := markdown.ToHTML([]byte(twt.FormatText(types.HTMLFmt, conf)), mdParser, renderer)
 
-		p := bluemonday.UGCPolicy()
+		//p := bluemonday.UGCPolicy()
+		p := bluemonday.StrictPolicy()
+		p.AllowElements("a", "img", "strong", "em", "del", "br", "p", "ul", "ol", "li", "pre", "code")
+		p.AllowAttrs("href").OnElements("a")
+		p.AllowAttrs("src").OnElements("img")
+
 		p.AllowAttrs("id").OnElements("dialog")
 		p.AllowAttrs("id", "controls").OnElements("audio")
 		p.AllowAttrs("id", "controls", "playsinline", "preload", "poster").OnElements("video")
 		p.AllowAttrs("src", "type").OnElements("source")
 		p.AllowAttrs("aria-label", "class", "data-target", "target").OnElements("a")
-		p.AllowAttrs("class", "data-target").OnElements("i", "div")
+		p.AllowAttrs("class", "data-target").OnElements("i", "lightbox")
 		p.AllowAttrs("alt", "title", "loading", "data-target", "data-tooltip").OnElements("a", "img")
 		p.AllowAttrs("style").OnElements("a", "code", "img", "p", "pre", "span")
 		html := p.SanitizeBytes(maybeUnsafeHTML)
@@ -2368,7 +2373,7 @@ func FormatTwtContextFactory(conf *Config, cache *Cache, archive Archiver) func(
 		p.AllowAttrs("id", "controls", "playsinline", "preload", "poster").OnElements("video")
 		p.AllowAttrs("src", "type").OnElements("source")
 		p.AllowAttrs("aria-label", "class", "data-target", "target").OnElements("a")
-		p.AllowAttrs("class", "data-target").OnElements("i", "div")
+		p.AllowAttrs("class", "data-target").OnElements("i", "lightbox")
 		p.AllowAttrs("alt", "title", "loading", "data-target", "data-tooltip").OnElements("a", "img")
 		p.AllowAttrs("style").OnElements("a", "code", "img", "p", "pre", "span")
 		html := p.SanitizeBytes(maybeUnsafeHTML)
