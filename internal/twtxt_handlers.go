@@ -12,11 +12,11 @@ import (
 	"strings"
 
 	"git.mills.io/yarnsocial/yarn"
-	"go.yarn.social/types"
 	"github.com/badgerodon/ioutil"
 	securejoin "github.com/cyphar/filepath-securejoin"
 	"github.com/julienschmidt/httprouter"
 	log "github.com/sirupsen/logrus"
+	"go.yarn.social/types"
 )
 
 const defaultPreambleTemplate = `# Twtxt is an open, distributed microblogging platform that
@@ -35,6 +35,13 @@ const defaultPreambleTemplate = `# Twtxt is an open, distributed microblogging p
 #
 # followers   = {{ if .Profile.ShowFollowers }}{{ .Profile.NFollowers }}{{ end }}
 # following   = {{ if .Profile.ShowFollowing }}{{ .Profile.NFollowing }}{{ end }}
+#
+{{- if .Profile.Links }}
+{{ range $link := .Profile.Links -}}
+# link = {{ $link.Title }} {{ $link.URL }}
+{{ end -}}
+#
+{{ end }}
 #
 {{- if .Profile.ShowFollowing }}
 {{ range $f := .Profile.Following -}}

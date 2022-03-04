@@ -144,3 +144,35 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		s.render("error", w, ctx)
 	}
 }
+
+// SettingsAddLinkHandler ...
+func (s *Server) SettingsAddLinkHandler() httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		ctx := NewContext(s, r)
+
+		// Limit request body to to abuse
+		r.Body = http.MaxBytesReader(w, r.Body, s.config.MaxUploadSize)
+		defer r.Body.Close()
+
+		linkTitle := strings.TrimSpace(r.FormValue("linkTitle"))
+		linkURL := strings.TrimSpace(r.FormValue("linkURL"))
+
+		user := ctx.User
+		if user == nil {
+			log.Fatalf("user not found in context")
+		}
+
+		user.AddLink(linkTitle, linkURL)
+
+		if err := s.db.SetUser(ctx.Username, user); err != nil {
+			ctx.Error = true
+			ctx.Message = s.tr(ctx, "ErrorUpdatingUser")
+			s.render("error", w, ctx)
+			return
+		}
+
+		ctx.Error = false
+		ctx.Message = s.tr(ctx, "MsgUpdateSettingsSuccess")
+		s.render("error", w, ctx)
+	}
+}

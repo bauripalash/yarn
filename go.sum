@@ -922,6 +922,8 @@ go.yarn.social/types v0.0.0-20220217050814-23717f1409c2 h1:2crr5uLgEW10nt2kaS/Pv
 go.yarn.social/types v0.0.0-20220217050814-23717f1409c2/go.mod h1:XN+G4HprNn/Gp7OF2zveqsCRSWFCHtOaIRh2GlcK+U4=
 go.yarn.social/types v0.0.0-20220217075906-5ed687526efb h1:M9/ndzMF9eEvXvkeGDMORR1VKlecJJ5JikhS8d36FsQ=
 go.yarn.social/types v0.0.0-20220217075906-5ed687526efb/go.mod h1:XN+G4HprNn/Gp7OF2zveqsCRSWFCHtOaIRh2GlcK+U4=
+go.yarn.social/types v0.0.0-20220304125425-2fad3b0335fd h1:dJ+BCH6IWBPOzdNuYCk2Tl0CDmSQs/7RFmKaREfi3kw=
+go.yarn.social/types v0.0.0-20220304125425-2fad3b0335fd/go.mod h1:XN+G4HprNn/Gp7OF2zveqsCRSWFCHtOaIRh2GlcK+U4=
 goji.io v2.0.2+incompatible/go.mod h1:sbqFwrtqZACxLBTQcdgVjFh54yGVCvwq8+w49MVMMIk=
 golang.org/x/crypto v0.0.0-20180904163835-0709b304e793/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=
 golang.org/x/crypto v0.0.0-20181029021203-45a5f77698d3/go.mod h1:6SG95UA2DQfeDnfUPMdvaQW0Q7yPrPDi9nlGo2tz2b4=

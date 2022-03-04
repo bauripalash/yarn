@@ -1533,9 +1533,7 @@ func (cache *Cache) UpdateFeed(url, lastmodified string, twts types.Twts) {
 }
 
 func (cache *Cache) getFollowersv1(profile types.Profile) types.Followers {
-	followers := cache.Followers[profile.Nick]
-	sort.Sort(followers)
-	return followers
+	return cache.Followers[profile.Nick]
 }
 
 // GetOldFollowers ...
@@ -1567,8 +1565,6 @@ func (cache *Cache) GetFollowers(profile types.Profile) types.Followers {
 			f.URI = f.URL
 		}
 	}
-
-	sort.Sort(followers)
 
 	return followers
 }
@@ -1905,7 +1901,7 @@ func (cache *Cache) PruneFollowers(olderThan time.Duration) {
 	defer cache.mu.Unlock()
 
 	for user, followers := range cache.Followers {
-		sort.Sort(followers)
+		followers.SortBy("LastSeenAt")
 		for i, follower := range followers {
 			if time.Since(follower.LastSeenAt) < olderThan {
 				followers = followers[i:]

@@ -74,6 +74,7 @@ type User struct {
 	Bookmarks map[string]string `default:"{}"`
 	Followers map[string]string `default:"{}"`
 	Following map[string]string `default:"{}"`
+	Links     map[string]string `default:"{}"`
 	Muted     map[string]string `default:"{}"`
 
 	muted   map[string]string
@@ -360,6 +361,18 @@ func (u *User) FollowedBy(url string) bool {
 	return ok
 }
 
+func (u *User) AddLink(title, url string) {
+	key := strings.TrimSpace(title)
+	if _, ok := u.Links[key]; !ok {
+		u.Links[key] = url
+	}
+}
+
+func (u *User) RemoveLink(title string) {
+	key := strings.TrimSpace(title)
+	delete(u.Links, key)
+}
+
 func (u *User) Mute(key, value string) {
 	if !u.HasMuted(value) {
 		u.Muted[key] = value
@@ -478,11 +491,16 @@ func (u *User) Profile(baseURL string, viewer *User) types.Profile {
 		feeds            []string
 		viewerFollows    bool
 		followedByViewer bool
+		links            types.Links
 		muted            bool
 		showBookmarks    bool
 		showFollowers    bool
 		showFollowing    bool
 	)
+
+	for title, url := range u.Links {
+		links = append(links, types.Link{Title: title, URL: url})
+	}
 
 	if viewer != nil {
 		if viewer.Is(u.URL) {
@@ -510,6 +528,7 @@ func (u *User) Profile(baseURL string, viewer *User) types.Profile {
 			follows = append(follows, types.Follow{Nick: nick, URI: uri})
 		}
 	}
+	follows.SortBy("Nick")
 
 	return types.Profile{
 		Type: "User",
@@ -522,6 +541,7 @@ func (u *User) Profile(baseURL string, viewer *User) types.Profile {
 		Follows:    viewerFollows,
 		FollowedBy: followedByViewer,
 		Muted:      muted,
+		Links:      links,
 		Feeds:      feeds,
 
 		Bookmarks: u.Bookmarks,

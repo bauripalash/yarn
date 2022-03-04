@@ -88,7 +88,7 @@ require (
 	go.opentelemetry.io/otel/sdk v1.3.0 // indirect
 	go.yarn.social/client v0.0.0-20220218215801-0d1e5aba32fc
 	go.yarn.social/lextwt v0.0.0-20220217054745-c86d4bd536c8
-	go.yarn.social/types v0.0.0-20220217075906-5ed687526efb
+	go.yarn.social/types v0.0.0-20220304125425-2fad3b0335fd
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 	golang.org/x/exp v0.0.0-20220218215828-6cf2b201936e // indirect
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410 // indirect

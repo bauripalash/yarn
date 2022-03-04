@@ -102,6 +102,10 @@
   content: "\ea98";
 }
 
+.ti-external-link:before {
+  content: "\ea99";
+}
+
 .ti-heartbeat:before {
   content: '\ef92';
 }

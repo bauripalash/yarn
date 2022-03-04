@@ -186,6 +186,10 @@ article.grid {
   z-index: 200;
 }
 
+.delLink {
+  color: red;
+}
+
 .invisible {
   visibility: hidden;
   width: 0;
