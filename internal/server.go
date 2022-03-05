@@ -811,6 +811,7 @@ func (s *Server) initRoutes() {
 	s.router.GET("/settings", httproutermiddleware.Handler("settings", s.am.MustAuth(s.SettingsHandler()), mdlw))
 	s.router.POST("/settings", httproutermiddleware.Handler("settings", s.am.MustAuth(s.SettingsHandler()), mdlw))
 	s.router.POST("/settings/addlink", httproutermiddleware.Handler("settings_addlink", s.am.MustAuth(s.SettingsAddLinkHandler()), mdlw))
+	s.router.POST("/settings/removelink", httproutermiddleware.Handler("settings_removelink", s.am.MustAuth(s.SettingsRemoveLinkHandler()), mdlw))
 
 	s.router.GET("/info", httproutermiddleware.Handler("info", s.PodInfoHandler(), mdlw))
 	s.router.GET("/config", httproutermiddleware.Handler("config", s.am.MustAuth(s.PodConfigHandler()), mdlw))

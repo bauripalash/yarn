@@ -166,13 +166,39 @@ func (s *Server) SettingsAddLinkHandler() httprouter.Handle {
 
 		if err := s.db.SetUser(ctx.Username, user); err != nil {
 			ctx.Error = true
-			ctx.Message = s.tr(ctx, "ErrorUpdatingUser")
+			ctx.Message = s.tr(ctx, "ErrorAddLink")
 			s.render("error", w, ctx)
 			return
 		}
 
 		ctx.Error = false
-		ctx.Message = s.tr(ctx, "MsgUpdateSettingsSuccess")
+		ctx.Message = s.tr(ctx, "MsgAddLinkSuccess")
+		s.render("error", w, ctx)
+	}
+}
+
+// SettingsRemoveLinkHandler ...
+func (s *Server) SettingsRemoveLinkHandler() httprouter.Handle {
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		ctx := NewContext(s, r)
+
+		user := ctx.User
+		if user == nil {
+			log.Fatalf("user not found in context")
+		}
+
+		linkTitle := strings.TrimSpace(r.FormValue("link_title"))
+		user.RemoveLink(linkTitle)
+
+		if err := s.db.SetUser(ctx.Username, user); err != nil {
+			ctx.Error = true
+			ctx.Message = s.tr(ctx, "ErrorRemoveLink")
+			s.render("error", w, ctx)
+			return
+		}
+
+		ctx.Error = false
+		ctx.Message = s.tr(ctx, "MsgRemoveLinkSuccess")
 		s.render("error", w, ctx)
 	}
 }

@@ -25,7 +25,7 @@
     </hgroup>
     <div>
       <ul>
-        {{ template "profileLinks" (dict "Profile" .Profile "Ctx" .) }}
+        {{ template "profileLinks" (dict "Authenticated" .Authenticated "CSRFToken" .CSRFToken "Profile" .Profile "User" .User "Ctx" .) }}
       </ul>
     </div>
   </article>
@@ -35,19 +35,19 @@
     <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
     <div>
       <hgroup>
-        <h2>Add Custom Link</h2>
-        <h3>Here you can add a new link to the User Links section of your profile</h3>
+        <h2>{{ tr . "CustomLinkTitle" }}</h2>
+        <h3>{{ tr . "CustomLinkSummary" }}</h3>
       </hgroup>
     </div>
     <div class="grid">
       <div>
-        <input id="newLinkTitle" type="text" name="linkTitle" placeholder="Link Title" aria-label="New Link Title" />
+        <input id="newLinkTitle" maxlength=32 type="text" name="linkTitle" placeholder="{{ tr . "CustomLinkAddTitle" }}" aria-label="{{ tr . "CustomLinkAddTitle" }}" />
       </div>
       <div>
-        <input id="newLinkURL" type="text" name="linkURL" placeholder="Link URL" aria-label="New Link URL" />
+        <input id="newLinkURL" type="text" name="linkURL" placeholder="{{ tr . "CustomLinkAddURL" }}" aria-label="{{ tr . "CustomLinkAddURL" }}" />
       </div>
     </div>
-    <button type="submit" class="primary">Add Link</button>
+    <button type="submit" class="primary">{{ tr . "CustomLinkAddSubmit" }}</button>
   </form>
 </article>
 <article class="grid">

@@ -277,9 +277,20 @@
   {{ if $.Profile.Links }}
     {{ range $link := $.Profile.Links }}
       <li>
-        <a href="{{ $link.URL }}">
-          <i class="ti ti-external-link"></i> {{ $link.Title }}</a> <a class="delLink" href="#"><i class="ti ti-circle-x"></i>
-        </a>
+        <div class="delLink">
+          <a href="{{ $link.URL }}">
+            <i class="ti ti-external-link"></i> {{ $link.Title }}
+          </a>
+          {{ if $.Authenticated }}
+          {{ if eq $.Profile.Nick $.User.Username }}
+          <form action="/settings/removelink" enctype="multipart/form-data" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+            <input type="hidden" name="link_title" value="{{ $link.Title }}">
+            <button type="submit"><i class="ti ti-circle-x"></i></button>
+          </form>
+          {{ end }}
+          {{ end }}
+        </div>
       </li>
     {{ end }}
   {{ end }}

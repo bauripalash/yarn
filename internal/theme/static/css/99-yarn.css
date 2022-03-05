@@ -24,6 +24,10 @@
   margin: -1rem 0;
 }
 
+#muted {
+  margin-top: 0.6rem;
+}
+
 #profile-links, #profile-info {
   flex-wrap: wrap;
   flex: 1 21rem;
@@ -187,7 +191,24 @@ article.grid {
 }
 
 .delLink {
+  display: flex;
+  height: 1.5rem;
+}
+
+.delLink button {
+  margin: -0.65rem 0 0 -0.65rem;
+  width: 0;
+  height: 0;
+  background: none;
+  border: none;
+}
+
+.delLink button i {
   color: red;
+}
+
+.delLink button:focus {
+  box-shadow: none;
 }
 
 .invisible {
