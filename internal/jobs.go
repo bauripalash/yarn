@@ -242,7 +242,7 @@ func (job *UpdateFeedsJob) Run() {
 	if job.conf.Features.IsEnabled(FeatureWebSub) {
 		var subscribed int
 		for source := range sources {
-			if websub.IsSubscribed(source.URL) {
+			if sub := websub.GetSubscription(source.URL); sub != nil && !sub.Expired() {
 				delete(sources, source)
 				subscribed++
 			}

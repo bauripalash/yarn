@@ -321,7 +321,7 @@ func (ws *WebSub) IsSubscribed(topic string) bool {
 		return false
 	}
 
-	return sub.Confirmed()
+	return sub.Confirmed() && !sub.Expired()
 }
 
 func (ws *WebSub) GetHubEndpoint(target *url.URL) (hubEndpoint *url.URL, selfURL *url.URL, err error) {
