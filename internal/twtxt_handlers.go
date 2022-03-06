@@ -143,8 +143,13 @@ func (s *Server) TwtxtHandler() httprouter.Handle {
 		}
 
 		w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-		w.Header().Set("Link", fmt.Sprintf(`<%s/webmention>; rel="webmention"`, s.config.BaseURL))
+		w.Header().Add("Link", fmt.Sprintf(`<%s/webmention>; rel="webmention"`, s.config.BaseURL))
 		w.Header().Set("Powered-By", fmt.Sprintf("yarnd/%s (Pod: %s Support: %s)", yarn.FullVersion(), s.config.Name, URLForPage(s.config.BaseURL, "support")))
+
+		if s.config.Features.IsEnabled(FeatureWebSub) {
+			w.Header().Add("Link", fmt.Sprintf(`<%s/websub>; rel="hub"`, s.config.BaseURL))
+			w.Header().Add("Link", fmt.Sprintf(`<%s>; rel="self"`, ctx.Profile.URI))
+		}
 
 		mrs := ioutil.NewMultiReadSeeker(strings.NewReader(preamble), pr)
 		http.ServeContent(w, r, "", fileInfo.ModTime(), mrs)

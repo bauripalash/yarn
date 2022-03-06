@@ -124,6 +124,10 @@ func AppendTwtFactory(conf *Config, cache *Cache, db Store) AppendTwtFunc {
 			return types.NilTwt, err
 		}
 
+		if conf.Features.IsEnabled(FeatureWebSub) {
+			websub.SendNotification(conf.URLForUser(user.Username))
+		}
+
 		return twt, nil
 	}
 }

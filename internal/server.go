@@ -35,9 +35,9 @@ import (
 
 	"git.mills.io/yarnsocial/yarn"
 	"git.mills.io/yarnsocial/yarn/internal/auth"
+	"git.mills.io/yarnsocial/yarn/internal/indieweb"
 	"git.mills.io/yarnsocial/yarn/internal/passwords"
 	"git.mills.io/yarnsocial/yarn/internal/session"
-	"git.mills.io/yarnsocial/yarn/internal/webmention"
 	"go.yarn.social/types"
 )
 
@@ -47,7 +47,8 @@ const (
 
 var (
 	metrics     *observe.Metrics
-	webmentions *webmention.WebMention
+	webmentions *indieweb.WebMention
+	websub      *indieweb.WebSub
 
 	//go:embed theme
 	builtinThemeFS embed.FS
@@ -559,8 +560,23 @@ func (s *Server) processWebMention(source, target *url.URL, data *microformats.D
 }
 
 func (s *Server) setupWebMentions() {
-	webmentions = webmention.New()
+	webmentions = indieweb.NewWebMention()
 	webmentions.Mention = s.processWebMention
+}
+
+func (s *Server) processNotification(topic string) error {
+	log.Debugf("received notification for %s", topic)
+
+	sources := make(types.FetchFeedRequests)
+	sources[types.FetchFeedRequest{Force: true, URL: topic}] = true
+	s.cache.FetchFeeds(s.config, s.archive, sources, nil)
+
+	return nil
+}
+
+func (s *Server) setupWebSub() {
+	websub = indieweb.NewWebSub(fmt.Sprintf("%s/websub", s.config.BaseURL))
+	websub.Notify = s.processNotification
 }
 
 func (s *Server) setupJobs() error {
@@ -710,6 +726,12 @@ func (s *Server) initRoutes() {
 	// WebMentions
 	s.router.POST("/webmention", httproutermiddleware.Handler("webmentions", s.WebMentionHandler(), mdlw))
 
+	// WebSub
+	s.router.GET("/websub", httproutermiddleware.Handler("websub", s.WebSubHandler(), mdlw))
+	s.router.POST("/websub", httproutermiddleware.Handler("websub", s.WebSubHandler(), mdlw))
+	s.router.GET("/notify", httproutermiddleware.Handler("notify", s.NotifyHandler(), mdlw))
+	s.router.POST("/notify", httproutermiddleware.Handler("notify", s.NotifyHandler(), mdlw))
+
 	// Syndication Formats (RSS, Atom, JSON Feed)
 	s.router.HEAD("/user/:nick/atom.xml", httproutermiddleware.Handler("user_atom", s.SyndicationHandler(), mdlw))
 	s.router.GET("/user/:nick/atom.xml", httproutermiddleware.Handler("user_atom", s.SyndicationHandler(), mdlw))
@@ -728,9 +750,6 @@ func (s *Server) initRoutes() {
 	s.router.GET("/~:nick/followers", httproutermiddleware.Handler("followers", s.FollowersHandler(), mdlw))
 	s.router.GET("/~:nick/following", httproutermiddleware.Handler("following", s.FollowingHandler(), mdlw))
 	s.router.GET("/~:nick/bookmarks", httproutermiddleware.Handler("bookmarks", s.BookmarksHandler(), mdlw))
-
-	// WebMentions
-	s.router.POST("/~:nick/webmention", httproutermiddleware.Handler("webmentions", s.WebMentionHandler(), mdlw))
 
 	// Syndication Formats (RSS, Atom, JSON Feed)
 	s.router.HEAD("/~:nick/atom.xml", httproutermiddleware.Handler("user_atom", s.SyndicationHandler(), mdlw))
@@ -927,6 +946,8 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 	csrfHandler.ExemptGlob("/api/v1/*")
 	csrfHandler.ExemptGlob("/indieauth/*")
 	csrfHandler.ExemptPath("/webmention")
+	csrfHandler.ExemptPath("/websub")
+	csrfHandler.ExemptPath("/notify")
 
 	// Useful for Safari / Mobile Safari when behind Cloudflare to streaming
 	// videos _actually_ works :O
@@ -999,6 +1020,9 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 
 	server.setupWebMentions()
 	log.Infof("started webmentions processor")
+
+	server.setupWebSub()
+	log.Infof("started websub processor")
 
 	server.setupMetrics()
 	log.Infof("serving metrics endpoint at %s/metrics", server.config.BaseURL)

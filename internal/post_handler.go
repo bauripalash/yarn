@@ -9,9 +9,9 @@ import (
 	"regexp"
 	"strings"
 
-	"go.yarn.social/types"
 	"github.com/julienschmidt/httprouter"
 	log "github.com/sirupsen/logrus"
+	"go.yarn.social/types"
 )
 
 // PostHandler handles the creation/modification/deletion of a twt.

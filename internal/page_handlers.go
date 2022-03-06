@@ -11,7 +11,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/gomarkdown/markdown"
@@ -19,6 +18,7 @@ import (
 	"github.com/gomarkdown/markdown/parser"
 	"github.com/james4k/fmatter"
 	"github.com/julienschmidt/httprouter"
+	sync "github.com/sasha-s/go-deadlock"
 	log "github.com/sirupsen/logrus"
 )
 

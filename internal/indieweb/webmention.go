@@ -1,18 +1,15 @@
 // Copyright 2020-present Yarn.social
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-// webmention project webmention.go
-package webmention
+package indieweb
 
 import (
 	"net/http"
 	"net/url"
-	"strings"
 	"time"
 
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/net/html"
-	"golang.org/x/net/html/atom"
 	"willnorris.com/go/microformats"
 )
 
@@ -28,7 +25,7 @@ type WebMention struct {
 	Mention      func(source, target *url.URL, sourceData *microformats.Data) error
 }
 
-func New() *WebMention {
+func NewWebMention() *WebMention {
 	wm := &WebMention{
 		inbox:  make(chan *mention, 100),
 		outbox: make(chan *mention, 100),
@@ -167,7 +164,7 @@ func (wm *WebMention) processInbox() {
 
 func (wm *WebMention) processOutbox() {
 	mention := <-wm.outbox
-	mention.attempts += 1
+	mention.attempts++
 
 	if mention.attempts > maxWebMentionAttempts {
 		log.Errorf("giving up processing outgoing webmention for %s after %d attempts", mention.target.String(), mention.attempts)
@@ -177,6 +174,8 @@ func (wm *WebMention) processOutbox() {
 	endpoint, err := wm.GetTargetEndpoint(mention.target)
 	if err != nil {
 		log.WithError(err).Errorf("error retrieving webmention endpoint, requeueing (attempts %d)", mention.attempts)
+		// Attempt re-delivery
+		wm.outbox <- mention
 		return
 	}
 	if endpoint == nil {
@@ -194,6 +193,8 @@ func (wm *WebMention) processOutbox() {
 			"error sending webmention source=%s target=%s status=%s",
 			mention.source.String(), mention.target.String(), res.Status,
 		)
+		// Attempt re-delivery
+		wm.outbox <- mention
 		return
 	}
 	defer res.Body.Close()
@@ -201,40 +202,4 @@ func (wm *WebMention) processOutbox() {
 		"successfully sent webmention to %s (source=%s target=%s)",
 		endpoint.String(), mention.source.String(), mention.target.String(),
 	)
-}
-
-func searchLinks(node *html.Node, link *url.URL) bool {
-	if node.Type == html.ElementNode {
-		if node.DataAtom == atom.A {
-			if href := getAttr(node, "href"); href != "" {
-				target, err := url.Parse(href)
-				if err == nil {
-					// pods have the form
-					// http://pod.domain.tld/external?uri=uri&nick=nick
-					if strings.HasPrefix(target.Path, "/external") && target.Query().Get("uri") == link.String() {
-						return true
-					}
-					if target.String() == link.String() {
-						return true
-					}
-				}
-			}
-		}
-	}
-	for c := node.FirstChild; c != nil; c = c.NextSibling {
-		found := searchLinks(c, link)
-		if found {
-			return found
-		}
-	}
-	return false
-}
-
-func getAttr(node *html.Node, name string) string {
-	for _, attr := range node.Attr {
-		if strings.EqualFold(attr.Key, name) {
-			return attr.Val
-		}
-	}
-	return ""
 }

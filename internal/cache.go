@@ -21,6 +21,7 @@ import (
 	"time"
 
 	"git.mills.io/yarnsocial/yarn"
+	"git.mills.io/yarnsocial/yarn/internal/indieweb"
 	"github.com/dustin/go-humanize"
 	sync "github.com/sasha-s/go-deadlock"
 	log "github.com/sirupsen/logrus"
@@ -743,6 +744,41 @@ func (cache *Cache) DetectClientFromResponse(res *http.Response) error {
 	if err != nil {
 		log.WithError(err).Warnf("error parsing Powered-By header '%s'", poweredBy)
 		return nil
+	}
+
+	if cache.conf.Features.IsEnabled(FeatureWebSub) {
+		// TOOD: Should this be a function in indieweb package?
+		links := indieweb.GetHeaderLinks(res.Header["Link"])
+		log.Debugf("links: %v", links)
+
+		var (
+			hubEndpoint *url.URL
+			selfURL     *url.URL
+		)
+
+		for _, link := range links {
+			for _, rel := range link.Params["rel"] {
+				if rel == "hub" {
+					hubEndpoint = link.URL
+				}
+				if rel == "self" {
+					selfURL = link.URL
+				}
+			}
+		}
+
+		if hubEndpoint == nil {
+			log.Debugf("no rel=hub link found for %s", res.Request.URL.String())
+		} else if selfURL == nil {
+			log.Debugf("no rel=self link found for %s", res.Request.URL.String())
+		} else if sub := websub.GetSubscription(selfURL.String()); sub != nil {
+			log.Debugf("already subscribed to %s", selfURL.String())
+		} else {
+			callback := fmt.Sprintf("%s/notify", cache.conf.BaseURL)
+			if err := websub.Subscribe(selfURL.String(), callback); err != nil {
+				log.WithError(err).Errorf("error subscribing to %s", res.Request.URL.RequestURI())
+			}
+		}
 	}
 
 	if err := cache.DetectPodFromUserAgent(ua); err != nil {

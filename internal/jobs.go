@@ -10,9 +10,9 @@ import (
 	"sort"
 	"time"
 
-	"go.yarn.social/types"
 	"github.com/dustin/go-humanize"
 	log "github.com/sirupsen/logrus"
+	"go.yarn.social/types"
 )
 
 type Job interface {
@@ -237,6 +237,17 @@ func (job *UpdateFeedsJob) Run() {
 				publicFollowers[feed] = append(publicFollowers[feed], user.Username)
 			}
 		}
+	}
+
+	if job.conf.Features.IsEnabled(FeatureWebSub) {
+		var subscribed int
+		for source := range sources {
+			if websub.IsSubscribed(source.URL) {
+				delete(sources, source)
+				subscribed++
+			}
+		}
+		log.Infof("skipping %d subscribed feeds", subscribed)
 	}
 
 	log.Infof("updating %d sources", len(sources))

@@ -146,11 +146,13 @@ func (s *Server) IndieAuthHandler() httprouter.Handle {
 			return
 		}
 
+		/* TODO: What is `response_type` used for?
 		responseType := r.FormValue("response_type")
 		if responseType == "" {
 			responseType = "id"
 		}
 		responseType = strings.ToLower(responseType)
+		*/
 
 		happ, err := GetIndieClientInfo(s.config, clientID)
 		if err != nil {

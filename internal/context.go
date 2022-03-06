@@ -17,9 +17,9 @@ import (
 
 	"git.mills.io/yarnsocial/yarn"
 	"git.mills.io/yarnsocial/yarn/internal/session"
-	"go.yarn.social/types"
 	"github.com/justinas/nosurf"
 	"github.com/theplant-retired/timezones"
+	"go.yarn.social/types"
 )
 
 type Link struct {

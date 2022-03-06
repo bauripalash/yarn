@@ -3,7 +3,6 @@ module git.mills.io/yarnsocial/yarn
 go 1.16
 
 require (
-	dmitri.shuralyov.com/gpu/mtl v0.0.0-20201218220906-28db891af037 // indirect
 	git.mills.io/prologic/bitcask v1.0.2
 	git.mills.io/prologic/go-gopher v0.0.0-20220131134120-44dd1c17a0dd
 	git.mills.io/prologic/observe v0.0.0-20210712230028-fc31c7aa2bd1
@@ -25,8 +24,6 @@ require (
 	github.com/elithrar/simple-scrypt v1.3.0
 	github.com/gabstv/merger v1.0.1
 	github.com/gavv/httpexpect/v2 v2.3.1
-	github.com/go-kit/kit v0.10.0 // indirect
-	github.com/go-logr/logr v1.2.2 // indirect
 	github.com/go-mail/mail v2.3.1+incompatible
 	github.com/go-playground/validator/v10 v10.9.0 // indirect
 	github.com/goccy/go-yaml v1.9.5
@@ -57,13 +54,10 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/petermattis/goid v0.0.0-20220111183729-e033e1e0bdb5 // indirect
 	github.com/prometheus/client_golang v1.12.1 // indirect
-	github.com/prometheus/common v0.32.1 // indirect
-	github.com/prometheus/procfs v0.7.3 // indirect
 	github.com/rainycape/unidecode v0.0.0-20150907023854-cb7f23ec59be // indirect
 	github.com/renstrom/shortuuid v3.0.0+incompatible
 	github.com/rickb777/accept v0.0.0-20170318132422-d5183c44530d
 	github.com/robfig/cron v1.2.0
-	github.com/rs/zerolog v1.21.0 // indirect
 	github.com/russross/blackfriday v1.6.0
 	github.com/sasha-s/go-deadlock v0.3.1
 	github.com/securisec/go-keywords v0.0.0-20200619134240-769e7273f2ed
@@ -82,17 +76,13 @@ require (
 	github.com/unrolled/logger v0.0.0-20201216141554-31a3694fe979
 	github.com/vcraescu/go-paginator v1.0.0
 	github.com/wblakecaldwell/profiler v0.0.0-20150908040756-6111ef1313a1
-	github.com/writeas/go-strip-markdown/v2 v2.1.1
 	github.com/writeas/slug v1.2.0
-	go.opentelemetry.io/otel/metric v0.20.0 // indirect
-	go.opentelemetry.io/otel/sdk v1.3.0 // indirect
 	go.yarn.social/client v0.0.0-20220218215801-0d1e5aba32fc
 	go.yarn.social/lextwt v0.0.0-20220217054745-c86d4bd536c8
 	go.yarn.social/types v0.0.0-20220304222359-9694f95ad749
 	golang.org/x/crypto v0.0.0-20220214200702-86341886e292
 	golang.org/x/exp v0.0.0-20220218215828-6cf2b201936e // indirect
 	golang.org/x/image v0.0.0-20211028202545-6944b10bf410 // indirect
-	golang.org/x/mobile v0.0.0-20201217150744-e6ae53a27f4f // indirect
 	golang.org/x/net v0.0.0-20220127200216-cd36cc0744dd
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	golang.org/x/sys v0.0.0-20220209214540-3681064d5158 // indirect
@@ -103,6 +93,5 @@ require (
 	gopkg.in/mail.v2 v2.3.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0
 	gorm.io/gorm v1.22.5 // indirect
-	honnef.co/go/tools v0.1.3 // indirect
 	willnorris.com/go/microformats v1.1.1
 )

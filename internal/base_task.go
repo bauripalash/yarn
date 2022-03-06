@@ -5,9 +5,9 @@ package internal
 
 import (
 	"fmt"
-	"sync"
 
 	"github.com/renstrom/shortuuid"
+	sync "github.com/sasha-s/go-deadlock"
 )
 
 type BaseTask struct {
