@@ -22,7 +22,7 @@ import (
 
 const (
 	defaultWebSubRedeliveryAttempts = 6
-	defaultWebSubLeaseSeconds       = time.Hour * 24 * 10 // 10 days (recommended default from the W3C spec)
+	defaultWebSubLeaseTime          = time.Hour * 24 * 10 // 10 days (recommended default from the W3C spec)
 	defaultWebSubQueueSize          = 100
 )
 
@@ -303,14 +303,23 @@ func (ws *WebSub) Subscribe(uri, callback string) error {
 	log.Debugf("Sending websub subscription request to %s", hubEndpoint.String())
 	log.Debugf("values: %q", values)
 	res, err := http.PostForm(hubEndpoint.String(), values)
-	if err != nil || (res.StatusCode != http.StatusAccepted) {
+	if err != nil {
 		log.WithError(err).Errorf(
-			"error sending websub subscription request to hubEndpoint=%s status=%s",
-			hubEndpoint.String(), res.Status,
+			"error sending websub subscription request to hubEndpoint=%s",
+			hubEndpoint.String(),
 		)
 		return err
 	}
 	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusAccepted {
+		err := fmt.Errorf(
+			"bad response %s from subscription request for to hubEndpoint=%s",
+			res.Status, hubEndpoint.String(),
+		)
+		log.Error(err)
+		return err
+	}
 	log.Debugf("successfully sent websub subscription to %s for %s with callback %s", hubEndpoint.String(), uri, callback)
 
 	return nil
@@ -553,7 +562,7 @@ func (ws *WebSub) WebSubEndpoint(w http.ResponseWriter, r *http.Request) {
 				topic:        topic,
 				callback:     callback,
 				challenge:    generateRandomChallengeString(),
-				leaseSeconds: int(defaultWebSubLeaseSeconds.Seconds()),
+				leaseSeconds: int(defaultWebSubLeaseTime.Seconds()),
 			}
 		}
 		http.Error(w, "Subscription Accepted", http.StatusAccepted)
@@ -586,8 +595,8 @@ func (ws *WebSub) processOutbox() {
 
 	if notification.attempts > defaultWebSubRedeliveryAttempts {
 		log.Errorf(
-			"giving up processing notification for %s after %d attempts",
-			notification.target, notification.attempts,
+			"giving up processing notification for topic=%s target=%s after %d attempts",
+			notification.topic, notification.target, notification.attempts,
 		)
 		return
 	}
@@ -595,8 +604,8 @@ func (ws *WebSub) processOutbox() {
 	req, err := http.NewRequest(http.MethodPost, notification.target, nil)
 	if err != nil {
 		log.WithError(err).Errorf(
-			"error creating notification request target=%s",
-			notification.target,
+			"error creating notification request for topic=%s target=%s",
+			notification.topic, notification.target,
 		)
 		return
 	}
@@ -609,14 +618,23 @@ func (ws *WebSub) processOutbox() {
 	}
 
 	res, err := client.Do(req)
-	if err != nil || (res.StatusCode != http.StatusAccepted) {
+	if err != nil {
 		log.WithError(err).Errorf(
-			"error sending notification target=%s status=%s",
-			notification.target, res.Status,
+			"error sending notification request for topic=%s target=%s",
+			notification.topic, notification.target,
 		)
 		return
 	}
 	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusAccepted {
+		log.Errorf(
+			"bad response %s from callback for topic=%s target=%s",
+			res.Status, notification.topic, notification.target,
+		)
+		return
+	}
+
 	log.Debugf("successfully sent notification to %s", notification.target)
 }
 
@@ -626,8 +644,8 @@ func (ws *WebSub) processVerify() {
 
 	if verification.attempts > defaultWebSubRedeliveryAttempts {
 		log.Errorf(
-			"giving up processing verificationgg for %s after %d attempts",
-			verification.target, verification.attempts,
+			"giving up processing verificationg for topic=%s callbac=%s after %d attempts",
+			verification.topic, verification.callback, verification.attempts,
 		)
 		return
 	}
@@ -635,8 +653,8 @@ func (ws *WebSub) processVerify() {
 	req, err := http.NewRequest(http.MethodGet, verification.target, nil)
 	if err != nil {
 		log.WithError(err).Errorf(
-			"error creating verification request target=%s",
-			verification.target,
+			"error creating verification request topic=%s callbac=%s",
+			verification.topic, verification.callback,
 		)
 		return
 	}
@@ -658,14 +676,23 @@ func (ws *WebSub) processVerify() {
 	}
 
 	res, err := client.Do(req)
-	if err != nil || (res.StatusCode != http.StatusAccepted) {
+	if err != nil {
 		log.WithError(err).Errorf(
-			"error sending verification target=%s status=%s",
-			verification.target, res.Status,
+			"error sending verification request topic=%s callbac=%s",
+			verification.topic, verification.callback,
 		)
 		return
 	}
 	defer res.Body.Close()
+
+	if res.StatusCode/100 != 2 {
+		log.Errorf(
+			"bad response %s from verification for topic=%s callbac=%s",
+			res.Status, verification.topic, verification.callback,
+		)
+		return
+	}
+
 	log.Debugf("successfully sent verification to %s", verification.target)
 
 	body, err := io.ReadAll(res.Body)
