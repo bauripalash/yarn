@@ -242,6 +242,11 @@ func (job *UpdateFeedsJob) Run() {
 	if job.conf.Features.IsEnabled(FeatureWebSub) {
 		var subscribed int
 		for source := range sources {
+			// Skip websub Subscription check if we don't have the feed already cached
+			// (probably because the Pod's cache got nuked or is a new Pod)
+			if !job.cache.IsCached(source.URL) {
+				continue
+			}
 			if sub := websub.GetSubscription(source.URL); sub != nil && !sub.Expired() {
 				delete(sources, source)
 				subscribed++
