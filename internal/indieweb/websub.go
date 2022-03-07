@@ -22,7 +22,7 @@ import (
 
 const (
 	defaultWebSubRedeliveryAttempts = 6
-	defaultWebSubLeaseSeconds       = 3600
+	defaultWebSubLeaseSeconds       = time.Hour * 24 * 10 // 10 days (recommended default from the W3C spec)
 	defaultWebSubQueueSize          = 100
 )
 
@@ -553,7 +553,7 @@ func (ws *WebSub) WebSubEndpoint(w http.ResponseWriter, r *http.Request) {
 				topic:        topic,
 				callback:     callback,
 				challenge:    generateRandomChallengeString(),
-				leaseSeconds: defaultWebSubLeaseSeconds,
+				leaseSeconds: int(defaultWebSubLeaseSeconds.Seconds()),
 			}
 		}
 		http.Error(w, "Subscription Accepted", http.StatusAccepted)
