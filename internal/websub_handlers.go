@@ -16,6 +16,7 @@ func (s *Server) WebSubHandler() httprouter.Handle {
 
 		if r.Method == http.MethodPost {
 			websub.WebSubEndpoint(w, r)
+			return
 		}
 
 		if r.Method == http.MethodGet {
@@ -29,9 +30,10 @@ func (s *Server) WebSubHandler() httprouter.Handle {
 			}
 
 			websub.DebugEndpoint(w, r)
-		} else {
-			http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
+			return
 		}
+
+		http.Error(w, "Method Not Allowed", http.StatusMethodNotAllowed)
 	}
 }
 

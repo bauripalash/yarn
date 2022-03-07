@@ -510,7 +510,7 @@ func (ws *WebSub) WebSubEndpoint(w http.ResponseWriter, r *http.Request) {
 
 	if strings.TrimSpace(callback) == "" {
 		log.Errorf("no callback provided")
-		http.Error(w, "Bad Callback", http.StatusBadRequest)
+		http.Error(w, "No Callback", http.StatusBadRequest)
 		return
 	}
 
