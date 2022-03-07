@@ -577,6 +577,34 @@ func (s *Server) processNotification(topic string) error {
 func (s *Server) setupWebSub() {
 	websub = indieweb.NewWebSub(fmt.Sprintf("%s/websub", s.config.BaseURL))
 	websub.Notify = s.processNotification
+	websub.ValidateTopic = func(topic string) bool {
+		u, err := url.Parse(topic)
+		if err != nil {
+			log.WithError(err).Errorf("error parsing topic %q", topic)
+			return false
+		}
+
+		if !s.config.IsLocalURL(topic) {
+			log.Debugf("invalid topic %q (not a local url)", topic)
+			return false
+		}
+
+		if !validFeedPath.MatchString(u.Path) {
+			log.Debugf("invalid topic %q (not a valid feed path)", topic)
+			return false
+		}
+
+		userURL := UserURL(topic)
+		feedName := filepath.Base(userURL)
+
+		if IsSpecialFeed(feedName) || s.db.HasFeed(feedName) || s.db.HasUser(feedName) {
+			return true
+		}
+
+		log.Debugf("invalid topic %q (neither a special feed, local feed or user)", topic)
+
+		return false
+	}
 }
 
 func (s *Server) setupJobs() error {

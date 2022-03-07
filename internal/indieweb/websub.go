@@ -140,6 +140,11 @@ type WebSub struct {
 	// Notify is the callback called when processing inbound notifications requests
 	// from a hub we're subscribed to as a client for a given topic
 	Notify func(topic string) error
+
+	// ValidateTopic is a function that takes a `topic` string as input and returns `true` if it is
+	// a valid topic or `false` otherwise. Consumers should override this field with a custom
+	// topic validation function that suits the application.
+	ValidateTopic func(topic string) bool
 }
 
 func NewWebSub(endpoint string) *WebSub {
@@ -150,6 +155,9 @@ func NewWebSub(endpoint string) *WebSub {
 		inbox:         make(chan *callback, defaultWebSubQueueSize),
 		outbox:        make(chan *notification, defaultWebSubQueueSize),
 		verify:        make(chan *verification, defaultWebSubQueueSize),
+
+		Notify:        func(topic string) error { return nil },
+		ValidateTopic: func(topic string) bool { return true },
 	}
 
 	ws.inboxTicker = time.NewTicker(5 * time.Second)
@@ -517,6 +525,17 @@ func (ws *WebSub) WebSubEndpoint(w http.ResponseWriter, r *http.Request) {
 	if _, err := url.Parse(callback); err != nil {
 		log.WithError(err).Errorf("error parsing callback %s", callback)
 		http.Error(w, "Bad Callback", http.StatusBadRequest)
+		return
+	}
+
+	if _, err := url.Parse(topic); err != nil {
+		log.WithError(err).Errorf("error parsing topic %s", callback)
+		http.Error(w, "Bad Topic", http.StatusBadRequest)
+		return
+	}
+	if !ws.ValidateTopic(topic) {
+		log.Debugf("invalid topic %q", topic)
+		http.Error(w, "Invalid Topic", http.StatusBadRequest)
 		return
 	}
 

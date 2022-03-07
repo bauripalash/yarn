@@ -112,6 +112,7 @@ var (
 		append([]string{}, specialUsernames...),
 		automatedFeeds...)
 
+	validFeedPath     = regexp.MustCompile(`^\/user\/(\S+)\/twtxt\.txt$`)
 	validFeedName     = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9_-]*$`)
 	validUsername     = regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9_-]+$`)
 	singleUserUARegex = regexp.MustCompile(`(.+) \(\+(https?://\S+/\S+); @(\S+)\)`)
