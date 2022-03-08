@@ -952,11 +952,11 @@ func (cache *Cache) FetchFeeds(conf *Config, archive Archiver, feeds types.Fetch
 			cachedFeed := cache.GetOrSetCachedFeed(feed.URL)
 
 			if twter == nil {
-				twter = &types.Twter{Nick: feed.Nick}
-				if isLocalURL(feed.URL) {
-					twter.URI = URLForUser(conf.BaseURL, feed.Nick)
-				} else {
-					twter.URI = feed.URL
+				twter = &types.Twter{
+					Nick: feed.Nick,
+					URI:  feed.URL,
+				}
+				if !isLocalURL(feed.URL) {
 					GetExternalAvatar(conf, *twter)
 				}
 			}
