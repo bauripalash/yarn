@@ -12,11 +12,13 @@
 
 /yarnc
 /yarnd
+/archive_path
 /dump_cache
 /.envrc
 
 /blake2b_base32
 /check_pod_versions
+/tools/archive_path/archive_path
 /tools/blake2b_base32/blake2b_base32
 /tools/check_pod_versions/check_pod_versions
 
