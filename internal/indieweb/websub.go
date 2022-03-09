@@ -169,21 +169,21 @@ func NewWebSub(endpoint string) *WebSub {
 		ValidateTopic: func(topic string) bool { return true },
 	}
 
-	ws.inboxTicker = time.NewTicker(5 * time.Second)
+	ws.inboxTicker = time.NewTicker(3 * time.Second)
 	go func() {
 		for range ws.inboxTicker.C {
 			ws.processInbox()
 		}
 	}()
 
-	ws.outboxTicker = time.NewTicker(5 * time.Second)
+	ws.outboxTicker = time.NewTicker(3 * time.Second)
 	go func() {
 		for range ws.outboxTicker.C {
 			ws.processOutbox()
 		}
 	}()
 
-	ws.verifyTicker = time.NewTicker(5 * time.Second)
+	ws.verifyTicker = time.NewTicker(3 * time.Second)
 	go func() {
 		for range ws.verifyTicker.C {
 			ws.processVerify()
