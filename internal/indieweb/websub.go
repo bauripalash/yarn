@@ -674,6 +674,12 @@ func (ws *WebSub) processVerify() {
 			"giving up processing verificationg for topic=%s callbac=%s after %d attempts",
 			verification.topic, verification.callback, verification.attempts,
 		)
+
+		_, idx := ws.GetSubscriberFor(verification.topic, verification.callback)
+		if idx != -1 {
+			ws.DelSubscriber(verification.topic, idx)
+		}
+
 		return
 	}
 
