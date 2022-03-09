@@ -247,7 +247,7 @@ func (job *UpdateFeedsJob) Run() {
 			if !job.cache.IsCached(source.URL) {
 				continue
 			}
-			if sub := websub.GetSubscription(source.URL); sub != nil && !sub.Expired() {
+			if sub := websub.GetSubscription(source.URL); sub != nil && sub.Confirmed() && !sub.Expired() {
 				delete(sources, source)
 				subscribed++
 			}
