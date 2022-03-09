@@ -35,12 +35,6 @@ type callback struct {
 	topic string
 }
 
-type subscribe struct {
-	uri      string
-	callback string
-	attempts int
-}
-
 type notification struct {
 	topic    string
 	target   string
@@ -152,10 +146,6 @@ type WebSub struct {
 	verify       chan *verification
 	verifyTicker *time.Ticker
 
-	// subscribe queue for outbound subscription requests from this client
-	subscribe       chan *subscribe
-	subscribeTicker *time.Ticker
-
 	// Notify is the callback called when processing inbound notifications requests
 	// from a hub we're subscribed to as a client for a given topic
 	Notify func(topic string) error
@@ -174,7 +164,6 @@ func NewWebSub(endpoint string) *WebSub {
 		inbox:         make(chan *callback, defaultWebSubQueueSize),
 		outbox:        make(chan *notification, defaultWebSubQueueSize),
 		verify:        make(chan *verification, defaultWebSubQueueSize),
-		subscribe:     make(chan *subscribe, defaultWebSubQueueSize),
 
 		Notify:        func(topic string) error { return nil },
 		ValidateTopic: func(topic string) bool { return true },
@@ -198,13 +187,6 @@ func NewWebSub(endpoint string) *WebSub {
 	go func() {
 		for range ws.verifyTicker.C {
 			ws.processVerify()
-		}
-	}()
-
-	ws.subscribeTicker = time.NewTicker(5 * time.Second)
-	go func() {
-		for range ws.subscribeTicker.C {
-			ws.processSubscribe()
 		}
 	}()
 
@@ -292,7 +274,8 @@ func (ws *WebSub) DelSubscriber(topic string, idx int) {
 func (ws *WebSub) Subscribe(uri, callback string) error {
 	log.Debugf("creating websub subscription for %s", uri)
 
-	if _, err := url.Parse(uri); err != nil {
+	u, err := url.Parse(uri)
+	if err != nil {
 		log.WithError(err).Errorf("error parsing uri %s", uri)
 		return err
 	}
@@ -302,10 +285,45 @@ func (ws *WebSub) Subscribe(uri, callback string) error {
 		return err
 	}
 
-	ws.subscribe <- &subscribe{
-		uri:      uri,
-		callback: callback,
+	hubEndpoint, selfURL, err := ws.GetHubEndpoint(u)
+	if err != nil {
+		log.WithError(err).Errorf("error discovering hub endpoint for %s", uri)
+		return err
 	}
+	log.Debugf("found hub endpoint: %s", hubEndpoint.String())
+	log.Debugf("found self url: %s", selfURL.String())
+
+	topic := selfURL.String()
+
+	ws.Lock()
+	ws.subscriptions[topic] = &Subscription{Topic: topic}
+	ws.Unlock()
+
+	values := make(url.Values)
+	values.Set("hub.mode", "subscribe")
+	values.Set("hub.topic", topic)
+	values.Set("hub.callback", callback)
+	log.Debugf("Sending websub subscription request to %s", hubEndpoint.String())
+	log.Debugf("values: %q", values)
+	res, err := http.PostForm(hubEndpoint.String(), values)
+	if err != nil {
+		log.WithError(err).Errorf(
+			"error sending websub subscription request to hubEndpoint=%s",
+			hubEndpoint.String(),
+		)
+		return err
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode != http.StatusAccepted {
+		err := fmt.Errorf(
+			"bad response %s from subscription request for to hubEndpoint=%s",
+			res.Status, hubEndpoint.String(),
+		)
+		log.Error(err)
+		return err
+	}
+	log.Debugf("successfully sent websub subscription to %s for %s with callback %s", hubEndpoint.String(), uri, callback)
 
 	return nil
 }
@@ -326,14 +344,8 @@ func (ws *WebSub) IsSubscribed(topic string) bool {
 	return sub.Confirmed() && !sub.Expired()
 }
 
-func (ws *WebSub) GetHubEndpoint(uri string) (hubEndpoint *url.URL, selfURL *url.URL, err error) {
-	u, err := url.Parse(uri)
-	if err != nil {
-		log.WithError(err).Errorf("error parsing uri %s", uri)
-		return nil, nil, err
-	}
-
-	res, err := http.Get(uri)
+func (ws *WebSub) GetHubEndpoint(target *url.URL) (hubEndpoint *url.URL, selfURL *url.URL, err error) {
+	res, err := http.Get(target.String())
 	if err != nil {
 		log.WithError(err).Error("error getting hub endpoint")
 		return nil, nil, err
@@ -367,7 +379,7 @@ func (ws *WebSub) GetHubEndpoint(uri string) (hubEndpoint *url.URL, selfURL *url
 		DEBU[0007] no rel=hub link found for /user/stats/twtxt.txt
 	*/
 
-	data := microformats.Parse(res.Body, u)
+	data := microformats.Parse(res.Body, target)
 
 	log.Debugf("Rels: %v", data.Rels["hub"])
 	for _, link := range data.Rels["hub"] {
@@ -622,7 +634,6 @@ func (ws *WebSub) processOutbox() {
 			"error creating notification request for topic=%s target=%s",
 			notification.topic, notification.target,
 		)
-		ws.outbox <- notification
 		return
 	}
 
@@ -639,7 +650,6 @@ func (ws *WebSub) processOutbox() {
 			"error sending notification request for topic=%s target=%s",
 			notification.topic, notification.target,
 		)
-		ws.outbox <- notification
 		return
 	}
 	defer res.Body.Close()
@@ -649,7 +659,6 @@ func (ws *WebSub) processOutbox() {
 			"bad response %s from callback for topic=%s target=%s",
 			res.Status, notification.topic, notification.target,
 		)
-		ws.outbox <- notification
 		return
 	}
 
@@ -680,7 +689,6 @@ func (ws *WebSub) processVerify() {
 			"error creating verification request topic=%s callbac=%s",
 			verification.topic, verification.callback,
 		)
-		ws.verify <- verification
 		return
 	}
 
@@ -706,7 +714,6 @@ func (ws *WebSub) processVerify() {
 			"error sending verification request topic=%s callbac=%s",
 			verification.topic, verification.callback,
 		)
-		ws.verify <- verification
 		return
 	}
 	defer res.Body.Close()
@@ -716,7 +723,6 @@ func (ws *WebSub) processVerify() {
 			"bad response %s from verification for topic=%s callbac=%s",
 			res.Status, verification.topic, verification.callback,
 		)
-		ws.verify <- verification
 		return
 	}
 
@@ -728,7 +734,6 @@ func (ws *WebSub) processVerify() {
 			"error reading verification response for topic=%s callback=%s",
 			verification.topic, verification.callback,
 		)
-		ws.verify <- verification
 		return
 	}
 	response := strings.TrimSpace(string(body))
@@ -738,7 +743,6 @@ func (ws *WebSub) processVerify() {
 			verification.topic, verification.callback,
 			response, verification.challenge,
 		)
-		ws.verify <- verification
 		return
 	}
 
@@ -750,67 +754,4 @@ func (ws *WebSub) processVerify() {
 	subscriber.Verified = true
 	subscriber.ExpiresAt = time.Now().Add(time.Duration(verification.leaseSeconds) * time.Second)
 	log.Debugf("successfully verified subscriber for topic=%s callback=%s", verification.topic, verification.callback)
-}
-
-func (ws *WebSub) processSubscribe() {
-	subscribe := <-ws.subscribe
-	subscribe.attempts++
-
-	if subscribe.attempts > defaultWebSubRedeliveryAttempts {
-		log.Errorf(
-			"giving up processing subscribe request for uri=%s callbac=%s after %d attempts",
-			subscribe.uri, subscribe.callback, subscribe.attempts,
-		)
-
-		// Delete Subscription
-
-		return
-	}
-
-	hubEndpoint, selfURL, err := ws.GetHubEndpoint(subscribe.uri)
-	if err != nil {
-		log.WithError(err).Errorf("error discovering hub endpoint for %s", subscribe.uri)
-		ws.subscribe <- subscribe
-		return
-	}
-	log.Debugf("found hub endpoint: %s", hubEndpoint.String())
-	log.Debugf("found self url: %s", selfURL.String())
-
-	topic := selfURL.String()
-
-	values := make(url.Values)
-	values.Set("hub.mode", "subscribe")
-	values.Set("hub.topic", topic)
-	values.Set("hub.callback", subscribe.callback)
-	log.Debugf("Sending websub subscription request to %s", hubEndpoint.String())
-	log.Debugf("values: %q", values)
-	res, err := http.PostForm(hubEndpoint.String(), values)
-	if err != nil {
-		log.WithError(err).Errorf(
-			"error sending websub subscription request to hubEndpoint=%s",
-			hubEndpoint.String(),
-		)
-		ws.subscribe <- subscribe
-		return
-	}
-	defer res.Body.Close()
-
-	if res.StatusCode != http.StatusAccepted {
-		err := fmt.Errorf(
-			"bad response %s from subscription request for to hubEndpoint=%s",
-			res.Status, hubEndpoint.String(),
-		)
-		log.Error(err)
-		ws.subscribe <- subscribe
-		return
-	}
-
-	ws.Lock()
-	ws.subscriptions[topic] = &Subscription{Topic: topic}
-	ws.Unlock()
-
-	log.Debugf(
-		"successfully sent websub subscription to %s for %s with callback %s",
-		hubEndpoint.String(), subscribe.uri, subscribe.callback,
-	)
 }
