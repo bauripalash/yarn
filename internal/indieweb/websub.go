@@ -10,7 +10,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -206,25 +205,19 @@ func (ws *WebSub) cleanup() {
 	defer ws.Unlock()
 
 	for topic, subscription := range ws.subscriptions {
-		if subscription.Expired() {
+		if subscription.Confirmed() && subscription.Expired() {
 			delete(ws.subscriptions, topic)
 		}
 	}
 
 	for topic, subscribers := range ws.subscribers {
-		sort.Sort(subscribers)
-		var idx int
-		for i, subscriber := range subscribers {
-			if !subscriber.Expired() {
-				idx = i
-				break
+		var newSubscribers Subscribers
+		for _, subscriber := range subscribers {
+			if !subscriber.Verified || (subscriber.Verified && !subscriber.Expired()) {
+				newSubscribers = append(newSubscribers, subscriber)
 			}
 		}
-		if idx > len(subscribers) {
-			ws.subscribers[topic] = nil
-		} else {
-			ws.subscribers[topic] = subscribers[idx:]
-		}
+		ws.subscribers[topic] = newSubscribers
 	}
 }
 
