@@ -22,7 +22,6 @@ import (
 const (
 	defaultWebSubRedeliveryAttempts = 6
 	defaultWebSubLeaseTime          = time.Hour * 24 * 10 // 10 days (recommended default from the W3C spec)
-	defaultWebSubQueueSize          = 100
 )
 
 func generateRandomChallengeString() string {
@@ -171,10 +170,10 @@ func NewWebSub(endpoint string) *WebSub {
 		endpoint:      endpoint,
 		subscriptions: make(map[string]*Subscription),
 		subscribers:   make(map[string]Subscribers),
-		inbox:         make(chan *callback, defaultWebSubQueueSize),
-		outbox:        make(chan *notification, defaultWebSubQueueSize),
-		verify:        make(chan *verification, defaultWebSubQueueSize),
-		subscribe:     make(chan *subscribe, defaultWebSubQueueSize),
+		inbox:         make(chan *callback),
+		outbox:        make(chan *notification),
+		verify:        make(chan *verification),
+		subscribe:     make(chan *subscribe),
 
 		Notify:        func(topic string) error { return nil },
 		ValidateTopic: func(topic string) bool { return true },
