@@ -114,6 +114,16 @@ func (s *Subscription) Expired() bool {
 	return time.Now().After(s.expiresAt)
 }
 
+type WebSubStats struct {
+	Topics int
+
+	Subscribers int
+	Verified    int
+
+	Subscriptions int
+	Confirmed     int
+}
+
 type WebSub struct {
 	sync.RWMutex
 
@@ -493,6 +503,30 @@ func (ws *WebSub) NotifyEndpoint(w http.ResponseWriter, r *http.Request) {
 	ws.inbox <- &callback{topic: selfURL.String()}
 
 	http.Error(w, "Notification Enqueued for Processing", http.StatusAccepted)
+}
+
+func (ws *WebSub) Stats() (stats WebSubStats) {
+	ws.RLock()
+	defer ws.RUnlock()
+
+	stats.Topics = len(ws.subscribers)
+
+	for _, subs := range ws.subscribers {
+		stats.Subscribers += len(subs)
+		for _, sub := range subs {
+			if sub.Verified {
+				stats.Verified++
+			}
+		}
+	}
+
+	stats.Subscriptions = len(ws.subscriptions)
+	for _, sub := range ws.subscriptions {
+		if sub.Confirmed() {
+			stats.Confirmed++
+		}
+	}
+	return
 }
 
 func (ws *WebSub) DebugEndpoint(w http.ResponseWriter, r *http.Request) {

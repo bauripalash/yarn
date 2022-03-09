@@ -381,6 +381,47 @@ func (s *Server) setupMetrics() {
 		"Count of old Media (PNG) served",
 	)
 
+	// websub topics
+	metrics.NewGaugeFunc(
+		"websub", "topics",
+		"Number of active topics subscribed",
+		func() float64 {
+			return float64(websub.Stats().Topics)
+		},
+	)
+	// websub subscribers
+	metrics.NewGaugeFunc(
+		"websub", "sibscribers",
+		"Number of subscribers created",
+		func() float64 {
+			return float64(websub.Stats().Subscribers)
+		},
+	)
+	// websub verified subscribers
+	metrics.NewGaugeFunc(
+		"websub", "verified",
+		"Number of verified subscribers",
+		func() float64 {
+			return float64(websub.Stats().Verified)
+		},
+	)
+	// websub subscriptions
+	metrics.NewGaugeFunc(
+		"websub", "subscriptions",
+		"Number of subscriptions created",
+		func() float64 {
+			return float64(websub.Stats().Subscriptions)
+		},
+	)
+	// websub confirmed subscriptions
+	metrics.NewGaugeFunc(
+		"websub", "confirmed",
+		"Number of confirmed subscriptions",
+		func() float64 {
+			return float64(websub.Stats().Confirmed)
+		},
+	)
+
 	s.AddRoute("GET", "/metrics", metrics.Handler())
 }
 
