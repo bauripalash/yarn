@@ -1,6 +1,6 @@
 {{ define "post" }}
 {{ if $.Authenticated }}
-<div id="postbox" class="{{ if eq $.view "permalink" }}single-twt{{ end }}">
+<div id="postbox" class="{{ if eq $.view "permalink" }}single-twt{{ end }}{{ if eq $.view "conv" }}yarn-post{{ end }}">
   <nav id="toolbar" class="toolbar-nav">
     <div class="toolbar-form-button"><a id="bBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonBold" }}" role="button"><i class="ti ti-bold"></i></a></div>
     <div class="toolbar-form-button"><a id="iBtn" href="#" title="{{ tr $.Ctx "ToolbarButtonItalic" }}" role="button"><i class="ti ti-italic"></i></a></div>
@@ -88,6 +88,7 @@
       <div class="p-org">
         <a target="_blank" href="{{ $.Twt.Twter.URI | baseFromURL }}">{{ $.Twt.Twter.URI | hostnameFromURL }}</a>
       </div>
+      {{ if not (eq $.User.VisibilityPreference "compact") }}
       <div class="dt-publish">
         <a class="u-url" href="/twt/{{ $.Twt.Hash }}">
           <time class="dt-published" datetime="{{ $.Twt.Created | date "2006-01-02T15:04:05Z07:00" }}">
@@ -96,7 +97,14 @@
         </a>
         <span>&nbsp;({{ $.Twt.Created | time }})</span>
       </div>
+      {{ end }}
     </div>
+    {{ if (eq $.User.VisibilityPreference "compact") }}
+    <div class="dt-compact">
+      <div><a class="u-url" href="/twt/{{ $.Twt.Hash }}">{{ dateInZone (formatForDateTime $.Twt.Created $.User.DisplayTimeFormat) $.Twt.Created $.User.DisplayDatesInTimezone }}</a></div>
+      <div><small>{{ $.Twt.Created | time }}</small></div>
+    </div>
+    {{ end }}
   </div>
   <div class="e-content">
     {{ if not (eq $.view "conv") }}

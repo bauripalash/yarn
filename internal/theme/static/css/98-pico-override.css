@@ -1,8 +1,11 @@
 body,
 html {
   overflow-x: hidden !important;
-  max-width: 850px !important;
   margin: 0 auto !important;
+}
+
+body {
+  max-width: 850px !important;
 }
 
 :root {
@@ -85,21 +88,4 @@ dialog article>footer p {
   -webkit-animation-delay: 0s !important;
   animation-delay: 0s !important;
   animation-direction: reverse !important;
-}
-
-@media (max-width: 768px) {
-  body>footer {
-    margin-top: -0.5rem !important;
-  }
-}
-
-@media (max-width: 991px) {
-  body>footer {
-    margin-top: -0.5rem !important;
-  }
-
-  dialog article {
-    margin: 0 !important;
-    padding: 1rem !important;
-  }
 }

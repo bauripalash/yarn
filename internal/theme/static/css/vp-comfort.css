@@ -1,0 +1,339 @@
+a:not(.manage-options a):not(#burgerMenu):not(#podMenu a):not(.timeline-nav a):not(#profile-links a):not(.delLink):not(#profile-info a):not(.menu-item):not(#podLogo a):not(.p-name a):not(.p-org a):not(.u-url):not(.twt-context a):not(.img-orig-open):not(.footer-copyright a):not(p a), form a {
+  background: var(--primary) !important;
+  color: var(--primary-inverse) !important;
+  margin-top: -0.5rem !important;
+  margin-bottom: -0.25rem !important;
+  padding: 0.5rem !important;
+}
+
+#burgerMenu {
+  padding: 1rem 1rem !important;
+}
+
+#podLogo {
+  margin: 1.9rem 1rem !important;
+}
+
+.yarn-count-badge:before {
+  content: ': ' !important;
+}
+
+.yarn-count-badge {
+  margin-left: -0.2rem !important;
+  font-size: initial !important;
+  position: initial !important;
+}
+
+#podMenu {
+  gap: 1.5rem !important;
+  text-align: center !important;
+  padding-top: 1rem !important;
+}
+
+#loginBtn i:after,
+#registerBtn i:after,
+#timelineBtn i:after,
+#discoverBtn i:after,
+#mentionsBtn i:after,
+#feedsBtn i:after,
+#settingsBtn i:after,
+#logoutBtn i:after {
+  white-space: pre !important;
+  content: '\A' !important;
+}
+
+#loginBtn,
+#registerBtn,
+#timelineBtn,
+#discoverBtn,
+#mentionsBtn,
+#feedsBtn,
+#settingsBtn,
+#logoutBtn {
+
+  width: 4rem !important;
+}
+
+.toolbar-nav {
+  margin-bottom: -0.5rem !important;
+}
+
+.toolbar-form-button i {
+  margin-top: 0.15rem !important;
+}
+
+#mediaUploadForm {
+  margin-top: -0.5rem !important;
+}
+
+#mediaUploadForm i {
+  margin-top: -0.1rem !important;
+}
+
+#postbox:not(.drawer) {
+  padding-bottom: 0.1rem !important;
+}
+
+#postbox.drawer {
+  padding-top: 1.5rem !important;
+}
+
+#postbox.drawer nav {
+  margin-bottom: -0.35rem !important;
+}
+
+#twt-options {
+  margin-right: -2.25rem !important;
+}
+
+.muteTwtBtn, .bookmarkBtn {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+}
+
+.muteTwtBtn i, .bookmarkBtn i {
+  margin: 0.3rem !important;
+}
+
+nav.timeline-nav:first-of-type {
+  margin-top: -1.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+nav.timeline-nav:last-of-type {
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.menu-item:not(.footer-menu a) {
+  background: var(--primary) !important;
+  color: var(--primary-inverse) !important;
+  margin-top: -0.5rem !important;
+  margin-bottom: -1.25rem !important;
+  padding: 0.5rem !important;
+}
+
+#mediaUploadForm label {
+  background: var(--primary) !important;
+  color: var(--primary-inverse) !important;
+}
+
+.e-content:not(twt-context) p {
+  margin: -0.5rem 0.5rem !important;
+  padding: 1.25rem 0rem !important;
+}
+
+.twt-nav {
+  margin-top: 1.25rem !important;
+  margin-bottom: -0.4rem !important;
+}
+
+.twt-nav a {
+  margin-right: 1.25rem !important;;
+}
+
+.twt-nav i:not(#twt-options i) {
+  margin-left: -0.1rem !important;
+  font-size: 1.25rem !important;
+}
+
+#twt-options i {
+  margin-left: 0.15rem !important;
+  font-size: 1.25rem !important;
+}
+
+#profile-info div,
+#profile-links li {
+  padding: 0.25rem !important;
+}
+
+body > footer {
+  padding: 1rem !important;
+}
+
+@media (max-width: 576px) {
+  #podLogo {
+    margin-top: 1.4rem !important;
+  }
+
+  #podMenu {
+    grid-template-columns: 1fr 1fr !important;
+    justify-items: center !important;
+    margin-left: 0 !important;
+    margin-top: -0.5rem !important;
+  }
+
+  #podMenu a {
+    margin-top: 1rem !important;
+  }
+
+  #postbox {
+    margin-bottom: -0.25rem !important;
+  }
+
+  #postbox:not(.drawer) .toolbar-nav {
+    margin: 0.8rem 0 1rem 0 !important;
+  }
+
+  #postbox.drawer nav {
+    margin: 0 0.1rem 1rem 0.1rem !important;
+  }
+
+  #postbox.drawer {
+    margin: -0.45rem 0 1rem 0 !important;
+  }
+
+  #mediaUploadForm,
+  #mediaUploadForm label,
+  .toolbar-form-button a {
+    height: 2.5rem !important;
+    width: 2.5rem !important;
+  }
+
+  .toolbar-form-button i {
+    margin-top: 0.05rem !important;
+  }
+
+  #mediaUploadForm i {
+    margin-top: -0.2rem !important;
+    margin-left: -0.4rem !important;
+  }
+
+  #twt-options a:last-of-type {
+    margin-right: 2rem !important;
+  }
+
+  .twt-nav {
+    margin-left: -0.1rem !important;
+    margin-right: 1rem !important;
+  }
+
+  .twt-nav a {
+    margin-right: 0.9rem !important;
+  }
+
+  .twt-nav i {
+    display: block !important;
+    margin: -0.2rem -0.5rem 0 0 !important;
+    padding-bottom: 0.3rem !important;
+  }
+
+  .replyBtn,
+  .editBtn,
+  .deleteBtn,
+  .forkBtn,
+  .convBtn {
+    width: 4rem !important;
+    height: 3.5rem !important;
+  }
+
+  .editBtn,
+  .deleteBtn,
+  .replyBtn,
+  .forkBtn,
+  .convBtn {
+    text-align: center !important;
+    font-size: 1rem !important;
+  }
+
+  .muteTwtBtn i,
+  .bookmarkBtn i {
+    margin-top: 0.1rem !important;
+  }
+
+  .replyBtn {
+    margin-left: -0.2rem !important;
+  }
+
+  .yarn-count-badge:before {
+    content: '' !important;
+  }
+
+  .yarn-count-badge {
+    display: none !important;
+  }
+
+  .footer-copyright {
+    width: 10rem !important;
+    text-align: center !important;
+  }
+
+  .footer-menu {
+    margin: 0 !important;
+    flex-flow: row wrap !important;
+    justify-content: space-around !important;
+    display: flex !important;
+    width: 11rem !important;
+  }
+
+  .footer-menu a {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .menu-item {
+    margin-top: 0rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  #podMenu {
+    margin: 2rem 0 2rem -1rem !important;
+    gap: 0 !important;
+  }
+
+  #podMenu i {
+    display: block;
+    margin-top: 0.35rem !important;
+  }
+
+  #loginBtn i:after,
+  #registerBtn i:after,
+  #timelineBtn i:after,
+  #discoverBtn i:after,
+  #mentionsBtn i:after,
+  #feedsBtn i:after,
+  #settingsBtn i:after,
+  #logoutBtn i:after {
+    white-space: pre !important;
+    content: '' !important;
+  }
+
+  #postbox:not(.drawer) {
+    margin-top: 1.35rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+
+  #postbox.drawer {
+    padding-top: 1.5rem !important;
+  }
+
+  #postbox.drawer nav {
+    margin-bottom: -0.25rem !important;
+  }
+
+  .footer-copyright {
+    width: 10rem !important;
+    text-align: center !important;
+  }
+
+  .footer-menu {
+    justify-content: right !important;
+    display: flex !important;
+    width: 28rem !important;
+  }
+}
+
+@media (min-width: 992px) {
+  nav.timeline-nav:first-of-type {
+    margin-top: 0 !important;
+  }
+}
+
+@media (min-width: 577px) {
+  main.container:first-of-type {
+    padding-top: 0.25rem !important;
+  }
+}

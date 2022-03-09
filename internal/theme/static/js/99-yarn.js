@@ -880,3 +880,80 @@ window.onload = function() {
     }
   }
 }
+
+// TippyJS content here
+function eiOS(listener) {
+  var clicks = 0;
+  return function () {
+    clicks++;
+    if (clicks === 2 || iOS || !tippy.currentInput.isTouch) {
+      clicks = 0;
+      listener.apply(this, arguments);
+    }
+  };
+}
+
+tippy.setDefaultProps({
+  delay: 50,
+  trigger: 'click',
+  appendTo: document.body,
+  allowHTML: true,
+});
+
+tippy('a#e-media', {
+  content(media) {
+    var mData = media.getAttribute('href');
+    var mTitle = media.getAttribute('data-title');
+    if (mData.endsWith('.mp4') || mData.endsWith('.mp4?full=1')) {
+      return '<video controls playsinline><source type="video/mp4" src="'
+      + mData + '">Your browser does not support the video element.</video>' + mTitle;
+    }
+    if (mData.endsWith('.mp3') || mData.endsWith('.mp3?full=1')) {
+      return '<audio controls><source type="audio/mp3" src="'
+      + mData + '">Your browser does not support the audio element.</audio>' + mTitle;
+    }
+    return '<img class="tippy-img" src="' + mData + '">' + mTitle;
+  },
+  interactive: true,
+});
+
+tippy('a#v-info', {
+  content(info) {
+    return info.getAttribute('data-commit');
+  },
+  trigger: 'mouseenter focus',
+  touch: ['hold', 500],
+  interactive: true,
+});
+
+tippy('span.help', {
+  content(help) {
+    const title = help.getAttribute('title');
+    help.removeAttribute('title');
+    return title;
+  },
+  interactive: true,
+});
+
+tippy('span.vp-d-help', {
+  content(help) {
+    return '<svg version="1.2" viewBox="0 0 195 125" width="195px" height="125px"><style>tspan{white-space:pre}.t7,.t8{font-size:10px;fill:var(--muted-color);font-family:var(--font-family)}.t8{font-size:11px;fill:var(--primary)}</style><path fill="var(--card-background-color)" d="M.3 0h225v125H.3z"/><path fill="var(--muted-color)" d="M8.3 14.8C8.3 11 11.4 8 15.1 8h18.4c3.8 0 6.8 3 6.8 6.8v18.4c0 3.8-3 6.8-6.8 6.8H15.1c-3.7 0-6.8-3-6.8-6.8z"/><path fill="var(--primary)" d="M43.7 12h90v6h-90zm0 9h90v6h-90z"/><path fill="var(--muted-color)" d="M43.7 30h90v6h-90zM5.3 95c114.1.7 215 0 215 0"/><text transform="translate(8.89 113.02)"><tspan x="0" y="0" class="t8">Reply</tspan></text><text transform="translate(60.77 113.02)"><tspan x="0" y="0" class="t8">Edit</tspan></text><text transform="translate(101.62 113.02)"><tspan x="0" y="0" class="t8">Yarn</tspan></text><text transform="translate(5.34 58.16)"><tspan x="0" y="0" class="t7">Lorem ipsum dolor sit amet, consectetur</tspan></text><text transform="translate(5.34 70.59)"><tspan x="0" y="0" class="t7">adipiscing elit, sed do eiusmod tempor</tspan></text><text transform="translate(5.34 83.02)"><tspan x="0" y="0" class="t7">incididunt ut labore et dolore magna.</tspan></text></svg>';
+  }
+});
+
+tippy('span.vp-p-help', {
+  content(help) {
+    return '<svg version="1.2" viewBox="0 0 195 105" width="195px" height="105px"><style>tspan{white-space:pre}.t7,.t8{fill:var(--muted-color);font-size:10px;font-family:var(--font-family)}.t8{font-size:11px;fill:var(--primary)}</style><path fill="var(--card-background-color)" d="M.2.2h225v107H.2z"/><path fill="var(--muted-color)" d="M7.2 10.6c0-1.9 1.6-3.5 3.5-3.5h17c1.9 0 3.5 1.6 3.5 3.5v17c0 2-1.6 3.5-3.5 3.5h-17c-1.9 0-3.5-1.5-3.5-3.5z"/><path fill="var(--primary)" d="M35.5 11.6h90v6h-90zm0 9h90v6h-90z"/><path fill="var(--muted-color)" d="M5.2 83.1c114.1.6 215 0 215 0"/><text transform="translate(8.72 97.5)"><tspan x="0" y="0" class="t8">R</tspan></text><text transform="translate(40.66 97.5)"><tspan x="0" y="0" class="t8">E</tspan></text><text transform="translate(73.45 97.5)"><tspan x="0" y="0" class="t8">Y</tspan></text><text transform="translate(5.17 46.81)"><tspan x="0" y="0" class="t7">Lorem ipsum dolor sit amet, consectetur</tspan></text><text transform="translate(5.17 59.24)"><tspan x="0" y="0" class="t7">adipiscing elit, sed do eiusmod tempor</tspan></text><text transform="translate(5.17 71.67)"><tspan x="0" y="0" class="t7">incididunt ut labore et dolore magna.</tspan></text><path fill="var(--muted-color)" d="M155.8 11.6h29.7v6h-29.7zm0 9h29.7v6h-29.7z"/></svg>';
+  }
+});
+
+tippy('span.vp-f-help', {
+  content(help) {
+    return '<svg version="1.2" viewBox="0 0 195 145" width="195px" height="145px"><style>tspan{white-space:pre}.s3{fill:var(--primary)}.t6,.t7{font-size:11px;fill:var(--primary-inverse);font-family:var(--font-family)}.t7{font-size:10px;fill:var(--muted-color)}</style><path fill="var(--card-background-color)" d="M.2.1h225v145H.2z"/><path fill="var(--muted-color)" d="M8.2 16.6c0-3.8 3-6.8 6.7-6.8h18.5c3.7 0 6.8 3 6.8 6.8V35c0 3.7-3.1 6.8-6.8 6.8H14.9c-3.7 0-6.7-3.1-6.7-6.8z"/><path fill="var(--primary)" d="M43.5 13.8h90v6h-90zm0 9h90v6h-90z"/><path d="M8.7 114.1h45v24h-45z" class="s3"/><path fill="var(--muted-color)" d="M43.5 31.8h90v6h-90zm-38.3 75c114.1.6 215 0 215 0"/><text transform="translate(14.08 130.35)"><tspan x="0" y="0" class="t6">Reply</tspan></text><path d="M62 113.9h45v24H62z" class="s3"/><text transform="translate(67.3 130.35)"><tspan x="0" y="0" class="t6">Edit</tspan></text><path d="M115 113.9h45v24h-45z" class="s3"/><text transform="translate(120.18 130.35)"><tspan x="0" y="0" class="t6">Yarn</tspan></text><text transform="translate(7.72 64.62)"><tspan x="0" y="0" class="t7">Lorem ipsum dolor sit amet, consectetur</tspan></text><text transform="translate(7.72 77.05)"><tspan x="0" y="0" class="t7">adipiscing elit, sed do eiusmod tempor</tspan></text><text transform="translate(7.72 89.48)"><tspan x="0" y="0" class="t7">incididunt ut labore et dolore magna.</tspan></text></svg>';
+  }
+});
+
+for (var e in ['a#e-media', 'a#v-info', 'span.help',
+              'span.vp-d-help', 'span.vp-p-help', 'span.vp-f-help']) {
+  if (!e) { document.querySelector(e).addEventListener('click', eiOS); }
+}

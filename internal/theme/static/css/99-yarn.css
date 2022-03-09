@@ -1,3 +1,23 @@
+.tippy-img {
+  border-radius: var(--border-radius);
+}
+
+.tippy-box {
+  background-color: var(--form-element-border-color);
+  color: var(--primary-inverse);
+  border: 0.1rem solid var(--primary);
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+.tippy-arrow {
+  margin: -0.05rem !important;
+}
+
+.tippy-arrow::before {
+  border-top-color: var(--primary) !important;
+  border-bottom-color: var(--primary) !important;
+}
+
 #podLogo {
   margin: 1rem 0;
 }
@@ -244,7 +264,7 @@ article.grid {
 
 .twt-nav {
   font-weight: var(--font-weight);
-  margin: 1.2rem 0.75rem -0.1rem 0.75rem;
+  margin: 1.5rem 0.75rem 0 0.75rem;
   justify-content: left;
 }
 
@@ -275,11 +295,18 @@ nav.timeline-nav a {
 }
 
 .toolbar-nav {
-  margin-top: 0.5rem;
+  margin: 0.5rem 0 -0.75rem 0;
   display: flex;
   height: 3.25rem;
   width: 50%;
   gap: 1rem;
+}
+
+.toolbar-nav a,
+#mediaUploadForm label {
+  color: var(--primary);
+  background: none;
+  border: none;
 }
 
 #mediaUploadForm label,
@@ -454,17 +481,21 @@ nav.timeline-nav a {
 }
 
 .caption {
+  font-weight: normal;
   margin: 0 0 0 0.1rem;
   box-sizing: border-box;
   width: 12rem;
   padding: 10px;
   position: absolute;
-  bottom: -1rem;
+  bottom: 0.25rem;
   background-color: rgba(0, 0, 0, 0.75);
   transition: opacity 0.25s;
   visibility: hidden;
   opacity: 0;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .caption-wrap:hover .caption {
@@ -849,6 +880,7 @@ body>footer {
   flex-direction: row-reverse;
   justify-content: space-between;
   align-content: center;
+  padding: 1rem 0;
 }
 
 footer {
@@ -858,11 +890,6 @@ footer {
 
 footer .footer-menu a {
   margin-left: 0.5rem;
-}
-
-footer.container {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
 }
 
 pre {
@@ -884,10 +911,6 @@ pre {
   margin: 1rem 0;
 }
 
-.bump-up {
-  padding-top: 1rem;
-}
-
 .highlight {
   border: 0.1rem solid var(--primary);
   box-shadow: 0 0 0.25rem var(--primary);
@@ -906,7 +929,7 @@ pre {
 }
 
 #postbox.drawer .toolbar-nav  {
-  margin: 0 0.55rem;
+  margin: -0.5rem 0.5rem;
 }
 
 /* Version Information Panel */
@@ -963,11 +986,19 @@ span[title="Copyright"]:before {
   }
 
   main.container {
-    margin: -4.75rem 0 -2rem 0;
+    margin: -5rem 0 -3.5rem 0;
   }
 
   alert {
     height: 6rem;
+  }
+
+  .bump-up {
+    margin-top: -0.5rem;
+  }
+
+  .yarn-post {
+    margin: -1.75rem 0 -1.75rem 0 !important;
   }
 
   article.container-fluid {
@@ -992,7 +1023,7 @@ span[title="Copyright"]:before {
 
   #mainNav {
     flex-wrap: wrap;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.6rem;
   }
 
   #podLogo {
@@ -1019,7 +1050,7 @@ span[title="Copyright"]:before {
   #postbox {
     display: flex;
     flex-flow: row wrap;
-    margin: 1.5rem 0 -1.25rem 0;
+    margin: 1.5rem 0 -3rem 0;
   }
 
   #postbox.single-twt {
@@ -1035,7 +1066,7 @@ span[title="Copyright"]:before {
   }
 
   #postbox.drawer {
-    margin: -0.4rem 0.25rem 0.5rem 0.25rem !important;
+    margin: -0.4rem 0.25rem 1.5rem 0.25rem !important;
   }
 
   #postbox.drawer .toolbar-nav  {
@@ -1046,7 +1077,7 @@ span[title="Copyright"]:before {
     flex: 1;
     display: flex;
     height: 2rem;
-    margin: 0 0 0.85rem -0.15rem !important;
+    margin: 0 0 0.55rem -0.15rem !important;
     gap: 0;
   }
 
@@ -1129,6 +1160,7 @@ span[title="Copyright"]:before {
 
   .twt-nav {
     margin-left: 0.25rem;
+    padding-bottom: 0.4rem;
   }
 
   .profile-name {
@@ -1152,13 +1184,32 @@ span[title="Copyright"]:before {
     font-size: 1.3rem;
   }
 
+  .profile-button a i:after,
+  .editBtn i:after,
+  .deleteBtn i:after,
+  .replyBtn i:after,
+  .forkBtn i:after,
+  .convBtn i:after {
+    white-space: pre;
+    content: ' \A';
+  }
+
+  .replyBtn i {
+    margin-left: 24.5% !important;
+  }
+
+  .deleteBtn i {
+    margin-left: 23.5% !important;
+  }
+
   .profile-button a,
   .editBtn,
   .deleteBtn,
   .replyBtn,
   .forkBtn,
   .convBtn {
-    font-size: 0;
+    text-align: center;
+    font-size: 0.8rem;
   }
 
   .twt-nav .ti-edit,
@@ -1175,6 +1226,7 @@ span[title="Copyright"]:before {
   }
 
   #twt-options {
+    margin-top: 0.625rem;
     margin-right: -2.75rem;
   }
 
@@ -1202,7 +1254,8 @@ span[title="Copyright"]:before {
 
   .yarn-count-badge {
     font-size: 10px;
-    margin-left: -1rem;
+    margin-top: -1.5rem;
+    margin-left: -0.7rem;
   }
 
   .mobile-menu {
@@ -1220,7 +1273,7 @@ span[title="Copyright"]:before {
   }
 
   nav.timeline-nav {
-    margin: -1rem 1rem -0.5rem 1rem;
+    margin: 0.5rem 1rem -0.5rem 1rem;
   }
 
   nav.yarn-nav:nth-of-type(2) {
@@ -1287,7 +1340,11 @@ span[title="Copyright"]:before {
   }
 
   main.container {
-    margin-top: -2rem;
+    margin-top: -3.25rem;
+  }
+
+  .bump-up {
+    margin-top: -1rem;
   }
 
   alert {
@@ -1299,7 +1356,7 @@ span[title="Copyright"]:before {
   }
 
   #mainNav {
-    margin-bottom: 2.5rem;
+    margin-bottom: 3.1rem;
   }
 
   #podMenu {
@@ -1318,7 +1375,7 @@ span[title="Copyright"]:before {
   }
 
   .toolbar-nav {
-    margin: -1.35rem 0 0 0;
+    margin: -1.35rem 0 -0.75rem 0;
   }
 
   #mediaUploadForm {
@@ -1349,7 +1406,11 @@ span[title="Copyright"]:before {
     margin: -0.5rem 1rem -0.5rem 1rem;
   }
 
-  nav.timeline-nav {
+  nav.timeline-nav:first-of-type {
+    margin: 0.5rem 1rem -0.5rem 1rem;
+  }
+
+  nav.timeline-nav:last-of-type {
     margin: -1rem 1rem -0.5rem 1rem;
   }
 

@@ -6,13 +6,21 @@
       <link href="/css/01-pico.css" rel="stylesheet" />
       <link href="/css/02-tabler-icons.css" rel="stylesheet" />
       <link href="/css/03-colours.css" rel="stylesheet" />
-      <link href="/css/97-custom-icons.css" rel="stylesheet" />
+      <link href="/css/04-tippy.css" rel="stylesheet" />
       <link href="/css/98-pico-override.css" rel="stylesheet" />
       <link href="/css/99-yarn.css" rel="stylesheet" />
       <link rel="icon" type="image/png" href="/img/favicon.png" />
     {{ else }}
       <link href="/css/{{ .Commit }}/yarn.min.css" rel="stylesheet" />
       <link rel="icon" type="image/png" href="/img/{{ .Commit }}/favicon.png" />
+    {{ end }}
+
+    {{ if or (eq $.User.VisibilityPreference "compact") (eq $.User.VisibilityPreference "comfort") }}
+    {{ if $.Debug }}
+      <link href="/css/vp-{{ $.User.VisibilityPreference }}.css" rel="stylesheet" />
+    {{ else }}
+      <link href="/css/{{ .Commit }}/vp-{{ $.User.VisibilityPreference }}.css" rel="stylesheet" />
+    {{ end }}
     {{ end }}
 
     <!-- IndieAuth support-->
@@ -140,7 +148,7 @@
     </div>
     <div class="footer-copyright">
       {{ tr . "FooterRunning" | html }}
-      <a href="/info" data-tooltip="{{ .SoftwareVersion.Commit }}">{{ .SoftwareVersion.Version }}</a> &mdash;&nbsp;
+      <a id="v-info" href="/info" data-commit="{{ .SoftwareVersion.Commit }}">{{ .SoftwareVersion.Version }}</a> &mdash;&nbsp;
       {{ tr . "FooterPod" | html }}
     </div>
   </footer>
@@ -148,6 +156,8 @@
     <script type="application/javascript" src="/js/01-umbrella.js"></script>
     <script type="application/javascript" src="/js/02-polyfill.js"></script>
     <script type="application/javascript" src="/js/03-twix.js"></script>
+    <script type="application/javascript" src="/js/04-popper.js"></script>
+    <script type="application/javascript" src="/js/05-tippy.js"></script>
     <script type="application/javascript" src="/js/98-modal.js"></script>
     <script type="application/javascript" src="/js/99-yarn.js"></script>
     <script type="application/javascript" src="/js/ie11CustomProperties.min.js"></script>

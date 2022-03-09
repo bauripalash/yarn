@@ -141,14 +141,18 @@
     <div class="grid">
       <div>
         <fieldset>
-          <legend>{{ tr . "SettingsFormDisplayImagesPreferenceTitle" }}</legend>
-          <label for="inline">
-            <input id="inline" type="radio" name="displayImagesPreference" value="inline" {{ if eq $.User.DisplayImagesPreference "inline" }}checked{{ end }}>
-            {{ tr . "SettingsFormDisplayImagesPreferenceInline" }}
+          <legend>Visibility Preference</legend>
+          <label for="visDefault">
+            <input type="radio" name="visibilityPreference" value="default" {{ if eq $.User.VisibilityPreference "default" }}checked{{ end }}>
+            Default <span class="vp-d-help"><i class="ti ti-help"></i></span>
           </label>
-          <label for="lightbox">
-            <input id="lightbox" type="radio" name="displayImagesPreference" value="lightbox" {{ if eq $.User.DisplayImagesPreference "lightbox" }}checked{{ end }}>
-            {{ tr . "SettingsFormDisplayImagesPreferenceLightbox" }}
+          <label for="visCompact">
+            <input type="radio" name="visibilityPreference" value="compact" {{ if eq $.User.VisibilityPreference "compact" }}checked{{ end }}>
+            Compact <span class="vp-p-help"><i class="ti ti-help"></i></span>
+          </label>
+          <label for="visComfort">
+            <input type="radio" name="visibilityPreference" value="comfort" {{ if eq $.User.VisibilityPreference "comfort" }}checked{{ end }}>
+            Comfortable <span class="vp-f-help"><i class="ti ti-help"></i></span>
           </label>
         </fieldset>
       </div>
@@ -184,6 +188,21 @@
           </label>
         </fieldset>
       </div>
+      <div>
+        <fieldset>
+          <legend>{{ tr . "SettingsFormDisplayImagesPreferenceTitle" }}</legend>
+          <label for="inline">
+            <input id="inline" type="radio" name="displayImagesPreference" value="inline" {{ if eq $.User.DisplayImagesPreference "inline" }}checked{{ end }}>
+            {{ tr . "SettingsFormDisplayImagesPreferenceInline" }}
+          </label>
+          <label for="lightbox">
+            <input id="lightbox" type="radio" name="displayImagesPreference" value="lightbox" {{ if eq $.User.DisplayImagesPreference "lightbox" }}checked{{ end }}>
+            {{ tr . "SettingsFormDisplayImagesPreferenceLightbox" }}
+          </label>
+        </fieldset>
+      </div>
+    </div>
+    <div class="grid">
       <div>
         <fieldset id="theme">
           <legend>{{ tr . "SettingsFormThemeTitle" }}</legend>

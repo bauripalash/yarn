@@ -88,6 +88,7 @@ type Context struct {
 	DisplayImagesPreference string
 	DisplayMedia            bool
 	OriginalMedia           bool
+	VisibilityPreference    string
 
 	Error       bool
 	Message     string
@@ -208,6 +209,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 		DisplayImagesPreference: conf.DisplayImagesPreference,
 		DisplayMedia:            conf.DisplayMedia,
 		OriginalMedia:           conf.OriginalMedia,
+    VisibilityPreference:    conf.VisibilityPreference,
 
 		Commit:      yarn.Commit,
 		Theme:       conf.Theme,
@@ -240,6 +242,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 			DisplayImagesPreference: conf.DisplayImagesPreference,
 			DisplayMedia:            conf.DisplayMedia,
 			OriginalMedia:           conf.OriginalMedia,
+			VisibilityPreference:    conf.VisibilityPreference,
 		},
 		Twter: types.Twter{},
 		Root:  types.NilTwt,

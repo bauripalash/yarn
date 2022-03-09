@@ -65,6 +65,7 @@ type User struct {
 	DisplayImagesPreference   string `default:"inline"`
 	DisplayMedia              bool   `default:"true"`
 	OriginalMedia             bool   `default:"false"`
+	VisibilityPreference      string `default:"default"`
 
 	IsFollowersPubliclyVisible bool `default:"true"`
 	IsFollowingPubliclyVisible bool `default:"true"`
