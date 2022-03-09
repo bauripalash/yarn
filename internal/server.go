@@ -391,7 +391,7 @@ func (s *Server) setupMetrics() {
 	)
 	// websub subscribers
 	metrics.NewGaugeFunc(
-		"websub", "sibscribers",
+		"websub", "subscribers",
 		"Number of subscribers created",
 		func() float64 {
 			return float64(websub.Stats().Subscribers)
