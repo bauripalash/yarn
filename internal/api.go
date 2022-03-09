@@ -104,6 +104,9 @@ func (a *API) initRoutes() {
 
 	router.POST("/mentions", a.isAuthorized(a.MentionsEndpoint()))
 
+	// WebSub (debugging)
+	router.GET("/websub", a.isAuthorized(a.WebSubEndpoint()))
+
 	// Support / Report endpoints
 	router.POST("/support", a.isAuthorized(a.SupportEndpoint()))
 	router.POST("/report", a.isAuthorized(a.ReportEndpoint()))
@@ -1393,5 +1396,21 @@ func (a *API) PodConfigEndpoint() httprouter.Handle {
 
 		w.Header().Set("Content-Type", "application/json")
 		_, _ = w.Write(data)
+	}
+}
+
+// WebSubEndpoint ...
+func (a *API) WebSubEndpoint() httprouter.Handle {
+	isAdminUser := IsAdminUserFactory(a.config)
+
+	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
+		user := r.Context().Value(UserContextKey).(*User)
+
+		if !isAdminUser(user) {
+			http.Error(w, "Forbidden", http.StatusForbidden)
+			return
+		}
+
+		websub.DebugEndpoint(w, r)
 	}
 }
