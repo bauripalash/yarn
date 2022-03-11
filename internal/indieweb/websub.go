@@ -253,6 +253,9 @@ func (ws *WebSub) Load() error {
 }
 
 func (ws *WebSub) Save() error {
+	ws.RLock()
+	defer ws.RUnlock()
+
 	state := struct {
 		Subscribers   map[string]Subscribers
 		Subscriptions map[string]*Subscription
