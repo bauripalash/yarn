@@ -22,7 +22,7 @@ import (
 
 const (
 	defaultWebSubRedeliveryAttempts = 6
-	defaultWebSubLeaseTime          = time.Hour * 24 * 10 // 10 days (recommended default from the W3C spec)
+	defaultWebSubLeaseTime          = time.Hour
 	defaultWebSubQueueSize          = 100
 )
 
