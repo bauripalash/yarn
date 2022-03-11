@@ -10,6 +10,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -24,6 +25,15 @@ const (
 	defaultWebSubLeaseTime          = time.Hour * 24 * 10 // 10 days (recommended default from the W3C spec)
 	defaultWebSubQueueSize          = 100
 )
+
+func fileExists(fn string) bool {
+	if _, err := os.Stat(fn); err != nil {
+		if os.IsNotExist(err) {
+			return false
+		}
+	}
+	return true
+}
 
 func generateRandomChallengeString() string {
 	b := make([]byte, 16)
@@ -126,6 +136,7 @@ type WebSubStats struct {
 type WebSub struct {
 	sync.RWMutex
 
+	fn       string
 	endpoint string
 
 	// WebSub Subscribers to this Hub
@@ -146,6 +157,9 @@ type WebSub struct {
 	verify       chan *verification
 	verifyTicker *time.Ticker
 
+	cleanupTicker *time.Ticker
+	stateTicker   *time.Ticker
+
 	// Notify is the callback called when processing inbound notifications requests
 	// from a hub we're subscribed to as a client for a given topic
 	Notify func(topic string) error
@@ -156,8 +170,9 @@ type WebSub struct {
 	ValidateTopic func(topic string) bool
 }
 
-func NewWebSub(endpoint string) *WebSub {
+func NewWebSub(fn, endpoint string) *WebSub {
 	ws := &WebSub{
+		fn:            fn,
 		endpoint:      endpoint,
 		subscriptions: make(map[string]*Subscription),
 		subscribers:   make(map[string]Subscribers),
@@ -190,14 +205,72 @@ func NewWebSub(endpoint string) *WebSub {
 		}
 	}()
 
+	ws.cleanupTicker = time.NewTicker(5 * time.Minute)
 	go func() {
-		c := time.Tick(5 * time.Minute)
-		for range c {
+		for range ws.cleanupTicker.C {
 			ws.cleanup()
 		}
 	}()
 
+	ws.stateTicker = time.NewTicker(5 * time.Minute)
+	go func() {
+		for range ws.stateTicker.C {
+			ws.Save()
+		}
+	}()
+
 	return ws
+}
+
+func (ws *WebSub) Load() error {
+	if !fileExists(ws.fn) {
+		return nil
+	}
+
+	ws.Lock()
+	defer ws.Unlock()
+
+	state := struct {
+		Subscribers   map[string]Subscribers
+		Subscriptions map[string]*Subscription
+	}{}
+
+	data, err := os.ReadFile(ws.fn)
+	if err != nil {
+		os.Remove(ws.fn)
+		return fmt.Errorf("error loading state: %w", err)
+	}
+
+	if err := json.Unmarshal(data, &state); err != nil {
+		os.Remove(ws.fn)
+		return fmt.Errorf("error deserializing state: %w", err)
+	}
+
+	ws.subscribers = state.Subscribers
+	ws.subscriptions = state.Subscriptions
+
+	return nil
+}
+
+func (ws *WebSub) Save() error {
+	state := struct {
+		Subscribers   map[string]Subscribers
+		Subscriptions map[string]*Subscription
+	}{
+		Subscribers:   ws.subscribers,
+		Subscriptions: ws.subscriptions,
+	}
+
+	data, err := json.Marshal(state)
+	if err != nil {
+		return fmt.Errorf("error serializing state: %s", err)
+	}
+
+	if err := os.WriteFile(ws.fn, data, 0644); err != nil {
+		return fmt.Errorf("error saving state: %w", err)
+	}
+
+	return nil
 }
 
 func (ws *WebSub) cleanup() {
@@ -526,10 +599,14 @@ func (ws *WebSub) DebugEndpoint(w http.ResponseWriter, r *http.Request) {
 	ws.RLock()
 	defer ws.RUnlock()
 
-	doc := map[string]interface{}{
-		"endpoint":      ws.endpoint,
-		"subscribers":   ws.subscribers,
-		"subscriptions": ws.subscriptions,
+	doc := struct {
+		Endpoint      string
+		Subscribers   map[string]Subscribers
+		Subscriptions map[string]*Subscription
+	}{
+		Endpoint:      ws.endpoint,
+		Subscribers:   ws.subscribers,
+		Subscriptions: ws.subscriptions,
 	}
 
 	data, err := json.Marshal(doc)

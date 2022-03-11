@@ -151,6 +151,7 @@ func (s *Server) AddShutdownHook(f func()) {
 
 // Shutdown ...
 func (s *Server) Shutdown(ctx context.Context) error {
+	websub.Save()
 	s.cron.Stop()
 	s.tasks.Stop()
 
@@ -615,8 +616,15 @@ func (s *Server) processNotification(topic string) error {
 	return nil
 }
 
-func (s *Server) setupWebSub() {
-	websub = indieweb.NewWebSub(fmt.Sprintf("%s/websub", s.config.BaseURL))
+func (s *Server) setupWebSub() error {
+	fn := filepath.Join(s.config.Data, "websub.json")
+	endpoint := fmt.Sprintf("%s/websub", s.config.BaseURL)
+
+	websub = indieweb.NewWebSub(fn, endpoint)
+	if err := websub.Load(); err != nil {
+		log.WithError(err).Warnf("error loading websub state")
+	}
+
 	websub.Notify = s.processNotification
 	websub.ValidateTopic = func(topic string) bool {
 		u, err := url.Parse(topic)
@@ -646,6 +654,8 @@ func (s *Server) setupWebSub() {
 
 		return false
 	}
+
+	return nil
 }
 
 func (s *Server) setupJobs() error {
@@ -1077,6 +1087,12 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 	server.AppendTwt = AppendTwtFactory(config, cache, db)
 	server.FilterTwts = FilterTwtsFactory(config)
 
+	if err := server.setupWebSub(); err != nil {
+		log.WithError(err).Error("error setting up websub")
+		return nil, err
+	}
+	log.Infof("started websub processor")
+
 	if err := server.setupJobs(); err != nil {
 		log.WithError(err).Error("error setting up background jobs")
 		return nil, err
@@ -1089,9 +1105,6 @@ func NewServer(bind string, options ...Option) (*Server, error) {
 
 	server.setupWebMentions()
 	log.Infof("started webmentions processor")
-
-	server.setupWebSub()
-	log.Infof("started websub processor")
 
 	server.setupMetrics()
 	log.Infof("serving metrics endpoint at %s/metrics", server.config.BaseURL)

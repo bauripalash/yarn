@@ -30,6 +30,7 @@
 /data/msgs
 /data/cache
 /data/logo.*
+/data/*.json
 /data/blogscache
 /data/msgscache
 /data/feedsources
