@@ -73,6 +73,15 @@
     padding-bottom: 1rem !important;
   }
 
+  #newPost {
+    padding: 1rem 0.5rem 0 0.5rem !important;
+    margin: 0.5rem 0 1.25rem 0 !important;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem !important;
+  }
+
   .timeline-nav:nth-of-type(1) {
     margin-top: -1.25rem !important;
   }
@@ -90,7 +99,7 @@
   }
 
   #postbox:not(.drawer) {
-    margin: 0.5rem 0.5rem -1rem 0.5rem !important;
+    margin: 1.5rem 0.5rem -1rem 0.5rem !important;
   }
 
   #postbox.drawer {
@@ -165,6 +174,15 @@
     padding-bottom: 2rem !important;
   }
 
+  #newPost {
+    padding: 1rem 0.5rem 0 0.5rem !important;
+    margin: -1rem 0 1.25rem 0 !important;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem !important;
+  }
+
   #twt-conv {
     margin-top: -0.5rem !important;
     margin-bottom: 1.5rem !important;
@@ -184,7 +202,7 @@
   }
 
   #postbox:not(.drawer) {
-    margin: 1rem 0 1.5rem 0 !important;
+    margin: 3rem 0 1.5rem 0 !important;
   }
 
   .bump-up {

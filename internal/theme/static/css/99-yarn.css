@@ -1,3 +1,22 @@
+#newPost {
+  width: 100%;
+  border: 0;
+  border-radius: var(--border-radius);
+  background: var(--card-background-color);
+  box-shadow: var(--card-box-shadow);
+}
+
+#newPost summary {
+  margin-left: 0.5rem;
+  color: var(--color);
+  font-weight: 600;
+}
+
+#newPost summary i {
+  font-size: 1.25rem;
+  vertical-align: bottom;
+}
+
 .tippy-img {
   border-radius: var(--border-radius);
 }
@@ -992,6 +1011,11 @@ span[title="Copyright"]:before {
     margin: -5rem 0 -3.5rem 0;
   }
 
+  #newPost {
+    padding: 1.25rem 0.5rem;
+    margin: 1.5rem 0 -0.5rem 0;
+  }
+
   alert {
     height: 6rem;
   }
@@ -1353,6 +1377,11 @@ span[title="Copyright"]:before {
     margin-bottom: 3.1rem;
   }
 
+  #newPost {
+    padding: 1rem 0.5rem;
+    margin: 1rem 0 -0.5rem 0;
+  }
+
   #podMenu {
     flex: 1;
     justify-content: right;
@@ -1522,6 +1551,15 @@ span[title="Copyright"]:before {
     margin-left: 0.25rem;
   }
 
+  #newPost {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    margin: 0.5rem 0 0.75rem 0;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem;
+  }
+
   #podMenu {
     margin: 1.75rem 1.5rem 0 0;
   }
@@ -1594,6 +1632,15 @@ span[title="Copyright"]:before {
 
   alert {
     height: 4rem;
+  }
+
+  #newPost {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    margin: 0.5rem 0 0.75rem 0;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem;
   }
 
   #podMenu {
@@ -1677,6 +1724,15 @@ span[title="Copyright"]:before {
 
   #mainNav {
     margin: 0;
+  }
+
+  #newPost {
+    padding: 1rem 0.5rem 1rem 0.5rem;
+    margin: 0.5rem 0 0.75rem 0;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem;
   }
 
   #podMenu {

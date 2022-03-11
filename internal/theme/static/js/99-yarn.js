@@ -158,6 +158,10 @@ function deleteTwt(e) {
 function movePostBox(e) {
   e.preventDefault();
 
+  if (window.location.href.indexOf('/conv/') == -1) {
+    u("#newPost").first().style.display = "none";
+  }
+
   u("article").each(function(n, i){
     u(n).removeClass("highlight");
   });
@@ -205,7 +209,8 @@ function resetPostBox() {
   if (window.location.href.indexOf('/conv/') > 0) {
     u("main").append(postbox);
   } else {
-    u("main").prepend(postbox);
+    u("#newPost").first().style.display = "initial";
+    u("#newPost").prepend(postbox);
   }
 
   u("#toolbar").removeClass("toolbar-reply");

@@ -166,6 +166,19 @@ body > footer {
     margin-top: 1rem !important;
   }
 
+  #newPost {
+    padding: 1rem 0.5rem 1rem 0.5rem !important;
+    margin: 0.75rem 0 0.25rem 0 !important;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem !important;
+  }
+
+  #postbox:not(.drawer) {
+    margin: 2rem 0 -2rem 0 !important;
+  }
+
   #postbox {
     margin-bottom: -0.25rem !important;
   }
@@ -251,6 +264,11 @@ body > footer {
     display: none !important;
   }
 
+  nav.timeline-nav:first-of-type {
+    margin-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+
   nav.timeline-nav:last-of-type {
     margin-top: -0.25rem !important;
     padding-bottom: 2.5rem !important;
@@ -289,6 +307,15 @@ body > footer {
 @media (min-width: 577px) and (max-width: 768px) {
   #mainNav {
     padding-bottom: 2.5rem !important;
+  }
+
+  #newPost {
+    padding: 1rem 0.5rem 1rem 0.5rem !important;
+    margin: -1.25rem 0 0 0 !important;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem !important;
   }
 
   #podMenu {
@@ -340,8 +367,8 @@ body > footer {
   }
 
   #postbox:not(.drawer) {
-    margin-top: 1.35rem !important;
-    padding-bottom: 0.5rem !important;
+    margin-top: 3.5rem !important;
+    padding-bottom: 1rem !important;
   }
 
   #postbox.drawer {
@@ -367,6 +394,19 @@ body > footer {
 @media (min-width: 769px) and (max-width: 991px) {
   #mainNav {
     padding-bottom: 2.5rem !important;
+  }
+
+  #newPost {
+    padding: 1rem 0.5rem 1rem 0.5rem !important;
+    margin: -1.5rem 0 2rem 0 !important;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem !important;
+  }
+
+  #postbox:not(.drawer) {
+    margin: 2rem 0 0 0 !important;
   }
 
   main.container:first-of-type {
@@ -402,8 +442,21 @@ body > footer {
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-    #mainNav {
+  #mainNav {
     padding-bottom: 2.5rem !important;
+  }
+
+  #newPost {
+    padding: 1rem 0.5rem 1rem 0.5rem !important;
+    margin: -1.5rem 0 0.5rem 0 !important;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem !important;
+  }
+
+  #postbox:not(.drawer) {
+    margin: 2rem 0 0 0 !important;
   }
 
   main.container:first-of-type {
@@ -439,8 +492,21 @@ body > footer {
 }
 
 @media (min-width: 1200px) {
-    #mainNav {
+  #mainNav {
     padding-bottom: 2.5rem !important;
+  }
+
+  #newPost {
+    padding: 1rem 0.5rem 1rem 0.5rem !important;
+    margin: -1.5rem 0 0.5rem 0 !important;
+  }
+
+  #newPost[open=""] {
+    padding-bottom: 0.1rem !important;
+  }
+
+  #postbox:not(.drawer) {
+    margin: 2rem 0 0 0 !important;
   }
 
   main.container:first-of-type {
