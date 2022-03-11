@@ -1,6 +1,7 @@
 package timeline
 
 import (
+	"context"
 	"fmt"
 	"testing"
 	"time"
@@ -113,7 +114,7 @@ func TestParser(t *testing.T) {
 	for _, test := range tests {
 		printer := testPrinter{}
 		gp := gitParser{&printer}
-		gp.Parse(test.twts, mainTwter)
+		gp.Parse(context.Background(), test.twts, mainTwter)
 		assert.Equal(t, len(test.wants), len(printer.Lines))
 		if len(test.wants) == len(printer.Lines) {
 			for i := range printer.Lines {

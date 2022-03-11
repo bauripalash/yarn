@@ -1,6 +1,7 @@
 package timeline
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -10,7 +11,7 @@ import (
 type jsontParser struct {
 }
 
-func (d jsontParser) Parse(twts types.Twts, me types.Twter) error {
+func (d jsontParser) Parse(ctx context.Context, twts types.Twts, me types.Twter) error {
 	data, err := json.Marshal(twts)
 	if err != nil {
 		return err

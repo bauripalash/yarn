@@ -1,6 +1,7 @@
 package timeline
 
 import (
+	"context"
 	"fmt"
 	"time"
 
@@ -10,7 +11,7 @@ import (
 type defaultParser struct {
 }
 
-func (d defaultParser) Parse(twts types.Twts, me types.Twter) error {
+func (d defaultParser) Parse(ctx context.Context, twts types.Twts, me types.Twter) error {
 	for _, twt := range twts {
 		PrintTwt(twt, time.Now(), me)
 		fmt.Println()
@@ -21,7 +22,7 @@ func (d defaultParser) Parse(twts types.Twts, me types.Twter) error {
 type defaultRawParser struct {
 }
 
-func (d defaultRawParser) Parse(twts types.Twts, me types.Twter) error {
+func (d defaultRawParser) Parse(ctx context.Context, twts types.Twts, me types.Twter) error {
 	for _, twt := range twts {
 		PrintTwtRaw(twt)
 	}

@@ -4,8 +4,11 @@
 package main
 
 import (
+	"context"
 	"os"
+	"os/signal"
 	"sort"
+	"syscall"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -53,6 +56,12 @@ Yarn.social account.`,
 			os.Exit(1)
 		}
 
+		outputFollow, err := cmd.Flags().GetBool("follow")
+		if err != nil {
+			log.WithError(err).Error("error getting git flag")
+			os.Exit(1)
+		}
+
 		reverseOrder, err := cmd.Flags().GetBool("reverse")
 		if err != nil {
 			log.WithError(err).Error("error getting reverse flag")
@@ -71,7 +80,7 @@ Yarn.social account.`,
 			os.Exit(1)
 		}
 
-		timeline(cli, outputJSON, outputRAW, outputGIT, reverseOrder, nTwts, page, args)
+		timeline(cli, outputJSON, outputRAW, outputGIT, outputFollow, reverseOrder, nTwts, page, args)
 	},
 }
 
@@ -107,16 +116,21 @@ func init() {
 		"git", "G", false,
 		"Output in git log format",
 	)
+
+	timelineCmd.Flags().BoolP(
+		"follow", "f", false,
+		"output appended data as new twts arrive",
+	)
 }
 
-func timeline(cli *client.Client, outputJSON, outputRAW, outputGIT, reverseOrder bool, nTwts, page int, args []string) {
+func timeline(cli *client.Client, outputJSON, outputRAW, outputGIT, outputFollow, reverseOrder bool, nTwts, page int, args []string) {
 	res, err := cli.Timeline(page)
 	if err != nil {
 		log.WithError(err).Error("error retrieving timeline")
 		os.Exit(1)
 	}
 
-	if reverseOrder {
+	if reverseOrder && !outputFollow {
 		sort.Sort(res.Twts)
 	} else {
 		sort.Sort(sort.Reverse(res.Twts))
@@ -128,11 +142,22 @@ func timeline(cli *client.Client, outputJSON, outputRAW, outputGIT, reverseOrder
 		twts = twts[(len(twts) - nTwts):]
 	}
 
+	ctx, cancel := context.WithCancel(context.Background())
+
+	go func() {
+		c := make(chan os.Signal, 1)
+		signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
+		<-c
+		cancel()
+	}()
+
 	err = timelinec.GetParser(timelinec.Options{
-		OutputJSON: outputJSON,
-		OutputRAW:  outputRAW,
-		OutputGIT:  outputGIT,
-	}).Parse(twts, cli.Twter)
+		OutputJSON:   outputJSON,
+		OutputRAW:    outputRAW,
+		OutputGIT:    outputGIT,
+		OutputFollow: outputFollow,
+		Client:       cli,
+	}).Parse(ctx, twts, cli.Twter)
 
 	if err != nil {
 		os.Exit(1)

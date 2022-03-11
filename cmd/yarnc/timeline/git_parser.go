@@ -1,6 +1,7 @@
 package timeline
 
 import (
+	"context"
 	"strings"
 
 	"git.mills.io/yarnsocial/yarn/cmd/yarnc/timeline/renderer"
@@ -57,7 +58,7 @@ type gitParser struct {
 	printer printer
 }
 
-func (d gitParser) Parse(twts types.Twts, me types.Twter) error {
+func (d gitParser) Parse(ctx context.Context, twts types.Twts, me types.Twter) error {
 	twtc := newTwtWithChilds(twts)
 
 	for _, v := range twtc {

@@ -1,20 +1,29 @@
 package timeline
 
-import "go.yarn.social/types"
+import (
+	"context"
+
+	"go.yarn.social/client"
+	"go.yarn.social/types"
+)
 
 type Parser interface {
-	Parse(twts types.Twts, me types.Twter) error
+	Parse(ctx context.Context, twts types.Twts, me types.Twter) error
 }
 
 type Options struct {
-	OutputJSON bool
-	OutputRAW  bool
-	OutputGIT  bool
+	OutputJSON   bool
+	OutputRAW    bool
+	OutputGIT    bool
+	OutputFollow bool
+	Client       *client.Client
 }
 
 // GetParser Factory ...
 func GetParser(opts Options) Parser {
 	switch {
+	case opts.OutputFollow:
+		return followParser{opts.Client, defaultParser{}}
 	case opts.OutputJSON:
 		return jsontParser{}
 	case opts.OutputRAW:
