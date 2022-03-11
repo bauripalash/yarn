@@ -20,12 +20,9 @@ var (
 
 	magicLinkAuthEmailTemplate = template.Must(template.New("email").Parse(`Hello {{ .Username }},
 
-You have requested to login to your Yarn.social account on on {{ .Pod }} via email.
-
-**IMPORTANT:** If this was __NOT__ initiated by you, please ignore this email and contact support!
+You have requested to login to your Yarn.social account on {{ .Pod }} via email. If this was **NOT** initiated by you, please ignore this email and contact support.
 
 To login to your account, please visit the following link:
-
 {{ .BaseURL }}/magiclinkauth?token={{ .Token }}
 
 Kind regards,
@@ -37,7 +34,7 @@ Kind regards,
 
 You have requested to have your password on {{ .Pod }} reset for your account.
 
-**IMPORTANT:** If this was __NOT__ initiated by you, please ignore this email and contact support!
+**IMPORTANT:** If this was **NOT** initiated by you, please ignore this email and contact support!
 
 To reset your password, please visit the following link:
 
@@ -62,9 +59,7 @@ Kind regards,
 
 	candidatesForDeletionEmailTemplate = template.Must(template.New("email").Parse(`Hello {{ .AdminUser }},
 
-The following top 10 users are candidates for deletion as they have either never posted, updated their profile
-or follow any feeds. Their usernames on {{ .Pod }} are shown below with their scores. The higher the score
-the more likely the user has never used their account.
+The following top 10 users are candidates for deletion as they have either never posted, updated their profile or follow any feeds. Their usernames on {{ .Pod }} are shown below with their scores. The higher the score the more likely the user has never used their account.
 
 {{ range $candidate := .Candidates }}
 {{ $candidate.Username }}
@@ -73,7 +68,6 @@ Score: {{ $candidate.Score }}
 {{ end }}
 
 To delete any of these users visit:
-
 {{ .BaseURL }}/manage/users
 
 Kind regards,
@@ -100,9 +94,10 @@ Kind regards,
 
 	newUserEmailTemplate = template.Must(template.New("email").Parse(`Hello {{ .AdminUser }},
 
-A new user has joined your {{ .Pod }} pod!
+This message is to let you know that a new user has joined your {{ .Pod }} pod!
 
-{{ .BaseURL }}/user/{{ .Username }}
+Nick: {{ .Username }}
+Feed: {{ .BaseURL }}/user/{{ .Username }}
 
 Kind regards,
 
