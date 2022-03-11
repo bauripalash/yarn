@@ -66,10 +66,10 @@ type verification struct {
 }
 
 type Subscriber struct {
-	Topic     string
-	Callback  string
-	Verified  bool
-	ExpiresAt time.Time
+	Topic     string    `json:"topic"`
+	Callback  string    `json:"callback"`
+	Verified  bool      `json:"verified"`
+	ExpiresAt time.Time `json:"expires_at"`
 }
 
 func (s Subscriber) Expired() bool {
@@ -96,9 +96,9 @@ func (s *Subscription) MarshalJSON() ([]byte, error) {
 	defer s.RUnlock()
 
 	o := struct {
-		Confirmed bool
-		ExpiresAt time.Time
-		Topic     string
+		Confirmed bool      `json:"confirmed"`
+		ExpiresAt time.Time `json:"expires_at"`
+		Topic     string    `json:"topic"`
 	}{
 		Confirmed: s.confirmed,
 		ExpiresAt: s.expiresAt,
@@ -109,9 +109,9 @@ func (s *Subscription) MarshalJSON() ([]byte, error) {
 
 func (s *Subscription) UnmarshalJSON(data []byte) error {
 	o := struct {
-		Confirmed bool
-		ExpiresAt time.Time
-		Topic     string
+		Confirmed bool      `json:"confirmed"`
+		ExpiresAt time.Time `json:"expires_at"`
+		Topic     string    `json:"topic"`
 	}{}
 
 	if err := json.Unmarshal(data, &o); err != nil {
