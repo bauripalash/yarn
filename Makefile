@@ -38,7 +38,7 @@ cli:
 		-ldflags "-w \
 		-X $(shell go list).Version=$(VERSION) \
 		-X $(shell go list).Commit=$(COMMIT)" \
-		./cmd/yarnc/...
+		./cmd/yarnc/
 
 server: generate
 	@$(GOCMD) build $(FLAGS) -tags "netgo static_build" -installsuffix netgo \

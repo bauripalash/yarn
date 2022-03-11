@@ -4,16 +4,14 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
 	"os"
 	"sort"
-	"time"
 
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
+	timelinec "git.mills.io/yarnsocial/yarn/cmd/yarnc/timeline"
 	"go.yarn.social/client"
 )
 
@@ -49,6 +47,12 @@ Yarn.social account.`,
 			os.Exit(1)
 		}
 
+		outputGIT, err := cmd.Flags().GetBool("git")
+		if err != nil {
+			log.WithError(err).Error("error getting git flag")
+			os.Exit(1)
+		}
+
 		reverseOrder, err := cmd.Flags().GetBool("reverse")
 		if err != nil {
 			log.WithError(err).Error("error getting reverse flag")
@@ -67,7 +71,7 @@ Yarn.social account.`,
 			os.Exit(1)
 		}
 
-		timeline(cli, outputJSON, outputRAW, reverseOrder, nTwts, page, args)
+		timeline(cli, outputJSON, outputRAW, outputGIT, reverseOrder, nTwts, page, args)
 	},
 }
 
@@ -98,9 +102,14 @@ func init() {
 		"raw", "R", false,
 		"Output in raw text for processing with eg grep",
 	)
+
+	timelineCmd.Flags().BoolP(
+		"git", "G", false,
+		"Output in git log format",
+	)
 }
 
-func timeline(cli *client.Client, outputJSON, outputRAW, reverseOrder bool, nTwts, page int, args []string) {
+func timeline(cli *client.Client, outputJSON, outputRAW, outputGIT, reverseOrder bool, nTwts, page int, args []string) {
 	res, err := cli.Timeline(page)
 	if err != nil {
 		log.WithError(err).Error("error retrieving timeline")
@@ -119,21 +128,13 @@ func timeline(cli *client.Client, outputJSON, outputRAW, reverseOrder bool, nTwt
 		twts = twts[(len(twts) - nTwts):]
 	}
 
-	if outputJSON {
-		data, err := json.Marshal(twts)
-		if err != nil {
-			log.WithError(err).Error("error marshalling json")
-			os.Exit(1)
-		}
-		fmt.Println(string(data))
-	} else {
-		for _, twt := range twts {
-			if outputRAW {
-				PrintTwtRaw(twt)
-			} else {
-				PrintTwt(twt, time.Now(), cli.Twter)
-				fmt.Println()
-			}
-		}
+	err = timelinec.GetParser(timelinec.Options{
+		OutputJSON: outputJSON,
+		OutputRAW:  outputRAW,
+		OutputGIT:  outputGIT,
+	}).Parse(twts, cli.Twter)
+
+	if err != nil {
+		os.Exit(1)
 	}
 }

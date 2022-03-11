@@ -10,9 +10,9 @@ import (
 	"strings"
 	"time"
 
-	"go.yarn.social/types"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
+	"go.yarn.social/types"
 )
 
 // hashCmd represents the hash command
