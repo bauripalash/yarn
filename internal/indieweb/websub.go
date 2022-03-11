@@ -26,6 +26,11 @@ const (
 	defaultWebSubQueueSize          = 100
 )
 
+var (
+	_ json.Marshaler   = (*Subscription)(nil)
+	_ json.Unmarshaler = (*Subscription)(nil)
+)
+
 func fileExists(fn string) bool {
 	if _, err := os.Stat(fn); err != nil {
 		if os.IsNotExist(err) {
@@ -100,6 +105,27 @@ func (s *Subscription) MarshalJSON() ([]byte, error) {
 		Topic:     s.Topic,
 	}
 	return json.Marshal(o)
+}
+
+func (s *Subscription) UnmarshalJSON(data []byte) error {
+	o := struct {
+		Confirmed bool
+		ExpiresAt time.Time
+		Topic     string
+	}{}
+
+	if err := json.Unmarshal(data, &o); err != nil {
+		return err
+	}
+
+	s.Lock()
+	defer s.Unlock()
+
+	s.confirmed = o.Confirmed
+	s.expiresAt = o.ExpiresAt
+	s.Topic = o.Topic
+
+	return nil
 }
 
 func (s *Subscription) Confirmed() bool {
