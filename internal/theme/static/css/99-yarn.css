@@ -263,27 +263,30 @@ article.grid {
 }
 
 .twt-nav {
+  border-top: 0.1rem solid var(--muted-border-color);
   font-weight: var(--font-weight);
-  margin: 1.5rem 0.75rem 0 0.75rem;
-  justify-content: left;
+  padding: 0.25rem 0;
 }
 
 .twt-nav a {
-  height: 100%;
-  margin-right: 1.5rem;
-  padding-left: 0.25rem !important;
-  padding-right: 0.25rem !important;
+  margin-top: 0.1rem;
+  margin-right: 1rem;
+}
+
+.twt-nav a:first-of-type {
+  margin-left: 0rem;
+}
+
+.twt-nav:empty {
+  border-top: 0;
+  padding: 0;
+  margin-top: -1.75rem;
 }
 
 #twt-options {
   display: flex;
-  float: right;
   margin-left: auto;
-  margin-right: -2rem;
-}
-
-#twt-options a {
-  flex: 1;
+  margin-right: -1rem;
 }
 
 #twt-options a:focus {
@@ -993,12 +996,8 @@ span[title="Copyright"]:before {
     height: 6rem;
   }
 
-  .bump-up {
-    margin-top: -0.5rem;
-  }
-
   .yarn-post {
-    margin: -1.75rem 0 -1.75rem 0 !important;
+    margin: -2.5rem 0 0 0 !important;
   }
 
   article.container-fluid {
@@ -1066,7 +1065,7 @@ span[title="Copyright"]:before {
   }
 
   #postbox.drawer {
-    margin: -0.4rem 0.25rem 1.5rem 0.25rem !important;
+    margin: -0.4rem 0.25rem 0.5rem 0.25rem !important;
   }
 
   #postbox.drawer .toolbar-nav  {
@@ -1143,7 +1142,7 @@ span[title="Copyright"]:before {
   }
 
   .form-reply {
-    margin: 0 0.5rem -1.75rem 0.5rem;
+    margin: 0 0.5rem -1.675rem 0.5rem;
   }
 
   [data-tooltip]:not(a):not(button):not(input) {
@@ -1159,7 +1158,6 @@ span[title="Copyright"]:before {
   }
 
   .twt-nav {
-    margin-left: 0.25rem;
     padding-bottom: 0.4rem;
   }
 
@@ -1227,7 +1225,7 @@ span[title="Copyright"]:before {
 
   #twt-options {
     margin-top: 0.625rem;
-    margin-right: -2.75rem;
+    margin-right: -1.5rem;
   }
 
   #twt-options a:first-child {
@@ -1277,11 +1275,11 @@ span[title="Copyright"]:before {
   }
 
   nav.yarn-nav:nth-of-type(2) {
-    margin: -0.25rem 1rem -0.5rem 1rem;
+    padding-bottom: 3rem;
   }
 
   nav.timeline-nav:nth-of-type(2) {
-    margin: -0.75rem 1rem 1rem 1rem;
+    margin: -0.5rem 1rem 2.5rem 1rem;
   }
 
   article.single-twt {
@@ -1289,12 +1287,12 @@ span[title="Copyright"]:before {
   }
 
   .h-feed article:first-child {
-    margin-top: 1rem;
+    margin-top: 0.35rem;
   }
 
   div .h-feed:last-child,
   div .h-entry:last-child {
-    margin-bottom: 2.5rem;
+    margin-bottom: 0.65rem;
   }
 
   .container article.container-fluid:last-child {
@@ -1315,12 +1313,8 @@ span[title="Copyright"]:before {
   }
 
   #twt-join {
-    margin-top: 0.5rem;
+    margin: -2.5rem 0 4rem 0 !important;
     padding-bottom: 1.5rem !important;
-  }
-
-  footer.container {
-    margin-top: 1.75rem !important;
   }
 
   .footer-copyright {

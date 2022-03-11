@@ -15,8 +15,12 @@
 }
 
 .twt-nav {
-  margin: 1.35rem 0 -0.25rem 0.25rem !important;
+  padding: 0.5rem 0 !important;
   font-size: 0 !important;
+}
+
+.twt-nav a {
+  margin-right: 2rem !important;
 }
 
 .twt-nav i {
@@ -25,6 +29,7 @@
 
 #twt-options {
   margin-left: 0 auto !important;
+  margin-right: -2.15rem !important;
 }
 
 .yarn-count-badge {
@@ -63,11 +68,39 @@
   margin-left: 0 !important;
 }
 
-.h-feed article:last-of-type {
-  margin-bottom: 0 !important;
-}
-
 @media (max-width: 576px) {
+  #mainNav {
+    padding-bottom: 1rem !important;
+  }
+
+  .timeline-nav:nth-of-type(1) {
+    margin-top: -1.25rem !important;
+  }
+
+  .timeline-nav:nth-of-type(2) {
+    margin-bottom: -0.5rem !important;
+  }
+
+  .yarn-nav:nth-of-type(1) {
+    margin-top: 0.1rem !important;
+  }
+
+  .yarn-nav:nth-of-type(2) {
+    margin-bottom: -3.5rem !important;
+  }
+
+  #postbox:not(.drawer) {
+    margin: 0.5rem 0.5rem -1rem 0.5rem !important;
+  }
+
+  #postbox.drawer {
+    margin: -0.4rem 0.5rem 0.5rem 0.5rem !important;
+  }
+
+  .conv-post:not(.form-reply) {
+    margin-bottom: 1rem !important;
+  }
+
   .toolbar-nav {
     flex: 0 !important;
     margin: 0 0 0.5rem 0 !important;
@@ -81,25 +114,17 @@
     margin-left: 0.25rem !important;
   }
 
-  .twt-nav {
-    padding-bottom: 0 !important;
-  }
-
   .twt-nav a {
     font-size: 0 !important;
-    margin-right: 0.75rem !important;
+    margin-right: 1rem !important;
   }
 
   .twt-nav a:first-of-type {
-    margin-right: 1rem !important;
+    margin-right: 1.25rem !important;
   }
 
   .deleteBtn i {
     margin-right: 2rem !important;
-  }
-
-  #postbox:not(.drawer) {
-    margin: 0.5rem 0 -1rem 0 !important;
   }
 
   .replyBtn i,
@@ -113,12 +138,12 @@
   }
 
   #twt-options {
-    margin-top: 0;
-    margin-right: -1.5rem;
+    margin-top: 0 !important;
+    margin-right: -1.25rem !important;
   }
 
   #twt-options a:first-of-type {
-    margin-right: 0.2rem !important;
+    margin-right: 0.5rem !important;
   }
 
   .h-feed article:last-of-type {
@@ -130,34 +155,111 @@
   }
 
   body > footer {
+    margin-top: 3rem !important;
     padding: 0.75rem !important;
   }
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
+  #mainNav {
+    padding-bottom: 2rem !important;
+  }
+
+  #twt-conv {
+    margin-top: -0.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .timeline-nav:nth-of-type(1) {
+    margin-top: -1.25rem !important;
+  }
+
+  .timeline-nav:nth-of-type(2) {
+    margin-bottom: -2rem !important;
+  }
+
   .toolbar-nav {
     flex: 0 !important;
     margin: -1.75rem 0 -0.5rem 0 !important;
   }
 
   #postbox:not(.drawer) {
-    margin: 2.75rem 0 1.5rem 0 !important;
+    margin: 1rem 0 1.5rem 0 !important;
+  }
+
+  .bump-up {
+    margin-top: 0 !important;
+  }
+
+  .yarn-nav:nth-of-type(1) {
+    margin-top: -1.25rem !important;
+  }
+
+  .yarn-nav:nth-of-type(2) {
+    margin-bottom: 0.5rem !important;
   }
 
   body > footer {
-    margin-top: 1rem !important;
+    margin-top: -1.25rem !important;
     padding: 0.5rem 0 0.5rem 0 !important;
   }
 }
 
-@media (min-width: 769px) {
-  body > footer {
-    padding: 1rem 0 1rem 0 !important;
+@media (min-width: 769px) and (max-width: 991px) {
+  .timeline-nav:nth-of-type(2) {
+    margin-bottom: -0.75rem !important;
+  }
+
+  .yarn-nav:nth-of-type(2) {
+    margin-top: -0.5rem !important;
+    margin-bottom: -1rem !important;
+  }
+
+  #postbox:not(.drawer) {
+    margin: 0.5rem 0.5rem 0.25rem 0.5rem !important;
+  }
+
+  #postbox.drawer {
+    margin: -0.4rem 0.5rem 0.5rem 0.5rem !important;
   }
 }
 
-@media (min-width: 577px) {
-  main.container:first-of-type {
-    padding-top: 2rem !important;
+@media (min-width: 992px) and (max-width: 1199px) {
+  .yarn-nav:nth-of-type(1) {
+    margin-top: -0.75rem !important;
+    margin-bottom: -0.5rem !important;
+  }
+
+  .yarn-nav:nth-of-type(2) {
+    margin-top: -0.5rem !important;
+    margin-bottom: -1rem !important;
+  }
+
+  #postbox:not(.drawer) {
+    margin: 0.5rem 0.5rem 0.25rem 0.5rem !important;
+  }
+
+  #postbox.drawer {
+    margin: -0.4rem 0.5rem 0.5rem 0.5rem !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .yarn-nav:nth-of-type(1) {
+    margin-top: -0.75rem !important;
+    margin-bottom: -0.5rem !important;
+  }
+
+  .yarn-nav:nth-of-type(2) {
+    margin-top: -0.5rem !important;
+    margin-bottom: -1rem !important;
+  }
+
+  #postbox:not(.drawer) {
+    margin: 0.5rem 0.5rem 0.25rem 0.5rem !important;
+  }
+
+  #postbox.drawer {
+    margin: -0.4rem 0.5rem 0.5rem 0.5rem !important;
   }
 }
