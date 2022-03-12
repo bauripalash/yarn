@@ -690,13 +690,13 @@ func (ws *WebSub) WebSubEndpoint(w http.ResponseWriter, r *http.Request) {
 				Callback: callback,
 			}
 			ws.AddSubscriber(subscriber)
-			ws.verify <- &verification{
-				target:       callback,
-				topic:        topic,
-				callback:     callback,
-				challenge:    generateRandomChallengeString(),
-				leaseSeconds: int(defaultWebSubLeaseTime.Seconds()),
-			}
+		}
+		ws.verify <- &verification{
+			target:       callback,
+			topic:        topic,
+			callback:     callback,
+			challenge:    generateRandomChallengeString(),
+			leaseSeconds: int(defaultWebSubLeaseTime.Seconds()),
 		}
 		http.Error(w, "Subscription Accepted", http.StatusAccepted)
 		return
