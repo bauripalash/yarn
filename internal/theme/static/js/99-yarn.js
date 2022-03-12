@@ -166,13 +166,14 @@ function movePostBox(e) {
     u(n).removeClass("highlight");
   });
 
-  var article = u(e.target).closest(".twt-nav").parent();
+  var yarn = u(e.target).closest(".twt-nav");
+  var article = yarn.parent();
   var postbox = u("#postbox").clone();
 
   article.addClass("highlight");
 
   u("#postbox").remove();
-  article.after(postbox);
+  yarn.after(postbox);
   postbox.addClass("drawer");
 
   u("#toolbar").addClass("toolbar-reply");

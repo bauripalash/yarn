@@ -171,6 +171,10 @@ body > footer {
     margin: 0.75rem 0 0.25rem 0 !important;
   }
 
+  #newPost #postbox {
+    margin: 1.5rem 0.5rem -1.5rem 0.5rem !important;
+  }
+
   #newPost[open=""] {
     padding-bottom: 0.1rem !important;
   }
@@ -192,7 +196,7 @@ body > footer {
   }
 
   #postbox.drawer {
-    margin: -0.45rem 0 0.5rem 0 !important;
+    margin-top: 1rem !important;
   }
 
   #mediaUploadForm,
@@ -312,12 +316,16 @@ body > footer {
 
 @media (min-width: 577px) and (max-width: 768px) {
   #mainNav {
-    padding-bottom: 2.5rem !important;
+    padding-bottom: 0.5rem !important;
   }
 
   #newPost {
     padding: 1rem 0.5rem 1rem 0.5rem !important;
-    margin: -1.25rem 0 0 0 !important;
+    margin: 1.25rem 0 0 0 !important;
+  }
+
+  #newPost #postbox {
+    margin: 2rem 0.5rem -0.25rem 0.5rem !important;
   }
 
   #newPost[open=""] {
@@ -400,12 +408,16 @@ body > footer {
 
 @media (min-width: 769px) and (max-width: 991px) {
   #mainNav {
-    padding-bottom: 2.5rem !important;
+    padding-bottom: 0.5rem !important;
   }
 
   #newPost {
     padding: 1rem 0.5rem 1rem 0.5rem !important;
-    margin: -1.5rem 0 2rem 0 !important;
+    margin: 1rem 0 2rem 0 !important;
+  }
+
+  #newPost #postbox {
+    margin: 2rem 0.5rem 0 0.5rem !important;
   }
 
   #newPost[open=""] {
@@ -417,7 +429,7 @@ body > footer {
   }
 
   #postbox.drawer {
-    margin-bottom: 0 !important;
+    margin-bottom: 0.5rem !important;
   }
 
   main.container:first-of-type {
@@ -454,12 +466,16 @@ body > footer {
 
 @media (min-width: 992px) and (max-width: 1199px) {
   #mainNav {
-    padding-bottom: 2.5rem !important;
+    padding-bottom: 0.5rem !important;
   }
 
   #newPost {
     padding: 1rem 0.5rem 1rem 0.5rem !important;
-    margin: -1.5rem 0 0.5rem 0 !important;
+    margin: 1rem 0 0.5rem 0 !important;
+  }
+
+  #newPost #postbox {
+    margin: 2rem 0.5rem 0.25rem 0.5rem !important;
   }
 
   #newPost[open=""] {
@@ -504,12 +520,16 @@ body > footer {
 
 @media (min-width: 1200px) {
   #mainNav {
-    padding-bottom: 2.5rem !important;
+    padding-bottom: 0.5rem !important;
   }
 
   #newPost {
     padding: 1rem 0.5rem 1rem 0.5rem !important;
-    margin: -1.5rem 0 0.5rem 0 !important;
+    margin: 1rem 0 0.5rem 0 !important;
+  }
+
+  #newPost #postbox {
+    margin: 2rem 0.5rem 0.25rem 0.5rem !important;
   }
 
   #newPost[open=""] {

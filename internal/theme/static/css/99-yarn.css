@@ -437,6 +437,10 @@ nav.timeline-nav a {
   font-size: 1.25rem;
 }
 
+.form-reply {
+  margin-bottom: 0;
+}
+
 .feed-flex {
   display: flex;
   flex-wrap: wrap;
@@ -887,15 +891,6 @@ a[role=button] {
   justify-content: center;
 }
 
-.toolbar-reply {
-  margin: -1.25rem 0 -3.75rem 1rem;
-}
-
-.form-reply {
-  margin: 0 0.5rem;
-  padding-bottom: 1rem;
-}
-
 .replyBtn .ti {
   white-space: pre;
 }
@@ -943,19 +938,9 @@ pre {
 }
 
 #postbox.drawer {
-  margin: -0.4rem 0.5rem 1rem 0.5rem;
-  padding-top: 0.7rem;
-  background-color: var(--form-element-background-color);
-  padding-bottom: 0.35rem;
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-  border-style: solid;
-  border-color: var(--form-element-focus-color);
-  border-width: 0 0.15rem 0.15rem 0.15rem;
-}
-
-#postbox.drawer .toolbar-nav  {
-  margin: -0.5rem 0.5rem;
+  margin-top: 1rem !important;
+  border-top: 0.1rem solid var(--muted-border-color);
+  padding-top: 0.5rem;
 }
 
 /* Version Information Panel */
@@ -1020,6 +1005,10 @@ span[title="Copyright"]:before {
     margin: 1.5rem 0 -0.5rem 0;
   }
 
+  #newPost #postbox {
+    margin: 1rem 0 -4rem 0;
+  }
+
   alert {
     height: 6rem;
   }
@@ -1077,7 +1066,7 @@ span[title="Copyright"]:before {
   #postbox {
     display: flex;
     flex-flow: row wrap;
-    margin: 1.5rem 0 -3rem 0;
+    padding-bottom: 1rem;
   }
 
   #postbox.single-twt {
@@ -1090,10 +1079,6 @@ span[title="Copyright"]:before {
 
   #postbox form {
     flex: 1 100%;
-  }
-
-  #postbox.drawer {
-    margin: -0.4rem 0.25rem 0.5rem 0.25rem !important;
   }
 
   #postbox.drawer .toolbar-nav  {
@@ -1170,7 +1155,7 @@ span[title="Copyright"]:before {
   }
 
   .form-reply {
-    margin: 0 0.5rem -1.675rem 0.5rem;
+    margin: 0 0 -2rem 0;
   }
 
   [data-tooltip]:not(a):not(button):not(input) {
@@ -1319,8 +1304,9 @@ span[title="Copyright"]:before {
   }
 
   div .h-feed:last-child,
-  div .h-entry:last-child {
-    margin-bottom: 0.65rem;
+  div .h-entry:last-child,
+  div .h-entry:only-child {
+    margin-bottom: 3.65rem;
   }
 
   .container article.container-fluid:last-child {
@@ -1386,23 +1372,15 @@ span[title="Copyright"]:before {
     margin: 1rem 0 -0.5rem 0;
   }
 
+  #newPost #postbox {
+    margin: 1rem 0 -1.5rem 0;
+  }
+
   #podMenu {
     flex: 1;
     justify-content: right;
     gap: 2rem;
     margin: 2.5rem 2rem 0 0;
-  }
-
-  #postbox {
-    margin: 2rem 0 -1.5rem 0;
-  }
-
-  #postbox.single-twt {
-    margin: 1.75rem 0 1.75rem 0;
-  }
-
-  .toolbar-nav {
-    margin: -1.35rem 0 -0.75rem 0;
   }
 
   #mediaUploadForm {
@@ -1447,15 +1425,6 @@ span[title="Copyright"]:before {
 
   nav.timeline-nav:nth-of-type(2) {
     margin: -0.5rem 1rem -0.5rem 1rem;
-  }
-
-  .toolbar-reply {
-    margin: -1.25rem 0 -3.75rem 1rem;
-  }
-
-  .form-reply {
-    margin: 0 0.5rem;
-    padding-bottom: 0.5rem;
   }
 
   .profile-recent {
@@ -1560,6 +1529,10 @@ span[title="Copyright"]:before {
     margin: 0.5rem 0 0.75rem 0;
   }
 
+  #newPost #postbox {
+    margin: 1rem 0 -0.25rem 0;
+  }
+
   #newPost[open=""] {
     padding-bottom: 0.1rem;
   }
@@ -1569,7 +1542,7 @@ span[title="Copyright"]:before {
   }
 
   #postbox {
-    margin: 0 0 1.75rem 0;
+    margin: 0 0 0.75rem 0;
   }
 
   #postbox.single-twt {
@@ -1643,6 +1616,10 @@ span[title="Copyright"]:before {
     margin: 0.5rem 0 0.75rem 0;
   }
 
+  #newPost #postbox {
+    margin: 1rem 0 -0.75rem 0;
+  }
+
   #newPost[open=""] {
     padding-bottom: 0.1rem;
   }
@@ -1651,12 +1628,8 @@ span[title="Copyright"]:before {
     margin: 1.75rem 1.5rem 0 0;
   }
 
-  #postbox.single-twt {
-    margin: 0.5rem 0 2.25rem 0;
-  }
-
-  #postbox.single-twt.drawer {
-    margin: -0.4rem 0.5rem 1rem 0.5rem !important;
+  #postbox {
+    padding-bottom: 0.5rem;
   }
 
   .h-feed {
@@ -1735,6 +1708,10 @@ span[title="Copyright"]:before {
     margin: 0.5rem 0 0.75rem 0;
   }
 
+  #newPost #postbox {
+    margin: 1rem 0 -0.75rem 0;
+  }
+
   #newPost[open=""] {
     padding-bottom: 0.1rem;
   }
@@ -1743,12 +1720,8 @@ span[title="Copyright"]:before {
     margin: 1.75rem 1.5rem 0 0;
   }
 
-  #postbox.single-twt {
-    margin: 0.5rem 0 2.25rem 0;
-  }
-
-  #postbox.single-twt.drawer {
-    margin: -0.4rem 0.5rem 1rem 0.5rem !important;
+  #postbox {
+    padding-bottom: 0.5rem;
   }
 
   .h-feed {
