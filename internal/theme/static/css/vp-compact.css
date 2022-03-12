@@ -74,7 +74,7 @@
   }
 
   #newPost {
-    padding: 1rem 0.5rem 0 0.5rem !important;
+    padding: 1rem 0.5rem 1rem 0.5rem !important;
     margin: 0.5rem 0 1.25rem 0 !important;
   }
 
@@ -175,7 +175,7 @@
   }
 
   #newPost {
-    padding: 1rem 0.5rem 0 0.5rem !important;
+    padding: 1rem 0.5rem 1rem 0.5rem !important;
     margin: -1rem 0 1.25rem 0 !important;
   }
 

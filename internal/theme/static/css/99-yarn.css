@@ -896,6 +896,10 @@ a[role=button] {
   padding-bottom: 1rem;
 }
 
+.replyBtn .ti {
+  white-space: pre;
+}
+
 /* Footer Style */
 body>footer {
   display: flex;
