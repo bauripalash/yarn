@@ -253,42 +253,36 @@ func (ws *WebSub) Load() error {
 		return nil
 	}
 
-	ws.Lock()
-	defer ws.Unlock()
-
-	state := struct {
-		Subscribers   map[string]Subscribers
-		Subscriptions map[string]*Subscription
-	}{}
-
 	data, err := os.ReadFile(ws.fn)
 	if err != nil {
 		os.Remove(ws.fn)
 		return fmt.Errorf("error loading state: %w", err)
 	}
 
+	state := struct {
+		Subscribers map[string]Subscribers
+	}{}
+
 	if err := json.Unmarshal(data, &state); err != nil {
 		os.Remove(ws.fn)
 		return fmt.Errorf("error deserializing state: %w", err)
 	}
 
+	ws.Lock()
 	ws.subscribers = state.Subscribers
-	ws.subscriptions = state.Subscriptions
+	ws.Unlock()
 
 	return nil
 }
 
 func (ws *WebSub) Save() error {
 	ws.RLock()
-	defer ws.RUnlock()
-
 	state := struct {
-		Subscribers   map[string]Subscribers
-		Subscriptions map[string]*Subscription
+		Subscribers map[string]Subscribers
 	}{
-		Subscribers:   ws.subscribers,
-		Subscriptions: ws.subscriptions,
+		Subscribers: ws.subscribers,
 	}
+	ws.RUnlock()
 
 	data, err := json.Marshal(state)
 	if err != nil {
