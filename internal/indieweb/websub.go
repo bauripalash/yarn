@@ -569,7 +569,7 @@ func (ws *WebSub) NotifyEndpoint(w http.ResponseWriter, r *http.Request) {
 	log.Debugf("topic: %s", topic)
 	log.Debugf("challenge: %s", challenge)
 
-	if mode != "" && strings.ToLower(mode) == "subscribe" {
+	if strings.ToLower(mode) == "subscribe" {
 		if !ws.IsSubscribed(topic) {
 			n, err := strconv.Atoi(leaseSeconds)
 			if err != nil {
@@ -619,6 +619,10 @@ func (ws *WebSub) NotifyEndpoint(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Missing rel=self Link", http.StatusNotFound)
 		return
 	}
+
+	// TODO: Verify we actually have a valid and confirmed Subscription for
+	//       for the given topic (selfURL) with the Pod (hubEndpoint)
+	//       to prevent abuse of the WebSub /notify endpoint
 
 	ws.inbox <- &callback{topic: selfURL.String()}
 
