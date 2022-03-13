@@ -329,9 +329,11 @@ func (ws *WebSub) cleanup() {
 		if subscription.Confirmed() && subscription.Expired() {
 			delete(ws.subscriptions, topic)
 		}
+		/* XXX: Hmmm?
 		if !subscription.Confirmed() && subscription.Timedout(defaulWebSubTimeout) {
 			delete(ws.subscriptions, topic)
 		}
+		*/
 	}
 
 	for topic, subscribers := range ws.subscribers {
