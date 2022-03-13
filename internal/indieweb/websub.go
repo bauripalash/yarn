@@ -24,7 +24,7 @@ const (
 	defaultWebSubRedeliveryAttempts = 6
 	defaultWebSubLeaseTime          = time.Hour
 	defaultWebSubQueueSize          = 100
-	defaulWebSubTimeout             = time.Minute * 10
+	defaulWebSubTimeout             = 5 * time.Minute
 )
 
 var (
@@ -326,14 +326,15 @@ func (ws *WebSub) cleanup() {
 	defer ws.Unlock()
 
 	for topic, subscription := range ws.subscriptions {
-		if subscription.Confirmed() && subscription.Expired() {
-			delete(ws.subscriptions, topic)
+		if subscription.Confirmed() {
+			if subscription.Expired() {
+				delete(ws.subscriptions, topic)
+			}
+		} else {
+			if subscription.Timedout(defaulWebSubTimeout) {
+				delete(ws.subscriptions, topic)
+			}
 		}
-		/* XXX: Hmmm?
-		if !subscription.Confirmed() && subscription.Timedout(defaulWebSubTimeout) {
-			delete(ws.subscriptions, topic)
-		}
-		*/
 	}
 
 	for topic, subscribers := range ws.subscribers {
