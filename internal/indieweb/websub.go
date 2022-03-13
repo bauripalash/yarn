@@ -69,10 +69,19 @@ type Subscriber struct {
 	Topic     string    `json:"topic"`
 	Callback  string    `json:"callback"`
 	Verified  bool      `json:"verified"`
+	CreatedAt time.Time `json:"created_at"`
 	ExpiresAt time.Time `json:"expires_at"`
 }
 
-func (s Subscriber) Expired() bool {
+func NewSubscriber(topic, callback string) *Subscriber {
+	return &Subscriber{
+		Topic:     topic,
+		Callback:  callback,
+		CreatedAt: time.Now(),
+	}
+}
+
+func (s *Subscriber) Expired() bool {
 	return time.Now().After(s.ExpiresAt)
 }
 
@@ -86,9 +95,17 @@ type Subscription struct {
 	sync.RWMutex
 
 	confirmed bool
+	createdAt time.Time
 	expiresAt time.Time
 
 	Topic string
+}
+
+func NewSubscription(topic string) *Subscription {
+	return &Subscription{
+		Topic:     topic,
+		createdAt: time.Now(),
+	}
 }
 
 func (s *Subscription) MarshalJSON() ([]byte, error) {
@@ -392,7 +409,7 @@ func (ws *WebSub) Subscribe(uri, callback string) error {
 	topic := selfURL.String()
 
 	ws.Lock()
-	ws.subscriptions[topic] = &Subscription{Topic: topic}
+	ws.subscriptions[topic] = NewSubscription(topic)
 	ws.Unlock()
 
 	values := make(url.Values)
@@ -679,11 +696,7 @@ func (ws *WebSub) WebSubEndpoint(w http.ResponseWriter, r *http.Request) {
 
 	case "subscribe":
 		if !ws.HasSubscriberFor(topic, callback) {
-			subscriber := &Subscriber{
-				Topic:    topic,
-				Callback: callback,
-			}
-			ws.AddSubscriber(subscriber)
+			ws.AddSubscriber(NewSubscriber(topic, callback))
 		}
 		ws.verify <- &verification{
 			target:       callback,
