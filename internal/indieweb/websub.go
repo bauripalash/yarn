@@ -164,7 +164,7 @@ func (s *Subscription) Timedout(timeout time.Duration) bool {
 	s.RLock()
 	defer s.RUnlock()
 
-	return time.Now().After(s.createdAt.Add(timeout))
+	return s.createdAt.Add(timeout).After(time.Now())
 }
 
 func (s *Subscription) Expired() bool {
@@ -235,21 +235,21 @@ func NewWebSub(fn, endpoint string) *WebSub {
 		ValidateTopic: func(topic string) bool { return true },
 	}
 
-	ws.inboxTicker = time.NewTicker(3 * time.Second)
+	ws.inboxTicker = time.NewTicker(1 * time.Second)
 	go func() {
 		for range ws.inboxTicker.C {
 			ws.processInbox()
 		}
 	}()
 
-	ws.outboxTicker = time.NewTicker(3 * time.Second)
+	ws.outboxTicker = time.NewTicker(2 * time.Second)
 	go func() {
 		for range ws.outboxTicker.C {
 			ws.processOutbox()
 		}
 	}()
 
-	ws.verifyTicker = time.NewTicker(3 * time.Second)
+	ws.verifyTicker = time.NewTicker(1 * time.Second)
 	go func() {
 		for range ws.verifyTicker.C {
 			ws.processVerify()
@@ -263,7 +263,7 @@ func NewWebSub(fn, endpoint string) *WebSub {
 		}
 	}()
 
-	ws.stateTicker = time.NewTicker(5 * time.Minute)
+	ws.stateTicker = time.NewTicker(1 * time.Minute)
 	go func() {
 		for range ws.stateTicker.C {
 			ws.Save()
