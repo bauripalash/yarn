@@ -24,6 +24,7 @@ const (
 	defaultWebSubRedeliveryAttempts = 6
 	defaultWebSubLeaseTime          = time.Hour
 	defaultWebSubQueueSize          = 100
+	defaulWebSubTimeout             = time.Minute * 10
 )
 
 var (
@@ -157,6 +158,13 @@ func (s *Subscription) Confirm(leaseSeconds int) {
 	s.confirmed = true
 	s.expiresAt = time.Now().Add(time.Duration(leaseSeconds) * time.Second)
 	s.Unlock()
+}
+
+func (s *Subscription) Timedout(timeout time.Duration) bool {
+	s.RLock()
+	defer s.RUnlock()
+
+	return time.Now().After(s.createdAt.Add(timeout))
 }
 
 func (s *Subscription) Expired() bool {
@@ -319,6 +327,9 @@ func (ws *WebSub) cleanup() {
 
 	for topic, subscription := range ws.subscriptions {
 		if subscription.Confirmed() && subscription.Expired() {
+			delete(ws.subscriptions, topic)
+		}
+		if !subscription.Confirmed() && subscription.Timedout(defaulWebSubTimeout) {
 			delete(ws.subscriptions, topic)
 		}
 	}
