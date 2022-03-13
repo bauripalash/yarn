@@ -85,7 +85,7 @@ func AppendTwtFactory(conf *Config, cache *Cache, db Store) AppendTwtFunc {
 			fn = filepath.Join(p, feed.Name)
 		}
 
-		f, err := os.OpenFile(fn, os.O_APPEND|os.O_CREATE|os.O_SYNC|os.O_WRONLY, 0666)
+		f, err := os.OpenFile(fn, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 		if err != nil {
 			return types.NilTwt, err
 		}
@@ -121,14 +121,6 @@ func AppendTwtFactory(conf *Config, cache *Cache, db Store) AppendTwtFunc {
 		twt := types.MakeTwt(twter, now, newText)
 
 		if _, err = fmt.Fprintf(f, "%+l\n", twt); err != nil {
-			return types.NilTwt, err
-		}
-
-		if err := f.Sync(); err != nil {
-			return types.NilTwt, err
-		}
-
-		if err := f.Close(); err != nil {
 			return types.NilTwt, err
 		}
 
