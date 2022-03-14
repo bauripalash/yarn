@@ -156,13 +156,23 @@ body > footer {
   }
 
   #podMenu {
-    grid-template-columns: 1fr 1fr !important;
-    justify-items: center !important;
-    margin: -0.5rem 0 3rem 0 !important;
-  }
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  gap: 0px 0px;
+  justify-items: center !important;
+  margin: -0.5rem 0 1rem 0 !important;
+}
 
   #podMenu a {
+    text-align: center !important;
     margin-top: 1rem !important;
+  }
+
+  .search-grid {
+    position: absolute !important;
+    width: 95% !important;
+    margin: 1rem -5rem !important;
   }
 
   #newPost {
@@ -327,7 +337,7 @@ body > footer {
 
 @media (min-width: 577px) and (max-width: 768px) {
   #mainNav {
-    padding-bottom: 0.5rem !important;
+    padding-bottom: 0 !important;
   }
 
   #newPost {
@@ -431,7 +441,7 @@ body > footer {
 
 @media (min-width: 769px) and (max-width: 991px) {
   #mainNav {
-    padding-bottom: 0.5rem !important;
+    padding-bottom: 2.5rem !important;
   }
 
   #newPost {
@@ -505,7 +515,7 @@ body > footer {
 
 @media (min-width: 992px) and (max-width: 1199px) {
   #mainNav {
-    padding-bottom: 0.5rem !important;
+    padding-bottom: 2.5rem !important;
   }
 
   #newPost {
@@ -571,7 +581,7 @@ body > footer {
 
 @media (min-width: 1200px) {
   #mainNav {
-    padding-bottom: 0.5rem !important;
+    padding-bottom: 2.5rem !important;
   }
 
   #newPost {

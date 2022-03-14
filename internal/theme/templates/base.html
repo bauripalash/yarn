@@ -42,7 +42,7 @@
     {{ end }}
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <title>{{ .InstanceName }} {{ .Title }}</title>
     {{ with .Meta.Title }}<meta name="title" content="{{ . }}">{{ end }}
@@ -129,6 +129,14 @@
       </div>
       {{ end }}
       {{ end }}
+      <div id="podSearch">
+        <form id="search" action="/search" method="GET">
+          <div class="search-grid">
+            <input type="search" name="tag" placeholder="Search Tags" aria-label="Search">
+            <button type="submit">Search</button>
+          </div>
+        </form>
+      </div>
     </div>
   </nav>
   <main class="container">

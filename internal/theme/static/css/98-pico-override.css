@@ -55,6 +55,10 @@ dialog article>footer p {
   text-align: left !important;
 }
 
+input[type="search"] {
+  border-radius: 0.5rem !important;
+}
+
 .modal-is-opening dialog,
 .modal-is-opening dialog > figure,
 .modal-is-closing dialog,
