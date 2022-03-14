@@ -1,3 +1,75 @@
+#followOpt,
+#following,
+#followers,
+#followStat,
+.profile-last-seen{
+  display: block;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+}
+
+#profile-info details {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+#profile-info details p {
+  padding-top: 0.5rem;
+  padding-bottom: 0;
+}
+
+#muteTool,
+#reportTool {
+  display: block;
+  margin-top: -1rem !important;
+}
+
+#postToUser {
+  margin: 1rem 0;
+  padding: 1rem 0;
+  width: 100%;
+  border: 0;
+  border-radius: var(--border-radius);
+  background: var(--card-background-color);
+  box-shadow: var(--card-box-shadow);
+}
+
+#postToUser summary {
+  margin: 0 1rem;
+  color: var(--color);
+  font-weight: 600;
+}
+
+#postToUser #postbox {
+  margin: 1rem 1rem -3.25rem;
+}
+
+#recentTwts {
+  display: block;
+  font-weight: 600;
+  margin-top: -1rem;
+  padding: 1rem 0;
+  width: 100%;
+  border: 0;
+}
+
+#recentTwts summary {
+  padding: 1rem 0;
+  border-radius: var(--border-radius);
+  background: var(--card-background-color);
+  box-shadow: var(--card-box-shadow);
+}
+
+#recentTwts summary span {
+  margin: 0 1rem;
+  color: var(--color);
+  font-weight: 600;
+}
+
+#recentTwts summary:after {
+  margin-right: 1rem;
+}
+
 #newPost {
   width: 100%;
   border: 0;
@@ -64,7 +136,7 @@
 }
 
 #muted {
-  margin-top: 0.6rem;
+  margin-top: 0.1rem;
 }
 
 #profile-links, #profile-info {
@@ -96,15 +168,11 @@
 
 #profile-info details, #profile-links details {
   border: none;
-  margin-bottom: -2rem;
+  padding-bottom: 0;
 }
 
 #profile-info summary, #profile-links summary {
   color: var(--primary);
-}
-
-#following {
-  margin-bottom: 0.5rem;
 }
 
 main.container {
@@ -374,15 +442,6 @@ nav.timeline-nav a {
   margin-left: 2rem;
   text-align: center;
   line-height: 1.75rem;
-}
-
-.profile-last-seen,
-.profile-muted {
-  display: block;
-  padding-top: 0.35rem;
-  padding-bottom: 0.35rem;
-  font-size: 0.95rem;
-  color: var(--color);
 }
 
 .profile-tagline {
@@ -1009,6 +1068,10 @@ span[title="Copyright"]:before {
     margin: 1rem 0 -4rem 0;
   }
 
+  #recentTwts {
+    margin: -1rem 1rem -0.25rem 1rem;
+  }
+
   alert {
     height: 6rem;
   }
@@ -1182,10 +1245,6 @@ span[title="Copyright"]:before {
     margin-top: -2rem;
   }
 
-  .profile-last-seen {
-    padding-bottom: 0.15rem;
-  }
-
   .profile-button i,
   .ti-message-circle,
   .ti-compass,
@@ -1194,8 +1253,15 @@ span[title="Copyright"]:before {
   .ti-settings-nav,
   .ti-door-exit,
   .ti-door-enter,
-  .ti-user-plus {
+  .ti-user-plus,
+  .ti-volume-3,
+  .ti-urgent:not(summary i) {
     vertical-align: top;
+    font-size: 1.3rem;
+  }
+
+  summary .ti-urgent {
+    vertical-align: bottom;
     font-size: 1.3rem;
   }
 
@@ -1295,8 +1361,16 @@ span[title="Copyright"]:before {
     padding-bottom: 3rem;
   }
 
-  nav.timeline-nav:nth-of-type(2) {
+  nav.timeline-nav:not(#recentTwts nav):nth-of-type(2) {
     margin: -0.5rem 1rem 2.5rem 1rem;
+  }
+
+  #recentTwts nav.timeline-nav:nth-of-type(1) {
+    margin: -0.25rem 1rem -0.5rem 1rem;
+  }
+
+  #recentTwts nav.timeline-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -1.25rem 1rem;
   }
 
   article.single-twt {
@@ -1380,6 +1454,10 @@ span[title="Copyright"]:before {
     margin: 1rem 0 -1.5rem 0;
   }
 
+  #postToUser #postbox {
+    margin: 1rem 1rem -1.25rem;
+  }
+
   #podMenu {
     flex: 1;
     justify-content: right;
@@ -1435,6 +1513,14 @@ span[title="Copyright"]:before {
     margin: -0.5rem 1rem -0.5rem 1rem;
   }
 
+  #recentTwts nav.timeline-nav:nth-of-type(1) {
+    margin: -0.25rem 1rem -0.5rem 1rem;
+  }
+
+  #recentTwts nav.timeline-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -1.5rem 1rem;
+  }
+
   .profile-recent {
     margin-top: 3rem;
     margin-bottom: -2rem;
@@ -1468,13 +1554,6 @@ span[title="Copyright"]:before {
   .profile-links a {
     font-size: 0.0009rem;
     color: var(--background-color);
-  }
-
-  .ti-settings,
-  .ti-link-profile,
-  .ti-rss-profile,
-  .ti-bookmarks {
-    font-size: 1.3rem;
   }
 
   .submit-bar>div {
@@ -1541,6 +1620,10 @@ span[title="Copyright"]:before {
     margin: 1rem 0 -0.25rem 0;
   }
 
+  #postToUser #postbox {
+    margin: 1rem 1rem -0.75rem;
+  }
+
   #newPost[open=""] {
     padding-bottom: 0.1rem;
   }
@@ -1559,6 +1642,10 @@ span[title="Copyright"]:before {
 
   #postbox.single-twt.drawer {
     margin: -0.9rem 0.5rem 1.45rem 0.5rem !important;
+  }
+
+  #recentTwts {
+    margin: -1rem 1rem 0 1rem;
   }
 
   .profile-button a:last-of-type i {
@@ -1580,6 +1667,14 @@ span[title="Copyright"]:before {
 
   nav.timeline-nav:nth-of-type(2) {
     margin: -0.5rem 1rem -0.5rem 1rem;
+  }
+
+  #recentTwts nav.timeline-nav:nth-of-type(1) {
+    margin: -0.25rem 1rem -0.5rem 1rem;
+  }
+
+  #recentTwts nav.timeline-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -3rem 1rem;
   }
 
   .container article.container-fluid:last-child {
@@ -1628,6 +1723,10 @@ span[title="Copyright"]:before {
     margin: 1rem 0 -0.75rem 0;
   }
 
+  #postToUser #postbox {
+    margin: 1rem 1rem -1.25rem;
+  }
+
   #newPost[open=""] {
     padding-bottom: 0.1rem;
   }
@@ -1638,6 +1737,10 @@ span[title="Copyright"]:before {
 
   #postbox {
     padding-bottom: 0.5rem;
+  }
+
+  #recentTwts {
+    margin: -1rem 1rem 0 1rem;
   }
 
   .h-feed {
@@ -1664,6 +1767,14 @@ span[title="Copyright"]:before {
 
   nav.timeline-nav:nth-of-type(2) {
     margin: -0.5rem 1rem -1rem 1rem;
+  }
+
+  #recentTwts nav.timeline-nav:nth-of-type(1) {
+    margin: -0.25rem 1rem -0.5rem 1rem;
+  }
+
+  #recentTwts nav.timeline-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -3rem 1rem;
   }
 
   .container article.container-fluid:last-child {
@@ -1720,6 +1831,10 @@ span[title="Copyright"]:before {
     margin: 1rem 0 -0.75rem 0;
   }
 
+  #postToUser #postbox {
+    margin: 1rem 1rem -1.25rem;
+  }
+
   #newPost[open=""] {
     padding-bottom: 0.1rem;
   }
@@ -1730,6 +1845,10 @@ span[title="Copyright"]:before {
 
   #postbox {
     padding-bottom: 0.5rem;
+  }
+
+  #recentTwts {
+    margin: -1rem 1rem 0 1rem;
   }
 
   .h-feed {
@@ -1756,6 +1875,14 @@ span[title="Copyright"]:before {
 
   nav.timeline-nav:nth-of-type(2) {
     margin: -0.5rem 1rem -1rem 1rem;
+  }
+
+  #recentTwts nav.timeline-nav:nth-of-type(1) {
+    margin: -0.25rem 1rem -0.5rem 1rem;
+  }
+
+  #recentTwts nav.timeline-nav:nth-of-type(2) {
+    margin: -0.5rem 1rem -3rem 1rem;
   }
 
   .profile-recent {

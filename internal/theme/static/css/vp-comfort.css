@@ -142,7 +142,6 @@ nav.timeline-nav:last-of-type {
   font-size: 1.25rem !important;
 }
 
-#profile-info div,
 #profile-links li {
   padding: 0.25rem !important;
 }
@@ -179,8 +178,12 @@ body > footer {
     padding-bottom: 0.1rem !important;
   }
 
-  #postbox:not(.drawer) {
+  #postbox:not(.drawer):not(#postToUser #postbox) {
     margin: -2rem 0 0.25rem 0 !important;
+  }
+
+  #postToUser #postbox {
+    margin: 1.5rem 0.5rem -2.75rem 0.5rem !important;
   }
 
   #postbox {
@@ -289,6 +292,14 @@ body > footer {
     margin-bottom: -4.5rem !important;
   }
 
+  #recentTwts .timeline-nav:nth-of-type(1) {
+    margin-top: 0.5rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(2) {
+    margin-bottom: -3.75rem !important;
+  }
+
   .footer-copyright {
     width: 10rem !important;
     text-align: center !important;
@@ -326,6 +337,10 @@ body > footer {
 
   #newPost #postbox {
     margin: 2rem 0.5rem -0.25rem 0.5rem !important;
+  }
+
+  #postToUser #postbox {
+    margin: 2.25rem 0.5rem -1.5rem 0.5rem !important;
   }
 
   #newPost[open=""] {
@@ -366,6 +381,14 @@ body > footer {
   nav.yarn-nav:nth-of-type(2) {
     margin-top: 0.25rem !important;
     margin-bottom: -0.25rem !important;;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(1) {
+    margin-top: 0.5rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(2) {
+    margin-bottom: -0.75rem !important;
   }
 
   #loginBtn i:after,
@@ -424,12 +447,20 @@ body > footer {
     padding-bottom: 0.1rem !important;
   }
 
-  #postbox:not(.drawer) {
+  #postbox:not(.drawer):not(#postToUser #postbox) {
     margin: 2rem 0 0 0 !important;
+  }
+
+  #postToUser #postbox {
+    margin: 2.25rem 0.5rem -1rem 0.5rem !important;
   }
 
   #postbox.drawer {
     margin-bottom: 0.5rem !important;
+  }
+
+  #recentTwts summary {
+    margin-bottom: 2rem !important;
   }
 
   main.container:first-of-type {
@@ -443,6 +474,14 @@ body > footer {
   nav.timeline-nav:nth-of-type(2) {
     margin-top: 0 !important;
     margin-bottom: -0.5rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(1) {
+    margin-top: -1.5rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(2) {
+    margin-bottom: -2.5rem !important;
   }
 
   #twt-options {
@@ -482,8 +521,12 @@ body > footer {
     padding-bottom: 0.1rem !important;
   }
 
-  #postbox:not(.drawer) {
+  #postbox:not(.drawer):not(#postToUser #postbox) {
     margin: 2rem 0 0 0 !important;
+  }
+
+  #postToUser #postbox {
+    margin: 2.25rem 0.5rem -1rem 0.5rem !important;
   }
 
   main.container:first-of-type {
@@ -497,6 +540,14 @@ body > footer {
   nav.timeline-nav:nth-of-type(2) {
     margin-top: 0 !important;
     margin-bottom: -0.5rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(1) {
+    margin-top: 0.25rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(2) {
+    margin-bottom: -2.5rem !important;
   }
 
   #twt-options {
@@ -532,6 +583,10 @@ body > footer {
     margin: 2rem 0.5rem 0.25rem 0.5rem !important;
   }
 
+  #postToUser #postbox {
+    margin: 2.25rem 0.5rem -1rem 0.5rem !important;
+  }
+
   #newPost[open=""] {
     padding-bottom: 0.1rem !important;
   }
@@ -551,6 +606,14 @@ body > footer {
   nav.timeline-nav:nth-of-type(2) {
     margin-top: 0 !important;
     margin-bottom: -0.5rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(1) {
+    margin-top: 0.25rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(2) {
+    margin-bottom: -2.5rem !important;
   }
 
   #twt-options {

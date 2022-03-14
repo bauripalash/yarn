@@ -86,6 +86,14 @@
     margin-bottom: -2.5rem !important;
   }
 
+  #postToUser #postbox {
+    margin: 1rem 0.5rem -3.85rem 0.5rem !important;
+  }
+
+  #recentTwts summary {
+    margin-bottom: 1rem !important;
+  }
+
   .timeline-nav:nth-of-type(1) {
     margin-top: -1.25rem !important;
   }
@@ -100,6 +108,14 @@
 
   .yarn-nav:nth-of-type(2) {
     margin-bottom: -3.5rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(1) {
+    margin-top: -0.75rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(2) {
+    margin-bottom: -4.5rem !important;
   }
 
   #postbox:not(.drawer) {
@@ -195,9 +211,17 @@
     margin: 2.5rem 0.5rem -0.5rem 0.5rem !important;
   }
 
+  #postToUser #postbox {
+    margin: 2.5rem 0.5rem -1.6rem 0.5rem !important;
+  }
+
   #twt-conv {
     margin-top: -0.5rem !important;
     margin-bottom: 1.5rem !important;
+  }
+
+  #recentTwts summary {
+    margin-bottom: 1rem !important;
   }
 
   .timeline-nav:nth-of-type(1) {
@@ -244,6 +268,10 @@
 }
 
 @media (min-width: 769px) and (max-width: 991px) {
+  #postToUser #postbox {
+    margin: 1rem 0.5rem -1rem 0.5rem !important;
+  }
+
   .timeline-nav:nth-of-type(2) {
     margin-bottom: -0.75rem !important;
   }
@@ -251,6 +279,14 @@
   .yarn-nav:nth-of-type(2) {
     margin-top: -0.5rem !important;
     margin-bottom: -1rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(1) {
+    margin-top: -0.25rem !important;
+  }
+
+  #recentTwts .timeline-nav:nth-of-type(2) {
+    margin-bottom: -2.75rem !important;
   }
 
   #postbox:not(.drawer) {
@@ -267,6 +303,10 @@
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
+  #postToUser #postbox {
+    margin: 1.5rem 0.5rem -1.5rem 0.5rem !important;
+  }
+
   .yarn-nav:nth-of-type(1) {
     margin-top: -0.75rem !important;
     margin-bottom: -0.5rem !important;
@@ -295,6 +335,10 @@
 }
 
 @media (min-width: 1200px) {
+  #postToUser #postbox {
+    margin: 1.5rem 0.5rem -1.5rem 0.5rem !important;
+  }
+
   .yarn-nav:nth-of-type(1) {
     margin-top: -0.75rem !important;
     margin-bottom: -0.5rem !important;

@@ -230,22 +230,22 @@
 
 {{ define "followStats" }}
 {{ if $.Profile.ShowFollowing }}
-<div id="following">
+<span id="following">
   {{ if eq $.Profile.Type "External" }}
     {{ $.Profile.NFollowing }} <a href="/externalFollowing?uri={{ $.Profile.URI }}">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a>
   {{ else }}
     {{ $.Profile.NFollowing }} <a href="/user/{{ $.Profile.Nick }}/following">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a>
   {{ end }}
-</div>
+</span>
 {{ end }}
 {{ if $.Profile.ShowFollowers }}
-<div id="followers">
+<span id="followers">
   {{ if eq $.Profile.Type "External" }}
     {{ $.Profile.NFollowers }} <a href="#" title="{{ tr $.Ctx "FollowExternal" }}">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a>
   {{ else }}
     {{ $.Profile.NFollowers }} <a href="/user/{{ $.Profile.Nick }}/followers">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a>
   {{ end }}
-</div>
+</span>
 {{ end }}
 {{ end }}
 

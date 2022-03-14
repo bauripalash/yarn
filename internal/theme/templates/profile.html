@@ -12,7 +12,7 @@
       <h3>{{ .Profile.Nick }}</h3>
       <h2>{{ .Profile.URI | hostnameFromURL }}</h2>
     </hgroup>
-    <p>{{ if gt (len .Profile.Description) 0 }}{{ .Profile.Description }}{{ else }}<em>No description provided.</em>{{ end }}</p>
+    <p>{{ if gt (len .Profile.Description) 0 }}{{ .Profile.Description }}{{ else }}<em>{{ tr . "ProfileNoDescription" }}</em>{{ end }}</p>
   </article>
   {{ if and (.Authenticated) (not (eq .Profile.Nick .User.Username)) }}
   <div class="profile-button">
@@ -36,29 +36,57 @@
   <div class="profile-side{{ if eq (len $.Twts) 0 }} no-recent-twt{{ end }}">
     <article id="profile-info">
       <hgroup>
-        <h3>User Info</h3>
+        <h3>{{ tr . "ProfileInfo" }}</h3>
         <h2><hr></h2>
       </hgroup>
+      {{ if and (.Authenticated) (not (eq .Profile.Nick .User.Username)) }}
+      <span id="followOpt">
+        <a class="followBtn" style="display: {{ if not $.Profile.Follows }}inline{{ else }}none{{ end }} !important;" href="/follow?nick={{ .Profile.Nick  }}&url={{ .Profile.URI }}">
+          <i class="ti ti-circle-plus"></i> {{ tr . "FollowLinkTitle" }}
+        </a>
+        <a class="unfollowBtn" style="display: {{ if $.Profile.Follows }}inline{{ else }}none{{ end }} !important;" href="/unfollow?nick={{ .Profile.Nick  }}">
+          <i class="ti ti-circle-minus"></i> {{ tr . "UnfollowLinkTitle" }}
+        </a>
+      </span>
+      {{ end }}
       {{ template "followStats" (dict "Profile" .Profile "Ctx" .) }}
       {{ if .Authenticated }}
       {{ if not (eq .Profile.Nick .User.Username) }}
       {{ if .Profile.Muted }}<span class="profile-muted"><i class="ti ti-volume-3"></i> {{ tr . "ProfileIsMuted" }}</span>{{ end }}
       {{ if not $.Profile.Muted }}<span class="profile-last-seen"><i class="ti ti-clock"></i> {{ tr . "ProfileLastSeen" }} {{ .Profile.LastSeenAt | lastseen }}</span>{{ end }}
+      <span id="followStat">
       {{ if .Profile.FollowedBy }}
-      <div>
         <b>{{ .Profile.Nick }}</b> {{ tr . "ProfileFollowsYou" }}
-      </div>
       {{ else }}
-      <div>
         <b>{{ .Profile.Nick }}</b> {{ tr . "ProfileDoesNotFollowYou" }}
-      </div>
+      {{ end }}
+      </span>
       {{ end }}
       {{ end }}
+      {{ if and (.Authenticated) (not (eq .Profile.Nick .User.Username)) }}
+      <details>
+        <summary><i class="ti ti-urgent"></i>&nbsp;&nbsp;{{ tr . "ProfileToolTitle" }}</summary>
+        <p>{{ (tr . "ProfileMuteUser" (dict "InstanceName" .InstanceName)) | html }}</p>
+        <span id="muteTool">
+          <a class="muteBtn" style="display: {{ if not $.Profile.Muted }}inline{{ else }}none{{ end }} !important;" href="/mute?nick={{ .Profile.Nick }}&url={{ .Profile.URI }}">
+            <i class="ti ti-volume-3"></i> {{ tr . "ProfileMuteLinkTitle" }}
+          </a>
+          <a class="unmuteBtn" style="display: {{ if .Profile.Muted }}inline{{ else }}none{{ end }} !important;" href="/unmute?nick={{ .Profile.Nick }}">
+            <i class="ti ti-volume"></i> {{ tr . "ProfileUnmuteLinkTitle" }}
+          </a>
+        </span>
+        <p>{{ (tr . "ProfileReportUser" (dict "InstanceName" .InstanceName)) | html }}</p>
+        <span id="reportTool">
+          <a href="/report?nick={{ .Profile.Nick  }}&url={{ .Profile.URI }}">
+            <i class="ti ti-urgent"></i> {{ tr . "ProfileReportLinkTitle" }}
+          </a>
+        </span>
+      </details>
       {{ end }}
     </article>
     <article id="profile-links">
       <hgroup>
-        <h3>User Links</h3>
+        <h3>{{ tr . "ProfileLinks" }}</h3>
         <h2><hr></h2>
       </hgroup>
       <div>
@@ -69,14 +97,13 @@
     </article>
   </div>
   {{ if .Authenticated }}
-  <div class="profile-post">
+  <details id="postToUser">
+    <summary>Send {{ .Profile.Nick }} a twt</summary>
     {{ template "post" (dict "Authenticated" $.Authenticated "User" $.User "TwtPrompt" $.TwtPrompt "MaxTwtLength" $.MaxTwtLength "PostText" $.PostText "Reply" $.Reply "AutoFocus" false "CSRFToken" $.CSRFToken "Ctx" . "view" "profile") }}
-  </div>
+  </details>
   {{ end }}
   {{ if gt (len $.Twts) 0 }}
-  <div class="profile-recent">
-    <h2>{{ tr . "RecentTwtsSummary" (dict "Username" .Profile.Nick) }}</h2>
-  </div>
+  <span id="recentTwts">{{ tr . "RecentTwtsSummary" (dict "Username" .Profile.Nick) }}</span>
   {{ template "feed" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Pager" $.Pager "Twts" $.Twts "Ctx" . "view" "profile") }}
   {{ end }}
 {{ end }}
