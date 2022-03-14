@@ -899,6 +899,8 @@ window.onload = function() {
     const urlParam = urlParams.get("url");
     if (titleParam && urlParam) {
       insertText(u("textarea#text"), "[" + titleParam + "](" + urlParam + ")\r\n\r\n");
+      u("#newPost").attr("open", "");
+      u("textarea#text").first().focus();
     }
   }
 }
