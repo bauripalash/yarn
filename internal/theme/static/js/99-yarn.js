@@ -864,6 +864,8 @@ window.onload = function() {
   var text = localStorage.getItem('text');
   if (text) {
     u("textarea#text").first().value = text;
+    u("#newPost").attr("open", "");
+    u("textarea#text").first().focus();
     return;
   }
 
