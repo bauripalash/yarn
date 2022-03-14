@@ -14,26 +14,7 @@
     </hgroup>
     <p>{{ if gt (len .Profile.Description) 0 }}{{ .Profile.Description }}{{ else }}<em>{{ tr . "ProfileNoDescription" }}</em>{{ end }}</p>
   </article>
-  {{ if and (.Authenticated) (not (eq .Profile.Nick .User.Username)) }}
-  <div class="profile-button">
-    <a role="button" class="followBtn" style="display: {{ if not $.Profile.Follows }}inline{{ else }}none{{ end }} !important;" href="/follow?nick={{ .Profile.Nick  }}&url={{ .Profile.URI }}">
-      <i class="ti ti-circle-plus"></i> {{ tr . "FollowLinkTitle" }}
-    </a>
-    <a role="button" class="secondary unfollowBtn" style="display: {{ if $.Profile.Follows }}inline{{ else }}none{{ end }} !important;" href="/unfollow?nick={{ .Profile.Nick  }}">
-      <i class="ti ti-circle-minus"></i> {{ tr . "UnfollowLinkTitle" }}
-    </a>
-    <a role="button" class="muteBtn" style="display: {{ if not $.Profile.Muted }}inline{{ else }}none{{ end }} !important;" href="/mute?nick={{ .Profile.Nick }}&url={{ .Profile.URI }}">
-      <i class="ti ti-volume-3"></i> {{ tr . "ProfileMuteLinkTitle" }}
-    </a>
-    <a role="button" class="secondary unmuteBtn" style="display: {{ if .Profile.Muted }}inline{{ else }}none{{ end }} !important;" href="/unmute?nick={{ .Profile.Nick }}">
-      <i class="ti ti-volume"></i> {{ tr . "ProfileUnmuteLinkTitle" }}
-    </a>
-    <a role="button" class="contrast" href="/report?nick={{ .Profile.Nick  }}&url={{ .Profile.URI }}">
-      <i class="ti ti-urgent"></i> {{ tr . "ProfileReportLinkTitle" }}
-    </a>
-  </div>
-  {{ end }}
-  <div class="profile-side{{ if eq (len $.Twts) 0 }} no-recent-twt{{ end }}">
+  <div class="profile-side{{ if and (eq (len $.Twts) 0) (not .Authenticated) }} na-twt{{ end }}{{ if and (eq (len $.Twts) 0) (.Authenticated) }} nr-twt{{ end }}">
     <article id="profile-info">
       <hgroup>
         <h3>{{ tr . "ProfileInfo" }}</h3>
@@ -97,7 +78,7 @@
     </article>
   </div>
   {{ if .Authenticated }}
-  <details id="postToUser">
+  <details id="postToUser"{{ if and (eq (len $.Twts) 0) (.Authenticated) }}class="nr-twt"{{ end }}>
     <summary>Send {{ .Profile.Nick }} a twt</summary>
     {{ template "post" (dict "Authenticated" $.Authenticated "User" $.User "TwtPrompt" $.TwtPrompt "MaxTwtLength" $.MaxTwtLength "PostText" $.PostText "Reply" $.Reply "AutoFocus" false "CSRFToken" $.CSRFToken "Ctx" . "view" "profile") }}
   </details>

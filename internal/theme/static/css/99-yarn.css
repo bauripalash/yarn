@@ -1188,8 +1188,12 @@ span[title="Copyright"]:before {
     padding-bottom: 0;
   }
 
-  .no-recent-twt {
+  .na-twt {
     margin-bottom: 2.5rem;
+  }
+
+  details.nr-twt {
+    margin-bottom: 4rem !important;
   }
 
   nav.float {
@@ -1481,7 +1485,7 @@ span[title="Copyright"]:before {
     padding-bottom: 0;
   }
 
-  .no-recent-twt {
+  .na-twt {
     margin-bottom: -0.45rem;
   }
 

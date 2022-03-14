@@ -157,8 +157,11 @@ function deleteTwt(e) {
 
 function movePostBox(e) {
   e.preventDefault();
+  var hr = window.location.href;
 
-  if (window.location.href.indexOf('/conv/') == -1) {
+  if (hr.indexOf('/user/') > 0 || hr.indexOf('/external?') > 0) {
+    u("#postToUser").first().style.display = "none";
+  } else if (hr.indexOf('/conv/') == -1) {
     u("#newPost").first().style.display = "none";
   }
 
@@ -213,8 +216,12 @@ function resetPostBox() {
   postbox.removeClass("drawer");
 
   u("#postbox").remove();
+  var hr = window.location.href;
 
-  if (window.location.href.indexOf('/conv/') > 0) {
+  if (hr.indexOf('/user/') > 0 || hr.indexOf('/external?') > 0) {
+    u("#postToUser").first().style.display = "initial";
+    u("#postToUser").prepend(postbox);
+  } else if (hr.indexOf('/conv/') > 0) {
     u("main").append(postbox);
   } else {
     u("#newPost").first().style.display = "initial";
@@ -869,7 +876,7 @@ window.onbeforeunload = function() {
 
 window.onload = function() {
   var text = localStorage.getItem('text');
-  if (text) {
+  if (text && u("textarea#text").length > 0) {
     u("textarea#text").first().value = text;
     u("#newPost").attr("open", "");
     u("textarea#text").first().focus();
