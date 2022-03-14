@@ -182,6 +182,13 @@ function movePostBox(e) {
   u(".grid.h-feed").addClass("bump-up");
 }
 
+/* Focus PostBox's TextArea on Toggling the PostBox */
+u("#newPost").on("toggle", function (e) {
+  if (u(e.target).attr("open") != null) {
+    u("textarea#text").first().focus();
+  }
+});
+
 /* Close the PostBox on Escape if we moved it */
 u("body").on("keyup", function(e) {
   if (u("#postbox").hasClass("drawer")) {
