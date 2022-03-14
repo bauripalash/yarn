@@ -1125,6 +1125,10 @@ span[title="Copyright"]:before {
     padding-bottom: 0;
   }
 
+  .no-recent-twt {
+    margin-bottom: 2.5rem;
+  }
+
   nav.float {
     padding-top: 7rem !important;
   }
@@ -1397,6 +1401,10 @@ span[title="Copyright"]:before {
 
   #profile-links {
     padding-bottom: 0;
+  }
+
+  .no-recent-twt {
+    margin-bottom: -0.45rem;
   }
 
   .conv-post:not(.form-reply) {

@@ -33,7 +33,7 @@
     </a>
   </div>
   {{ end }}
-  <div class="profile-side">
+  <div class="profile-side{{ if eq (len $.Twts) 0 }} no-recent-twt{{ end }}">
     <article id="profile-info">
       <hgroup>
         <h3>User Info</h3>
