@@ -149,10 +149,6 @@
       <a href="/abuse" class="menu-item">{{ tr . "MenuAbuse" }}</a>
       <a href="/help" class="menu-item">{{ tr . "MenuHelp" }}</a>
       <a href="/support" class="menu-item">{{ tr . "MenuSupport" }}</a>
-      <a href="/atom.xml" class="menu-item"><i class="ti ti-rss"></i></a>
-      {{ if .IsAdmin }}
-      <a href="/manage/pod" class="menu-item"><i class="ti ti-device-analytics"></i></a>
-      {{ end }}
     </div>
     <div class="footer-copyright">
       {{ tr . "FooterRunning" | html }}

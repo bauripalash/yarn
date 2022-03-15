@@ -1,3 +1,19 @@
+#adminSec hgroup {
+  margin-bottom: -0.75rem;
+}
+
+#adminSec a {
+  display: block;
+  font-size: 120%;
+  font-weight: 600;
+}
+
+textarea#logo,
+textarea#css {
+  font-family: monospace;
+  font-size: 80%;
+}
+
 .search-grid {
   display: inline-grid;
   margin: 3rem 0 0 -31.5rem;
@@ -1467,6 +1483,10 @@ span[title="Copyright"]:before {
   #twt-join {
     margin: -2.5rem 0 4rem 0 !important;
     padding-bottom: 1.5rem !important;
+  }
+
+  body > footer {
+    margin-top: 2rem;
   }
 
   .footer-copyright {

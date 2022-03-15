@@ -1,4 +1,12 @@
 {{ define "content" }}
+{{ if .IsAdmin }}
+<article id="adminSec" class="profile-header">
+  <hgroup>
+    <a href="/manage/pod"><i class="ti ti-device-analytics"></i> Poderator Settings</a>
+    <h2>Access this pod instance administration tools.</h2>
+  </hgroup>
+</article>
+{{ end }}
 <article class="profile-header">
   <a id="profile-avatar" href="{{ $.User.URL | trimSuffix "/twtxt.txt" }}" class="u-url">
     <img class="avatar u-photo" src="/user/{{ $.User.Username }}/avatar" alt="" loading=lazy />
