@@ -1,3 +1,11 @@
+lightbox+dialog+p br {
+  display: none;
+}
+
+figcaption p {
+  margin-bottom: 0;
+}
+
 #adminSec hgroup {
   margin-bottom: -0.75rem;
 }
@@ -591,10 +599,6 @@ nav.timeline-nav a {
   margin-bottom: 1.25rem;
 }
 
-.center-cropped {
-  padding-right: 0.2rem;
-}
-
 .center-cropped img {
   margin: -1rem 0 0.25rem 0;
   height: 8rem;
@@ -604,22 +608,16 @@ nav.timeline-nav a {
   border-radius: var(--border-radius);
 }
 
-.caption-wrap {
-  position: relative;
-}
-
 .caption {
   font-weight: normal;
-  margin: 0 0 0 0.1rem;
+  margin-top: 4.5rem;
   box-sizing: border-box;
   width: 12rem;
-  padding: 10px;
+  padding: 0.5rem;
   position: absolute;
-  bottom: 0.25rem;
   background-color: rgba(0, 0, 0, 0.75);
   transition: opacity 0.25s;
   visibility: hidden;
-  opacity: 0;
   border-radius: 0 0 var(--border-radius) var(--border-radius);
   white-space: nowrap;
   overflow: hidden;

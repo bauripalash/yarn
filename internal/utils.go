@@ -1945,7 +1945,7 @@ func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) st
 		 <dialog id="%s">
         <figure>
           <img loading=lazy src="%s" />
-          <figcaption><a id="img-dl" href="%s" download>Download</a>%s</figcaption>
+          <figcaption><a id="img-dl" href="%s">Download</a><p>%s</p></figcaption>
         </figure>
       </dialog>`,
 		imgURI, title, alt, isCaption, imgURI, uuid, uuid, fullImgURI, fullImgURI, caption,
@@ -2208,10 +2208,9 @@ func FormatTwtFactory(conf *Config, cache *Cache, archive Archiver) func(twt typ
 
 		//p := bluemonday.UGCPolicy()
 		p := bluemonday.StrictPolicy()
-		p.AllowElements("a", "img", "strong", "em", "del", "br", "p", "blockquote", "ul", "ol", "li", "pre", "code")
+		p.AllowElements("a", "img", "strong", "em", "del", "br", "p", "blockquote", "ul", "ol", "li", "pre", "code", "figure", "figcaption")
 		p.AllowAttrs("href").OnElements("a")
 		p.AllowAttrs("src").OnElements("img")
-
 		p.AllowAttrs("id").OnElements("dialog")
 		p.AllowAttrs("id", "controls").OnElements("audio")
 		p.AllowAttrs("id", "controls", "playsinline", "preload", "poster").OnElements("video")
