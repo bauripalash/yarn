@@ -194,12 +194,22 @@ u("#newPost").on("toggle", function (e) {
 
 /* Close the PostBox on Escape if we moved it */
 u("body").on("keyup", function(e) {
+  if (e.key != "Escape") {
+    return;
+  }
+
+  e.preventDefault();
+
+  // Reset and close the postBox on Esc if replying
   if (u("#postbox").hasClass("drawer")) {
-    if (e.key === "Escape") {
-      e.preventDefault();
-      resetPostBox();
-      u("#text").first().value = "";
-    }
+    resetPostBox();
+    u("#text").first().value = "";
+  }
+
+  // Reset and close the postBox on Esc if replying
+  if (u("#newPost").attr("open") != null) {
+    u("#newPost").first().removeAttribute("open");
+    u("#text").first().value = "";
   }
 });
 
