@@ -1,6 +1,6 @@
 {{ define "post" }}
 {{ if $.Authenticated }}
-{{ if eq $.view "timeline" }}
+{{ if or (eq $.view "timeline") (eq $.view "bookmarks") }}
 <details id="newPost">
   <summary><i class="ti ti-message"></i>&nbsp;&nbsp;Create a New Post</summary>
 {{ end }}
@@ -54,7 +54,7 @@
       </div>
     </form>
   </div>
-{{ if eq $.view "timeline" }}
+{{ if or (eq $.view "timeline") (eq $.view "bookmarks") }}
 </details>
 {{ end }}
 {{ end }}
@@ -167,7 +167,7 @@
 
 {{ define "feed" }}
   {{ if gt (len $.Twts) 0 }}
-  <div class="grid h-feed">
+  <div class="grid h-feed{{ if eq $.view "bookmarks" }} bookmark-feed{{ end }}">
     {{ template "pager" (dict "Pager" $.Pager "Ctx" $.Ctx) }}
     {{ range $idx, $twt := $.Twts }}
     {{ template "twt" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Twt" $twt "Ctx" $.Ctx "view" $.view) }}

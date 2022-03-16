@@ -160,7 +160,11 @@ function movePostBox(e) {
   var hr = window.location.href;
 
   if (hr.indexOf('/user/') > 0 || hr.indexOf('/external?') > 0) {
-    u("#postToUser").first().style.display = "none";
+    if (hr.indexOf('/bookmarks') > 0) {
+      u("#newPost").first().style.display = "none";
+    } else {
+      u("#postToUser").first().style.display = "none";
+    }
   } else if (hr.indexOf('/conv/') == -1) {
     u("#newPost").first().style.display = "none";
   }
@@ -229,8 +233,13 @@ function resetPostBox() {
   var hr = window.location.href;
 
   if (hr.indexOf('/user/') > 0 || hr.indexOf('/external?') > 0) {
-    u("#postToUser").first().style.display = "initial";
-    u("#postToUser").prepend(postbox);
+    if (hr.indexOf('/bookmarks') > 0) {
+      u("#newPost").first().style.display = "initial";
+      u("#newPost").prepend(postbox);
+    } else {
+      u("#postToUser").first().style.display = "initial";
+      u("#postToUser").prepend(postbox);
+    }
   } else if (hr.indexOf('/conv/') > 0) {
     u("main").append(postbox);
   } else {

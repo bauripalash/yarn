@@ -1,3 +1,7 @@
+.bookmark-feed {
+  margin-top: 1rem;
+}
+
 figcaption p {
   margin-bottom: 0;
 }
@@ -1110,6 +1114,10 @@ span[title="Copyright"]:before {
     margin: -1rem 1rem -0.25rem 1rem;
   }
 
+  .bookmark-feed {
+    margin-top: 1.25rem;
+  }
+
   alert {
     height: 6rem;
   }
@@ -1506,6 +1514,10 @@ span[title="Copyright"]:before {
 
   .bump-up {
     margin-top: -1rem;
+  }
+
+  .bookmark-feed {
+    margin-top: 1.5rem;
   }
 
   alert {

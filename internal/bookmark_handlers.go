@@ -126,7 +126,7 @@ func (s *Server) BookmarksHandler() httprouter.Handle {
 		if err := pager.Results(&pagedTwts); err != nil {
 			log.WithError(err).Error("error sorting and paging twts")
 			ctx.Error = true
-			ctx.Message = s.tr(ctx, "ErrorTimelineLoad")
+			ctx.Message = s.tr(ctx, "ErrorBookmarksLoad")
 			s.render("error", w, ctx)
 			return
 		}
@@ -134,6 +134,6 @@ func (s *Server) BookmarksHandler() httprouter.Handle {
 		ctx.Twts = pagedTwts
 		ctx.Pager = &pager
 
-		s.render("timeline", w, ctx)
+		s.render("bookmarks", w, ctx)
 	}
 }
