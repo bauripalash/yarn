@@ -26,11 +26,13 @@ dialog article {
 }
 
 pre>code {
-  padding: 0.25rem 0.5rem !important;
+  padding: 0rem 0.25rem !important;
 }
 
+pre,
 code,
 kbd {
+  margin: 0.25rem 0 !important;
   padding: 0.2rem 0.3rem !important;
 }
 

@@ -414,7 +414,7 @@ article.grid {
 
 .twt-nav:empty {
   border-top: 0;
-  padding: 0;
+  padding: 0.5rem;
   margin-top: -1.75rem;
 }
 
@@ -1013,11 +1013,6 @@ footer {
 
 footer .footer-menu a {
   margin-left: 0.5rem;
-}
-
-pre {
-  margin-top: -1rem;
-  margin-bottom: 0.25rem;
 }
 
 .container-fluid,
