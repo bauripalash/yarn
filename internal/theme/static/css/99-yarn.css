@@ -1100,6 +1100,11 @@ span[title="Copyright"]:before {
   main.container {
     margin: -5rem 0 -3.5rem 0;
   }
+  
+  p:first-of-type:empty+lightbox a {
+    display: block;
+    margin-top: 1.25rem;
+  }
 
   #newPost {
     padding: 1.25rem 0.5rem;
