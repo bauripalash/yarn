@@ -1,6 +1,6 @@
 {{ define "base" }}
 <!DOCTYPE html>
-<html lang="en" {{ with .Theme }}data-theme="{{ . }}"{{ end }}>
+<html lang="en" {{ with .Theme }}data-theme="{{ . }}"{{ end }} {{ if $.User.VisibilityReadmore }}data-readmore="true"{{ end }}>
   <head>
     {{ if $.Debug }}
       <link href="/css/01-pico.css" rel="stylesheet" />
@@ -15,11 +15,11 @@
       <link rel="icon" type="image/png" href="/img/{{ .Commit }}/favicon.png" />
     {{ end }}
 
-    {{ if or (eq $.User.VisibilityPreference "compact") (eq $.User.VisibilityPreference "comfort") }}
+    {{ if $.User.VisibilityCompact }}
     {{ if $.Debug }}
-      <link href="/css/vp-{{ $.User.VisibilityPreference }}.css" rel="stylesheet" />
+      <link href="/css/vp-compact.css" rel="stylesheet" />
     {{ else }}
-      <link href="/css/{{ .Commit }}/vp-{{ $.User.VisibilityPreference }}.css" rel="stylesheet" />
+      <link href="/css/{{ .Commit }}/vp-compact.css" rel="stylesheet" />
     {{ end }}
     {{ end }}
 

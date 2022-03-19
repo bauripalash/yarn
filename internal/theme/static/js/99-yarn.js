@@ -879,6 +879,23 @@ function showMentionedList() {
     u("textarea#text").first().clientHeight + 2 + "px";
 }
 
+function readMore(e) {
+  var readTwt = u(e.target);
+  var twtContent = readTwt.parent().find(".e-content");
+  if (readTwt.text() == "⤋ Read More") {
+    twtContent.removeClass("p-compact");
+    readTwt.text("⤊ Read Less");
+  } else {
+    twtContent.addClass("p-compact");
+    readTwt.text("⤋ Read More");
+  }
+}
+
+u("#readtwt").on("click", function(e) {
+  e.preventDefault();
+  readMore(e);
+});
+
 if (
   window.performance.getEntriesByType("navigation")[0].type === "back_forward"
 ) {
@@ -894,6 +911,17 @@ window.onbeforeunload = function() {
 };
 
 window.onload = function() {
+  if (u("html").attr("data-readmore") == "true" && u(".e-content").length > 2) {
+    u("article").each(function(article, i){
+      var ec = u(article).find(".e-content");
+      var rt = u(article).find("#readtwt");
+      if (Math.ceil(ec.size().height) > 180) {
+        rt.first().style.display = "inline-block";
+        ec.addClass("p-compact");
+      }
+    });
+  };
+
   var text = localStorage.getItem('text');
   if (text && u("textarea#text").length > 0) {
     u("textarea#text").first().value = text;
@@ -984,7 +1012,7 @@ tippy('span.vp-d-help', {
   }
 });
 
-tippy('span.vp-p-help', {
+tippy('span.vp-c-help', {
   content(help) {
     return '<svg version="1.2" viewBox="0 0 195 105" width="195px" height="105px"><style>tspan{white-space:pre}.t7,.t8{fill:var(--muted-color);font-size:10px;font-family:var(--font-family)}.t8{font-size:11px;fill:var(--primary)}</style><path fill="var(--card-background-color)" d="M.2.2h225v107H.2z"/><path fill="var(--muted-color)" d="M7.2 10.6c0-1.9 1.6-3.5 3.5-3.5h17c1.9 0 3.5 1.6 3.5 3.5v17c0 2-1.6 3.5-3.5 3.5h-17c-1.9 0-3.5-1.5-3.5-3.5z"/><path fill="var(--primary)" d="M35.5 11.6h90v6h-90zm0 9h90v6h-90z"/><path fill="var(--muted-color)" d="M5.2 83.1c114.1.6 215 0 215 0"/><text transform="translate(8.72 97.5)"><tspan x="0" y="0" class="t8">R</tspan></text><text transform="translate(40.66 97.5)"><tspan x="0" y="0" class="t8">E</tspan></text><text transform="translate(73.45 97.5)"><tspan x="0" y="0" class="t8">Y</tspan></text><text transform="translate(5.17 46.81)"><tspan x="0" y="0" class="t7">Lorem ipsum dolor sit amet, consectetur</tspan></text><text transform="translate(5.17 59.24)"><tspan x="0" y="0" class="t7">adipiscing elit, sed do eiusmod tempor</tspan></text><text transform="translate(5.17 71.67)"><tspan x="0" y="0" class="t7">incididunt ut labore et dolore magna.</tspan></text><path fill="var(--muted-color)" d="M155.8 11.6h29.7v6h-29.7zm0 9h29.7v6h-29.7z"/></svg>';
   }

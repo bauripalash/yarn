@@ -61,7 +61,9 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		displayImagesPreference := r.FormValue("displayImagesPreference")
 		displayMedia := r.FormValue("displayMedia") == "on"
 		originalMedia := r.FormValue("originalMedia") == "on"
-		visibilityPreference := r.FormValue("visibilityPreference")
+
+		visibilityCompact := r.FormValue("visibilityCompact") == "on"
+		visibilityReadmore := r.FormValue("visibilityReadmore") == "on"
 
 		// Clean lines from DOS (\r\n) to UNIX (\n)
 		logo = strings.ReplaceAll(logo, "\r\n", "\n")
@@ -162,7 +164,8 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		s.config.DisplayImagesPreference = displayImagesPreference
 		s.config.DisplayMedia = displayMedia
 		s.config.OriginalMedia = originalMedia
-		s.config.VisibilityPreference = visibilityPreference
+		s.config.VisibilityCompact = visibilityCompact
+		s.config.VisibilityReadmore = visibilityReadmore
 
 		// Save config file
 		if err := s.config.Settings().Save(filepath.Join(s.config.Data, "settings.yaml")); err != nil {

@@ -55,7 +55,9 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		displayImagesPreference := r.FormValue("displayImagesPreference")
 		displayMedia := r.FormValue("displayMedia") == "on"
 		originalMedia := r.FormValue("originalMedia") == "on"
-		visibilityPreference := r.FormValue("visibilityPreference")
+
+		visibilityCompact := r.FormValue("visibilityCompact") == "on"
+		visibilityReadmore := r.FormValue("visibilityReadmore") == "on"
 
 		isFollowersPubliclyVisible := r.FormValue("isFollowersPubliclyVisible") == "on"
 		isFollowingPubliclyVisible := r.FormValue("isFollowingPubliclyVisible") == "on"
@@ -122,7 +124,9 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		user.DisplayImagesPreference = displayImagesPreference
 		user.DisplayMedia = displayMedia
 		user.OriginalMedia = originalMedia
-		user.VisibilityPreference = visibilityPreference
+
+		user.VisibilityCompact = visibilityCompact
+		user.VisibilityReadmore = visibilityReadmore
 
 		if displayTimelinePreference != user.DisplayTimelinePreference {
 			// Force User Views to be recalculated

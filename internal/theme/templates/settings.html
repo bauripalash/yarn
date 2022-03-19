@@ -149,18 +149,14 @@
     <div class="grid">
       <div>
         <fieldset>
-          <legend>Visibility Preference</legend>
-          <label for="visDefault">
-            <input type="radio" name="visibilityPreference" value="default" {{ if eq $.User.VisibilityPreference "default" }}checked{{ end }}>
-            Default <span class="vp-d-help"><i class="ti ti-help"></i></span>
-          </label>
+          <legend>{{ tr . "SettingsVisualTitle" }}</legend>
           <label for="visCompact">
-            <input type="radio" name="visibilityPreference" value="compact" {{ if eq $.User.VisibilityPreference "compact" }}checked{{ end }}>
-            Compact <span class="vp-p-help"><i class="ti ti-help"></i></span>
+            <input id="visCompact" type="checkbox" name="visibilityCompact" aria-label="{{ tr . "SettingsVisualCompact" }}" role="switch" {{ if $.User.VisibilityCompact }}checked{{ end }}>
+            {{ tr . "SettingsVisualCompact" }} <span class="vp-c-help"><i class="ti ti-help"></i></span>
           </label>
-          <label for="visComfort">
-            <input type="radio" name="visibilityPreference" value="comfort" {{ if eq $.User.VisibilityPreference "comfort" }}checked{{ end }}>
-            Comfortable <span class="vp-f-help"><i class="ti ti-help"></i></span>
+          <label for="visReadmore">
+            <input id="visReadmore" type="checkbox" name="visibilityReadmore" aria-label="{{ tr . "SettingsVisualReadmore" }}" role="switch" {{ if $.User.VisibilityReadmore }}checked{{ end }}>
+            {{ tr . "SettingsVisualReadmore" }} <span class="help" title="{{ tr . "SettingsVisualReadmoreHelp" }}"><i class="ti ti-help"></i>
           </label>
         </fieldset>
       </div>

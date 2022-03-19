@@ -1875,7 +1875,7 @@ func RenderAudio(conf *Config, uri, title, renderAs string, full bool) string {
 }
 
 // RenderImage ...
-func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) string {
+func RenderImage(user *User, conf *Config, uri, caption, alt, renderAs string, full bool) string {
 	// isMediaURI tries to guess whether the `uri` looks like it _might_ have come from another `yarnd` pod
 	// if so we _assume_ we can optionally download original quality media from it by appending ?full=1
 
@@ -1928,8 +1928,9 @@ func RenderImage(conf *Config, uri, caption, alt, renderAs string, full bool) st
 		)
 	}
 
+	// XXX: Captions are disabled for lightbox preview if readmore is enabled.
 	isCaption := ""
-	if caption != "" {
+	if !user.VisibilityReadmore && caption != "" {
 		isCaption = fmt.Sprintf(
 			`<lightbox class="caption" data-target="%s">%s</lightbox>`,
 			uuid, caption,
@@ -1982,7 +1983,7 @@ func RenderVideo(conf *Config, uri, title, renderAs string, full bool) string {
 }
 
 // PreprocessMedia ...
-func PreprocessMedia(conf *Config, u *url.URL, title, alt, renderAs string, display, full bool) string {
+func PreprocessMedia(user *User, conf *Config, u *url.URL, title, alt, renderAs string, display, full bool) string {
 	var html string
 
 	// Normalize the domain name
@@ -2004,7 +2005,7 @@ func PreprocessMedia(conf *Config, u *url.URL, title, alt, renderAs string, disp
 		case ".mp3":
 			html = RenderAudio(conf, u.String(), title, renderAs, full)
 		default:
-			html = RenderImage(conf, u.String(), title, alt, renderAs, full)
+			html = RenderImage(user, conf, u.String(), title, alt, renderAs, full)
 		}
 	} else {
 		var mtype, mtypeIcon string
@@ -2113,7 +2114,7 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 			}
 		}
 
-		html := PreprocessMedia(p.conf, u, string(image.Title), alt, renderAs, display, full)
+		html := PreprocessMedia(p.user, p.conf, u, string(image.Title), alt, renderAs, display, full)
 		if _, ok := node.GetParent().(*ast.Paragraph); ok && renderAs != "inline" {
 			html = fmt.Sprintf("</p>%s<p>", html)
 		}
@@ -2151,7 +2152,7 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 			return ast.GoToNext, false
 		}
 
-		html := PreprocessMedia(p.conf, u, title, alt, renderAs, display, full)
+		html := PreprocessMedia(p.user, p.conf, u, title, alt, renderAs, display, full)
 		if _, ok := node.GetParent().(*ast.Paragraph); ok && renderAs != "inline" {
 			html = fmt.Sprintf("</p>%s<p>", html)
 		}

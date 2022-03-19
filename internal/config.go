@@ -74,7 +74,9 @@ type Settings struct {
 	DisplayImagesPreference string `yaml:"display_images_preference"`
 	DisplayMedia            bool   `yaml:"display_media"`
 	OriginalMedia           bool   `yaml:"original_media"`
-	VisibilityPreference    string `yaml:"visibility_preference"`
+
+	VisibilityCompact  bool `yaml:"visibility_compact"`
+	VisibilityReadmore bool `yaml:"visibility_readmore"`
 }
 
 // SoftwareConfig contains the server version information
@@ -168,7 +170,9 @@ type Config struct {
 	DisplayImagesPreference string
 	DisplayMedia            bool
 	OriginalMedia           bool
-	VisibilityPreference    string
+
+	VisibilityCompact  bool
+	VisibilityReadmore bool
 
 	// requestTimeout defines the timeout for outgoing HTTP requests.
 	requestTimeout time.Duration

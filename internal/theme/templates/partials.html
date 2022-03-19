@@ -95,7 +95,7 @@
       <div class="p-org">
         <a target="_blank" href="{{ $.Twt.Twter.URI | baseFromURL }}">{{ $.Twt.Twter.URI | hostnameFromURL }}</a>
       </div>
-      {{ if not (eq $.User.VisibilityPreference "compact") }}
+      {{ if not $.User.VisibilityCompact }}
       <div class="dt-publish">
         <a class="u-url" href="/twt/{{ $.Twt.Hash }}">
           <time class="dt-published" datetime="{{ $.Twt.Created | date "2006-01-02T15:04:05Z07:00" }}">
@@ -106,7 +106,7 @@
       </div>
       {{ end }}
     </div>
-    {{ if (eq $.User.VisibilityPreference "compact") }}
+    {{ if $.User.VisibilityCompact }}
     <div class="dt-compact">
       <div><a class="u-url" href="/twt/{{ $.Twt.Hash }}">{{ dateInZone (formatForDateTime $.Twt.Created $.User.DisplayTimeFormat) $.Twt.Created $.User.DisplayDatesInTimezone }}</a></div>
       <div><small>{{ $.Twt.Created | time }}</small></div>
@@ -127,6 +127,7 @@
     {{ end }}
     {{ formatTwt $.Twt $.User }}
   </div>
+  <span id="readtwt">{{ tr $.Ctx "TwtReadMore" }}</span>
   <nav class="twt-nav">{{ if $.Authenticated }}
     <a class="replyBtn" href="#" data-reply="{{ $.User.Reply $.Twt }}">
       <i class="ti ti-message-plus" data-reply="{{ $.User.Reply $.Twt }}"></i> {{ tr $.Ctx "TwtReplyLinkTitle" }}
