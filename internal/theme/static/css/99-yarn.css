@@ -977,8 +977,8 @@ small.twt-context {
 small.twt-context {
   display: block;
   font-size: small;
-  margin-top: -0.3rem;
-  padding-bottom: 0.5rem;
+  margin: -0.35rem 0 0.35rem 0;
+  padding-bottom: 0.35rem;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
