@@ -18,6 +18,9 @@ COPY go.sum .
 RUN make deps
 RUN go mod download
 
+# Copy default logo
+COPY  ./internal/logo.svg ./internal/
+
 # Copy static assets
 COPY ./internal/theme/static/css/* ./internal/theme/static/css/
 COPY ./internal/theme/static/img/* ./internal/theme/static/img/
@@ -38,9 +41,7 @@ COPY ./internal/*.go ./internal/
 COPY ./internal/auth/*.go ./internal/auth/
 COPY ./internal/session/*.go ./internal/session/
 COPY ./internal/passwords/*.go ./internal/passwords/
-COPY ./internal/webmention/*.go ./internal/webmention/
-COPY ./types/*.go ./types/
-COPY ./types/lextwt/*.go ./types/lextwt/
+COPY ./internal/indieweb/*.go ./internal/indieweb/
 COPY ./cmd/yarnd/*.go ./cmd/yarnd/
 
 # Build server binary
