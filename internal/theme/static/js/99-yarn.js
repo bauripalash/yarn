@@ -216,8 +216,10 @@ u("body").on("keyup", function(e) {
 
   // Reset and close the postBox on Esc if replying
   if (u("#newPost").attr("open") != null) {
-    u("#newPost").first().removeAttribute("open");
-    u("#text").first().value = "";
+    if (u("textarea#text").length > 0) {
+      localStorage.setItem("text", u("#text").first().value);
+      u("#newPost").first().removeAttribute("open");
+    }
   }
 });
 
@@ -280,9 +282,6 @@ function persist(e) {
   localStorage.setItem(e.target.id, e.target.value);
 }
 
-u("input#title").on("change", persist);
-u("textarea#text").on("change", persist);
-
 u(".replyBtn").on("click", replyTo);
 u(".forkBtn").on("click", forkFrom);
 u(".editBtn").on("click", editTwt);
@@ -298,7 +297,6 @@ u("#post").on("click", function(e) {
     return;
   }
 
-  localStorage.setItem('title', '');
   localStorage.setItem('text', '');
   u("#post").html('Posting...');
   u("#post").attr("aria-busy", true);
@@ -907,6 +905,12 @@ if (
 }
 
 window.onbeforeunload = function() {
+  if (u("textarea#text").length > 0) {
+    var posttext = u("textarea#text").first().value;
+    if (posttext.length > 0) {
+      localStorage.setItem("text", posttext);
+    }
+  }
   localStorage.setItem("prevOffset",
     localStorage.getItem("currentOffset") || String(window.scrollY)
   );
