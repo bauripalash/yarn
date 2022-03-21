@@ -622,7 +622,6 @@ func (s *Server) ManagePeersHandler() httprouter.Handle {
 		}
 
 		ctx.Peers = s.cache.GetPeers()
-
 		s.render("managePeers", w, ctx)
 	}
 }

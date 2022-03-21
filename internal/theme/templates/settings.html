@@ -38,26 +38,6 @@
     </div>
   </article>
 </div>
-<article>
-  <form action="/settings/addlink" enctype="multipart/form-data" method="POST">
-    <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-    <div>
-      <hgroup>
-        <h2>{{ tr . "CustomLinkTitle" }}</h2>
-        <h3>{{ tr . "CustomLinkSummary" }}</h3>
-      </hgroup>
-    </div>
-    <div class="grid">
-      <div>
-        <input id="newLinkTitle" maxlength=32 type="text" name="linkTitle" placeholder="{{ tr . "CustomLinkAddTitle" }}" aria-label="{{ tr . "CustomLinkAddTitle" }}" />
-      </div>
-      <div>
-        <input id="newLinkURL" type="text" name="linkURL" placeholder="{{ tr . "CustomLinkAddURL" }}" aria-label="{{ tr . "CustomLinkAddURL" }}" />
-      </div>
-    </div>
-    <button type="submit" class="primary">{{ tr . "CustomLinkAddSubmit" }}</button>
-  </form>
-</article>
 <article class="grid">
   <form action="/settings" enctype="multipart/form-data" method="POST">
     <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">

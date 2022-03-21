@@ -151,8 +151,8 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 	}
 }
 
-// SettingsAddLinkHandler ...
-func (s *Server) SettingsAddLinkHandler() httprouter.Handle {
+// CustomLinksHandler ...
+func (s *Server) CustomLinksHandler() httprouter.Handle {
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		ctx := NewContext(s, r)
 
@@ -160,51 +160,32 @@ func (s *Server) SettingsAddLinkHandler() httprouter.Handle {
 		r.Body = http.MaxBytesReader(w, r.Body, s.config.MaxUploadSize)
 		defer r.Body.Close()
 
-		linkTitle := strings.TrimSpace(r.FormValue("linkTitle"))
-		linkURL := strings.TrimSpace(r.FormValue("linkURL"))
-
 		user := ctx.User
 		if user == nil {
 			log.Fatalf("user not found in context")
 		}
 
-		user.AddLink(linkTitle, linkURL)
+		if r.Method == http.MethodPost {
+			for _, i := range []int{0, 1, 2, 3, 4} {
+				linkTitle := strings.TrimSpace(fmt.Sprintf("linkTitle-%s", i))
+				linkURL := strings.TrimSpace(fmt.Sprintf("linkURL-%s", i))
 
-		if err := s.db.SetUser(ctx.Username, user); err != nil {
-			ctx.Error = true
-			ctx.Message = s.tr(ctx, "ErrorAddLink")
-			s.render("error", w, ctx)
+				if linkTitle == "" {
+					user.RemoveLink(linkTitle)
+					continue
+				}
+
+				if linkTitle != "" && linkURL != "" {
+					user.AddLink(linkTitle, linkURL)
+					continue
+				}
+			}
+
+			http.Redirect(w, r, "/settings", http.StatusFound)
 			return
 		}
 
-		ctx.Error = false
-		ctx.Message = s.tr(ctx, "MsgAddLinkSuccess")
-		s.render("error", w, ctx)
-	}
-}
-
-// SettingsRemoveLinkHandler ...
-func (s *Server) SettingsRemoveLinkHandler() httprouter.Handle {
-	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
-		ctx := NewContext(s, r)
-
-		user := ctx.User
-		if user == nil {
-			log.Fatalf("user not found in context")
-		}
-
-		linkTitle := strings.TrimSpace(r.FormValue("link_title"))
-		user.RemoveLink(linkTitle)
-
-		if err := s.db.SetUser(ctx.Username, user); err != nil {
-			ctx.Error = true
-			ctx.Message = s.tr(ctx, "ErrorRemoveLink")
-			s.render("error", w, ctx)
-			return
-		}
-
-		ctx.Error = false
-		ctx.Message = s.tr(ctx, "MsgRemoveLinkSuccess")
-		s.render("error", w, ctx)
+		//ctx.Links = user.Profile(s.config.BaseURL, ctx.User).Links
+		s.render("manageLinks", w, ctx)
 	}
 }

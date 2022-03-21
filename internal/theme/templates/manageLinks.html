@@ -1,0 +1,24 @@
+{{ define "content" }}
+  <article>
+    <hgroup>
+      <h2>{{ tr . "ManageLinksTitle" }}</h2>
+      <h3>{{ tr . "ManageLinksSummary" }}</h3>
+    </hgroup>
+    <div>
+      <form action="/settings/managelinks" enctype="multipart/form-data" method="POST">
+        <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+        {{ range $link := $.Profile.Links }}
+        <div class="grid">
+          <div>
+            <input id="linkName-" maxlength=32 type="text" name="linkName-" placeholder="{{ tr . "ManageLinksName" }}" aria-label="{{ tr . "ManageLinksName" }}" />
+          </div>
+          <div>
+            <input id="linkURL-" type="text" name="linkURL-" placeholder="{{ tr . "ManageLinksURL" }}" aria-label="{{ tr . "ManageLinksURL" }}" />
+          </div>
+        </div>
+        {{ end }}
+        <button type="submit" class="primary">{{ tr . "ManageLinksSubmit" }}</button>
+      </form>
+    </div>
+  </article>
+{{ end }}

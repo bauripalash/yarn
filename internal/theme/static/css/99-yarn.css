@@ -1,3 +1,18 @@
+#manageLinks {
+  display: block;
+  margin: 0.35rem -1rem;
+}
+
+#verifyLink {
+  font-family: monospace;
+  font-size: 85%;
+  margin-top: 1rem;
+  border-radius: var(--border-radius);
+  background: var(--code-background-color);
+  color: var(--contrast);
+  word-wrap: anywhere;
+}
+
 .bookmark-feed {
   margin-top: 1rem;
 }
