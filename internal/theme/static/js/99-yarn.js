@@ -192,6 +192,10 @@ function movePostBox(e) {
 /* Focus PostBox's TextArea on Toggling the PostBox */
 u("#newPost").on("toggle", function (e) {
   if (u(e.target).attr("open") != null) {
+    var text = localStorage.getItem('text');
+    if (text) {
+      u("textarea#text").first().value = text;
+    }
     u("textarea#text").first().focus();
   }
 });
