@@ -903,16 +903,15 @@ if (
 }
 
 window.onbeforeunload = function() {
-  localStorage.setItem(
-    "prevOffset",
+  localStorage.setItem("prevOffset",
     localStorage.getItem("currentOffset") || String(window.scrollY)
   );
   localStorage.setItem("currentOffset", String(window.scrollY));
 };
 
 window.onload = function() {
-  if (u("html").attr("data-readmore") == "true" && u(".e-content").length > 2) {
-    u("article").each(function(article, i){
+  if (u("html").attr("data-readmore") == "true" && u("article.h-entry").length > 0) {
+    u("article.h-entry").each(function(article, i){
       var ec = u(article).find(".e-content");
       var rt = u(article).find("#readtwt");
       if (Math.ceil(ec.size().height) > 180) {
