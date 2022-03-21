@@ -2024,16 +2024,17 @@ func PreprocessMedia(user *User, conf *Config, u *url.URL, title, alt, renderAs 
 		if alt != "" {
 			alt = ` alt="` + alt + `"`
 		}
-		src := u.String()
+
+		uri := url.QueryEscape(u.String())
 		if full {
 			html = fmt.Sprintf(
-				`<a href="%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
-				src, title, alt, mtypeIcon, mtype,
+				`<a href="/linkVerify?uri=%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
+				uri, title, alt, mtypeIcon, mtype,
 			)
 		} else {
 			html = fmt.Sprintf(
-				`<a href="%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
-				src, title, alt, mtypeIcon, mtype,
+				`<a href="/linkVerify?uri=%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
+				uri, title, alt, mtypeIcon, mtype,
 			)
 		}
 	}
@@ -2094,6 +2095,30 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 	full := p.conf.OriginalMedia
 	if p.user != nil {
 		full = p.user.OriginalMedia
+	}
+
+	link, ok := node.(*ast.Link)
+	if ok && entering {
+		u, err := url.Parse(string(link.Destination))
+		if err != nil {
+			log.WithError(err).Warn("TwtFactory: error parsing url")
+			return ast.GoToNext, false
+		}
+
+		title := string(link.Title)
+		if children := link.Container.GetChildren(); len(children) > 0 {
+			for _, c := range children {
+				if txt, ok := c.(*ast.Text); ok {
+					title = string(txt.Literal)
+				}
+			}
+		}
+
+		html := fmt.Sprintf("<a href='/linkVerify?uri=%s'>%s</a>",
+			url.QueryEscape(u.String()), title)
+		_, _ = io.WriteString(w, html)
+
+		return ast.SkipChildren, true
 	}
 
 	// Ensure only permitted ![](url) images

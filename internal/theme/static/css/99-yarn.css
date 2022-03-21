@@ -1,3 +1,13 @@
+#verifyLink {
+  font-family: monospace;
+  font-size: 85%;
+  margin-top: 1rem;
+  border-radius: var(--border-radius);
+  background: var(--code-background-color);
+  color: var(--contrast);
+  word-wrap: anywhere;
+}
+
 .bookmark-feed {
   margin-top: 1rem;
 }
@@ -679,7 +689,6 @@ div .p-compact {
     var(--card-background-color),
     var(--contrast-inverse)
   );
-  z-index: 999;
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
