@@ -51,6 +51,7 @@ import (
 	"github.com/gomarkdown/markdown/parser"
 	"github.com/goware/urlx"
 	"github.com/h2non/filetype"
+	"github.com/lestrrat-go/strftime"
 	shortuuid "github.com/lithammer/shortuuid/v3"
 	"github.com/makeworld-the-better-one/go-gemini"
 	"github.com/microcosm-cc/bluemonday"
@@ -2041,28 +2042,18 @@ func PreprocessMedia(user *User, conf *Config, u *url.URL, title, alt, renderAs 
 	return html
 }
 
-func FormatForDateTime(t time.Time, timeFormat string) string {
-	dateTimeFormat := ""
+func FormatForDateTime(conf *Config) func() string {
+	return func() string {
+		dateTimeFormat := conf.CustomDateTime
 
-	if timeFormat == "" {
-		timeFormat = "3:04PM"
+		if dateTimeFormat == "" {
+			dateTimeFormat = "%a, %d %b %Y at %I:%M %p"
+		}
+
+		f, _ := strftime.New(dateTimeFormat)
+		log.Warn(time.Now())
+		return fmt.Sprintf(f.FormatString(time.Now()))
 	}
-
-	dt := time.Since(t)
-
-	if dt > YearAgo {
-		dateTimeFormat = "Mon, Jan 2 %s 2006"
-	} else if dt > MonthAgo {
-		dateTimeFormat = "Mon, Jan 2 %s"
-	} else if dt > WeekAgo {
-		dateTimeFormat = "Mon, Jan 2 %s"
-	} else if dt > DayAgo {
-		dateTimeFormat = "Mon 2, %s"
-	} else {
-		dateTimeFormat = "%s"
-	}
-
-	return fmt.Sprintf(dateTimeFormat, timeFormat)
 }
 
 type URLProcessor struct {

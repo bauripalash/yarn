@@ -99,16 +99,16 @@
       <div class="dt-publish">
         <a class="u-url" href="/twt/{{ $.Twt.Hash }}">
           <time class="dt-published" datetime="{{ $.Twt.Created | date "2006-01-02T15:04:05Z07:00" }}">
-            {{ dateInZone (formatForDateTime $.Twt.Created $.User.DisplayTimeFormat) $.Twt.Created $.User.DisplayDatesInTimezone }}
+            {{ dateInZone (formatForDateTime) $.Twt.Created $.User.DisplayDatesInTimezone }}
           </time>
         </a>
-        <span>&nbsp;({{ $.Twt.Created | time }})</span>
+        <span>({{ $.Twt.Created | time }})</span>
       </div>
       {{ end }}
     </div>
     {{ if $.User.VisibilityCompact }}
     <div class="dt-compact">
-      <div><a class="u-url" href="/twt/{{ $.Twt.Hash }}">{{ dateInZone (formatForDateTime $.Twt.Created $.User.DisplayTimeFormat) $.Twt.Created $.User.DisplayDatesInTimezone }}</a></div>
+      <div><a class="u-url" href="/twt/{{ $.Twt.Hash }}">{{ dateInZone (formatForDateTime) $.Twt.Created $.User.DisplayDatesInTimezone }}</a></div>
       <div><small>{{ $.Twt.Created | time }}</small></div>
     </div>
     {{ end }}

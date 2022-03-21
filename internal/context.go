@@ -66,6 +66,7 @@ type Context struct {
 	PermittedImages  []string
 	BlockedFeeds     []string
 	EnabledFeatures  []string
+	CustomDateTime   string
 
 	AlertFloat   bool
 	AlertGuest   bool
@@ -199,6 +200,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 		PermittedImages:  conf.PermittedImages,
 		BlockedFeeds:     conf.BlockedFeeds,
 		EnabledFeatures:  conf.Features.AsStrings(),
+		CustomDateTime:   conf.CustomDateTime,
 
 		AlertFloat:   conf.AlertFloat,
 		AlertGuest:   conf.AlertGuest,

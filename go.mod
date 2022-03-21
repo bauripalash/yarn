@@ -38,6 +38,7 @@ require (
 	github.com/jinzhu/gorm v1.9.16 // indirect
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/justinas/nosurf v1.1.1
+	github.com/lestrrat-go/strftime v1.0.5 // indirect
 	github.com/lithammer/shortuuid/v3 v3.0.7
 	github.com/magiconair/properties v1.8.6 // indirect
 	github.com/makeworld-the-better-one/go-gemini v0.13.0

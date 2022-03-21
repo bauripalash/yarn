@@ -159,6 +159,12 @@
           </label>
         </fieldset>
       </div>
+      <div class="grid">
+        <label for="customDateTime">
+          {{ tr . "ManagePodCustomDateTime" }} <span class="help" title="{{ (tr . "ManagePodCustomDateTimeHelp") | html }}"><i class="ti ti-help"></i></span>
+          <input id="customDateTime" type="text" name="customDateTime" placeholder="Mon, 2 Jan 2006 &#123;&#123; time &#125;&#125;" aria-label="{{ tr . "ManagePodCustomDateTime" }}" value="{{ $.CustomDateTime }}">
+        </label>
+      </div>
       <button type="submit" class="primary">{{ tr . "ManagePodUpdateButton" }}</button>
     </form>
   </article>

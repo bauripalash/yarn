@@ -49,6 +49,7 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		permittedImages := r.FormValue("permittedImages")
 		blockedFeeds := r.FormValue("blockedFeeds")
 		enabledFeatures := r.FormValue("enabledFeatures")
+		customDateTime := strings.TrimSpace(r.FormValue("customDateTime"))
 
 		alertFloat := r.FormValue("podAlertFloat") == "on"
 		alertGuest := r.FormValue("podAlertGuest") == "on"
@@ -142,7 +143,6 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		}
 
 		// Update Enabled Optional Features
-
 		features, err := FeaturesFromStrings(strings.Split(enabledFeatures, "\n"))
 		if err != nil {
 			ctx.Error = true
@@ -156,6 +156,8 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 			s.render("error", w, ctx)
 			return
 		}
+
+		s.config.CustomDateTime = customDateTime
 
 		// Update Pod Settings (overrideable by Users)
 		s.config.DisplayDatesInTimezone = displayDatesInTimezone

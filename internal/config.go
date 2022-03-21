@@ -67,6 +67,8 @@ type Settings struct {
 	PermittedImages []string      `yaml:"permitted_images"`
 	Features        *FeatureFlags `yaml:"features"`
 
+	CustomDateTime string `yaml:"custom_datetime"`
+
 	// Pod Level Settings (overridable by Users)
 	DisplayDatesInTimezone  string `yaml:"display_dates_in_timezone"`
 	DisplayTimePreference   string `yaml:"display_time_preference"`
@@ -162,6 +164,8 @@ type Config struct {
 	BlockedFeeds []string `json:"-"`
 
 	Features *FeatureFlags
+
+	CustomDateTime string
 
 	// Pod Level Settings (overridable by Users)
 	DisplayDatesInTimezone  string
