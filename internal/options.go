@@ -4,7 +4,6 @@
 package internal
 
 import (
-	_ "embed"
 	"net/url"
 	"regexp"
 	"runtime"
@@ -85,10 +84,10 @@ const (
 	DefaultTwtsPerPage = 50
 
 	// DefaultMaxTwtLength is the default maximum length of posts permitted
-	DefaultMaxTwtLength = 288
+	DefaultMaxTwtLength = 1024
 
 	// DefaultMaxCacheTTL is the default maximum cache ttl of twts in memory
-	DefaultMaxCacheTTL = time.Hour * 24 * 10 // 10 days
+	DefaultMaxCacheTTL = time.Hour * 24 * 14 // 2 weeks
 
 	// DefaultFetchInterval is the default interval used by the global feed cache
 	// to control when to actually fetch and update feeds.
