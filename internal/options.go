@@ -4,6 +4,8 @@
 package internal
 
 import (
+	// embed resources
+	_ "embed"
 	"net/url"
 	"regexp"
 	"runtime"
