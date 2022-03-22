@@ -121,11 +121,7 @@
           &rdsh;
           <a href="{{ urlForRootConv $.Twt }}#{{ $.Twt.Hash }}" title="{{ tr $.Ctx "ConversationOnTwtMessage" (dict "Hash" $rootTwt.Hash) }}">{{ tr $.Ctx "ConversationInReply" }}</a>
           &raquo;
-          {{ if $.User.Muted }}
-            <em>This twt is from a user you have muted.</em>
-          {{ else }}
-            {{ formatTwtContext $.Twt $.User }}
-          {{ end }}
+          {{ formatTwtContext $.Twt $.User }}
         </small>
       {{ end }}
     {{ end }}
