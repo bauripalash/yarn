@@ -366,6 +366,10 @@ u(".unmuteBtn").on("click", function (e) {
   u("#profile-avatar img").removeClass("ismuted");
 });
 
+u("#promptApprove").on("click", function (e) {
+  window.history.back()
+})
+
 u.prototype.isHidden = function () {
   var e = this.first();
   return (e.offsetParent === null)

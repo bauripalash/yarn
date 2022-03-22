@@ -159,6 +159,7 @@ type Context struct {
 	PromptCallback string
 	PromptApprove  string
 	PromptCancel   string
+	PromptTarget   string
 }
 
 func NewContext(s *Server, req *http.Request) *Context {
