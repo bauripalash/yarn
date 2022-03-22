@@ -75,8 +75,8 @@ check_goversion() {
 
   gover="$(go version | grep -o -E 'go[0-9]+\.[0-9]+(\.[0-9]+)?')"
 
-  if ! go version | grep -E 'go1\.17(\.[0-9]+)?' > /dev/null; then
-    log2 "Go 1.17 is required, found ${gover}"
+  if ! go version | grep -E 'go1\.1[678](\.[0-9]+)?' > /dev/null; then
+    log2 "Go 1.16+ is required, found ${gover}"
     return 1
   fi
 
