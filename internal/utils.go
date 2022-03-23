@@ -2120,8 +2120,14 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 				}
 			}
 
-			html := fmt.Sprintf("<a href='/linkVerify?uri=%s'>%s</a>",
-				url.QueryEscape(u.String()), title)
+			href := fmt.Sprintf("/linkVerify?uri=%s", url.QueryEscape(u.String()))
+			uri := strings.ToLower(u.String())
+			base := strings.ToLower(p.conf.BaseURL)
+			if strings.HasPrefix(uri, base) || strings.HasPrefix(u.String(), "/") {
+				href = strings.Replace(uri, base, "", 1)
+			}
+
+			html := fmt.Sprintf("<a href='%s'>%s</a>", href, title)
 			_, _ = io.WriteString(w, html)
 
 			return ast.SkipChildren, true
