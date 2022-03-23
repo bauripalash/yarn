@@ -925,7 +925,7 @@ window.onload = function() {
     u("article.h-entry").each(function(article, i){
       var ec = u(article).find(".e-content");
       var rt = u(article).find("#readtwt");
-      if (Math.ceil(ec.size().height) > 180) {
+      if (Math.ceil(ec.size().height) > 210) {
         rt.first().style.display = "inline-block";
         ec.addClass("p-compact");
       }
