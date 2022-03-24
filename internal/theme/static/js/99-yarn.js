@@ -786,6 +786,10 @@ u("#burgerMenu").on("click", function(e) {
   }
 });
 
+u("textarea#text").on('change click blur paste', function(e) {
+  localStorage.setItem("text", u("textarea#text").first().value.trim());
+});
+
 u("body").on("keydown", function(e) {
   if (!u("#mentioned-list").first() || u("#mentioned-list").isHidden()) {
     return;
@@ -904,6 +908,12 @@ if (
 ) {
   window.scrollTo(0, Number(localStorage.getItem("prevOffset")));
 }
+
+ window.addEventListener("scroll", function() {
+   if (u('#mobileMenuInput').is(':checked')) {
+     u('#mobileMenuInput').first().checked = false;
+   }
+ });
 
 window.onbeforeunload = function() {
   if (u("textarea#text").length > 0) {

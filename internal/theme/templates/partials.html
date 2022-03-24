@@ -1,3 +1,61 @@
+{{ define "navbar" }}
+<div id="podNavigation"{{ if not .Authenticated }} class="mobNoAuth"{{end}}>
+  {{ if .Authenticated }}
+  <div id="timelineBtn">
+    <a href="/" title="Last updated {{ .TimelineUpdatedAt | time }}">
+      <i class="ti ti-message-circle"></i> {{ tr . "NavTimeline" }}
+    </a>
+  </div>
+  <div id="discoverBtn">
+    <a href="/discover" title="Last updated {{ .DiscoverUpdatedAt | time }}">
+      <i class="ti ti-compass"></i> {{ tr . "NavDiscover" }}
+    </a>
+  </div>
+  <div id="mentionsBtn">
+    <a href="/mentions" title="Last mentioned {{ .LastMentionedAt | time }}">
+      <i class="ti ti-bell-ringing"></i> {{ tr . "NavMentions" }}
+    </a>
+  </div>
+  <div id="feedsBtn">
+    <a href="/feeds">
+      <i class="ti ti-rss-nav"></i> {{ tr . "NavFeeds" }}
+    </a>
+  </div>
+  <div id="settingsBtn" >
+    <a class="secondary" href="/settings">
+      <i class="ti ti-settings-nav"></i> {{ tr . "NavSettings" }}
+    </a>
+  </div>
+  <div id="logoutBtn">
+    <a class="secondary" href="/logout" onclick="return confirm('{{ tr . "NavLogoutConfirm" }}')">
+      <i class="ti ti-door-exit"></i> {{ tr . "NavLogout" }}
+    </a>
+  </div>
+  {{ else }}
+  <div id="loginBtn">
+    <a href="/login">
+      <i class="ti ti-door-enter"></i> {{ tr . "NavLogin" }}
+    </a>
+  </div>
+  {{ if not .RegisterDisabled }}
+  <div id="registerBtn">
+    <a href="/register">
+      <i class="ti ti-user-plus"></i> {{ tr . "NavRegister" }}
+    </a>
+  </div>
+  {{ end }}
+  {{ end }}
+</div>
+<div id="podSearch"{{ if not .Authenticated }} class="mobNoAuth"{{end}}>
+  <form id="search" action="/search" method="GET">
+    <div class="search-grid">
+      <input type="search" name="tag" placeholder="Search Tags" aria-label="Search">
+      <button type="submit">Search</button>
+    </div>
+  </form>
+</div>
+{{ end }}
+
 {{ define "post" }}
 {{ if $.Authenticated }}
 {{ if or (eq $.view "timeline") (eq $.view "bookmarks") }}
