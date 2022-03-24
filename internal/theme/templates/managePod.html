@@ -42,7 +42,7 @@
         </label>
         <label for="alertMessage">
           {{ tr . "ManagePodAlertMessageTitle" }}
-          <input id="alertMessage" type="text" name="podAlertMessage" maxlength="150" placeholder="{{ tr . "ManagePodAlertMessageHelp" }}" aria-label="{{ tr . "ManagePodAlertMessageHelp" }}" value="{{ $.AlertMessage }}">
+          <input id="alertMessage" type="text" name="podAlertMessage" placeholder="{{ tr . "ManagePodAlertMessageHelp" }}" aria-label="{{ tr . "ManagePodAlertMessageHelp" }}" value="{{ $.AlertMessage }}">
         </label>
         <fieldset>
           <legend>{{ tr . "ManagePodAlertOptions" }}</legend>
@@ -114,6 +114,10 @@
           <label for="enableOpenProfiles">
             <input id="enableOpenProfiles" type="checkbox" name="enableOpenProfiles" aria-label="{{ tr . "ManagePodOtherSettingsOpenProfile" }}" role="switch" {{ if .OpenProfiles }}checked{{ end }} />
             {{ tr . "ManagePodOtherSettingsOpenProfile" }}
+          </label>
+          <label for="lnkVerify">
+            <input id="lnkVerify" type="checkbox" name="linkVerification" aria-label="{{ tr . "SettingsTwtLinkVerification" }}" role="switch" {{ if .LinkVerification }}checked{{ end }}>
+            {{ tr . "SettingsTwtLinkVerification" }}
           </label>
         </fieldset>
       </div>

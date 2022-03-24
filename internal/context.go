@@ -92,6 +92,7 @@ type Context struct {
 
 	VisibilityCompact  bool
 	VisibilityReadmore bool
+	LinkVerification   bool
 
 	Error       bool
 	Message     string
@@ -159,6 +160,7 @@ type Context struct {
 	PromptCallback string
 	PromptApprove  string
 	PromptCancel   string
+	PromptTarget   string
 }
 
 func NewContext(s *Server, req *http.Request) *Context {
@@ -216,6 +218,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 
     VisibilityCompact:  conf.VisibilityCompact,
 		VisibilityReadmore: conf.VisibilityReadmore,
+		LinkVerification:   conf.LinkVerification,
 
 		Commit:      yarn.Commit,
 		Theme:       conf.Theme,
@@ -250,6 +253,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 			OriginalMedia:           conf.OriginalMedia,
 			VisibilityCompact:       conf.VisibilityCompact,
 			VisibilityReadmore:      conf.VisibilityReadmore,
+			LinkVerification:        conf.LinkVerification,
 		},
 		Twter: types.Twter{},
 		Root:  types.NilTwt,

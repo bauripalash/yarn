@@ -1,3 +1,13 @@
+#verifyLink {
+  font-family: monospace;
+  font-size: 85%;
+  margin-top: 1rem;
+  border-radius: var(--border-radius);
+  background: var(--code-background-color);
+  color: var(--contrast);
+  word-wrap: anywhere;
+}
+
 .bookmark-feed {
   margin-top: 1rem;
 }
@@ -679,7 +689,6 @@ div .p-compact {
     var(--card-background-color),
     var(--contrast-inverse)
   );
-  z-index: 999;
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
@@ -750,7 +759,6 @@ audio {
 }
 
 #mainNav {
-  margin: 0.5rem 0 -1rem 0;
   text-align: center;
 }
 
@@ -1123,6 +1131,10 @@ span[title="Copyright"]:before {
     padding-top: 0.5rem;
   }
 
+  #mainNav {
+    margin-top: 0.5rem;
+  }
+
   main.container {
     margin: -5rem 0 -3.5rem 0;
   }
@@ -1300,10 +1312,6 @@ span[title="Copyright"]:before {
 
   details.nr-twt {
     margin-bottom: 4rem !important;
-  }
-
-  nav.float {
-    padding-top: 7rem !important;
   }
 
   .manage-options li {
@@ -1539,6 +1547,10 @@ span[title="Copyright"]:before {
     overflow-y: scroll;
   }
 
+  #mainNav {
+    margin-top: 0.5rem;
+  }
+
   main.container {
     margin-top: -3.25rem;
   }
@@ -1636,10 +1648,6 @@ span[title="Copyright"]:before {
 
   .conv-post:not(.form-reply) {
     margin-bottom: 3rem;
-  }
-
-  nav.float {
-    padding-top: 4.5rem !important;
   }
 
   nav.yarn-nav {
@@ -1805,10 +1813,6 @@ span[title="Copyright"]:before {
     margin: 0.16rem 0.2rem;
   }
 
-  nav.float {
-    padding-top: 4.5rem !important;
-  }
-
   nav.yarn-nav,
   nav.timeline-nav {
     margin: -0.8rem 1rem -0.5rem 1rem;
@@ -1907,10 +1911,6 @@ span[title="Copyright"]:before {
 
   .profile-button a:last-of-type i {
     margin: 0.16rem 0.2rem;
-  }
-
-  nav.float {
-    padding-top: 4.5rem !important;
   }
 
   nav.yarn-nav,
@@ -2015,10 +2015,6 @@ span[title="Copyright"]:before {
 
   .profile-button a:last-of-type i {
     margin: 0.16rem 0.2rem;
-  }
-
-  nav.float {
-    padding-top: 4rem;
   }
 
   nav.yarn-nav,
