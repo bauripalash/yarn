@@ -1,6 +1,6 @@
 {{ define "base" }}
 <!DOCTYPE html>
-<html lang="en" {{ with .Theme }}data-theme="{{ . }}"{{ end }} {{ if $.User.VisibilityReadmore }}data-readmore="true"{{ end }}>
+<html lang="en" {{ with .Theme }}data-theme="{{ . }}"{{ end }}>
   <head>
     {{ if $.Debug }}
       <link href="/css/01-pico.css" rel="stylesheet" />
@@ -124,6 +124,9 @@
     <script type="application/javascript" src="/js/ie11CustomProperties.min.js"></script>
   {{ else }}
     <script type="application/javascript" src="/js/{{ .Commit }}/yarn.min.js"></script>
+  {{ end }}
+  {{ if .Authenticated }}
+    <yarn-pref{{ if $.User.VisibilityReadmore }} data-readmore="true"{{ end }}{{ if $.User.LinkVerification }} data-linkverify="true"{{ end }}></yarn-pref>
   {{ end }}
 </body>
 </html>

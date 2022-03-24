@@ -2028,12 +2028,12 @@ func PreprocessMedia(user *User, conf *Config, u *url.URL, title, alt, renderAs 
 		uri := url.QueryEscape(u.String())
 		if full {
 			html = fmt.Sprintf(
-				`<a href="/linkVerify?uri=%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
+				`<a href="%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
 				uri, title, alt, mtypeIcon, mtype,
 			)
 		} else {
 			html = fmt.Sprintf(
-				`<a href="/linkVerify?uri=%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
+				`<a href="%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
 				uri, title, alt, mtypeIcon, mtype,
 			)
 		}
@@ -2095,43 +2095,6 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 	full := p.conf.OriginalMedia
 	if p.user != nil {
 		full = p.user.OriginalMedia
-	}
-
-	verification := p.conf.LinkVerification
-	if p.user != nil {
-		verification = p.user.LinkVerification
-	}
-
-	if verification {
-		link, ok := node.(*ast.Link)
-		if ok && entering {
-			u, err := url.Parse(string(link.Destination))
-			if err != nil {
-				log.WithError(err).Warn("TwtFactory: error parsing url")
-				return ast.GoToNext, false
-			}
-
-			title := string(link.Title)
-			if children := link.Container.GetChildren(); len(children) > 0 {
-				for _, c := range children {
-					if txt, ok := c.(*ast.Text); ok {
-						title = string(txt.Literal)
-					}
-				}
-			}
-
-			href := fmt.Sprintf("/linkVerify?uri=%s", url.QueryEscape(u.String()))
-			uri := strings.ToLower(u.String())
-			base := strings.ToLower(p.conf.BaseURL)
-			if strings.HasPrefix(uri, base) || strings.HasPrefix(u.String(), "/") {
-				href = strings.Replace(uri, base, "", 1)
-			}
-
-			html := fmt.Sprintf("<a href='%s'>%s</a>", href, title)
-			_, _ = io.WriteString(w, html)
-
-			return ast.SkipChildren, true
-		}
 	}
 
 	// Ensure only permitted ![](url) images

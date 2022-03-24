@@ -931,7 +931,7 @@ window.onbeforeunload = function() {
 window.onload = function() {
   localStorage.setItem("isPost", "false");
 
-  if (u("html").attr("data-readmore") == "true" && u("article.h-entry").length > 0) {
+  if (u("yarn-pref").attr("data-readmore") == "true" && u("article.h-entry").length > 0) {
     u("article.h-entry").each(function(article, i){
       var ec = u(article).find(".e-content");
       var rt = u(article).find("#readtwt");
@@ -939,6 +939,18 @@ window.onload = function() {
         rt.first().style.display = "inline-block";
         ec.addClass("p-compact");
       }
+    });
+  };
+
+  if (u("yarn-pref").attr("data-linkverify") == "true" && u("article.h-entry").length > 0) {
+    u("article.h-entry .e-content").each(function(article, i){
+      var lk = u(article).find("a").each(function(link, i){
+        var href = u(link).attr("href");
+        var base = window.location.protocol + "//" + window.location.host;
+        if (!(href.startsWith("/")) && !(href.startsWith(base))) {
+          u(link).attr("href", base + "/linkVerify?uri=" + href);
+        }
+      });
     });
   };
 
