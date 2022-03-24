@@ -2,6 +2,10 @@ yarn-pref {
   display: none;
 }
 
+#podLogo {
+  margin-top: 0.5rem;
+}
+
 #podLogo.float {
   margin-top: 4.25rem;
 }
@@ -19,7 +23,7 @@ yarn-pref {
 #podNavigation {
   width: 28.25rem;
   display: flex;
-  gap: 1.35rem;
+  gap: 1.2rem;
   margin: 0.75rem 0.6rem 0 0;
   justify-content: flex-end;
 }
@@ -36,19 +40,16 @@ yarn-pref {
 #timelineBtn,
 #discoverBtn,
 #mentionsBtn,
-#mentionsBtn,
 #feedsBtn,
 #settingsBtn,
 #logoutBtn,
 #registerBtn,
 #loginBtn {
-  flex: 0;
   text-align: center;
 }
 
 #timelineBtn i:after,
 #discoverBtn i:after,
-#mentionsBtn i:after,
 #mentionsBtn i:after,
 #feedsBtn i:after,
 #settingsBtn i:after,
@@ -528,7 +529,7 @@ nav.timeline-nav a {
 
 #uploadMediaButton {
   display: block;
-  margin-left: -0.35rem;
+  margin: 0.1rem 0 0 -0.35rem;
 }
 
 .submit-bar {
@@ -746,6 +747,14 @@ div .p-compact {
   border-bottom-right-radius: var(--border-radius);
 }
 
+.container article.container-fluid:last-child {
+  margin: 0 0 -2.75rem 0;
+}
+
+blockquote > p {
+  color: var(--muted-color);
+}
+
 .e-content ul li,
 .e-content ol li {
   margin: 0 0.5rem;
@@ -759,22 +768,30 @@ div .p-compact {
   margin-bottom: 1.5rem;
 }
 
-.container article.container-fluid:last-child {
-  margin: 0 0 -2.75rem 0;
-}
-
-blockquote > p {
-  color: var(--muted-color);
-}
-
 .e-content p:last-of-type {
   margin-bottom: 0.25rem;
 }
 
-lightbox+dialog+p:not(:empty),
-audio+p:not(:empty),
-video+p:not(:empty) {
-  margin-top: -1.5rem;
+.e-content p:first-of-type:empty {
+  display: none;
+}
+
+.e-content p:first-of-type:empty+lightbox a img,
+.e-content p:first-of-type:empty+audio,
+.e-content p:first-of-type:empty+video {
+  margin-top: 0.5rem;
+}
+
+.e-content p:empty+lightbox+dialog+p:not(:empty),
+.e-content p:empty+audio+p:not(:empty),
+.e-content p:empty+video+p:not(:empty) {
+  margin-top: 0.1rem;
+}
+
+.e-content p+lightbox+dialog+p:not(:empty),
+.e-content p+audio+p:not(:empty),
+.e-content p+video+p:not(:empty) {
+  margin-top: -1.45rem;
 }
 
 audio,
@@ -1165,7 +1182,7 @@ span[title="Copyright"]:before {
   float: right;
   width: 50px;
   height: 50px;
-  margin: -3.15rem 1rem 0 0;
+  margin: -3.65rem 1rem 0 0;
   display: none;
   z-index: 99;
   color: var(--primary);
@@ -1424,7 +1441,7 @@ span[title="Copyright"]:before {
 
   #uploadMediaButton {
     position: absolute;
-    margin: -0.5rem 0 0 -0.575rem;
+    margin: -0.25rem 0 0 -0.575rem;
   }
 
   #profile-info {

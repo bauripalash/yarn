@@ -20,6 +20,10 @@ a {
   -moz-border-radius: 0.3rem !important;
 }
 
+a:active, a:focus {
+  background-color: transparent !important;
+}
+
 dialog article {
   margin: 0 0 0 -2rem !important;
   padding: 1rem !important;

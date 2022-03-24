@@ -475,7 +475,7 @@ function createMentionedUserNode(match) {
     );
 }
 
-function formatText(selector, fmt) {
+function formatText(selector, fmt, single = false) {
   selector.first().focus();
 
   var finalText = "";
@@ -488,6 +488,8 @@ function formatText(selector, fmt) {
     } else {
       finalText = fmt.replace("url", selectedText);
     }
+  } else if (single) {
+    finalText = fmt;
   } else {
     if (selectedText.length == 0) {
       finalText = fmt + fmt;
@@ -724,6 +726,8 @@ u("#uploadMedia").on("change", function(e) {
   u("#uploadMediaButton").attr("aria-busy",true);
   u("#uploadMediaForm").data("tooltip", "Uploading...");
 
+  document.body.style.cursor = "progress";
+
   Twix.ajax({
     type: "POST",
     url: u("#mediaUploadForm").attr("action"),
@@ -744,7 +748,8 @@ u("#uploadMedia").on("change", function(e) {
         },
 
         function(successData) {
-          text.value += " ![](" + successData.data.mediaURI + ") ";
+          formatText(u("textarea#text"), " ![](" + successData.data.mediaURI + ") ", true);
+
           el.scroll();
           text.focus();
 
@@ -764,6 +769,8 @@ u("#uploadMedia").on("change", function(e) {
     },
 
   });
+
+  document.body.style.cursor = "default";
 
 });
 
