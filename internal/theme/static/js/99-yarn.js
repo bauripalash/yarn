@@ -366,7 +366,7 @@ u(".unmuteBtn").on("click", function (e) {
   u("#profile-avatar img").removeClass("ismuted");
 });
 
-u("#promptApprove").on("click", function (e) {
+u("#promptCancel").on("click", function (e) {
   window.history.back()
 })
 
