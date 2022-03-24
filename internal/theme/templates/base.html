@@ -76,70 +76,27 @@
   </alert>
   {{ end }}
   {{ end }}
-  <nav id="mainNav" {{ if $.AlertFloat }}class="float"{{ end }}>
-    <div id="podLogo">
-      <a href="/">{{ $.Logo }}</a>
-    </div>
-    <div id="podMobile">
-      <a id="burgerMenu" href="javascript:void(0);"><i class="ti ti-menu-2"></i></a>
-    </div>
-    <div id="podMenu">
-      {{ if .Authenticated }}
-      <div id="timelineBtn">
-        <a href="/" title="Last updated {{ .TimelineUpdatedAt | time }}">
-          <i class="ti ti-message-circle"></i> {{ tr . "NavTimeline" }}
-        </a>
+  <div id="podLogo" {{ if $.AlertFloat }}class="float"{{ end }}>
+    <a href="/">{{ $.Logo }}</a>
+  </div>
+  <div id="desktopMenu" {{ if $.AlertFloat }}class="float"{{ end }}>
+    {{ template "navbar" . }}
+  </div>
+  <input type="checkbox" id="mobileMenuInput">
+  <label id="mobileMenu" for="mobileMenuInput" class="{{ if not .Authenticated }}mobNoAuth{{end}} {{ if gt (len $.AlertMessage) 0 }}alert{{ end }} {{ if $.AlertFloat }}float{{ end }}">
+    <nav id="mobileNav" class="{{ if not .Authenticated }}mobNoAuth{{end}} {{ if gt (len $.AlertMessage) 0 }}alert{{ end }} {{ if $.AlertFloat }}float{{ end }}">
+      <div id="podLogo">
+        <a href="/">{{ $.Logo }}</a>
       </div>
-      <div id="discoverBtn">
-        <a href="/discover" title="Last updated {{ .DiscoverUpdatedAt | time }}">
-          <i class="ti ti-compass"></i> {{ tr . "NavDiscover" }}
-        </a>
+      <div id="podCloseContain">
+        <div id="podClose">
+          <i class="ti ti-menu-2"></i>
+        </div>
       </div>
-      <div id="mentionsBtn">
-        <a href="/mentions" title="Last mentioned {{ .LastMentionedAt | time }}">
-          <i class="ti ti-bell-ringing"></i> {{ tr . "NavMentions" }}
-        </a>
-      </div>
-      <div id="feedsBtn">
-        <a href="/feeds">
-          <i class="ti ti-rss-nav"></i> {{ tr . "NavFeeds" }}
-        </a>
-      </div>
-      <div id="settingsBtn" >
-        <a class="secondary" href="/settings">
-          <i class="ti ti-settings-nav"></i> {{ tr . "NavSettings" }}
-        </a>
-      </div>
-      <div id="logoutBtn">
-        <a class="secondary" href="/logout" onclick="return confirm('{{ tr . "NavLogoutConfirm" }}')">
-          <i class="ti ti-door-exit"></i> {{ tr . "NavLogout" }}
-        </a>
-      </div>
-      {{ else }}
-      <div id="loginBtn">
-        <a href="/login">
-          <i class="ti ti-door-enter"></i> {{ tr . "NavLogin" }}
-        </a>
-      </div>
-      {{ if not .RegisterDisabled }}
-      <div id="registerBtn">
-        <a href="/register">
-          <i class="ti ti-user-plus"></i> {{ tr . "NavRegister" }}
-        </a>
-      </div>
-      {{ end }}
-      {{ end }}
-      <div id="podSearch">
-        <form id="search" action="/search" method="GET">
-          <div class="search-grid">
-            <input type="search" name="tag" placeholder="Search Tags" aria-label="Search">
-            <button type="submit">Search</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </nav>
-  <main class="container">
+      {{ template "navbar" . }}
+    </nav>
+  </label>
+  <main class="container{{ if $.AlertFloat }} float{{ end }}">
     {{ template "content" . }}
   </main>
   <footer class="container">

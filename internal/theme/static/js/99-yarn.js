@@ -909,6 +909,12 @@ if (
   window.scrollTo(0, Number(localStorage.getItem("prevOffset")));
 }
 
+ window.addEventListener("scroll", function() {
+   if (u('#mobileMenuInput').is(':checked')) {
+     u('#mobileMenuInput').first().checked = false;
+   }
+ });
+
 window.onbeforeunload = function() {
   if (u("textarea#text").length > 0) {
     var posttext = u("textarea#text").first().value;

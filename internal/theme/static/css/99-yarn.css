@@ -1,3 +1,60 @@
+#podLogo.float {
+  margin-top: 4.25rem;
+}
+
+#desktopMenu {
+  margin-top: -4.25rem;
+  height: 4.75rem;
+}
+
+#podNavigation,
+#podSearch {
+  float: right;
+}
+
+#podNavigation {
+  width: 28.25rem;
+  display: flex;
+  gap: 1.35rem;
+  margin: 0.75rem 0.6rem 0 0;
+  justify-content: flex-end;
+}
+
+#podSearch {
+  margin: -2.15rem 0.5rem 0 0;
+  height: 0;
+}
+
+#podSearch form {
+  height: 0;
+}
+
+#timelineBtn,
+#discoverBtn,
+#mentionsBtn,
+#mentionsBtn,
+#feedsBtn,
+#settingsBtn,
+#logoutBtn,
+#registerBtn,
+#loginBtn {
+  flex: 0;
+  text-align: center;
+}
+
+#timelineBtn i:after,
+#discoverBtn i:after,
+#mentionsBtn i:after,
+#mentionsBtn i:after,
+#feedsBtn i:after,
+#settingsBtn i:after,
+#logoutBtn i:after,
+#loginBtn i:after,
+#registerBtn i:after {
+  white-space: pre;
+  content: "\A";
+}
+
 #verifyLink {
   font-family: monospace;
   font-size: 85%;
@@ -34,7 +91,7 @@ textarea#css {
 
 .search-grid {
   display: inline-grid;
-  margin: 3rem 0 0 -31.5rem;
+  margin: 3rem 0 0 0;
   grid-template-columns: auto auto;
   gap: 0.75rem;
 }
@@ -169,14 +226,6 @@ textarea#css {
 .tippy-arrow::before {
   border-top-color: var(--primary) !important;
   border-bottom-color: var(--primary) !important;
-}
-
-#podLogo {
-  margin: 1rem 0;
-}
-
-#podMenu {
-  gap: 2rem;
 }
 
 .profile-button {
@@ -758,10 +807,6 @@ audio {
   font-size: 1.25rem;
 }
 
-#mainNav {
-  text-align: center;
-}
-
 #uploadMediaButton {
   cursor: pointer;
 }
@@ -1007,26 +1052,6 @@ small.twt-context strong {
   color: var(--secondary-hover);
 }
 
-#podLogo,
-#podMenu {
-  display: flex;
-  flex: 0;
-  margin-bottom: -1.75rem;
-}
-
-#podMenu {
-  margin-right: 0;
-}
-
-#podLogo {
-  margin-left: 0.5rem;
-  height: 100%;
-}
-
-#podMobile {
-  display: none;
-}
-
 a[role=button] {
   justify-content: center;
 }
@@ -1055,7 +1080,8 @@ footer .footer-menu a {
 
 .container-fluid,
 #followFeed {
-  margin-top: 1rem;
+  margin-left: 0.5rem;
+  height: 100%;
 }
 
 .container-fluid hgroup {
@@ -1126,17 +1152,171 @@ span[title="Copyright"]:before {
   margin-right: 0.96rem;
 }
 
+#mobileMenuInput {
+  display: none;
+}
+
+#mobileMenu {
+  position: relative;
+  float: right;
+  width: 50px;
+  height: 50px;
+  margin: -3.15rem 1rem 0 0;
+  display: none;
+  z-index: 99;
+  color: var(--primary);
+}
+
+#mobileMenu:hover {
+  color: var(--primary-hover);
+}
+
+#mobileMenu:before {
+  font-family: "tabler-icons";
+  content: "\ec42";
+  font-size: 2rem;
+  margin-left: 0.6rem;
+}
+
+#mobileMenu #mobileNav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "logo close"
+    "navigation navigation"
+    "search search";
+  position: fixed;
+  top: -22rem;
+  left: 0;
+  width: 100%;
+  height: 20rem;
+  background-color: var(--background-color);
+  padding: 0px 0.6rem;
+  border-bottom: 1px solid var(--primary);
+  box-shadow: 0 0.1rem 1rem 0.1rem var(--primary);
+}
+
+#mobileMenu #mobileNav.mobNoAuth {
+  height: 14.75rem;
+}
+
+#mobileMenuInput:checked + #mobileMenu #mobileNav {
+  visibility: visible;
+  top: 0;
+}
+
+#mobileMenuInput:checked + #mobileMenu.float #mobileNav {
+  visibility: visible;
+  top: 6.25rem;
+}
+
+#mobileMenuInput:checked + #mobileMenu.alert #mobileNav {
+  visibility: visible;
+  top: 6rem;
+}
+
 @media (max-width: 576px) {
-  body {
-    padding-top: 0.5rem;
+  #podLogo.float {
+    margin-top: 6.25rem;
   }
 
-  #mainNav {
-    margin-top: 0.5rem;
+  #mobileNav #podLogo {
+    grid-area: logo;
+    margin: 0.9rem 0 0 -0.1rem;
+    width: 0;
+  }
+
+  #search,
+  .search-grid {
+    height: 0;
+    margin-left: -0.25rem;
+  }
+
+  #mobileNav #podCloseContain {
+    display: flex;
+    text-align: right;
+  }
+
+  #mobileNav #podClose {
+    flex: 1;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    margin: 1.4rem 0.88rem 0 0;
+  }
+
+  #mobileNav #podNavigation {
+    display: grid;
+    grid-area: navigation;
+    grid-gap: 4rem;
+    width: 80%;
+    height: 4rem;
+    justify-content: space-evenly;
+  }
+
+  #mobileNav #podNavigation:not(.mobNoAuth) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    margin: 0.5rem auto;
+  }
+
+  #mobileNav #podNavigation.mobNoAuth {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    margin: 2.6rem auto;
+  }
+
+  #timelineBtn,
+  #discoverBtn,
+  #mentionsBtn,
+  #feedsBtn,
+  #settingsBtn,
+  #logoutBtn,
+  #registerBtn,
+  #loginBtn {
+    flex: 1;
+    flex-flow: row wrap;
+  }
+
+  #mobileNav #podSearch {
+    text-align: center;
+    grid-area: search;
+    margin: 3.25rem 0 0 0.25rem;
+  }
+
+  #mobileNav #podSearch.mobNoAuth {
+    margin-top: -2.35rem;
+  }
+
+  #mobileNav #podSearch input {
+    width: 100%;
+    height: 2.5rem;
+    margin-top: -10rem;
+  }
+
+  #mobileNav #podSearch button {
+    width: 5rem;
+    height: 2.5rem;
+    border-radius: var(--border-radius);
+    margin-top: -10rem;
+  }
+
+  #mobileNav #podSearch.mobNoAuth input,
+  #mobileNav #podSearch.mobNoAuth button {
+    margin: -10rem 0 0 0.25rem;
+  }
+
+  #desktopMenu {
+    display: none;
+  }
+
+  #mobileMenu {
+    display: inline;
   }
 
   main.container {
-    margin: -5rem 0 -3.5rem 0;
+    margin: -2.75rem 0 -3.5rem 0;
   }
 
   p:first-of-type:empty+lightbox a {
@@ -1187,61 +1367,6 @@ span[title="Copyright"]:before {
   .container article:last-of-type:not(#profile-links):not(.h-entry):not(.profile-header):not(.search-header) {
     padding-bottom: 0;
     margin-bottom: 2.25rem;
-  }
-
-  #mainNav {
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
-  }
-
-  #podLogo {
-    height: 100%;
-    margin-top: 0.5rem;
-  }
-
-  #podMobile {
-    display: block;
-    float: right;
-    font-size: 2rem;
-    padding: 1.25rem 1.75rem;
-  }
-
-  #podMenu {
-    flex: 1 18rem;
-    display: none;
-    gap: 2.5rem;
-    margin: 3rem 0 -2rem 0;
-  }
-
-  #timelineBtn,
-  #discoverBtn,
-  #mentionsBtn,
-  #feedsBtn,
-  #settingsBtn,
-  #logoutBtn,
-  #loginBtn,
-  #registerBtn {
-    text-align: left;
-    margin-left: 2rem;
-  }
-
-  .search-grid {
-    justify-content: center;
-    width: 100%;
-    margin: -1rem 0 0 0;
-    gap: 0.75rem;
-  }
-
-  #podSearch input {
-    width: 95%;
-    height: 2.5rem;
-  }
-
-  #podSearch button {
-    width: 5rem;
-    height: 2.5rem;
-    border-radius: 0.25rem;
-    margin-left: -1rem;
   }
 
   #postbox {
@@ -1547,8 +1672,22 @@ span[title="Copyright"]:before {
     overflow-y: scroll;
   }
 
-  #mainNav {
-    margin-top: 0.5rem;
+  #desktopMenu {
+    margin-top: -4.25rem;
+    padding-bottom: 6.5rem;
+  }
+
+  #podNavigation {
+    gap: 1.6rem;
+    margin: 1rem 1.5rem 0 0;
+  }
+
+  #podSearch {
+    margin: -1.9rem 1.75rem 0 0;
+  }
+
+  #podSearch input {
+    width: 13rem;
   }
 
   main.container {
@@ -1571,41 +1710,6 @@ span[title="Copyright"]:before {
     margin-top: -0.5rem;
   }
 
-  #mainNav {
-    margin-bottom: -2rem;
-  }
-
-  #timelineBtn,
-  #discoverBtn,
-  #mentionsBtn,
-  #feedsBtn,
-  #settingsBtn,
-  #logoutBtn,
-  #loginBtn,
-  #registerBtn {
-    height: 0.1rem;
-  }
-
-  #timelineBtn i,
-  #discoverBtn i,
-  #mentionsBtn i,
-  #feedsBtn i,
-  #settingsBtn i,
-  #logoutBtn i,
-  #loginBtn i,
-  #registerBtn i {
-    display: block;
-    margin-top: 0.25rem;
-  }
-
-  .search-grid {
-    margin: 1.75rem 0 0 -23.25rem;
-  }
-
-  #podSearch input {
-    width: 13rem;
-  }
-
   #newPost {
     padding: 1rem 0.5rem;
     margin: 1rem 0 -0.5rem 0;
@@ -1617,13 +1721,6 @@ span[title="Copyright"]:before {
 
   #postToUser #postbox {
     margin: 1rem 1rem -1.25rem;
-  }
-
-  #podMenu {
-    flex: 1;
-    justify-content: right;
-    gap: 2rem;
-    margin: 1.25rem -0.5rem -1rem 0;
   }
 
   #mediaUploadForm {
@@ -1691,7 +1788,6 @@ span[title="Copyright"]:before {
   #logoutBtn,
   #loginBtn,
   #registerBtn {
-    display: flex;
     font-size: 0;
   }
 
@@ -1758,10 +1854,6 @@ span[title="Copyright"]:before {
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
-  }
-
-  #mainNav {
-    margin: 0.5rem 0 -4rem 0;
   }
 
   alert {
@@ -1863,10 +1955,6 @@ span[title="Copyright"]:before {
     overflow-y: scroll;
   }
 
-  #mainNav {
-    margin: 0.5rem 0 -4rem 0;
-  }
-
   article.grid {
     grid-column-gap: 2rem;
   }
@@ -1963,8 +2051,8 @@ span[title="Copyright"]:before {
     overflow-y: scroll;
   }
 
-  body {
-    padding-top: 0.5rem;
+  #podLogo.float {
+    margin-top: 3.25rem;
   }
 
   article.grid {
@@ -1973,10 +2061,6 @@ span[title="Copyright"]:before {
 
   alert {
     height: 3rem;
-  }
-
-  #mainNav {
-    margin: 0 0 -4rem 0;
   }
 
   #newPost {
