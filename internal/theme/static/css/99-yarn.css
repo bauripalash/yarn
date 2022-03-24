@@ -1227,14 +1227,14 @@ span[title="Copyright"]:before {
   top: 0;
 }
 
-#mobileMenuInput:checked + #mobileMenu.float #mobileNav {
-  visibility: visible;
-  top: 6.25rem;
-}
-
 #mobileMenuInput:checked + #mobileMenu.alert #mobileNav {
   visibility: visible;
   top: 6rem;
+}
+
+#mobileMenuInput:checked + #mobileMenu.alert.float #mobileNav {
+  visibility: visible;
+  top: 5.75rem;
 }
 
 @media (max-width: 576px) {
@@ -1264,13 +1264,13 @@ span[title="Copyright"]:before {
     font-size: 2rem;
     width: 50px;
     height: 50px;
-    margin: 1.4rem 0.88rem 0 0;
+    margin: 1.4rem 0.9rem 0 0;
   }
 
   #mobileNav #podNavigation {
     display: grid;
     grid-area: navigation;
-    grid-gap: 4rem;
+    grid-gap: 2.25rem;
     width: 80%;
     height: 4rem;
     justify-content: space-evenly;
