@@ -184,6 +184,8 @@ func (s *Server) IndieAuthHandler() httprouter.Handle {
 		)
 		ctx.PromptApprove = s.tr(ctx, "IndieAuthApprove")
 		ctx.PromptCancel = s.tr(ctx, "IndieAuthCancel")
+		ctx.PromptTarget = ""
+
 		s.render("prompt", w, ctx)
 	}
 }

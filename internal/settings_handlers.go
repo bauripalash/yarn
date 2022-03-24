@@ -58,6 +58,7 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 
 		visibilityCompact := r.FormValue("visibilityCompact") == "on"
 		visibilityReadmore := r.FormValue("visibilityReadmore") == "on"
+		linkVerification := r.FormValue("linkVerification") == "on"
 
 		isFollowersPubliclyVisible := r.FormValue("isFollowersPubliclyVisible") == "on"
 		isFollowingPubliclyVisible := r.FormValue("isFollowingPubliclyVisible") == "on"
@@ -127,6 +128,7 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 
 		user.VisibilityCompact = visibilityCompact
 		user.VisibilityReadmore = visibilityReadmore
+		user.LinkVerification = linkVerification
 
 		if displayTimelinePreference != user.DisplayTimelinePreference {
 			// Force User Views to be recalculated

@@ -129,14 +129,18 @@
     <div class="grid">
       <div>
         <fieldset>
-          <legend>{{ tr . "SettingsVisualTitle" }}</legend>
+          <legend>{{ tr . "SettingsTwtTitle" }}</legend>
           <label for="visCompact">
-            <input id="visCompact" type="checkbox" name="visibilityCompact" aria-label="{{ tr . "SettingsVisualCompact" }}" role="switch" {{ if $.User.VisibilityCompact }}checked{{ end }}>
-            {{ tr . "SettingsVisualCompact" }} <span class="vp-c-help"><i class="ti ti-help"></i></span>
+            <input id="visCompact" type="checkbox" name="visibilityCompact" aria-label="{{ tr . "SettingsTwtCompact" }}" role="switch" {{ if $.User.VisibilityCompact }}checked{{ end }}>
+            {{ tr . "SettingsTwtCompact" }} <span class="vp-c-help"><i class="ti ti-help"></i></span>
           </label>
           <label for="visReadmore">
-            <input id="visReadmore" type="checkbox" name="visibilityReadmore" aria-label="{{ tr . "SettingsVisualReadmore" }}" role="switch" {{ if $.User.VisibilityReadmore }}checked{{ end }}>
-            {{ tr . "SettingsVisualReadmore" }} <span class="help" title="{{ tr . "SettingsVisualReadmoreHelp" }}"><i class="ti ti-help"></i>
+            <input id="visReadmore" type="checkbox" name="visibilityReadmore" aria-label="{{ tr . "SettingsTwtReadmore" }}" role="switch" {{ if $.User.VisibilityReadmore }}checked{{ end }}>
+            {{ tr . "SettingsTwtReadmore" }} <span class="help" title="{{ tr . "SettingsTwtReadmoreHelp" }}"><i class="ti ti-help"></i>
+          </label>
+          <label for="lnkVerify">
+            <input id="lnkVerify" type="checkbox" name="linkVerification" aria-label="{{ tr . "SettingsTwtLinkVerification" }}" role="switch" {{ if .User.LinkVerification }}checked{{ end }}>
+            {{ tr . "SettingsTwtLinkVerification" }}
           </label>
         </fieldset>
       </div>

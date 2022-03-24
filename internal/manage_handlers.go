@@ -64,6 +64,7 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 
 		visibilityCompact := r.FormValue("visibilityCompact") == "on"
 		visibilityReadmore := r.FormValue("visibilityReadmore") == "on"
+		linkVerification := r.FormValue("linkVerification") == "on"
 
 		// Clean lines from DOS (\r\n) to UNIX (\n)
 		logo = strings.ReplaceAll(logo, "\r\n", "\n")
@@ -166,6 +167,7 @@ func (s *Server) ManagePodHandler() httprouter.Handle {
 		s.config.OriginalMedia = originalMedia
 		s.config.VisibilityCompact = visibilityCompact
 		s.config.VisibilityReadmore = visibilityReadmore
+		s.config.LinkVerification = linkVerification
 
 		// Save config file
 		if err := s.config.Settings().Save(filepath.Join(s.config.Data, "settings.yaml")); err != nil {

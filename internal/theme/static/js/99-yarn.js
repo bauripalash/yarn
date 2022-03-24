@@ -216,8 +216,10 @@ u("body").on("keyup", function(e) {
 
   // Reset and close the postBox on Esc if replying
   if (u("#newPost").attr("open") != null) {
-    u("#newPost").first().removeAttribute("open");
-    u("#text").first().value = "";
+    if (u("textarea#text").length > 0) {
+      localStorage.setItem("text", u("#text").first().value);
+      u("#newPost").first().removeAttribute("open");
+    }
   }
 });
 
@@ -276,13 +278,6 @@ u("#theme select").on("change", function(e) {
   }
 });
 
-function persist(e) {
-  localStorage.setItem(e.target.id, e.target.value);
-}
-
-u("input#title").on("change", persist);
-u("textarea#text").on("change", persist);
-
 u(".replyBtn").on("click", replyTo);
 u(".forkBtn").on("click", forkFrom);
 u(".editBtn").on("click", editTwt);
@@ -292,15 +287,15 @@ u("#post").on("click", function(e) {
   e.preventDefault();
 
   var form = u("#form").first();
-
   if (!form.checkValidity()) {
     form.reportValidity();
     return;
   }
 
-  localStorage.setItem('title', '');
-  localStorage.setItem('text', '');
-  u("#post").html('Posting...');
+  localStorage.setItem("text", "");
+  localStorage.setItem("isPost", "true");
+
+  u("#post").html("Posting...");
   u("#post").attr("aria-busy", true);
   u("#post").attr("disabled", true);
   form.submit();
@@ -370,6 +365,10 @@ u(".unmuteBtn").on("click", function (e) {
   u("#profile-avatar i").removeClass("ti-ismuted");
   u("#profile-avatar img").removeClass("ismuted");
 });
+
+u("#promptApprove").on("click", function (e) {
+  window.history.back()
+})
 
 u.prototype.isHidden = function () {
   var e = this.first();
@@ -907,6 +906,12 @@ if (
 }
 
 window.onbeforeunload = function() {
+  if (u("textarea#text").length > 0) {
+    var posttext = u("textarea#text").first().value;
+    if (posttext.length > 0 && localStorage.getItem("isPost") == "false") {
+      localStorage.setItem("text", posttext);
+    }
+  }
   localStorage.setItem("prevOffset",
     localStorage.getItem("currentOffset") || String(window.scrollY)
   );
@@ -914,11 +919,13 @@ window.onbeforeunload = function() {
 };
 
 window.onload = function() {
+  localStorage.setItem("isPost", "false");
+
   if (u("html").attr("data-readmore") == "true" && u("article.h-entry").length > 0) {
     u("article.h-entry").each(function(article, i){
       var ec = u(article).find(".e-content");
       var rt = u(article).find("#readtwt");
-      if (Math.ceil(ec.size().height) > 180) {
+      if (Math.ceil(ec.size().height) > 210) {
         rt.first().style.display = "inline-block";
         ec.addClass("p-compact");
       }
