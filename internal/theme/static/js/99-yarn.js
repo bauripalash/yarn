@@ -786,6 +786,10 @@ u("#burgerMenu").on("click", function(e) {
   }
 });
 
+u("textarea#text").on('change click blur paste', function(e) {
+  localStorage.setItem("text", u("textarea#text").first().value.trim());
+});
+
 u("body").on("keydown", function(e) {
   if (!u("#mentioned-list").first() || u("#mentioned-list").isHidden()) {
     return;
