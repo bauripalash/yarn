@@ -127,6 +127,7 @@
   {{ end }}
   {{ if .Authenticated }}
     <yarn-pref data-striptrack="{{ $.User.StripTrackingParam }}" data-readmore="{{ $.User.VisibilityReadmore }}" data-linkverify="{{ $.User.LinkVerification }}" data-openlink="{{ $.User.OpenLinksInPreference }}"></yarn-pref>
+    <yarn-pref data-readmore="{{ $.User.VisibilityReadmore }}" data-linkverify="{{ $.User.LinkVerification }}" data-openlink="{{ $.User.OpenLinksInPreference }}"></yarn-pref>
   {{ end }}
 </body>
 </html>

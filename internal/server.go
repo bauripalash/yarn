@@ -845,9 +845,6 @@ func (s *Server) initRoutes() {
 	s.router.GET("/externalAvatar", httproutermiddleware.Handler("external_avatar", s.ExternalAvatarHandler(), mdlw))
 	s.router.HEAD("/externalAvatar", httproutermiddleware.Handler("external_avatar", s.ExternalAvatarHandler(), mdlw))
 
-	// Link Verification
-	s.router.GET("/linkVerify", httproutermiddleware.Handler("link_verification", s.LinkVerification(), mdlw))
-
 	// External Queries (protected by a short-lived token)
 	s.router.GET("/whoFollows", httproutermiddleware.Handler("whoFollows", s.WhoFollowsHandler(), mdlw))
 

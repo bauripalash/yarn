@@ -816,6 +816,7 @@ audio {
   display: flex;
   flex-direction: row-reverse;
   gap: 1rem;
+  padding-bottom: 1rem;
 }
 
 #twobutton a {
@@ -1237,6 +1238,18 @@ span[title="Copyright"]:before {
   top: 5.75rem;
 }
 
+dialog[id^='lvm-'] article{
+  margin: 0 !important;
+}
+
+dialog[id^='lvm-'] #verifyLink {
+  padding: 0.5rem;
+}
+
+dialog[id^='lvm-'] #twobutton {
+  margin-top: 2rem;
+}
+
 @media (max-width: 576px) {
   #podLogo.float {
     margin-top: 6.25rem;
@@ -1317,7 +1330,7 @@ span[title="Copyright"]:before {
   }
 
   #mobileNav #podSearch button {
-    width: 5rem;
+    width: 6rem;
     height: 2.5rem;
     border-radius: var(--border-radius);
     margin-top: -10rem;

@@ -951,10 +951,41 @@ function stripTrackingParameters(uri) {
   return href + query;
 }
 
+function linkVerifyModal(id, href, target) {
+  let button = 'role="button" data-target="lvm-' + id + '"';
+  return [
+    '<dialog id="lvm-' + id + '">',
+    '<article>',
+    '<hgroup>',
+    '<h2>' + 'Verify External Link' + '</h2>',
+    '<h3>' + 'You are about to visit an external link. Please verify the URL before continuing.' + '</h3>',
+    '</hgroup>',
+    '<div id="verifyLink">' + href + '</div>',
+    '<div id="twobutton">',
+    '<a href="' + href + '" ' + button + ' class="primary" target="' + target + '" rel="nofollow noopener"><i class="ti ti-circle-check"></i> Verify</a>',
+    '<a href="#close" class="contrast" ' + button + ' onClick="toggleModal(event)"><i class="ti ti-circle-x"></i> Close</a>',
+    '</div>',
+    '</article>',
+    '</dialog>'
+  ].join('');
+}
+
+function yarnPref(pref) {
+  data = u("yarn-pref").attr("data-" + pref);
+
+  if (pref == "openlink" && data == "newwindow") {
+    return "_blank";
+  } else if (pref == "openlink") {
+    return "_self";
+  }
+
+  return data;
+}
+
 window.onload = function() {
   localStorage.setItem("isPost", "false");
 
-  if (u("yarn-pref").attr("data-readmore") == "true" && u("article.h-entry").length > 0) {
+  if (yarnPref("readmore") && u("article.h-entry").length > 0) {
     u("article.h-entry").each(function(article, i){
       var ec = u(article).find(".e-content");
       var rt = u(article).find("#readtwt");
@@ -965,13 +996,17 @@ window.onload = function() {
     });
   };
 
-  if (u("yarn-pref").attr("data-linkverify") == "true" && u("article.h-entry").length > 0) {
+  if (yarnPref("linkverify") && u("article.h-entry").length > 0) {
     u("article.h-entry .e-content").each(function(article, i){
       var lk = u(article).find("a").each(function(link, i){
+        var id = u(article).parent().attr("id");
         var href = u(link).attr("href");
+        var text = u(link).first().innerText;
         var base = window.location.protocol + "//" + window.location.host;
         if (!(href.startsWith("/")) && !(href.startsWith(base))) {
-          u(link).attr("href", base + "/linkVerify?uri=" + href);
+          u(link).before('<a href="#linkVerify?uri=' + href + '" data-target="lvm-' + id + '" onClick="toggleModal(event)">' + text + '</a>')
+          u(link).after(linkVerifyModal(id, href, yarnPref("openlink")));
+          u(link).remove();
         }
       });
     });
