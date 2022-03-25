@@ -935,6 +935,22 @@ window.onbeforeunload = function() {
   localStorage.setItem("currentOffset", String(window.scrollY));
 };
 
+function stripTrackingParameters(uri) {
+  if (uri.startsWith("/")) {
+    return uri;
+  }
+
+  const re = /(((yc|fc|dc|fbc|gcl)(lid|src)|gaa|amp|mkt_tok|utm|ar|si|sc|fb)([_\-a-z0-9=\.]+))(\&?)/g
+
+  var url = new URL(uri.toString());
+  var params = new URLSearchParams(url.search);
+
+  const href = url.origin + url.pathname + "?";
+  const query = params.toString().replace(re, "").replace(/&$/g, "");
+
+  return href + query;
+}
+
 window.onload = function() {
   localStorage.setItem("isPost", "false");
 
@@ -957,6 +973,15 @@ window.onload = function() {
         if (!(href.startsWith("/")) && !(href.startsWith(base))) {
           u(link).attr("href", base + "/linkVerify?uri=" + href);
         }
+      });
+    });
+  };
+
+  if (yarnPref("striptrack") && u("article.h-entry").length > 0) {
+    u("article.h-entry .e-content").each(function(article, i){
+      var lk = u(article).find("a").each(function(link, i){
+        var url = stripTrackingParameters(u(link).attr("href"));
+        u(link).attr("href", url);
       });
     });
   };

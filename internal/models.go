@@ -69,6 +69,7 @@ type User struct {
 	VisibilityCompact  bool `default:"false"`
 	VisibilityReadmore bool `default:"false"`
 	LinkVerification   bool `default:"false"`
+	StripTrackingParam bool `default:"false"`
 
 	IsFollowersPubliclyVisible bool `default:"true"`
 	IsFollowingPubliclyVisible bool `default:"true"`

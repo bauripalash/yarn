@@ -126,7 +126,7 @@
     <script type="application/javascript" src="/js/{{ .Commit }}/yarn.min.js"></script>
   {{ end }}
   {{ if .Authenticated }}
-    <yarn-pref{{ if $.User.VisibilityReadmore }} data-readmore="true"{{ end }}{{ if $.User.LinkVerification }} data-linkverify="true"{{ end }}></yarn-pref>
+    <yarn-pref data-striptrack="{{ $.User.StripTrackingParam }}" data-readmore="{{ $.User.VisibilityReadmore }}" data-linkverify="{{ $.User.LinkVerification }}" data-openlink="{{ $.User.OpenLinksInPreference }}"></yarn-pref>
   {{ end }}
 </body>
 </html>

@@ -162,6 +162,10 @@
             <input id="lnkVerify" type="checkbox" name="linkVerification" aria-label="{{ tr . "SettingsTwtLinkVerification" }}" role="switch" {{ if .User.LinkVerification }}checked{{ end }}>
             {{ tr . "SettingsTwtLinkVerification" }}
           </label>
+          <label for="pvcStripTrack">
+            <input id="pvcStripTrack" type="checkbox" name="stripTrackingParam" aria-label="{{ tr . "SettingsTwtStripTrackingParam" }}" role="switch" {{ if .User.StripTrackingParam }}checked{{ end }}>
+            {{ tr . "SettingsTwtStripTrackingParam" }} <span class="help" title="{{ tr . "SettingsTwtStripTrackingParamHelp" }}"><i class="ti ti-help"></i>
+          </label>
         </fieldset>
       </div>
       <div>

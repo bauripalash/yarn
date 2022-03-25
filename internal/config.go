@@ -78,6 +78,7 @@ type Settings struct {
 	VisibilityCompact  bool `yaml:"visibility_compact"`
 	VisibilityReadmore bool `yaml:"visibility_readmore"`
 	LinkVerification   bool `yaml:"link_verification"`
+	StripTrackingParam bool `yaml:"strip_trackingparam"`
 }
 
 // SoftwareConfig contains the server version information
@@ -175,6 +176,7 @@ type Config struct {
 	VisibilityCompact  bool
 	VisibilityReadmore bool
 	LinkVerification   bool
+	StripTrackingParam bool
 
 	// requestTimeout defines the timeout for outgoing HTTP requests.
 	requestTimeout time.Duration
