@@ -79,6 +79,9 @@ type Settings struct {
 	VisibilityReadmore bool `yaml:"visibility_readmore"`
 	LinkVerification   bool `yaml:"link_verification"`
 	StripTrackingParam bool `yaml:"strip_trackingparam"`
+
+	CustomPrimaryColor   string `yaml:"custom_primarycolor"`
+	CustomSecondaryColor string `yaml:"custom_secondarycolor"`
 }
 
 // SoftwareConfig contains the server version information
@@ -177,6 +180,9 @@ type Config struct {
 	VisibilityReadmore bool
 	LinkVerification   bool
 	StripTrackingParam bool
+
+	CustomPrimaryColor   string
+	CustomSecondaryColor string
 
 	// requestTimeout defines the timeout for outgoing HTTP requests.
 	requestTimeout time.Duration

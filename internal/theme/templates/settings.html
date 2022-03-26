@@ -228,6 +228,24 @@
         </fieldset>
       </div>
     </div>
+    <div class="grid">
+      <div id="cus-pc">
+        <fieldset>
+          <legend>{{ tr . "SettingsTwtCustomColorPrimary" }} <span class="help" title="{{ tr . "SettingsTwtCustomColorHelp" }}"><i class="ti ti-help"></i></legend>
+          <label for="cusPrimaryColor">
+            <input id="cusPrimaryColor" type="text" name="customPrimaryColor" placeholder="{{ tr . "SettingsTwtCustomColorReset" }}" aria-label="{{ tr . "SettingsTwtCustomColorPrimary" }}" {{ if .User.CustomPrimaryColor }}value="{{ .User.CustomPrimaryColor }}"{{ end }}>
+          </label>
+        </fieldset>
+      </div>
+      <div id="cus-sc">
+        <fieldset>
+          <legend>{{ tr . "SettingsTwtCustomColorSecondary" }} <span class="help" title="{{ tr . "SettingsTwtCustomColorHelp" }}"><i class="ti ti-help"></i></legend>
+          <label for="cusSecondaryColor">
+            <input id="cusSecondaryColor" type="text" name="customSecondaryColor" placeholder="{{ tr . "SettingsTwtCustomColorReset" }}" aria-label="{{ tr . "SettingsTwtCustomColorSecondary" }}" {{ if .User.CustomSecondaryColor }}value="{{ .User.CustomSecondaryColor }}"{{ end }}>
+          </label>
+        </fieldset>
+      </div>
+    </div>
     <button type="submit" class="primary">{{ tr . "SettingsFormUpdate" }}</button>
   </form>
 </article>

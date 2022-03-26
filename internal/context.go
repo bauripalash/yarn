@@ -94,6 +94,9 @@ type Context struct {
 	LinkVerification   bool
 	StripTrackingParam bool
 
+	CustomPrimaryColor   string
+	CustomSecondaryColor string
+
 	Error       bool
 	Message     string
 	Callback    string
@@ -219,6 +222,9 @@ func NewContext(s *Server, req *http.Request) *Context {
 		VisibilityReadmore: conf.VisibilityReadmore,
 		LinkVerification:   conf.LinkVerification,
 		StripTrackingParam: conf.StripTrackingParam,
+
+		CustomPrimaryColor:   conf.CustomPrimaryColor,
+		CustomSecondaryColor: conf.CustomSecondaryColor,
 
 		Commit:      yarn.Commit,
 		Theme:       conf.Theme,

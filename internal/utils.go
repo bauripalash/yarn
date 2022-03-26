@@ -1946,7 +1946,7 @@ func RenderImage(user *User, conf *Config, uri, caption, alt, renderAs string, f
 		 <dialog id="%s">
         <figure>
           <img loading=lazy src="%s" />
-          <figcaption><a id="img-dl" href="%s">Download</a><p>%s</p></figcaption>
+          <figcaption><a class="img-dl" href="%s">Download</a><p>%s</p></figcaption>
         </figure>
       </dialog>`,
 		imgURI, title, alt, isCaption, imgURI, uuid, uuid, fullImgURI, fullImgURI, caption,
@@ -2025,16 +2025,15 @@ func PreprocessMedia(user *User, conf *Config, u *url.URL, title, alt, renderAs 
 			alt = ` alt="` + alt + `"`
 		}
 
-		uri := url.QueryEscape(u.String())
 		if full {
 			html = fmt.Sprintf(
-				`<a href="%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
-				uri, title, alt, mtypeIcon, mtype,
+				`<p><a class="e-media" href="%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a></p>`,
+				u.String(), title, alt, mtypeIcon, mtype,
 			)
 		} else {
 			html = fmt.Sprintf(
-				`<a href="%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
-				uri, title, alt, mtypeIcon, mtype,
+				`<p><a class="e-media" href="%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a></p>`,
+				u.String(), title, alt, mtypeIcon, mtype,
 			)
 		}
 	}

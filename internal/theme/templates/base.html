@@ -66,7 +66,17 @@
     {{ with .Meta.Image }}<meta name="twitter:image" content="{{ . }}" />{{ end }}
 
     <!-- Custom Pod CSS if provided -->
-    {{ if gt (len $.CSS) 0 }}<style>{{ $.CSS }}</style>{{ end }}
+    {{ if gt (len $.CSS) 0 }}
+    <style>{{ $.CSS }}</style>
+    {{ end }}
+
+    <!-- Custom User colors if provided -->
+    {{ if .User.CustomPrimaryColor }}
+    <style>*{--primary:{{ .User.CustomPrimaryColor }}!important;}"</style>
+    {{ end }}
+    {{ if .User.CustomSecondaryColor }}
+    <style>*{--primary-focus:{{ .User.CustomSecondaryColor }}!important;--primary-hover:{{ .User.CustomSecondaryColor }}!important;}"</style>
+    {{ end }}
   </head>
 <body class="preload">
   {{ if or (.Authenticated) ($.AlertGuest) }}
@@ -127,7 +137,6 @@
   {{ end }}
   {{ if .Authenticated }}
     <yarn-pref data-striptrack="{{ $.User.StripTrackingParam }}" data-readmore="{{ $.User.VisibilityReadmore }}" data-linkverify="{{ $.User.LinkVerification }}" data-openlink="{{ $.User.OpenLinksInPreference }}"></yarn-pref>
-    <yarn-pref data-readmore="{{ $.User.VisibilityReadmore }}" data-linkverify="{{ $.User.LinkVerification }}" data-openlink="{{ $.User.OpenLinksInPreference }}"></yarn-pref>
   {{ end }}
 </body>
 </html>

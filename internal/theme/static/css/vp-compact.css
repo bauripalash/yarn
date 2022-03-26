@@ -55,10 +55,6 @@
   margin: 1.5rem 0 0 0 !important;
 }
 
-#text {
-  height: 4.75rem !important;
-}
-
 .muteTwtBtn {
   margin-right: 1rem !important;
 }
@@ -247,10 +243,6 @@
 
   #postbox.drawer .toolbar-nav {
     padding-top: 0.2rem !important;
-  }
-
-  .bump-up {
-    margin-top: 0 !important;
   }
 
   .yarn-nav:nth-of-type(1) {

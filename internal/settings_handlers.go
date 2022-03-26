@@ -61,6 +61,9 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		linkVerification := r.FormValue("linkVerification") == "on"
 		stripTrackingParam := r.FormValue("stripTrackingParam") == "on"
 
+		customPrimaryColor := r.FormValue("customPrimaryColor")
+		customSecondaryColor := r.FormValue("customSecondaryColor")
+
 		isFollowersPubliclyVisible := r.FormValue("isFollowersPubliclyVisible") == "on"
 		isFollowingPubliclyVisible := r.FormValue("isFollowingPubliclyVisible") == "on"
 		isBookmarksPubliclyVisible := r.FormValue("isBookmarksPubliclyVisible") == "on"
@@ -131,6 +134,9 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		user.VisibilityReadmore = visibilityReadmore
 		user.LinkVerification = linkVerification
 		user.StripTrackingParam = stripTrackingParam
+
+		user.CustomPrimaryColor = customPrimaryColor
+		user.CustomSecondaryColor = customSecondaryColor
 
 		if displayTimelinePreference != user.DisplayTimelinePreference {
 			// Force User Views to be recalculated

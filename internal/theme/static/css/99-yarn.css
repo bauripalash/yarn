@@ -1,3 +1,26 @@
+.e-content + #readtwt + .twt-nav:empty {
+  margin-top: -1rem;
+}
+
+#newPost + .grid.h-feed {
+  margin-top: 1.5rem;
+}
+
+p:not(:empty) + p .e-media {
+  display: block;
+  margin: -1.5rem 0 -3.05rem 0;
+}
+
+p:empty + p .e-media {
+  display: block;
+  margin: -0.1rem 0 -1.5rem 0;
+}
+
+#cus-pc,
+#cus-sc {
+  margin-top: -1rem;
+}
+
 yarn-pref {
   display: none;
 }
@@ -120,6 +143,10 @@ textarea#css {
   line-height: 0;
   border-radius: 0.25rem;
   font-size: 90%;
+}
+
+#followFeed {
+  margin-top: 1rem !important;
 }
 
 #followOpt,
@@ -466,6 +493,7 @@ article.grid {
 
 .twt-nav {
   margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
   border-top: 0.1rem solid var(--muted-border-color);
   font-weight: var(--font-weight);
   padding: 0.25rem 0;
@@ -715,8 +743,8 @@ figcaption {
   margin: 0 0 -0.75rem 0.25rem;
 }
 
-figcaption #img-dl,
-figcaption #img-dl:after {
+figcaption .img-dl,
+figcaption .img-dl:after {
   margin-left: -0.1rem;
   display: block;
   content: "\A";
@@ -728,7 +756,7 @@ figcaption #img-dl:after {
 }
 
 div .p-compact {
-  height: 6.8rem;
+  height: 10rem;
 }
 
 #readtwt {
@@ -996,7 +1024,7 @@ article .e-content {
 article .e-content p video,
 article .e-content p img {
   max-width: 100%;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem ;
 }
 
 /* Blockquotes */
@@ -1011,7 +1039,7 @@ article .e-content blockquote {
 .container .h-entry,
 .h-feed>div .h-entry {
   margin: 0.5rem 0;
-  padding: 0.75rem 0.75rem 1rem 0.75rem;
+  padding: 0.75rem 0.75rem 0.35rem 0.75rem;
   overflow: visible;
 }
 
@@ -1251,6 +1279,10 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (max-width: 576px) {
+  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1rem;
+  }
+
   #podLogo.float {
     margin-top: 6.25rem;
   }
@@ -1353,11 +1385,6 @@ dialog[id^='lvm-'] #twobutton {
     margin: -2.75rem 0 -3.5rem 0;
   }
 
-  p:first-of-type:empty+lightbox a {
-    display: block;
-    margin-top: 1.25rem;
-  }
-
   #newPost {
     padding: 1.25rem 0.5rem;
     margin: 1.5rem 0 -0.5rem 0;
@@ -1409,12 +1436,16 @@ dialog[id^='lvm-'] #twobutton {
     padding-bottom: 1rem;
   }
 
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 1.6rem;
+  }
+
   #postbox.single-twt {
-    margin: 1.5rem 0 -2.5rem 0;
+    margin: -1rem 0 -1.5rem 0;
   }
 
   #postbox.single-twt.drawer {
-    margin: -2.45rem 0.5rem 2.45rem 0.5rem !important;
+    margin: 0.35rem 0 0.6rem 0 !important;
   }
 
   #postbox form {
@@ -1515,6 +1546,7 @@ dialog[id^='lvm-'] #twobutton {
   }
 
   .twt-nav {
+    margin-bottom: 0.1rem;
     padding-bottom: 0.4rem;
   }
 
@@ -1701,6 +1733,10 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
+  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1rem;
+  }
+
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
@@ -1726,10 +1762,6 @@ dialog[id^='lvm-'] #twobutton {
 
   main.container {
     margin-top: -3.25rem;
-  }
-
-  .bump-up {
-    margin-top: -1rem;
   }
 
   .bookmark-feed {
@@ -1865,8 +1897,12 @@ dialog[id^='lvm-'] #twobutton {
     margin: 0.5rem 0 1rem 0 !important;
   }
 
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 0.75rem;
+  }
+
   #postbox.single-twt.drawer {
-    margin: -0.9rem 0.5rem 1.25rem 0.5rem !important;
+    margin: 0.5rem 0 1rem 0 !important;
   }
 
   #twt-join {
@@ -1885,6 +1921,10 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (min-width: 769px) and (max-width: 991px) {
+  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1.5rem;
+  }
+
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
@@ -1923,12 +1963,16 @@ dialog[id^='lvm-'] #twobutton {
     margin: 0 0 0.75rem 0;
   }
 
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 0.6rem;
+  }
+
   #postbox.single-twt {
     margin: 0.5rem 0 2.25rem 0;
   }
 
   #postbox.single-twt.drawer {
-    margin: -0.9rem 0.5rem 1.45rem 0.5rem !important;
+    margin: 0.35rem 0 1.45rem 0 !important;
   }
 
   #recentTwts {
@@ -1984,6 +2028,10 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
+  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1.5rem;
+  }
+
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
@@ -2020,6 +2068,14 @@ dialog[id^='lvm-'] #twobutton {
 
   #postbox {
     padding-bottom: 0.5rem;
+  }
+
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 1.35rem;
+  }
+
+  #postbox.single-twt.drawer {
+    margin: 0.5rem 0 1rem 0 !important;
   }
 
   #recentTwts {
@@ -2080,6 +2136,10 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (min-width: 1200px) {
+  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1.5rem;
+  }
+
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
@@ -2120,6 +2180,14 @@ dialog[id^='lvm-'] #twobutton {
 
   #postbox {
     padding-bottom: 0.5rem;
+  }
+
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 1.35rem;
+  }
+
+  #postbox.single-twt.drawer {
+    margin: 0.5rem 0 1rem 0 !important;
   }
 
   #recentTwts {
