@@ -210,8 +210,10 @@ u("body").on("keyup", function(e) {
 
   // Reset and close the postBox on Esc if replying
   if (u("#postbox").hasClass("drawer")) {
-    resetPostBox();
-    u("#text").first().value = "";
+    if (confirm('Are you sure you want to cancel this reply?')) {
+      resetPostBox();
+      u("#text").first().value = "";
+    }
   }
 
   // Reset and close the postBox on Esc if replying
