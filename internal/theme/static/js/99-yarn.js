@@ -995,10 +995,10 @@ function yarnPref(pref) {
     return "_self";
   }
 
-  if (data === "false") {
-    return false;
-  } else {
+  if (data === "true") {
     return true;
+  } else {
+    return false;
   }
 }
 
@@ -1029,8 +1029,8 @@ window.onload = function() {
             if (yarnPref("striptrack")) {
               var href = stripTrackingParameters(u(link).attr("href"));
             }
-            u(link).before('<a href="#linkVerify?uri=' + href + '" data-target="lvm-' + id + '" onClick="toggleModal(event)">' + text + '</a>')
-            u(link).after(linkVerifyModal(id, href, yarnPref("openlink")));
+            u(link).before('<a href="#linkVerify?uri=' + href + '" data-target="lvm-' + id + '-' + i + '" onClick="toggleModal(event)">' + text + '</a>')
+            u(link).after(linkVerifyModal(id + "-" + i, href, yarnPref("openlink")));
             u(link).remove();
           }
         }
