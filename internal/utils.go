@@ -1656,7 +1656,9 @@ func GetLookupMatches(conf *Config, nick string, url string) (avatar, domain str
 	} else {
 		avatar = URLForExternalAvatar(conf, url)
 		re := regexp.MustCompile(`uri=https?:\/\/(.+?)\/user\/`)
-		domain = re.FindStringSubmatch(strings.ToLower(avatar))[1]
+		if matches := re.FindStringSubmatch(strings.ToLower(avatar)); matches != nil {
+			domain = matches[1]
+		}
 	}
 
 	return
