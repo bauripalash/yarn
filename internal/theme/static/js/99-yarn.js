@@ -475,7 +475,8 @@ function createMentionedUserNode(match) {
     .append(
       u("<div>")
       .addClass("info")
-      .append(u("<div>").addClass("nickname").text(match.Nick))
+      .append(u("<div>").addClass("nickname").text(match.Nick.replace(/@.+/g, "")))
+      .append(u("<div>").addClass("domain").text(match.Domain))
     );
 }
 
@@ -546,6 +547,7 @@ function IE() {
 
 var deBounce = 300;
 var fetchUsersTimeout = null;
+var startMention = null;
 
 function getUsers(searchStr) {
   clearTimeout(fetchUsersTimeout);
@@ -571,8 +573,6 @@ function getUsers(searchStr) {
     });
   }, deBounce);
 }
-
-var mentions = [];
 
 u(".img-orig-open").on("click", function(e) {
   e.preventDefault();
@@ -618,17 +618,11 @@ u("#imgBtn").on("click", function(e) {
 
 u("#usrBtn").on("click", function(e) {
   e.preventDefault();
-  if (!u("#mentioned-list").isHidden()) {
-    u("textarea#text").first().focus();
-    startMention = u("textarea#text").first().selectionStart + 1;
-    insertText(u("textarea#text"), "@");
-    if (iOS() || IE()) {
-      showMentionedList();
-      getUsers();
-    }
-  } else {
-    clearMentionedList();
-  }
+  u("textarea#text").first().focus();
+  startMention = u("textarea#text").first().selectionStart + 1;
+  insertText(u("textarea#text"), "@");
+  showMentionedList();
+  getUsers();
 });
 
 u("textarea#text").on("keydown", function(e) {
@@ -644,8 +638,6 @@ u("textarea#text").on("focus", function(e) {
     getUsers();
   }
 });
-
-var startMention = null;
 
 u("textarea#text").on("keyup", function(e) {
   if (e.key.length === 1 || e.key === "Backspace") {
@@ -687,7 +679,7 @@ u("#mentioned-list").on("click", function(e) {
     value.slice(u("textarea#text").first().selectionEnd);
 
   u("textarea#text").first().setSelectionRange(startMention, startMention);
-  insertText(u("textarea#text"), e.target.innerText.trim());
+  insertText(u("textarea#text"), e.target.innerText.replace('\n', '@').trim());
   u("#mentioned-list").attr("style", "display: none;");
 });
 
@@ -862,7 +854,6 @@ u("body").on("keydown", function(e) {
       });
 
       var selectedNode = u(".user-list__user").nodes[selectedNodeIdx];
-
       var value = u("textarea#text").first().value;
 
       u("textarea#text").first().value =
@@ -872,7 +863,7 @@ u("body").on("keydown", function(e) {
       u("textarea#text")
         .first()
         .setSelectionRange(startMention, startMention);
-      insertText(u("textarea#text"), selectedNode.innerText.trim());
+      insertText(u("textarea#text"), selectedNode.innerText.replace('\n', '@').trim());
       clearMentionedList();
     }
 

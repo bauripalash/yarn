@@ -1646,6 +1646,22 @@ func ExtractHashFromSubject(subject string) string {
 	return hash
 }
 
+func GetLookupMatches(conf *Config, nick string, url string) (avatar, domain string) {
+	isLocalURL := IsLocalURLFactory(conf)
+
+	if isLocalURL(url) {
+		avatar = URLForAvatar(conf.BaseURL, nick, "")
+		re := regexp.MustCompile(`https?:\/\/(.+?)\/user\/`)
+		domain = re.FindStringSubmatch(strings.ToLower(avatar))[1]
+	} else {
+		avatar = URLForExternalAvatar(conf, url)
+		re := regexp.MustCompile(`uri=https?:\/\/(.+?)\/user\/`)
+		domain = re.FindStringSubmatch(strings.ToLower(avatar))[1]
+	}
+
+	return
+}
+
 func GetTwtConvSubjectHash(cache *Cache, archive Archiver, twt types.Twt) (string, string) {
 	subject := twt.Subject().String()
 	if subject == "" {

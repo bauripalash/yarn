@@ -840,26 +840,17 @@ audio {
 .users-list {
   display: none;
   flex-direction: column;
-  position: absolute;
+  margin: -0.5rem 0 0.5rem 0;
   background-color: var(--background-color);
-  border-left: 0.1rem solid var(--form-element-border-color);
-  border-bottom: 0.1rem solid var(--form-element-border-color);
-  border-right: 0.1rem solid var(--form-element-border-color);
-}
-
-.users-list.show {
-  display: block;
+  border: 0.1rem solid var(--form-element-border-color);
+  border-radius: var(--border-radius);
 }
 
 .user-list__user {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  height: 4rem;
-  padding: 1rem 1rem;
-  box-sizing: border-box;
-  max-width: 350px;
-  transition: all ease-in-out .25s;
+  height: 4.5rem;
+  padding: 1rem 0.5rem;
 }
 
 .user-list__user.selected {
@@ -868,34 +859,37 @@ audio {
 }
 
 .mentioned-list-content {
-  max-height: 12rem;
+  max-height: 13.5rem;
   overflow: auto;
   cursor: pointer;
+}
+
+.mentioned-list-content:empty:after {
+  display: block;
+  white-space: pre;
+  content: '\A\00a0\00a0\00a0\00a0No Users Found...';
+  height: 4.5rem;
 }
 
 .user-list__user .avatar {
   width: 3.5rem;
   height: 3.5rem;
   background-color: var(--muted-border-color);
-  margin-right: 1rem;
+  margin-right: 0.75rem;
   background-size: cover;
   pointer-events: none;
 }
 
-.user-list__user .info {
-  display: flex;
-  flex-direction: column;
-  pointer-events: none;
-}
-
+.user-list__user .info,
 .user-list__user .nickname,
 .user-list__user .info .name,
 .user-list__user .info .nickname {
-  color: var(--text);
-  margin-bottom: 5px;
-  font-size: 0.9rem;
   font-weight: 600;
   pointer-events: none;
+}
+
+.user-list__user .domain {
+  font-weight: 400;
 }
 
 .mentioned-list-content::-webkit-scrollbar {

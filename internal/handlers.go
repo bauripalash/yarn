@@ -192,32 +192,36 @@ func (s *Server) WebMentionHandler() httprouter.Handle {
 
 // LookupHandler ...
 func (s *Server) LookupHandler() httprouter.Handle {
-	isLocalURL := IsLocalURLFactory(s.config)
 	return func(w http.ResponseWriter, r *http.Request, p httprouter.Params) {
 		ctx := NewContext(s, r)
 
 		prefix := strings.ToLower(strings.TrimSpace(r.URL.Query().Get("prefix")))
-
 		user := ctx.User
-
 		matches := make([]struct {
 			Nick   string
 			Avatar string
+			Domain string
 		}, 0)
+
 		if len(prefix) > 0 {
 			for nick, url := range user.Following {
 				if strings.HasPrefix(strings.ToLower(nick), prefix) {
-					var avatar string
-					if isLocalURL(url) {
-						avatar = URLForAvatar(s.config.BaseURL, nick, "")
-					} else {
-						avatar = URLForExternalAvatar(s.config, url)
-					}
+					avatar, domain := GetLookupMatches(s.config, nick, url)
 					matches = append(matches, struct {
 						Nick   string
 						Avatar string
-					}{nick, avatar})
+						Domain string
+					}{nick, avatar, domain})
 				}
+			}
+		} else {
+			for nick, url := range user.Following {
+				avatar, domain := GetLookupMatches(s.config, nick, url)
+				matches = append(matches, struct {
+					Nick   string
+					Avatar string
+					Domain string
+				}{nick, avatar, domain})
 			}
 		}
 
