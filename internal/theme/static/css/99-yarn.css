@@ -1,19 +1,13 @@
+dialog+p br {
+  display: none;
+}
+
 .e-content + #readtwt + .twt-nav:empty {
   margin-top: -1rem;
 }
 
 #newPost + .grid.h-feed {
   margin-top: 1.5rem;
-}
-
-p:not(:empty) + p .e-media {
-  display: block;
-  margin: -1.5rem 0 -3.05rem 0;
-}
-
-p:empty + p .e-media {
-  display: block;
-  margin: -0.1rem 0 -1.5rem 0;
 }
 
 #cus-pc,
@@ -693,7 +687,7 @@ nav.timeline-nav a {
 }
 
 .center-cropped img {
-  margin: -1rem 0 0.25rem 0;
+  margin: 0.25rem 0 0.5rem 0;
   height: 8rem;
   width: 12rem;
   object-fit: cover;
@@ -796,35 +790,9 @@ blockquote > p {
   margin-bottom: 1.5rem;
 }
 
-.e-content p:last-of-type {
-  margin-bottom: 0.25rem;
-}
-
-.e-content p:first-of-type:empty {
-  display: none;
-}
-
-.e-content p:first-of-type:empty+lightbox a img,
-.e-content p:first-of-type:empty+audio,
-.e-content p:first-of-type:empty+video {
-  margin-top: 0.5rem;
-}
-
-.e-content p:empty+lightbox+dialog+p:not(:empty),
-.e-content p:empty+audio+p:not(:empty),
-.e-content p:empty+video+p:not(:empty) {
-  margin-top: 0.1rem;
-}
-
-.e-content p+lightbox+dialog+p:not(:empty),
-.e-content p+audio+p:not(:empty),
-.e-content p+video+p:not(:empty) {
-  margin-top: -1.45rem;
-}
-
 audio,
 video {
-  margin: -1rem 0 0.5rem 0;
+  margin: 0.25rem 0 0.5rem 0;
   max-width: 100%;
   width: 100%;
   object-fit: contain;
