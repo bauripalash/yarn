@@ -2287,7 +2287,7 @@ func FormatTwtContextFactory(conf *Config, cache *Cache, archive Archiver) func(
 
 				src := u.String()
 				html := fmt.Sprintf(
-					`<a href="%s" title="%s"%s target="_blank"><i class="external-image"></i></a>`,
+					`<a href="%s" title="%s"%s target="_blank"><i class="ti ti-external-link"></i> Media</a>`,
 					src, image.Title, alt,
 				)
 
@@ -2325,7 +2325,7 @@ func FormatTwtContextFactory(conf *Config, cache *Cache, archive Archiver) func(
 				}
 
 				html := fmt.Sprintf(
-					`<a href="%s" alt="%s" target="_blank"><i class="external-image"></i></a>`,
+					`<a href="%s" alt="%s" target="_blank"><i class="ti ti-external-link"></i> Media</a>`,
 					u, alt,
 				)
 
