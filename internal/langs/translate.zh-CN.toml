@@ -1,75 +1,127 @@
-[InstanceNameInfo]
-hash = "sha1-bb97ffe973568947d8903b91c044bd17dee96723"
-other = "About the <b>{{ .InstanceName }}</b> Yarn.social pod."
+[CustomLinkAddSubmit]
+hash = "sha1-2cf006b19170d54873467ced16c631aff563e7f9"
+other = "Add Link"
 
-[InstanceTitle]
-hash = "sha1-914e2403bda42fb7ddb728a9337741354d4ab938"
-other = "Pod Information"
+[CustomLinkAddTitle]
+hash = "sha1-a6f299e58aaaca46f83e05de13d75bca9e9c11f7"
+other = "Link Title"
 
-[LoginFormEmailAddress]
-hash = "sha1-09ba557fd106f1019ec6739113e3e28dea4bd9a6"
-other = "Email Address"
+[CustomLinkAddURL]
+hash = "sha1-08738f6eef34333c426e9fb2c58d5a55999d681f"
+other = "Link URL"
 
-[MutedLinkTitle]
-hash = "sha1-b9e78ced88a4641f8289a36049516182b46cf836"
-other = "Muted"
+[CustomLinkSummary]
+hash = "sha1-baf0d50958c28b349b7256a571a2ef3d39e46a98"
+other = "Here you can add a new link to the User Links section of your profile"
 
-[MutedListEmpty]
-hash = "sha1-9f27cee950e7706c88d5794d4c2c37dc0df64be9"
-other = "No muted feeds or twts"
+[CustomLinkTitle]
+hash = "sha1-db86eac66fd08d6cdb48fd70674e176d2d44bdb1"
+other = "Add Custom Link"
 
-[MutedSummary]
-hash = "sha1-2f33216832429a7e6a4096810d30bd69739b8b3d"
-other = "Manage your list of muted feeds and twts"
+[ErrorAddLink]
+hash = "sha1-2e3c4ce83c2859f0449f42a50d0fc8787ca9c948"
+other = "Error adding link"
 
-[MutedTitle]
-hash = "sha1-5676c5efddc9def1ccc551c636da39b379b7589a"
-other = "Muted Feeds and Twts"
+[ErrorRemoveLink]
+hash = "sha1-a0d1b318fdb682f356e2e5cd9598415ad7035091"
+other = "Error removing link"
 
-[ProfileBookmarksLinkTitle]
-hash = "sha1-ca3cddd25bd8f6bc4ce35a262e2e1398541ecf3d"
-other = "Bookmarks"
+[LinkVerifyApprove]
+hash = "sha1-dda6ac27b9d3b234a68e8b2c412e90ab5a03a4e1"
+other = "Verify"
 
-[ProfileDoesNotFollowYou]
-hash = "sha1-f08bf47c8b22676dcb96bee4895f001deb8e7e80"
-other = "does not follow you"
+[LinkVerifyCancel]
+hash = "sha1-77dfd2135f4db726c47299bb55be26f7f4525a46"
+other = "Cancel"
 
-[ProfileFollowersLinkTitle]
-hash = "sha1-78eaabf4a629795fe52f523f44f5000c6b204f2f"
-other = "Followers"
+[LinkVerifyMessage]
+hash = "sha1-c9fb1362d9b51a3752351b0b53e9579df6bcda6c"
+other = "You are about to visit a link that is external to <strong>{{ .InstanceName }}</strong>. Please verify the URL before continuing."
 
-[ProfileFollowingLinkTitle]
-hash = "sha1-90eeb100838048513e8d2290a6892e18077c24f6"
-other = "Following"
+[LinkVerifyNoURL]
+hash = "sha1-7615c8d9ba516af03858134992e383d2b0e20bf8"
+other = "No external URL provided."
 
-[ProfileLastSeen]
-hash = "sha1-56462f81b82a2d76b46ff441b40d364b6505f1d8"
-other = "Last seen"
+[LinkVerifyTitle]
+hash = "sha1-a8748e2f6fb8a27630517bf258a863c8f0ac579f"
+other = "Verify External Link"
 
-[ProfileMuteUser]
-hash = "sha1-30772b5b5cde04fdc46e43460d1b7096cb8a2601"
-other = "You are free to Unfollow or Mute this user or feed.&#10;Muting will also remove that user/feed's content from your view.&#10;You will no longer see content from that user/feed anywhere."
+[ManagePodPermittedImageDomains]
+hash = "sha1-06153c0e0f405f78995607b80e0e85ec9c82396a"
+other = "Permitted Domains"
 
-[ProfileReportUser]
-hash = "sha1-8ea1aab3d7221d789f3a6b80ef950d80b6ccb65b"
-other = "If this user/feed is violating this Pod's ({{ .InstanceName }})&#10;community guidelines as set out in the Abuse Policy,&#10;please report them immediately!"
+[MsgAddLinkSuccess]
+hash = "sha1-6a0a25a5ae7f58e26527c3aafff4d46dfa6d5669"
+other = "Successfully added link"
 
-[SettingsInfoMissingTagline]
-hash = "sha1-fe3f10ae47cf6f826ac900b3c510bfe6745352da"
-other = "No description provided."
+[MsgRemoveLinkSuccess]
+hash = "sha1-c50929ee55b955fed357699e2c89c2decc45fda6"
+other = "Successfully removed link"
 
-[SettingsInfoUserInfo]
+[ProfileInfo]
 hash = "sha1-9486a1afca121ed3afba4b9aaef1d564acff2b5a"
 other = "User Info"
 
-[SettingsInfoUserLinks]
+[ProfileLinks]
 hash = "sha1-96348083f320cb5fc4ea1736274b4072f6277689"
 other = "User Links"
 
-[TwtMute]
-hash = "sha1-203f6d112001097875a993a5fb6d97ddc6fa3916"
-other = "Mute Twt"
+[ProfileNoDescription]
+hash = "sha1-fe3f10ae47cf6f826ac900b3c510bfe6745352da"
+other = "No description provided."
 
-[TwtUnmute]
-hash = "sha1-2a240200d1965be765e7baf15d948a2b28725d9a"
-other = "Unmute Twt"
+[ProfileToolTitle]
+hash = "sha1-503b2943687edb378c72d1ed3b4bd9508399a80c"
+other = "Mute / Report User"
+
+[SettingsTwtCompact]
+hash = "sha1-fd2dd04bba8ecc916a7824bc4ed1994c729ab28b"
+other = "Compact View"
+
+[SettingsTwtCustomColorHelp]
+hash = "sha1-a6ca11b7dc2a0edd2960f9e7175c95a7b4442596"
+other = "Type in either the literal name of the colour or hex code you want to use, i.e. orange or #ff8c00 <em>(make sure to include the # for the hex code)</em><br>A list of interesting colors can be found here: <a href='https://www.colorhexa.com/color-names'>https://www.colorhexa.com/color-names</a>"
+
+[SettingsTwtCustomColorPrimary]
+hash = "sha1-db1f3745e1f8b469d71cfc5b09c3a2a48d835d45"
+other = "Custom Primary Color"
+
+[SettingsTwtCustomColorReset]
+hash = "sha1-95edea4f499af09af280d6b9fc08ba0f5bbc0371"
+other = "Leave blank to clear"
+
+[SettingsTwtCustomColorSecondary]
+hash = "sha1-3c057063ffcb6a49552b96621e628cc7d853628c"
+other = "Custom Hover/Select Color"
+
+[SettingsTwtLinkVerification]
+hash = "sha1-14d432aea790bc01e64fadd2a974a0343477bf66"
+other = "Link Verification"
+
+[SettingsTwtReadmore]
+hash = "sha1-8cc343cc97d1c6b44fb48a756acc33ed7ddd2151"
+other = "Collapse Content"
+
+[SettingsTwtReadmoreHelp]
+hash = "sha1-92f330412f3d5b5797e11408f6bd6a6c2e5cac31"
+other = "Adds a 'Read More' section to longer content.<br><strong>Javascript is required</strong>"
+
+[SettingsTwtStripTrackingParam]
+hash = "sha1-5d6c1723e5f5208285cf52693a564bb1c66946a9"
+other = "Strip Link Parameters"
+
+[SettingsTwtStripTrackingParamHelp]
+hash = "sha1-78d44b0d6bdac2fe2c02e6764bb83e3754191b62"
+other = "This removes third party tracking from posted URLs<br>Query parameters will be removed from URLs such as; utm_, sc_, fb_"
+
+[SettingsTwtTitle]
+hash = "sha1-1596bf6271ab348f04a599625045a31278048c86"
+other = "Twt Preferences"
+
+[TwtReadLess]
+hash = "sha1-b64a80b45c6536d87213c530639e606e6b3b2368"
+other = "⤊ Read Less"
+
+[TwtReadMore]
+hash = "sha1-3cd30b88aa928be52c30cdba5c0499429ba65c83"
+other = "⤋ Read More"
