@@ -2227,7 +2227,7 @@ func FormatTwtFactory(conf *Config, cache *Cache, archive Archiver) func(twt typ
 
 		//p := bluemonday.UGCPolicy()
 		p := bluemonday.StrictPolicy()
-		p.AllowElements("a", "img", "strong", "em", "del", "br", "p", "blockquote", "ul", "ol", "li", "pre", "code", "figure", "figcaption")
+		p.AllowElements("a", "img", "strong", "em", "del", "p", "blockquote", "ul", "ol", "li", "pre", "code", "figure", "figcaption")
 		p.AllowAttrs("href").OnElements("a")
 		p.AllowAttrs("src").OnElements("img")
 		p.AllowAttrs("id").OnElements("dialog")

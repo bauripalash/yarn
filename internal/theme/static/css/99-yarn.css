@@ -1,3 +1,7 @@
+p:not(:empty)+p:not(:empty) {
+  margin-top: 1rem;
+}
+
 dialog+p br {
   display: none;
 }
@@ -161,12 +165,6 @@ textarea#css {
 #profile-info details p {
   padding-top: 0.5rem;
   padding-bottom: 0;
-}
-
-#muteTool,
-#reportTool {
-  display: block;
-  margin-top: -1rem !important;
 }
 
 #postToUser {
@@ -1241,6 +1239,10 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (max-width: 576px) {
+  #versionInfo {
+    padding-bottom: 0.5rem;
+  }
+
   #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
     margin-top: -1rem;
   }
