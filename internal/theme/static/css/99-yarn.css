@@ -1,3 +1,15 @@
+p+form,
+p+.feed-gap{
+  padding-top: 1rem;
+}
+.feed-gap .p-summary {
+  padding-top: 0.5rem;
+}
+
+.feed-gap .h-card div .ti-rss {
+  margin-right: 0.4rem;
+}
+
 p:not(:empty)+p:not(:empty) {
   margin-top: 1rem;
 }
@@ -141,10 +153,6 @@ textarea#css {
   line-height: 0;
   border-radius: 0.25rem;
   font-size: 90%;
-}
-
-#followFeed {
-  margin-top: 1rem !important;
 }
 
 #followOpt,
@@ -1088,8 +1096,7 @@ footer .footer-menu a {
   margin-left: 0.5rem;
 }
 
-.container-fluid,
-#followFeed {
+.container-fluid {
   margin-left: 0.5rem;
   height: 100%;
 }
@@ -1171,7 +1178,7 @@ span[title="Copyright"]:before {
   float: right;
   width: 50px;
   height: 50px;
-  margin: -3.65rem 1rem 0 0;
+  margin: -3.625rem 1rem 0 0;
   display: none;
   z-index: 99;
   color: var(--primary);
@@ -1378,8 +1385,7 @@ dialog[id^='lvm-'] #twobutton {
     margin-bottom: 1rem;
   }
 
-  .container-fluid,
-  #followFeed {
+  .container-fluid {
     margin-top: 0;
   }
 
