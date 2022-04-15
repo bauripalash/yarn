@@ -5,13 +5,11 @@ package internal
 
 import (
 	"fmt"
-	"io/fs"
+	"io/ioutil"
 
 	"github.com/naoina/toml"
 	"github.com/nicksnyder/go-i18n/v2/i18n"
 	"golang.org/x/text/language"
-
-	"git.mills.io/yarnsocial/yarn/internal/langs"
 )
 
 type Translator struct {
@@ -19,27 +17,19 @@ type Translator struct {
 }
 
 func NewTranslator() (*Translator, error) {
-	// lang
+	// Default lang is english but bundle will store multiple lang!
 	bundle := i18n.NewBundle(language.English)
 	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
-	// English
-	buf, err := fs.ReadFile(langs.LocaleFS, "active.en.toml")
+
+	// This is where we need to load the "Lang" context... but how???
+	lang := "en"
+
+	langfile, err := ioutil.ReadFile(fmt.Sprintf("./data/langs/active.%s.toml", lang))
 	if err != nil {
-		return nil, fmt.Errorf("error loading en locale: %w", err)
+		return nil, fmt.Errorf("error loading locale: %w", err)
 	}
-	bundle.MustParseMessageFileBytes(buf, "active.en.toml")
-	// Simplified Chinese
-	buf, err = fs.ReadFile(langs.LocaleFS, "active.zh-CN.toml")
-	if err != nil {
-		return nil, fmt.Errorf("error loading zh-CN locale: %w", err)
-	}
-	bundle.MustParseMessageFileBytes(buf, "active.zh-CN.toml")
-	// Traditional Chinese
-	buf, err = fs.ReadFile(langs.LocaleFS, "active.zh-TW.toml")
-	if err != nil {
-		return nil, fmt.Errorf("error loading zh-TW locale: %w", err)
-	}
-	bundle.MustParseMessageFileBytes(buf, "active.zh-TW.toml")
+
+	bundle.MustParseMessageFileBytes(langfile, fmt.Sprintf("active.%s.toml", lang))
 
 	return &Translator{
 		Bundle: bundle,
@@ -58,5 +48,4 @@ func (t *Translator) Translate(ctx *Context, msgID string, data ...interface{}) 
 	}
 
 	return localizer.MustLocalize(&conf)
-
 }
