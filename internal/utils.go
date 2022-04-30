@@ -1856,11 +1856,32 @@ func FilterTwtsAge(twts types.Twts, age, twtsPerPage int) int {
 }
 
 // CleanTwt cleans a twt's text, replacing new lines with spaces and
-// stripping surrounding spaces.
+// stripping surrounding spaces. Now supports the Trix editor.
 func CleanTwt(text string) string {
-	text = strings.TrimSpace(text)
-	text = strings.ReplaceAll(text, "\r\n", "\n")
-	text = strings.ReplaceAll(text, "\n", "\u2028")
+	text = strings.ReplaceAll(text, "<div>", "\u2028\u2028")
+	text = strings.ReplaceAll(text, "</div>", "\u2028\u2028")
+	text = strings.ReplaceAll(text, "<br>", "\u2028\u2028")
+	text = strings.ReplaceAll(text, "<strong>", "**")
+	text = strings.ReplaceAll(text, "</strong>", "**")
+	text = strings.ReplaceAll(text, "<em>", "_")
+	text = strings.ReplaceAll(text, "</em>", "_")
+	text = strings.ReplaceAll(text, "<del>", "~~")
+	text = strings.ReplaceAll(text, "</del>", "~~")
+	text = strings.ReplaceAll(text, "<blockquote>", "\u2028> ")
+	text = strings.ReplaceAll(text, "</blockquote>", "\u2028\u2028")
+	text = strings.ReplaceAll(text, "<pre>", "`")
+	text = strings.ReplaceAll(text, "</pre>", "`\u2028")
+	text = strings.ReplaceAll(text, "&nbsp;", " ")
+
+	for {
+		if strings.HasSuffix(text, "\u2028") {
+			i := strings.LastIndex(text, "\u2028")
+			text = text[:i] + strings.Replace(text[i:], "\u2028", "", 1)
+		} else {
+			break
+		}
+	}
+
 	return text
 }
 

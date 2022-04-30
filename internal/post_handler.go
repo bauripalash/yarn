@@ -84,7 +84,7 @@ func (s *Server) PostHandler() httprouter.Handle {
 		//
 
 		// Validate twt text.
-		text := CleanTwt(r.FormValue("text"))
+		text := CleanTwt(r.FormValue("content"))
 		if text == "" {
 			ctx.Error = true
 			ctx.Message = s.tr(ctx, "ErrorNoPostContent")

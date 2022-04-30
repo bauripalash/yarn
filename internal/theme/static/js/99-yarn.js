@@ -2,7 +2,7 @@ var textMaxLength = ""; // Previous value of maxlength of #text
 var textRows = ""; // Previous value of rows of #text
 
 var $mentionedList = u("#mentioned-list").first(); // node list of mentioned users
-var lastSymbol = ""; // last char in textarea
+var lastSymbol = ""; // last char in trix-editor
 
 // Array.findIndex polyfill
 if (!Array.prototype.findIndex) {
@@ -81,8 +81,8 @@ function replyTo(e) {
 
   movePostBox(e);
 
-  var el = u("textarea#text");
-  var text = u("#text").first();
+  var el = u("trix-editor#text");
+  var text = el.first();
 
   var reply = u(e.target).data("reply");
 
@@ -106,8 +106,8 @@ function forkFrom(e) {
 
   movePostBox(e);
 
-  var el = u("textarea#text");
-  var text = u("#text").first();
+  var el = u("trix-editor#text");
+  var text = el.first();
 
   el.empty();
 
@@ -123,8 +123,8 @@ function editTwt(e) {
 
   movePostBox(e);
 
-  var el = u("textarea#text");
-  var text = u("#text").first();
+  var el = u("trix-editor#text");
+  var text = el.first();
 
   el.empty();
 
@@ -189,14 +189,14 @@ function movePostBox(e) {
   u("#form").addClass("form-reply");
 }
 
-/* Focus PostBox's TextArea on Toggling the PostBox */
+/* Focus PostBox's trix-editor on Toggling the PostBox */
 u("#newPost").on("toggle", function (e) {
   if (u(e.target).attr("open") != null) {
     var text = localStorage.getItem('text');
     if (text) {
-      u("textarea#text").first().value = text;
+      u("trix-editor#text").first().value = text;
     }
-    u("textarea#text").first().focus();
+    u("trix-editor#text").first().focus();
   }
 });
 
@@ -212,14 +212,14 @@ u("body").on("keyup", function(e) {
   if (u("#postbox").hasClass("drawer")) {
     if (confirm('Are you sure you want to cancel this reply?')) {
       resetPostBox();
-      u("#text").first().value = "";
+      u("trix-editor#text").first().value = "";
     }
   }
 
   // Reset and close the postBox on Esc if replying
   if (u("#newPost").attr("open") != null) {
-    if (u("textarea#text").length > 0) {
-      localStorage.setItem("text", u("#text").first().value);
+    if (u("trix-editor#text").length > 0) {
+      localStorage.setItem("text", u("trix-editor#text").first().value);
       if (!(u("#postbox").is(".single-twt, .yarn-post"))) {
         u("#newPost").first().removeAttribute("open");
       }
@@ -588,58 +588,58 @@ u("dialog img").on("click", function(e) {
 
 u("#bBtn").on("click", function(e) {
   e.preventDefault();
-  formatText(u("textarea#text"), "**");
+  formatText(u("trix-editor#text"), "**");
 });
 
 u("#iBtn").on("click", function(e) {
   e.preventDefault();
-  formatText(u("textarea#text"), "_");
+  formatText(u("trix-editor#text"), "_");
 });
 
 u("#sBtn").on("click", function(e) {
   e.preventDefault();
-  formatText(u("textarea#text"), "~~");
+  formatText(u("trix-editor#text"), "~~");
 });
 
 u("#cBtn").on("click", function(e) {
   e.preventDefault();
-  formatText(u("textarea#text"), "`");
+  formatText(u("trix-editor#text"), "`");
 });
 
 u("#lnkBtn").on("click", function(e) {
   e.preventDefault();
-  formatText(u("textarea#text"), "[title](url)");
+  formatText(u("trix-editor#text"), "[title](url)");
 });
 
 u("#imgBtn").on("click", function(e) {
   e.preventDefault();
-  formatText(u("textarea#text"), "![](url)");
+  formatText(u("trix-editor#text"), "![](url)");
 });
 
 u("#usrBtn").on("click", function(e) {
   e.preventDefault();
-  u("textarea#text").first().focus();
-  startMention = u("textarea#text").first().selectionStart + 1;
-  insertText(u("textarea#text"), "@");
+  u("trix-editor#text").first().focus();
+  startMention = u("trix-editor#text").first().selectionStart + 1;
+  insertText(u("trix-editor#text"), "@");
   showMentionedList();
   getUsers();
 });
 
-u("textarea#text").on("keydown", function(e) {
+u("trix-editor#text").on("keydown", function(e) {
   if (e.ctrlKey && e.keyCode == 13) {
     e.preventDefault();
     u("#post").trigger("click");
   }
 });
 
-u("textarea#text").on("focus", function(e) {
+u("trix-editor#text").on("focus", function(e) {
   if (e.relatedTarget === u("#usrBtn").first()) {
     showMentionedList();
     getUsers();
   }
 });
 
-u("textarea#text").on("keyup", function(e) {
+u("trix-editor#text").on("keyup", function(e) {
   if (e.key.length === 1 || e.key === "Backspace") {
     var idx = e.target.selectionStart;
     var prevSymbol = e.target.value.slice(idx - 1, idx);
@@ -672,14 +672,14 @@ u("#mentioned-list-content").on("mousemove", function(e) {
 });
 
 u("#mentioned-list").on("click", function(e) {
-  var value = u("textarea#text").first().value;
+  var value = u("trix-editor#text").first().value;
 
-  u("textarea#text").first().value =
+  u("trix-editor#text").first().value =
     value.slice(0, startMention) +
-    value.slice(u("textarea#text").first().selectionEnd);
+    value.slice(u("trix-editor#text").first().selectionEnd);
 
-  u("textarea#text").first().setSelectionRange(startMention, startMention);
-  insertText(u("textarea#text"), e.target.innerText.replace('\n', '@').trim());
+  u("trix-editor#text").first().setSelectionRange(startMention, startMention);
+  insertText(u("trix-editor#text"), e.target.innerText.replace('\n', '@').trim());
   u("#mentioned-list").attr("style", "display: none;");
 });
 
@@ -729,7 +729,7 @@ u("#uploadMedia").on("change", function(e) {
     url: u("#mediaUploadForm").attr("action"),
     data: new FormData(u("#mediaUploadForm").first()),
     success: function(data) {
-      var el = u("textarea#text");
+      var el = u("trix-editor#text");
       var text = document.getElementById("text");
 
       pollForTask(
@@ -744,7 +744,7 @@ u("#uploadMedia").on("change", function(e) {
         },
 
         function(successData) {
-          formatText(u("textarea#text"), " ![](" + successData.data.mediaURI + ") ", true);
+          formatText(u("trix-editor#text"), " ![](" + successData.data.mediaURI + ") ", true);
 
           el.scroll();
           text.focus();
@@ -789,8 +789,8 @@ u("#burgerMenu").on("click", function(e) {
   }
 });
 
-u("textarea#text").on('change click blur paste', function(e) {
-  localStorage.setItem("text", u("textarea#text").first().value.trim());
+u("trix-editor#text").on('change click blur paste', function(e) {
+  localStorage.setItem("text", u("trix-editor#text").first().value.trim());
 });
 
 u("body").on("keydown", function(e) {
@@ -854,21 +854,21 @@ u("body").on("keydown", function(e) {
       });
 
       var selectedNode = u(".user-list__user").nodes[selectedNodeIdx];
-      var value = u("textarea#text").first().value;
+      var value = u("trix-editor#text").first().value;
 
-      u("textarea#text").first().value =
+      u("trix-editor#text").first().value =
         value.slice(0, startMention) +
-        value.slice(u("textarea#text").first().selectionEnd);
+        value.slice(u("trix-editor#text").first().selectionEnd);
 
-      u("textarea#text")
+      u("trix-editor#text")
         .first()
         .setSelectionRange(startMention, startMention);
-      insertText(u("textarea#text"), selectedNode.innerText.replace('\n', '@').trim());
+      insertText(u("trix-editor#text"), selectedNode.innerText.replace('\n', '@').trim());
       clearMentionedList();
     }
 
-    var caret = u("textarea#text").first().selectionStart;
-    var prevSymbol = u("textarea#text")
+    var caret = u("trix-editor#text").first().selectionStart;
+    var prevSymbol = u("trix-editor#text")
       .first()
       .value.slice(caret - 1, 1);
 
@@ -885,7 +885,7 @@ function clearMentionedList() {
 function showMentionedList() {
   u("#mentioned-list").attr("style", "display: inherit;");
   u("#mentioned-list").first().style.top =
-    u("textarea#text").first().clientHeight + 2 + "px";
+    u("trix-editor#text").first().clientHeight + 2 + "px";
 }
 
 function readMore(e) {
@@ -930,8 +930,8 @@ window.addEventListener("blur", function() {
 });
 
 window.onbeforeunload = function() {
-  if (u("textarea#text").length > 0) {
-    var posttext = u("textarea#text").first().value;
+  if (u("trix-editor#text").length > 0) {
+    var posttext = u("trix-editor#text").first().value;
     if (posttext.length > 0 && localStorage.getItem("isPost") == "false") {
       localStorage.setItem("text", posttext);
     }
@@ -1041,10 +1041,10 @@ window.onload = function() {
   };
 
   var text = localStorage.getItem('text');
-  if (text && u("textarea#text").length > 0) {
-    u("textarea#text").first().value = text;
+  if (text && u("trix-editor#text").length > 0) {
+    u("trix-editor#text").first().value = text;
     u("#newPost").attr("open", "");
-    u("textarea#text").first().focus();
+    u("trix-editor#text").first().focus();
     return;
   }
 
@@ -1063,9 +1063,9 @@ window.onload = function() {
     const titleParam = urlParams.get("title");
     const urlParam = urlParams.get("url");
     if (titleParam && urlParam) {
-      insertText(u("textarea#text"), "[" + titleParam + "](" + urlParam + ")\r\n\r\n");
+      insertText(u("trix-editor#text"), "[" + titleParam + "](" + urlParam + ")\r\n\r\n");
       u("#newPost").attr("open", "");
-      u("textarea#text").first().focus();
+      u("trix-editor#text").first().focus();
     }
   }
 }
@@ -1146,3 +1146,5 @@ for (var e in ['a#e-media', 'a#v-info', 'span.help',
               'span.vp-d-help', 'span.vp-p-help', 'span.vp-f-help']) {
   if (!e) { document.querySelector(e).addEventListener('click', eiOS); }
 }
+
+var trixdoc = document.querySelector("trix-editor").editor.getDocument()

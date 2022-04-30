@@ -10,10 +10,6 @@ p+.feed-gap{
   margin-right: 0.4rem;
 }
 
-p:not(:empty)+p:not(:empty) {
-  margin-top: 1rem;
-}
-
 dialog+p br {
   display: none;
 }
