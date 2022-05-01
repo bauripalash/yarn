@@ -89,39 +89,16 @@
   {{ if .User.CustomPrimaryColor }}
   <style>
     * {
-      --primary: {
-          {
-          .User.CustomPrimaryColor
-        }
+        --primary: {{ .User.CustomPrimaryColor }} !important;
       }
-
-       !important;
-    }
-
-    "
   </style>
   {{ end }}
   {{ if .User.CustomSecondaryColor }}
   <style>
     * {
-      --primary-focus: {
-          {
-          .User.CustomSecondaryColor
-        }
+        --primary-focus: {{ .User.CustomSecondaryColor }} !important;
+        --primary-hover: {{ .User.CustomSecondaryColor }} !important;
       }
-
-       !important;
-
-      --primary-hover: {
-          {
-          .User.CustomSecondaryColor
-        }
-      }
-
-       !important;
-    }
-
-    "
   </style>
   {{ end }}
 </head>
