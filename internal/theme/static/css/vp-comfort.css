@@ -50,7 +50,6 @@ a:not(a[href^="/twt/"]):not(.manage-options a):not(#burgerMenu):not(#podMenu a):
 #feedsBtn,
 #settingsBtn,
 #logoutBtn {
-
   width: 4rem !important;
 }
 
@@ -129,7 +128,8 @@ nav.timeline-nav:last-of-type {
 }
 
 .twt-nav a {
-  margin-right: 1.25rem !important;;
+  margin-right: 1.25rem !important;
+  ;
 }
 
 .twt-nav i:not(#twt-options i) {
@@ -146,7 +146,7 @@ nav.timeline-nav:last-of-type {
   padding: 0.25rem !important;
 }
 
-body > footer {
+body>footer {
   padding: 1rem !important;
 }
 
@@ -156,13 +156,13 @@ body > footer {
   }
 
   #podMenu {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  gap: 0px 0px;
-  justify-items: center !important;
-  margin: -0.5rem 0 1rem 0 !important;
-}
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 0px 0px;
+    justify-items: center !important;
+    margin: -0.5rem 0 1rem 0 !important;
+  }
 
   #podMenu a {
     text-align: center !important;
@@ -293,7 +293,8 @@ body > footer {
 
   nav.yarn-nav:first-of-type {
     margin-top: 0.25rem !important;
-    margin-bottom: 0.25rem !important;;
+    margin-bottom: 0.25rem !important;
+    ;
   }
 
   nav.yarn-nav:last-of-type {
@@ -332,7 +333,6 @@ body > footer {
     margin-top: 0rem !important;
     margin-bottom: 0.5rem !important;
   }
-
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
@@ -385,12 +385,14 @@ body > footer {
 
   nav.yarn-nav:nth-of-type(1) {
     margin-top: -0.1rem !important;
-    margin-bottom: 0 !important;;
+    margin-bottom: 0 !important;
+    ;
   }
 
   nav.yarn-nav:nth-of-type(2) {
     margin-top: 0.25rem !important;
-    margin-bottom: -0.25rem !important;;
+    margin-bottom: -0.25rem !important;
+    ;
   }
 
   #recentTwts .timeline-nav:nth-of-type(1) {
@@ -504,12 +506,14 @@ body > footer {
 
   nav.yarn-nav:nth-of-type(1) {
     margin-top: -0.25rem !important;
-    margin-bottom: 0 !important;;
+    margin-bottom: 0 !important;
+    ;
   }
 
   nav.yarn-nav:nth-of-type(2) {
     margin-top: 0.25rem !important;
-    margin-bottom: -0.5rem !important;;
+    margin-bottom: -0.5rem !important;
+    ;
   }
 }
 
@@ -570,12 +574,14 @@ body > footer {
 
   nav.yarn-nav:nth-of-type(1) {
     margin-top: -0.25rem !important;
-    margin-bottom: 0 !important;;
+    margin-bottom: 0 !important;
+    ;
   }
 
   nav.yarn-nav:nth-of-type(2) {
     margin-top: 0 !important;
-    margin-bottom: 0.75rem !important;;
+    margin-bottom: 0.75rem !important;
+    ;
   }
 }
 

@@ -32,10 +32,10 @@ as it both hosts your twtxt feed as well as allows you to fetch, browse, follow
 and read other user's feeds or external feeds. The following is a list of features
 that are provided:
 
-- Decentralised micro-Blogging, or short-form Posts
-- Backed by the simple to read, parse and write [twtxt](https://twtxt.nreadthedocs.org) format specification
-- Fully supports [Markdown](https://en.wikipedia.org/wiki/Markdown) rendering including 😺 pictures!
-- Supports [IndieWeb](https://indieweb.org/) formats and [WebMention](https://www.w3.org/TR/webmention/)
+-   Decentralised micro-Blogging, or short-form Posts
+-   Backed by the simple to read, parse and write [twtxt](https://twtxt.nreadthedocs.org) format specification
+-   Fully supports [Markdown](https://en.wikipedia.org/wiki/Markdown) rendering including 😺 pictures!
+-   Supports [IndieWeb](https://indieweb.org/) formats and [WebMention](https://www.w3.org/TR/webmention/)
 
 For a list of upcoming features please follow the [Project Page](https://git.mills.io/yarnsocial/yarn).
 

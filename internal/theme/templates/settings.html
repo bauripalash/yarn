@@ -21,7 +21,9 @@
   <article id="profile-info">
     <hgroup>
       <h3>{{ tr . "SettingsInfoUserInfo" }}</h3>
-      <h2><hr></h2>
+      <h2>
+        <hr>
+      </h2>
     </hgroup>
     {{ template "followStats" (dict "Profile" .Profile "Ctx" .) }}
     {{ template "mutedStats" (dict "User" .User "Ctx" .) }}
@@ -29,7 +31,9 @@
   <article id="profile-links">
     <hgroup>
       <h3>{{ tr . "SettingsInfoUserLinks" }}</h3>
-      <h2><hr></h2>
+      <h2>
+        <hr>
+      </h2>
     </hgroup>
     <div>
       <ul>
@@ -233,7 +237,8 @@
         <fieldset>
           <legend>{{ tr . "SettingsTwtCustomColorPrimary" }} <span class="help" title="{{ tr . "SettingsTwtCustomColorHelp" }}"><i class="ti ti-help"></i></legend>
           <label for="cusPrimaryColor">
-            <input id="cusPrimaryColor" type="text" name="customPrimaryColor" placeholder="{{ tr . "SettingsTwtCustomColorReset" }}" aria-label="{{ tr . "SettingsTwtCustomColorPrimary" }}" {{ if .User.CustomPrimaryColor }}value="{{ .User.CustomPrimaryColor }}"{{ end }}>
+            <input id="cusPrimaryColor" type="text" name="customPrimaryColor" placeholder="{{ tr . "SettingsTwtCustomColorReset" }}" aria-label="{{ tr . "SettingsTwtCustomColorPrimary" }}"
+              {{ if .User.CustomPrimaryColor }}value="{{ .User.CustomPrimaryColor }}" {{ end }}>
           </label>
         </fieldset>
       </div>
@@ -241,7 +246,8 @@
         <fieldset>
           <legend>{{ tr . "SettingsTwtCustomColorSecondary" }} <span class="help" title="{{ tr . "SettingsTwtCustomColorHelp" }}"><i class="ti ti-help"></i></legend>
           <label for="cusSecondaryColor">
-            <input id="cusSecondaryColor" type="text" name="customSecondaryColor" placeholder="{{ tr . "SettingsTwtCustomColorReset" }}" aria-label="{{ tr . "SettingsTwtCustomColorSecondary" }}" {{ if .User.CustomSecondaryColor }}value="{{ .User.CustomSecondaryColor }}"{{ end }}>
+            <input id="cusSecondaryColor" type="text" name="customSecondaryColor" placeholder="{{ tr . "SettingsTwtCustomColorReset" }}" aria-label="{{ tr . "SettingsTwtCustomColorSecondary" }}"
+              {{ if .User.CustomSecondaryColor }}value="{{ .User.CustomSecondaryColor }}" {{ end }}>
           </label>
         </fieldset>
       </div>

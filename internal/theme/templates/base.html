@@ -1,84 +1,131 @@
 {{ define "base" }}
 <!DOCTYPE html>
-<html lang="en" {{ with .Theme }}data-theme="{{ . }}"{{ end }}>
-  <head>
-    {{ if $.Debug }}
-      <link href="/css/01-pico.css" rel="stylesheet" />
-      <link href="/css/02-tabler-icons.css" rel="stylesheet" />
-      <link href="/css/03-colours.css" rel="stylesheet" />
-      <link href="/css/04-tippy.css" rel="stylesheet" />
-      <link href="/css/05-trix.css" rel="stylesheet" />
-      <link href="/css/98-pico-override.css" rel="stylesheet" />
-      <link href="/css/99-yarn.css" rel="stylesheet" />
-      <link rel="icon" type="image/png" href="/img/favicon.png" />
-    {{ else }}
-      <link href="/css/{{ .Commit }}/yarn.min.css" rel="stylesheet" />
-      <link rel="icon" type="image/png" href="/img/{{ .Commit }}/favicon.png" />
-    {{ end }}
+<html lang="en" {{ with .Theme }}data-theme="{{ . }}" {{ end }}>
 
-    {{ if $.User.VisibilityCompact }}
-    {{ if $.Debug }}
-      <link href="/css/vp-compact.css" rel="stylesheet" />
-    {{ else }}
-      <link href="/css/{{ .Commit }}/vp-compact.css" rel="stylesheet" />
-    {{ end }}
-    {{ end }}
+<head>
+  {{ if $.Debug }}
+  <link href="/css/01-pico.css" rel="stylesheet" />
+  <link href="/css/02-tabler-icons.css" rel="stylesheet" />
+  <link href="/css/03-colours.css" rel="stylesheet" />
+  <link href="/css/04-tippy.css" rel="stylesheet" />
+  <link href="/css/05-trix.css" rel="stylesheet" />
+  <link href="/css/98-pico-override.css" rel="stylesheet" />
+  <link href="/css/99-yarn.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/img/favicon.png" />
+  {{ else }}
+  <link href="/css/{{ .Commit }}/yarn.min.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="/img/{{ .Commit }}/favicon.png" />
+  {{ end }}
 
-    <!-- IndieAuth support-->
-    <link rel="authorization_endpoint" href="/indieauth/auth" />
-    <link rel="me" href="/" />
+  {{ if $.User.VisibilityCompact }}
+  {{ if $.Debug }}
+  <link href="/css/vp-compact.css" rel="stylesheet" />
+  {{ else }}
+  <link href="/css/{{ .Commit }}/vp-compact.css" rel="stylesheet" />
+  {{ end }}
+  {{ end }}
 
-    <!-- WebMentions support-->
-    <link rel="webmention" href="/webmention" />
+  <!-- IndieAuth support-->
+  <link rel="authorization_endpoint" href="/indieauth/auth" />
+  <link rel="me" href="/" />
 
-    <!-- Vanity Twtxt/Yarn URI(s) -->
-    <meta name="yarn-uri" content="/user/%s/twtxt.txt" />
+  <!-- WebMentions support-->
+  <link rel="webmention" href="/webmention" />
 
-    {{ range .Alternatives }}
-      <link rel="alternate" type="{{ .Type }}" title="{{ .Title }}" href="{{ .URL }}" />
-    {{ end }}
+  <!-- Vanity Twtxt/Yarn URI(s) -->
+  <meta name="yarn-uri" content="/user/%s/twtxt.txt" />
 
-    {{ range .Links }}
-      <link href="{{ .Href }}" rel="{{ .Rel }}" />
-    {{ end }}
+  {{ range .Alternatives }}
+  <link rel="alternate" type="{{ .Type }}" title="{{ .Title }}" href="{{ .URL }}" />
+  {{ end }}
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  {{ range .Links }}
+  <link href="{{ .Href }}" rel="{{ .Rel }}" />
+  {{ end }}
 
-    <title>{{ .InstanceName }} {{ .Title }}</title>
-    {{ with .Meta.Title }}<meta name="title" content="{{ . }}">{{ end }}
-    {{ with .Meta.Author }}<meta name="author" content="{{ . }}">{{ end }}
-    {{ with .Meta.Keywords }}<meta name="keywords" content="{{ . }}">{{ end }}
-    {{ with .Meta.Description }}<meta name="description" content="{{ . }}">{{ end }}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <!-- OpenGraph Meta Tags -->
-    {{ with .Meta.Title }}<meta property="og:title" content="{{ . }}">{{ end  }}
-    {{ with .Meta.Description }}<meta property="og:description" content="{{ . }}">{{ end  }}
-    {{ with .Meta.UpdatedAt }}<meta property="og:updated_time" content="{{ . }}" />{{ end  }}
-    {{ with .Meta.Image }}<meta property="og:image" content="{{ . }}">{{ end  }}
-    {{ with .Meta.URL }}<meta property="og:url" content="{{ . }}">{{ end  }}
-    <meta property="og:site_name" content="{{ .InstanceName }}">
+  <title>{{ .InstanceName }} {{ .Title }}</title>
+  {{ with .Meta.Title }}
+  <meta name="title" content="{{ . }}">{{ end }}
+  {{ with .Meta.Author }}
+  <meta name="author" content="{{ . }}">{{ end }}
+  {{ with .Meta.Keywords }}
+  <meta name="keywords" content="{{ . }}">{{ end }}
+  {{ with .Meta.Description }}
+  <meta name="description" content="{{ . }}">{{ end }}
 
-    <!-- Twitter Summary Card Meta Tags -->
-    <meta name="twitter:card" content="summary" />
-    {{ with .Meta.Author }}<meta name="twitter:site" content="{{ . }}" />{{ end }}
-    {{ with .Meta.Title }}<meta name="twitter:title" content="{{ . }}" />{{ end }}
-    {{ with .Meta.Description }}<meta name="twitter:description" content="{{ . }}" />{{ end }}
-    {{ with .Meta.Image }}<meta name="twitter:image" content="{{ . }}" />{{ end }}
+  <!-- OpenGraph Meta Tags -->
+  {{ with .Meta.Title }}
+  <meta property="og:title" content="{{ . }}">{{ end  }}
+  {{ with .Meta.Description }}
+  <meta property="og:description" content="{{ . }}">{{ end  }}
+  {{ with .Meta.UpdatedAt }}
+  <meta property="og:updated_time" content="{{ . }}" />{{ end  }}
+  {{ with .Meta.Image }}
+  <meta property="og:image" content="{{ . }}">{{ end  }}
+  {{ with .Meta.URL }}
+  <meta property="og:url" content="{{ . }}">{{ end  }}
+  <meta property="og:site_name" content="{{ .InstanceName }}">
 
-    <!-- Custom Pod CSS if provided -->
-    {{ if gt (len $.CSS) 0 }}
-    <style>{{ $.CSS }}</style>
-    {{ end }}
+  <!-- Twitter Summary Card Meta Tags -->
+  <meta name="twitter:card" content="summary" />
+  {{ with .Meta.Author }}
+  <meta name="twitter:site" content="{{ . }}" />{{ end }}
+  {{ with .Meta.Title }}
+  <meta name="twitter:title" content="{{ . }}" />{{ end }}
+  {{ with .Meta.Description }}
+  <meta name="twitter:description" content="{{ . }}" />{{ end }}
+  {{ with .Meta.Image }}
+  <meta name="twitter:image" content="{{ . }}" />{{ end }}
 
-    <!-- Custom User colors if provided -->
-    {{ if .User.CustomPrimaryColor }}
-    <style>*{--primary:{{ .User.CustomPrimaryColor }}!important;}"</style>
-    {{ end }}
-    {{ if .User.CustomSecondaryColor }}
-    <style>*{--primary-focus:{{ .User.CustomSecondaryColor }}!important;--primary-hover:{{ .User.CustomSecondaryColor }}!important;}"</style>
-    {{ end }}
-  </head>
+  <!-- Custom Pod CSS if provided -->
+  {{ if gt (len $.CSS) 0 }}
+  <style>{{ $.CSS }}</style>
+  {{ end }}
+
+  <!-- Custom User colors if provided -->
+  {{ if .User.CustomPrimaryColor }}
+  <style>
+    * {
+      --primary: {
+          {
+          .User.CustomPrimaryColor
+        }
+      }
+
+       !important;
+    }
+
+    "
+  </style>
+  {{ end }}
+  {{ if .User.CustomSecondaryColor }}
+  <style>
+    * {
+      --primary-focus: {
+          {
+          .User.CustomSecondaryColor
+        }
+      }
+
+       !important;
+
+      --primary-hover: {
+          {
+          .User.CustomSecondaryColor
+        }
+      }
+
+       !important;
+    }
+
+    "
+  </style>
+  {{ end }}
+</head>
+
 <body class="preload">
   {{ if or (.Authenticated) ($.AlertGuest) }}
   {{ if gt (len $.AlertMessage) 0 }}
@@ -87,10 +134,10 @@
   </alert>
   {{ end }}
   {{ end }}
-  <div id="podLogo" {{ if $.AlertFloat }}class="float"{{ end }}>
+  <div id="podLogo" {{ if $.AlertFloat }}class="float" {{ end }}>
     <a href="/">{{ $.Logo }}</a>
   </div>
-  <div id="desktopMenu" {{ if $.AlertFloat }}class="float"{{ end }}>
+  <div id="desktopMenu" {{ if $.AlertFloat }}class="float" {{ end }}>
     {{ template "navbar" . }}
   </div>
   <input type="checkbox" id="mobileMenuInput">
@@ -125,21 +172,22 @@
     </div>
   </footer>
   {{ if $.Debug }}
-    <script type="application/javascript" src="/js/01-umbrella.js"></script>
-    <script type="application/javascript" src="/js/02-polyfill.js"></script>
-    <script type="application/javascript" src="/js/03-twix.js"></script>
-    <script type="application/javascript" src="/js/04-popper.js"></script>
-    <script type="application/javascript" src="/js/05-tippy.js"></script>
-    <script type="application/javascript" src="/js/06-trix.js"></script>
-    <script type="application/javascript" src="/js/98-modal.js"></script>
-    <script type="application/javascript" src="/js/99-yarn.js"></script>
-    <script type="application/javascript" src="/js/ie11CustomProperties.min.js"></script>
+  <script type="application/javascript" src="/js/01-umbrella.js"></script>
+  <script type="application/javascript" src="/js/02-polyfill.js"></script>
+  <script type="application/javascript" src="/js/03-twix.js"></script>
+  <script type="application/javascript" src="/js/04-popper.js"></script>
+  <script type="application/javascript" src="/js/05-tippy.js"></script>
+  <script type="application/javascript" src="/js/06-trix.js"></script>
+  <script type="application/javascript" src="/js/98-modal.js"></script>
+  <script type="application/javascript" src="/js/99-yarn.js"></script>
+  <script type="application/javascript" src="/js/ie11CustomProperties.min.js"></script>
   {{ else }}
-    <script type="application/javascript" src="/js/{{ .Commit }}/yarn.min.js"></script>
+  <script type="application/javascript" src="/js/{{ .Commit }}/yarn.min.js"></script>
   {{ end }}
   {{ if .Authenticated }}
-    <yarn-pref data-striptrack="{{ $.User.StripTrackingParam }}" data-readmore="{{ $.User.VisibilityReadmore }}" data-linkverify="{{ $.User.LinkVerification }}" data-openlink="{{ $.User.OpenLinksInPreference }}"></yarn-pref>
+  <yarn-pref data-striptrack="{{ $.User.StripTrackingParam }}" data-readmore="{{ $.User.VisibilityReadmore }}" data-linkverify="{{ $.User.LinkVerification }}" data-openlink="{{ $.User.OpenLinksInPreference }}"></yarn-pref>
   {{ end }}
 </body>
+
 </html>
 {{ end }}

@@ -60,33 +60,34 @@ yarnc
 
 This is an option if you are familiar with [Go](https://golang.org) development.
 
-1. Clone this repository (_this is important_)
+1.  Clone this repository (_this is important_)
 
 ```console
 git clone https://git.mills.io/yarnsocial/yarn.git
 ```
 
-2. Install required dependencies (_this is important_)
+2.  Install required dependencies (_this is important_)
 
 Linux, macOS:
 
 ```console
 make deps
 ```
+
 Note that in order to get the media upload functions to work, you need to
 install ffmpeg and its associated `-dev` packages. Consult your distribution's package
 repository for availability and names.
 
 FreeBSD:
 
-- Install `gmake`
-- Install `pkgconf` that brings `pkg-config`
+-   Install `gmake`
+-   Install `pkgconf` that brings `pkg-config`
 
 ```console
 gmake deps
 ```
 
-3. Build the binaries
+3.  Build the binaries
 
 Linux, macOS:
 
@@ -100,12 +101,11 @@ FreeBSD:
 gmake
 ```
 
-
 ## Usage
 
 ### Command-line Client
 
-1. Login to  your [Yarn.social](https://yarn.social) pod:
+1.  Login to  your [Yarn.social](https://yarn.social) pod:
 
 ```#!console
 $ ./yarnc login
@@ -113,7 +113,7 @@ INFO[0000] Using config file: /Users/prologic/.twt.yaml
 Username:
 ```
 
-2. Viewing your timeline
+2.  Viewing your timeline
 
 ```#!console
 $ ./yarnc timeline
@@ -125,7 +125,7 @@ Hey @rosaelefanten 👋 Nice to see you have a Twtxt feed! Saw your [Tweet](http
 Angry Techn Writers ‣ https://dilbert.com/strip/2020-11-14
 ```
 
-3. Making a Twt (_post_):
+3.  Making a Twt (_post_):
 
 ```#!console
 $ ./yarnc post
@@ -163,6 +163,7 @@ Flags:
 
 Use "yarnc [command] --help" for more information about a command.
 ```
+
 ### Deploy With Docker Swarm and Cloudflare
 
 Visit: [deployment](./deployment/)
@@ -175,7 +176,7 @@ Run the compose configuration:
 docker-compose up -d
 ```
 
-Then visit: http://localhost:8000/
+Then visit: <http://localhost:8000/>
 
 ### Web App
 
@@ -185,9 +186,9 @@ Run yarnd:
 yarnd -R
 ```
 
-__NOTE:__ Registrations are disabled by default so hence the `-R` flag above.
+**NOTE:** Registrations are disabled by default so hence the `-R` flag above.
 
-Then visit: http://localhost:8000/
+Then visit: <http://localhost:8000/>
 
 You can configure other options by specifying them on the command-line or via environment variables.
 
@@ -203,29 +204,29 @@ Valid environment value names are the long-option version of a flag in all upper
 
 At a bare minimum you should set the following options:
 
-- `-d /path/to/data`
-- `-s bitcask:///path/to/data/twtxt.db` (_we will likely simplify/default this_)
-- `-n <name>` to give your pod a unique name.
-- `-u <url>` the base url (_public facing_) of how your pod will be reahced on the web.
-- `-R` to enable open registrations.
-- `-O` to enable open profiles.
+-   `-d /path/to/data`
+-   `-s bitcask:///path/to/data/twtxt.db` (_we will likely simplify/default this_)
+-   `-n <name>` to give your pod a unique name.
+-   `-u <url>` the base url (_public facing_) of how your pod will be reahced on the web.
+-   `-R` to enable open registrations.
+-   `-O` to enable open profiles.
 
 Most other configuration values _should_ be done via environment variables.
 
 It is _recommended_ you pick an account you want to use to "administer" the
 pod with and set the following environment values:
 
-- `ADMIN_USER=username`
-- `ADMIN_EMAIL=email`
+-   `ADMIN_USER=username`
+-   `ADMIN_EMAIL=email`
 
 In order to configure email settings for password recovery and the `/support`
 and `/abuse` endpoints, you should set appropriate `SMTP_` values.
 
 It is **highly** recommended you also set the following values to secure your Pod:
 
-- `API_SIGNING_KEY`
-- `COOKIE_SECRET`
-- `MAGICLINK_SECRET`
+-   `API_SIGNING_KEY`
+-   `COOKIE_SECRET`
+-   `MAGICLINK_SECRET`
 
 These values _should_ be generated with a secure random number generator and
 be of length `64` characters long. You can use the following shell snippet
@@ -239,7 +240,7 @@ There is a shell script in `./tools/gen-secrets.sh` you can use to conveniently 
 
 **DO NOT** publish or share these values. **BE SURE** to only set them as env vars.
 
-__NOTE:__ The [Dockerfile](/Dockerfile) specifies that the container run as
+**NOTE:** The [Dockerfile](/Dockerfile) specifies that the container run as
           the user `yarnd` with `uid=1000`. Be sure that any volume(s) you
           mount into your container and use as the data storage (`-d/--data`)
           path and database storage path (`-s/--store`) is correctly configured
@@ -263,9 +264,9 @@ docker stack deploy -c yarn.yml
 Interested in contributing to this project? You are welcome! Here are some ways
 you can contribute:
 
-- [File an Issue](https://git.mills.io/yarnsocial/yarn/issues/new) -- For a bug,
-  or interesting idea you have for a new feature or just general questions.
-- Submit a Pull-Request or two! We welcome all PR(s) that improve the project!
+-   [File an Issue](https://git.mills.io/yarnsocial/yarn/issues/new) -- For a bug,
+    or interesting idea you have for a new feature or just general questions.
+-   Submit a Pull-Request or two! We welcome all PR(s) that improve the project!
 
 Please see the [Contributing Guidelines](/CONTRIBUTING.md) and checkout the
 [Developer Documentation](https://dev.twtxt.net) or over at [/docs](/docs).
@@ -278,10 +279,10 @@ You can find an [AUTHORS](/AUTHORS) file where we keep a list of contributors to
 
 ## Related Projects
 
-- [Yarn.social](https://git.mills.io/yarnsocial/yarn.social) -- [Yarn.social](https://yarn.social) landing page
-- [Yarns](https://git.mills.io/yarnsocial/yarns) -- The [Yarn.social](https://yarn.social) search engine hosted at [search.twtxt.net](https://search.twtxt.net)
-- [App](https://git.mills.io/yarnsocial/app) -- Our Flutter iOS and Android Mobile App
-- [Feeds](https://git.mills.io/yarnsocial/feeds) -- RSS/Atom/Twitter to [Twtxt](https://twtxt.readthedocs.org) aggregator service hosted at [feeds.twtxt.net](https://feeds.twtxt.net)
+-   [Yarn.social](https://git.mills.io/yarnsocial/yarn.social) -- [Yarn.social](https://yarn.social) landing page
+-   [Yarns](https://git.mills.io/yarnsocial/yarns) -- The [Yarn.social](https://yarn.social) search engine hosted at [search.twtxt.net](https://search.twtxt.net)
+-   [App](https://git.mills.io/yarnsocial/app) -- Our Flutter iOS and Android Mobile App
+-   [Feeds](https://git.mills.io/yarnsocial/feeds) -- RSS/Atom/Twitter to [Twtxt](https://twtxt.readthedocs.org) aggregator service hosted at [feeds.twtxt.net](https://feeds.twtxt.net)
 
 ## License
 

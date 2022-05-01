@@ -58,32 +58,33 @@ yarnc
 
 如果您熟悉 [Go](https://golang.org) 开发，按下面步骤构建：
 
-1. 克隆仓库 (_重要_)
+1.  克隆仓库 (_重要_)
 
 ```console
 git clone https://git.mills.io/yarnsocial/yarn.git
 ```
 
-2. 安装依赖项 (_重要_)
+2.  安装依赖项 (_重要_)
 
 Linux, macOS:
 
 ```console
 make deps
 ```
+
 请注意，为了使用媒体上传功能正常工作，您需要安装 ffmpeg 及相关 `-dev` 包。
 请查阅您操作系统相关联的包及名字。
 
 FreeBSD:
 
-- 安装 `gmake`
-- 安装 `pkgconf` （`pkg-config`）
+-   安装 `gmake`
+-   安装 `pkgconf` （`pkg-config`）
 
 ```console
 gmake deps
 ```
 
-3. 编译
+3.  编译
 
 Linux, macOS:
 
@@ -97,12 +98,11 @@ FreeBSD:
 gmake
 ```
 
-
 ## 用法
 
 ### 命令行客户端
 
-1. 登录到 [Yarn.social](https://yarn.social) ：
+1.  登录到 [Yarn.social](https://yarn.social) ：
 
 ```#!console
 $ ./yarnc login
@@ -110,7 +110,7 @@ INFO[0000] Using config file: /Users/prologic/.twt.yaml
 Username:
 ```
 
-2. 查看您的动态
+2.  查看您的动态
 
 ```#!console
 $ ./yarnc timeline
@@ -122,7 +122,7 @@ Hey @rosaelefanten 👋 Nice to see you have a Twtxt feed! Saw your [Tweet](http
 Angry Techn Writers ‣ https://dilbert.com/strip/2020-11-14
 ```
 
-3. 发表 Twt (_推文_):
+3.  发表 Twt (_推文_):
 
 ```#!console
 $ ./yarnc post
@@ -169,9 +169,9 @@ Use "yarnc [command] --help" for more information about a command.
 docker-compose up -d
 ```
 
-然后访问：http://localhost:8000/
+然后访问：<http://localhost:8000/>
 
-### Web 
+### Web
 
 运行 yarnd:
 
@@ -179,9 +179,9 @@ docker-compose up -d
 yarnd -R
 ```
 
-__注意：__ 默认情况下禁止用户注册，使用 `-R` 标记开放用户注册。
+**注意：** 默认情况下禁止用户注册，使用 `-R` 标记开放用户注册。
 
-访问：http://localhost:8000/
+访问：<http://localhost:8000/>
 
 您还可以配置其它选项或通过环境变量来配置。
 
@@ -197,27 +197,27 @@ $ ./yarnd --help
 
 最小配置项：
 
-- `-d /path/to/data`
-- `-s bitcask:///path/to/data/twtxt.db` (_可能会简化并默认使用这个_)
-- `-n <name>` pod 名称
-- `-u <url>` 提供网络访问的 URL (_公开URL_) 
-- `-R` 开放用户注册
-- `-O` 开放用户配置
+-   `-d /path/to/data`
+-   `-s bitcask:///path/to/data/twtxt.db` (_可能会简化并默认使用这个_)
+-   `-n <name>` pod 名称
+-   `-u <url>` 提供网络访问的 URL (_公开URL_)
+-   `-R` 开放用户注册
+-   `-O` 开放用户配置
 
 其它更多配置应使用环境变量来完成。
 
 _建议_ 使用环境变量设置一个管理员账号：
 
-- `ADMIN_USER=username`
-- `ADMIN_EMAIL=email`
+-   `ADMIN_USER=username`
+-   `ADMIN_EMAIL=email`
 
 为了配置用于密码恢复和 `/support` 端点的电子邮件设置 `/abuse`，您应该设置适当的 `SMTP_` 值。
 
 **强烈建议** 您还设置以下值来保护您的 Pod：
 
-- `API_SIGNING_KEY`
-- `COOKIE_SECRET`
-- `MAGICLINK_SECRET`
+-   `API_SIGNING_KEY`
+-   `COOKIE_SECRET`
+-   `MAGICLINK_SECRET`
 
 这些值应使用安全的随机数生成器生成，并且长度为 `64` 。您可以使用以下 shell 脚本为您的 pod 生成上述秘密值：
 
@@ -229,7 +229,7 @@ $ cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1
 
 **不要** 公开发布或分享这些值，**确保** 仅将它们设置为环境变量。
 
-__注意：__ [Dockerfile](/Dockerfile) 指定容器作为 `yarnd(uid=1000)` 用户运行， 确保您挂载到容器中并用作数据存储 (`-d/--data`) 路径和数据库存储路径 (`-s/--store`) 的任何卷都已正确配置为具有正确的用户/组所有权。例如：`chorn -R 1000:1000 /data`
+**注意：** [Dockerfile](/Dockerfile) 指定容器作为 `yarnd(uid=1000)` 用户运行， 确保您挂载到容器中并用作数据存储 (`-d/--data`) 路径和数据库存储路径 (`-s/--store`) 的任何卷都已正确配置为具有正确的用户/组所有权。例如：`chorn -R 1000:1000 /data`
 
 ## 生产环境部署
 
@@ -245,8 +245,8 @@ docker stack deploy -c yarn.yml
 
 如果您对这个项目有兴趣，我们非常欢迎！您可以通过以下方式做出贡献：
 
-- [提交 Issue](https://git.mills.io/yarnsocial/yarn/issues/new) -- 任何 bug 或者新功能的建议或意见
-- 提交 Pull-Request！ 欢迎提交 PR 改进项目！
+-   [提交 Issue](https://git.mills.io/yarnsocial/yarn/issues/new) -- 任何 bug 或者新功能的建议或意见
+-   提交 Pull-Request！ 欢迎提交 PR 改进项目！
 
 请参阅 [项南指南](/CONTRIBUTING.md) 和 [开发文档](https://dev.twtxt.net) 或在 [/docs](/docs) 上查看。
 
@@ -259,10 +259,10 @@ docker stack deploy -c yarn.yml
 
 ## 相关项目
 
-- [Yarn.social](https://git.mills.io/yarnsocial/yarn.social) -- [Yarn.social](https://yarn.social) 着陆页
-- [Yarns](https://git.mills.io/yarnsocial/yarns) -- 托管在 [search.twtxt.net](https://search.twtxt.net) 的 [Yarn.social](https://yarn.social) 搜索引擎 
-- [App](https://git.mills.io/yarnsocial/app) -- Flutter 实现的 iOS 和 Android 移动 App
-- [Feeds](https://git.mills.io/yarnsocial/feeds) -- 托管在 [feeds.twtxt.net](https://feeds.twtxt.net) 的 RSS/Atom/Twitter 到 [Twtxt](https://twtxt.readthedocs.org) 聚合服务
+-   [Yarn.social](https://git.mills.io/yarnsocial/yarn.social) -- [Yarn.social](https://yarn.social) 着陆页
+-   [Yarns](https://git.mills.io/yarnsocial/yarns) -- 托管在 [search.twtxt.net](https://search.twtxt.net) 的 [Yarn.social](https://yarn.social) 搜索引擎
+-   [App](https://git.mills.io/yarnsocial/app) -- Flutter 实现的 iOS 和 Android 移动 App
+-   [Feeds](https://git.mills.io/yarnsocial/feeds) -- 托管在 [feeds.twtxt.net](https://feeds.twtxt.net) 的 RSS/Atom/Twitter 到 [Twtxt](https://twtxt.readthedocs.org) 聚合服务
 
 ## 开源协议
 

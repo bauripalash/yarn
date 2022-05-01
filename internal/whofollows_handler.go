@@ -9,9 +9,9 @@ import (
 	"net/http"
 	"time"
 
-	"go.yarn.social/types"
 	"github.com/julienschmidt/httprouter"
 	log "github.com/sirupsen/logrus"
+	"go.yarn.social/types"
 )
 
 // WhoFollowsHandler ...

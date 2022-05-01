@@ -1,18 +1,18 @@
 {{ define "content" }}
-  <article>
-    <hgroup>
-      <h2>{{ tr . "InstanceTitle" }}</h2>
-      <h3>{{ tr . "InstanceNameInfo" (dict "InstanceName" $.InstanceName) | html }}</h3>
-    </hgroup>
-    <div id="versionInfo">
-      <span title="PodName">{{ .InstanceName }}</span>
-      <span title="Software">{{ .SoftwareVersion.Software }}</span>
-      <span title="FullVersion">{{ .SoftwareVersion.FullVersion }}</span>
-      <span title="Version">{{ .SoftwareVersion.Version }}</span>
-      <span title="Commit">{{ .SoftwareVersion.Commit }}</span>
-      <span title="Author">{{ .SoftwareVersion.Author }}</span>
-      <span title="License">{{ .SoftwareVersion.License }}</span>
-      <span title="Copyright">{{ .SoftwareVersion.Copyright }}</span>
-    </div>
-  </article>
+<article>
+  <hgroup>
+    <h2>{{ tr . "InstanceTitle" }}</h2>
+    <h3>{{ tr . "InstanceNameInfo" (dict "InstanceName" $.InstanceName) | html }}</h3>
+  </hgroup>
+  <div id="versionInfo">
+    <span title="PodName">{{ .InstanceName }}</span>
+    <span title="Software">{{ .SoftwareVersion.Software }}</span>
+    <span title="FullVersion">{{ .SoftwareVersion.FullVersion }}</span>
+    <span title="Version">{{ .SoftwareVersion.Version }}</span>
+    <span title="Commit">{{ .SoftwareVersion.Commit }}</span>
+    <span title="Author">{{ .SoftwareVersion.Author }}</span>
+    <span title="License">{{ .SoftwareVersion.License }}</span>
+    <span title="Copyright">{{ .SoftwareVersion.Copyright }}</span>
+  </div>
+</article>
 {{ end }}

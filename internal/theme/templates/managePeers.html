@@ -1,36 +1,36 @@
 {{ define "content" }}
-  <article>
-    <hgroup>
-      <h2>{{ tr . "ManagePeersTitle" }}</h2>
-      <h3>{{ tr . "ManagePeersSummary" (dict "Peers" $.Peers) }}</h3>
-    </hgroup>
-    <div>
-      <table>
-        <tr>
-          <th>{{ tr . "ManagePeersName" }}</th>
-          <th>{{ tr . "ManagePeersDescription" }}</th>
-          <th>{{ tr . "ManagePeersVersion" }}</th>
-          <th>{{ tr . "ManagePeersLastSeen" }}&nbsp;
-            <span class="help" title="{{ tr . "ManagePeersLastSeenHelp" }}">
-              <i class="ti ti-help"></i>
-            </span>
-          </th>
-          <th>{{ tr . "ManagePeersLastUpdated" }}&nbsp;
-            <span class="help" title="{{ tr . "ManagePeersLastUpdatedHelp" }}">
-              <i class="ti ti-help"></i>
-            </span>
-          </th>
-        </tr>
-        {{ range $peer := $.Peers }}
-          <tr>
-            <td><a href="{{ $peer.URI }}">{{ $peer.Name }}</a></td>
-            <td><small>{{ $peer.Description | abbrev 60 }}</small></td>
-            <td><small>{{ $peer.SoftwareVersion }}</small></td>
-            <td><small>{{ $peer.LastSeen | time }}</small></td>
-            <td><small>{{ $peer.LastUpdated | time }}</small></td>
-          </tr>
-        {{ end }}
-      </table>
-    </div>
-  </article>
+<article>
+  <hgroup>
+    <h2>{{ tr . "ManagePeersTitle" }}</h2>
+    <h3>{{ tr . "ManagePeersSummary" (dict "Peers" $.Peers) }}</h3>
+  </hgroup>
+  <div>
+    <table>
+      <tr>
+        <th>{{ tr . "ManagePeersName" }}</th>
+        <th>{{ tr . "ManagePeersDescription" }}</th>
+        <th>{{ tr . "ManagePeersVersion" }}</th>
+        <th>{{ tr . "ManagePeersLastSeen" }}&nbsp;
+          <span class="help" title="{{ tr . "ManagePeersLastSeenHelp" }}">
+            <i class="ti ti-help"></i>
+          </span>
+        </th>
+        <th>{{ tr . "ManagePeersLastUpdated" }}&nbsp;
+          <span class="help" title="{{ tr . "ManagePeersLastUpdatedHelp" }}">
+            <i class="ti ti-help"></i>
+          </span>
+        </th>
+      </tr>
+      {{ range $peer := $.Peers }}
+      <tr>
+        <td><a href="{{ $peer.URI }}">{{ $peer.Name }}</a></td>
+        <td><small>{{ $peer.Description | abbrev 60 }}</small></td>
+        <td><small>{{ $peer.SoftwareVersion }}</small></td>
+        <td><small>{{ $peer.LastSeen | time }}</small></td>
+        <td><small>{{ $peer.LastUpdated | time }}</small></td>
+      </tr>
+      {{ end }}
+    </table>
+  </div>
+</article>
 {{ end }}

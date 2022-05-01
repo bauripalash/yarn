@@ -1,7 +1,8 @@
 p+form,
-p+.feed-gap{
+p+.feed-gap {
   padding-top: 1rem;
 }
+
 .feed-gap .p-summary {
   padding-top: 0.5rem;
 }
@@ -14,11 +15,11 @@ dialog+p br {
   display: none;
 }
 
-.e-content + #readtwt + .twt-nav:empty {
+.e-content+#readtwt+.twt-nav:empty {
   margin-top: -1rem;
 }
 
-#newPost + .grid.h-feed {
+#newPost+.grid.h-feed {
   margin-top: 1.5rem;
 }
 
@@ -155,7 +156,7 @@ textarea#css {
 #following,
 #followers,
 #followStat,
-.profile-last-seen{
+.profile-last-seen {
   display: block;
   padding-top: 0.15rem;
   padding-bottom: 0.15rem;
@@ -762,11 +763,9 @@ div .p-compact {
   width: 100%;
   font-weight: 600;
   color: var(--color);
-  background-image: linear-gradient(
-    180deg,
-    var(--card-background-color),
-    var(--contrast-inverse)
-  );
+  background-image: linear-gradient(180deg,
+      var(--card-background-color),
+      var(--contrast-inverse));
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
 }
@@ -775,7 +774,7 @@ div .p-compact {
   margin: 0 0 -2.75rem 0;
 }
 
-blockquote > p {
+blockquote>p {
   color: var(--muted-color);
 }
 
@@ -988,7 +987,7 @@ article .e-content {
 article .e-content p video,
 article .e-content p img {
   max-width: 100%;
-  margin: 0.5rem ;
+  margin: 0.5rem;
 }
 
 /* Blockquotes */
@@ -1214,22 +1213,22 @@ span[title="Copyright"]:before {
   height: 14.75rem;
 }
 
-#mobileMenuInput:checked + #mobileMenu #mobileNav {
+#mobileMenuInput:checked+#mobileMenu #mobileNav {
   visibility: visible;
   top: 0;
 }
 
-#mobileMenuInput:checked + #mobileMenu.alert #mobileNav {
+#mobileMenuInput:checked+#mobileMenu.alert #mobileNav {
   visibility: visible;
   top: 6rem;
 }
 
-#mobileMenuInput:checked + #mobileMenu.alert.float #mobileNav {
+#mobileMenuInput:checked+#mobileMenu.alert.float #mobileNav {
   visibility: visible;
   top: 5.75rem;
 }
 
-dialog[id^='lvm-'] article{
+dialog[id^='lvm-'] article {
   margin: 0 !important;
 }
 
@@ -1246,7 +1245,7 @@ dialog[id^='lvm-'] #twobutton {
     padding-bottom: 0.5rem;
   }
 
-  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
     margin-top: -1rem;
   }
 
@@ -1418,7 +1417,7 @@ dialog[id^='lvm-'] #twobutton {
     flex: 1 100%;
   }
 
-  #postbox.drawer .toolbar-nav  {
+  #postbox.drawer .toolbar-nav {
     margin: 0.05rem 0 0.75rem 0;
   }
 
@@ -1684,7 +1683,7 @@ dialog[id^='lvm-'] #twobutton {
     padding-bottom: 1.5rem !important;
   }
 
-  body > footer {
+  body>footer {
     margin-top: 2rem;
   }
 
@@ -1699,7 +1698,7 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
-  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
     margin-top: -1rem;
   }
 
@@ -1887,7 +1886,7 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (min-width: 769px) and (max-width: 991px) {
-  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
     margin-top: -1.5rem;
   }
 
@@ -1994,7 +1993,7 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
-  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
     margin-top: -1.5rem;
   }
 
@@ -2102,7 +2101,7 @@ dialog[id^='lvm-'] #twobutton {
 }
 
 @media (min-width: 1200px) {
-  #newPost + .grid.h-feed nav.timeline-nav:first-of-type {
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
     margin-top: -1.5rem;
   }
 

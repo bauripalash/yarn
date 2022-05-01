@@ -70,9 +70,9 @@ input[type="search"] {
 }
 
 .modal-is-opening dialog,
-.modal-is-opening dialog > figure,
+.modal-is-opening dialog>figure,
 .modal-is-closing dialog,
-.modal-is-closing dialog > figure {
+.modal-is-closing dialog>figure {
   -webkit-animation-duration: 0.2s !important;
   animation-duration: 0.2s !important;
   -webkit-animation-timing-function: ease-in-out !important;
@@ -89,8 +89,8 @@ input[type="search"] {
   animation-name: fadeIn !important;
 }
 
-.modal-is-opening dialog > figure,
-.modal-is-closing dialog > figure {
+.modal-is-opening dialog>figure,
+.modal-is-closing dialog>figure {
   -webkit-animation-delay: 0.2s !important;
   animation-delay: 0.2s !important;
   -webkit-animation-name: slideInDown !important;
@@ -98,7 +98,7 @@ input[type="search"] {
 }
 
 .modal-is-closing dialog,
-.modal-is-closing dialog > figure {
+.modal-is-closing dialog>figure {
   -webkit-animation-delay: 0s !important;
   animation-delay: 0s !important;
   animation-direction: reverse !important;

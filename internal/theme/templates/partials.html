@@ -1,5 +1,5 @@
 {{ define "navbar" }}
-<div id="podNavigation"{{ if not .Authenticated }} class="mobNoAuth"{{end}}>
+<div id="podNavigation" {{ if not .Authenticated }} class="mobNoAuth" {{end}}>
   {{ if .Authenticated }}
   <div id="timelineBtn">
     <a href="/" title="Last updated {{ .TimelineUpdatedAt | time }}">
@@ -21,7 +21,7 @@
       <i class="ti ti-rss-nav"></i> {{ tr . "NavFeeds" }}
     </a>
   </div>
-  <div id="settingsBtn" >
+  <div id="settingsBtn">
     <a class="secondary" href="/settings">
       <i class="ti ti-settings-nav"></i> {{ tr . "NavSettings" }}
     </a>
@@ -46,7 +46,7 @@
   {{ end }}
   {{ end }}
 </div>
-<div id="podSearch"{{ if not .Authenticated }} class="mobNoAuth"{{end}}>
+<div id="podSearch" {{ if not .Authenticated }} class="mobNoAuth" {{end}}>
   <form id="search" action="/search" method="GET">
     <div class="search-grid">
       <input type="search" name="tag" placeholder="Search Tags" aria-label="Search">
@@ -61,7 +61,7 @@
 {{ if or (eq $.view "timeline") (eq $.view "bookmarks") }}
 <details id="newPost">
   <summary><i class="ti ti-message"></i>&nbsp;&nbsp;Create a New Post</summary>
-{{ end }}
+  {{ end }}
   <div id="postbox" class="{{ if eq $.view "permalink" }}single-twt{{ end }}{{ if eq $.view "conv" }}yarn-post{{ end }}">
     <form id="form" class="{{ if eq $.view "conv" }}conv-post{{ end }}" action="/post" method="POST">
       <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
@@ -70,7 +70,7 @@
       <input type="hidden" id="title" name="title" placeholder="{{ tr $.Ctx "TwtFormTitle" }}" value="" />
       <input type="hidden" id="trixdoc" name="content">
       <div class="textarea-container">
-        <trix-editor id="text" input="trixdoc" name="text" placeholder="{{ $.TwtPrompt }}" rows=4 maxlength={{ $.MaxTwtLength }} {{ if $.AutoFocus }}autofocus="true"{{ end }} required="true" aria-required="true">{{ $.PostText }}</trix-editor>
+        <trix-editor id="text" input="trixdoc" name="text" placeholder="{{ $.TwtPrompt }}" rows=4 maxlength={{ $.MaxTwtLength }} {{ if $.AutoFocus }}autofocus="true" {{ end }} required="true" aria-required="true">{{ $.PostText }}</trix-editor>
         <div id="mentioned-list" class="users-list">
           <div id="mentioned-list-content" class="mentioned-list-content">
           </div>
@@ -95,7 +95,7 @@
       </div>
     </form>
   </div>
-{{ if or (eq $.view "timeline") (eq $.view "bookmarks") }}
+  {{ if or (eq $.view "timeline") (eq $.view "bookmarks") }}
 </details>
 {{ end }}
 {{ end }}
@@ -110,28 +110,28 @@
         <img class="avatar u-photo" src="/user/{{ $.User.Username }}/avatar" alt="" loading=lazy />
       </a>
       {{ else }}
-        {{ if isLocalURL $.Twt.Twter.URI }}
-          <a href="{{ $.Twt.Twter.URI | trimSuffix "/twtxt.txt" }}" class="u-url">
-            <img class="avatar u-photo" src="/user/{{ $.Twt.Twter.Nick }}/avatar" alt="" loading=lazy />
-          </a>
+      {{ if isLocalURL $.Twt.Twter.URI }}
+      <a href="{{ $.Twt.Twter.URI | trimSuffix "/twtxt.txt" }}" class="u-url">
+        <img class="avatar u-photo" src="/user/{{ $.Twt.Twter.Nick }}/avatar" alt="" loading=lazy />
+      </a>
+      {{ else }}
+      <a href="/external?uri={{ $.Twt.Twter.URI }}&nick={{ $.Twt.Twter.Nick }}" class="u-url">
+        {{ if $.Twt.Twter.Avatar }}
+        <img class="avatar u-photo" src="/externalAvatar?uri={{ $.Twt.Twter.URI }}" alt="" loading=lazy />
         {{ else }}
-          <a href="/external?uri={{ $.Twt.Twter.URI }}&nick={{ $.Twt.Twter.Nick }}" class="u-url">
-            {{ if $.Twt.Twter.Avatar }}
-              <img class="avatar u-photo" src="/externalAvatar?uri={{ $.Twt.Twter.URI }}" alt="" loading=lazy />
-            {{ else }}
-              <i class="ti ti-rss" style="font-size:3em"></i>
-            {{ end }}
-          </a>
+        <i class="ti ti-rss" style="font-size:3em"></i>
         {{ end }}
+      </a>
+      {{ end }}
       {{ end }}
     </div>
     <div class="author">
       <div class="p-name">
-      {{ if isLocalURL $.Twt.Twter.URI }}
+        {{ if isLocalURL $.Twt.Twter.URI }}
         <a href="{{ $.Twt.Twter.URI | trimSuffix "/twtxt.txt" }}">{{ $.Twt.Twter.Nick }}</a>
-      {{ else }}
+        {{ else }}
         <a href="/external?uri={{ $.Twt.Twter.URI }}&nick={{ $.Twt.Twter.Nick }}">{{ $.Twt.Twter.Nick }}</a>
-      {{ end }}
+        {{ end }}
       </div>
       <div class="p-org">
         <a target="_blank" href="{{ $.Twt.Twter.URI | baseFromURL }}">{{ $.Twt.Twter.URI | hostnameFromURL }}</a>
@@ -156,100 +156,100 @@
   </div>
   <div class="e-content">
     {{ if not (eq $.view "conv") }}
-      {{ with urlForRootConv $.Twt }}
-        {{ $rootTwt := getRootTwt $.Twt $.User }}
-        <small class="twt-context">
-          &rdsh;
-          <a href="{{ urlForRootConv $.Twt }}#{{ $.Twt.Hash }}" title="{{ tr $.Ctx "ConversationOnTwtMessage" (dict "Hash" $rootTwt.Hash) }}">{{ tr $.Ctx "ConversationInReply" }}</a>
-          &raquo;
-          {{ if gt (formatTwtContext $.Twt $.User | len) 0 }}
-            {{ formatTwtContext $.Twt $.User }}
-          {{ else }}
-            <em>This twt is from a user you have muted.</em>
-          {{ end }}
-        </small>
+    {{ with urlForRootConv $.Twt }}
+    {{ $rootTwt := getRootTwt $.Twt $.User }}
+    <small class="twt-context">
+      &rdsh;
+      <a href="{{ urlForRootConv $.Twt }}#{{ $.Twt.Hash }}" title="{{ tr $.Ctx "ConversationOnTwtMessage" (dict "Hash" $rootTwt.Hash) }}">{{ tr $.Ctx "ConversationInReply" }}</a>
+      &raquo;
+      {{ if gt (formatTwtContext $.Twt $.User | len) 0 }}
+      {{ formatTwtContext $.Twt $.User }}
+      {{ else }}
+      <em>This twt is from a user you have muted.</em>
       {{ end }}
+    </small>
+    {{ end }}
     {{ end }}
     {{ formatTwt $.Twt $.User }}
   </div>
   <span id="readtwt">{{ tr $.Ctx "TwtReadMore" }}</span>
   <nav class="twt-nav">
     {{ if $.Authenticated }}
-      <a class="replyBtn" href="#" data-reply="{{ $.User.Reply $.Twt }}">
-        <i class="ti ti-message-plus" data-reply="{{ $.User.Reply $.Twt }}"></i> {{ tr $.Ctx "TwtReplyLinkTitle" }}
-      </a>
-      {{ if and (eq $.view "conv") (not (eq $.Twt.Hash $.Ctx.Root.Hash)) (lt (getForkLength $.Twt $.User) 1) }}
-        <a class="forkBtn" href="#" data-fork="{{ $.User.Fork $.Twt }}">
-          <i class="ti ti-messages" data-fork="{{ $.User.Fork $.Twt }}"></i> {{ tr $.Ctx "TwtForkLinkTitle" }}
-        </a>
-      {{ end }}
-      {{ if eq $.LastTwt.Hash $.Twt.Hash }}
-        <a class="editBtn" href="#" data-hash="{{ $.Twt.Hash }}" data-text="{{ $.Twt | unparseTwt }}">
-          <i class="ti ti-edit" data-hash="{{ $.Twt.Hash }}" data-text="{{ $.Twt | unparseTwt }}"></i> {{ tr $.Ctx "TwtEditLinkTitle" }}
-        </a>
-        <a class="deleteBtn" href="#" data-hash="{{ $.Twt.Hash }}">
-          <i class="ti ti-trash" data-hash="{{ $.Twt.Hash }}"></i> {{ tr $.Ctx "TwtDeleteLinkTitle" }}
-        </a>
-      {{ end }}
+    <a class="replyBtn" href="#" data-reply="{{ $.User.Reply $.Twt }}">
+      <i class="ti ti-message-plus" data-reply="{{ $.User.Reply $.Twt }}"></i> {{ tr $.Ctx "TwtReplyLinkTitle" }}
+    </a>
+    {{ if and (eq $.view "conv") (not (eq $.Twt.Hash $.Ctx.Root.Hash)) (lt (getForkLength $.Twt $.User) 1) }}
+    <a class="forkBtn" href="#" data-fork="{{ $.User.Fork $.Twt }}">
+      <i class="ti ti-messages" data-fork="{{ $.User.Fork $.Twt }}"></i> {{ tr $.Ctx "TwtForkLinkTitle" }}
+    </a>
+    {{ end }}
+    {{ if eq $.LastTwt.Hash $.Twt.Hash }}
+    <a class="editBtn" href="#" data-hash="{{ $.Twt.Hash }}" data-text="{{ $.Twt | unparseTwt }}">
+      <i class="ti ti-edit" data-hash="{{ $.Twt.Hash }}" data-text="{{ $.Twt | unparseTwt }}"></i> {{ tr $.Ctx "TwtEditLinkTitle" }}
+    </a>
+    <a class="deleteBtn" href="#" data-hash="{{ $.Twt.Hash }}">
+      <i class="ti ti-trash" data-hash="{{ $.Twt.Hash }}"></i> {{ tr $.Ctx "TwtDeleteLinkTitle" }}
+    </a>
+    {{ end }}
     {{ end }}
     {{ if and (eq $.view "conv") (not (eq $.Twt.Hash $.Ctx.Root.Hash)) (gt (getForkLength $.Twt $.User) 0) }}
-      <a class="convBtn" href="{{ urlForFork $.Twt }}">
-        <i class="ti ti-messages"></i> {{ tr $.Ctx "TwtForkLinkTitle" }}
-        <span class="yarn-count-badge">{{ getForkLength $.Twt $.User }}</span>
-      </a>
+    <a class="convBtn" href="{{ urlForFork $.Twt }}">
+      <i class="ti ti-messages"></i> {{ tr $.Ctx "TwtForkLinkTitle" }}
+      <span class="yarn-count-badge">{{ getForkLength $.Twt $.User }}</span>
+    </a>
     {{ end }}
     {{ if eq $.Twt.Hash $.Ctx.Root.Hash }}
-      {{ with urlForRootConv $.Twt }}
-        <a class="convBtn" href="{{ urlForRootConv $.Twt }}">
-          <i class="ti ti-message"></i> {{ tr $.Ctx "ConversationRoot" }}
-        </a>
-      {{ end }}
+    {{ with urlForRootConv $.Twt }}
+    <a class="convBtn" href="{{ urlForRootConv $.Twt }}">
+      <i class="ti ti-message"></i> {{ tr $.Ctx "ConversationRoot" }}
+    </a>
+    {{ end }}
     {{ else if not (eq $.view "conv") }}
-      {{ with urlForConv $.Twt }}
-      <a class="convBtn" href="{{ urlForConv $.Twt }}">
-        <i class="ti ti-message"></i> {{ tr $.Ctx "TwtConversationLinkTitle" }}
-        {{ if gt (getConvLength $.Twt $.User) 1 }}
-          <span class="yarn-count-badge">{{ getConvLength $.Twt $.User }}</span>
-        {{ end }}
-      </a>
+    {{ with urlForConv $.Twt }}
+    <a class="convBtn" href="{{ urlForConv $.Twt }}">
+      <i class="ti ti-message"></i> {{ tr $.Ctx "TwtConversationLinkTitle" }}
+      {{ if gt (getConvLength $.Twt $.User) 1 }}
+      <span class="yarn-count-badge">{{ getConvLength $.Twt $.User }}</span>
       {{ end }}
+    </a>
+    {{ end }}
     {{ end }}
     {{ if $.Authenticated }}
-      <div id="twt-options">
-        <a class="muteTwtBtn" href="/mute/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "TwtMute" }}">
-          <i class="ti ti-volume-3"></i>
-        </a>
-        <a class="bookmarkBtn" style="display: {{ if not ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkAddTwt" }}">
-          <i class="ti ti-bookmark"></i>
-        </a>
-        <a class="unbookmarkBtn" style="display: {{ if ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkRemoveTwt" }}">
-          <i class="ti ti-bookmark-off"></i>
-        </a>
-      </div>
+    <div id="twt-options">
+      <a class="muteTwtBtn" href="/mute/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "TwtMute" }}">
+        <i class="ti ti-volume-3"></i>
+      </a>
+      <a class="bookmarkBtn" style="display: {{ if not ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkAddTwt" }}">
+        <i class="ti ti-bookmark"></i>
+      </a>
+      <a class="unbookmarkBtn" style="display: {{ if ($.User.Bookmarked $.Twt.Hash) }}inline{{ else }}none{{ end }};" href="/bookmark/{{ $.Twt.Hash }}" title="{{ tr $.Ctx "BookmarkRemoveTwt" }}">
+        <i class="ti ti-bookmark-off"></i>
+      </a>
+    </div>
     {{ end }}
   </nav>
 </article>
 {{ end }}
 
 {{ define "feed" }}
-  {{ if gt (len $.Twts) 0 }}
-  <div class="grid h-feed{{ if eq $.view "bookmarks" }} bookmark-feed{{ end }}">
-    {{ template "pager" (dict "Pager" $.Pager "Ctx" $.Ctx) }}
-    {{ range $idx, $twt := $.Twts }}
-    {{ template "twt" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Twt" $twt "Ctx" $.Ctx "view" $.view) }}
-    {{ else }}
-      {{ if eq $.view "timeline" }}
-        <p>{{ tr $.Ctx "NoTwts" }}</p>
-        <p>{{ tr $.Ctx "ProfileNoTwts" (dict ".InstanceName" $.Ctx.InstanceName ".NavDiscover" (tr $.Ctx "NavDiscover") ".NavFollow" (tr $.Ctx "NavFollow")) | html }}</p>
-      {{ else }}
-        <p>{{ .Profile.Nick }} {{ tr $.Ctx "ProfileLastPosted" }} {{ .Profile.LastPostedAt | time }}</p>
-      {{ end }}
-    {{ end }}
-    {{ template "pager" (dict "Pager" $.Pager "Ctx" $.Ctx) }}
-  </div>
+{{ if gt (len $.Twts) 0 }}
+<div class="grid h-feed{{ if eq $.view "bookmarks" }} bookmark-feed{{ end }}">
+  {{ template "pager" (dict "Pager" $.Pager "Ctx" $.Ctx) }}
+  {{ range $idx, $twt := $.Twts }}
+  {{ template "twt" (dict "Authenticated" $.Authenticated "User" $.User "Profile" $.Profile "LastTwt" $.LastTwt "Twt" $twt "Ctx" $.Ctx "view" $.view) }}
   {{ else }}
-  <div class="h-feed-empty"></div>
+  {{ if eq $.view "timeline" }}
+  <p>{{ tr $.Ctx "NoTwts" }}</p>
+  <p>{{ tr $.Ctx "ProfileNoTwts" (dict ".InstanceName" $.Ctx.InstanceName ".NavDiscover" (tr $.Ctx "NavDiscover") ".NavFollow" (tr $.Ctx "NavFollow")) | html }}</p>
+  {{ else }}
+  <p>{{ .Profile.Nick }} {{ tr $.Ctx "ProfileLastPosted" }} {{ .Profile.LastPostedAt | time }}</p>
   {{ end }}
+  {{ end }}
+  {{ template "pager" (dict "Pager" $.Pager "Ctx" $.Ctx) }}
+</div>
+{{ else }}
+<div class="h-feed-empty"></div>
+{{ end }}
 {{ end }}
 
 {{ define "pager" }}
@@ -258,15 +258,15 @@
   <ul>
     <li>
       {{ if $.Pager.HasPrev }}
-        {{ with $.Ctx.Twter.URI }}
-          {{ if isLocalURL $.Ctx.Twter.URI }}
-            <a href="?p={{ $.Pager.PrevPage }}"><i class="ti ti-caret-left"></i> {{ tr $.Ctx "PagerPrevLinkTitle" }}</a>
-          {{ else }}
-            <a href="/external?uri={{ $.Ctx.Twter.URI }}&nick={{ $.Ctx.Twter.Nick }}&p={{ $.Pager.PrevPage }}"><i class="ti ti-caret-left"></i> {{ tr $.Ctx "PagerPrevLinkTitle"  }}</a>
-          {{ end }}
-        {{ else }}
-          <a href="?p={{ $.Pager.PrevPage }}"><i class="ti ti-caret-left"></i> {{ tr $.Ctx "PagerPrevLinkTitle" }}</a>
-        {{ end }}
+      {{ with $.Ctx.Twter.URI }}
+      {{ if isLocalURL $.Ctx.Twter.URI }}
+      <a href="?p={{ $.Pager.PrevPage }}"><i class="ti ti-caret-left"></i> {{ tr $.Ctx "PagerPrevLinkTitle" }}</a>
+      {{ else }}
+      <a href="/external?uri={{ $.Ctx.Twter.URI }}&nick={{ $.Ctx.Twter.Nick }}&p={{ $.Pager.PrevPage }}"><i class="ti ti-caret-left"></i> {{ tr $.Ctx "PagerPrevLinkTitle"  }}</a>
+      {{ end }}
+      {{ else }}
+      <a href="?p={{ $.Pager.PrevPage }}"><i class="ti ti-caret-left"></i> {{ tr $.Ctx "PagerPrevLinkTitle" }}</a>
+      {{ end }}
       {{ else }}
       {{ end }}
     </li>
@@ -277,15 +277,15 @@
   <ul>
     <li>
       {{ if $.Pager.HasNext }}
-        {{ with $.Ctx.Twter.URI }}
-          {{ if isLocalURL $.Ctx.Twter.URI }}
-            <a href="?p={{ $.Pager.NextPage }}">{{ tr $.Ctx "PagerNextLinkTitle" }} <i class="ti ti-caret-right"></i></a>
-          {{ else }}
-            <a href="/external?uri={{ $.Ctx.Twter.URI }}&nick={{ $.Ctx.Twter.Nick }}&p={{ $.Pager.NextPage }}">{{ tr $.Ctx "PagerNextLinkTitle" }} <i class="ti ti-caret-right"></i></a>
-          {{ end }}
-        {{ else }}
-          <a href="?p={{ $.Pager.NextPage }}">{{ tr $.Ctx "PagerNextLinkTitle" }} <i class="ti ti-caret-right"></i></a>
-        {{ end }}
+      {{ with $.Ctx.Twter.URI }}
+      {{ if isLocalURL $.Ctx.Twter.URI }}
+      <a href="?p={{ $.Pager.NextPage }}">{{ tr $.Ctx "PagerNextLinkTitle" }} <i class="ti ti-caret-right"></i></a>
+      {{ else }}
+      <a href="/external?uri={{ $.Ctx.Twter.URI }}&nick={{ $.Ctx.Twter.Nick }}&p={{ $.Pager.NextPage }}">{{ tr $.Ctx "PagerNextLinkTitle" }} <i class="ti ti-caret-right"></i></a>
+      {{ end }}
+      {{ else }}
+      <a href="?p={{ $.Pager.NextPage }}">{{ tr $.Ctx "PagerNextLinkTitle" }} <i class="ti ti-caret-right"></i></a>
+      {{ end }}
       {{ else }}
       {{ end }}
     </li>
@@ -298,18 +298,18 @@
 {{ if $.Profile.ShowFollowing }}
 <span id="following">
   {{ if eq $.Profile.Type "External" }}
-    {{ $.Profile.NFollowing }} <a href="/externalFollowing?uri={{ $.Profile.URI }}">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a>
+  {{ $.Profile.NFollowing }} <a href="/externalFollowing?uri={{ $.Profile.URI }}">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a>
   {{ else }}
-    {{ $.Profile.NFollowing }} <a href="/user/{{ $.Profile.Nick }}/following">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a>
+  {{ $.Profile.NFollowing }} <a href="/user/{{ $.Profile.Nick }}/following">{{ tr $.Ctx "ProfileFollowingLinkTitle" }}</a>
   {{ end }}
 </span>
 {{ end }}
 {{ if $.Profile.ShowFollowers }}
 <span id="followers">
   {{ if eq $.Profile.Type "External" }}
-    {{ $.Profile.NFollowers }} <a href="#" title="{{ tr $.Ctx "FollowExternal" }}">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a>
+  {{ $.Profile.NFollowers }} <a href="#" title="{{ tr $.Ctx "FollowExternal" }}">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a>
   {{ else }}
-    {{ $.Profile.NFollowers }} <a href="/user/{{ $.Profile.Nick }}/followers">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a>
+  {{ $.Profile.NFollowers }} <a href="/user/{{ $.Profile.Nick }}/followers">{{ tr $.Ctx "ProfileFollowersLinkTitle" }}</a>
   {{ end }}
 </span>
 {{ end }}
@@ -322,36 +322,36 @@
 {{ end }}
 
 {{ define "profileLinks" }}
-  <li>
-    <a target="_blank" href="{{ $.Profile.URI }}">
-      <i class="ti ti-link-profile"></i> {{ tr $.Ctx "ProfileTwtxtLinkTitle" }}
+<li>
+  <a target="_blank" href="{{ $.Profile.URI }}">
+    <i class="ti ti-link-profile"></i> {{ tr $.Ctx "ProfileTwtxtLinkTitle" }}
+  </a>
+</li>
+{{ if ne $.Profile.Type "External" }}
+<li>
+  <a href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}/bookmarks">
+    <i class="ti ti-bookmarks"></i> {{ tr $.Ctx "ProfileBookmarksLinkTitle" | trimSuffix ":" }}
+  </a>
+</li>
+{{ end }}
+{{ if $.Profile.Links }}
+{{ range $link := $.Profile.Links }}
+<li>
+  <div class="delLink">
+    <a href="{{ $link.URL }}">
+      <i class="ti ti-external-link"></i> {{ $link.Title }}
     </a>
-  </li>
-  {{ if ne $.Profile.Type "External" }}
-  <li>
-    <a href="{{ $.Profile.URI | trimSuffix "/twtxt.txt" }}/bookmarks">
-      <i class="ti ti-bookmarks"></i> {{ tr $.Ctx "ProfileBookmarksLinkTitle" | trimSuffix ":" }}
-    </a>
-  </li>
-  {{ end }}
-  {{ if $.Profile.Links }}
-    {{ range $link := $.Profile.Links }}
-      <li>
-        <div class="delLink">
-          <a href="{{ $link.URL }}">
-            <i class="ti ti-external-link"></i> {{ $link.Title }}
-          </a>
-          {{ if $.Authenticated }}
-          {{ if eq $.Profile.Nick $.User.Username }}
-          <form action="/settings/removelink" enctype="multipart/form-data" method="POST">
-            <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
-            <input type="hidden" name="link_title" value="{{ $link.Title }}">
-            <button type="submit"><i class="ti ti-circle-x"></i></button>
-          </form>
-          {{ end }}
-          {{ end }}
-        </div>
-      </li>
+    {{ if $.Authenticated }}
+    {{ if eq $.Profile.Nick $.User.Username }}
+    <form action="/settings/removelink" enctype="multipart/form-data" method="POST">
+      <input type="hidden" name="csrf_token" value="{{ $.CSRFToken }}">
+      <input type="hidden" name="link_title" value="{{ $link.Title }}">
+      <button type="submit"><i class="ti ti-circle-x"></i></button>
+    </form>
     {{ end }}
-  {{ end }}
+    {{ end }}
+  </div>
+</li>
+{{ end }}
+{{ end }}
 {{ end }}

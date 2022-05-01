@@ -1,16 +1,14 @@
 {
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "-- Grafana --",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "type": "dashboard"
-      }
-    ]
+    "list": [{
+      "builtIn": 1,
+      "datasource": "-- Grafana --",
+      "enable": true,
+      "hide": true,
+      "iconColor": "rgba(0, 211, 255, 1)",
+      "name": "Annotations & Alerts",
+      "type": "dashboard"
+    }]
   },
   "description": "Dashboard for the Job Engine",
   "editable": true,
@@ -19,8 +17,7 @@
   "id": 48,
   "iteration": 1599441891662,
   "links": [],
-  "panels": [
-    {
+  "panels": [{
       "cacheTimeout": null,
       "colorBackground": false,
       "colorValue": false,
@@ -55,8 +52,7 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [
-        {
+      "mappingTypes": [{
           "name": "value to text",
           "value": 1
         },
@@ -72,13 +68,11 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "rangeMaps": [{
+        "from": "null",
+        "text": "N/A",
+        "to": "null"
+      }],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -86,29 +80,25 @@
         "show": true
       },
       "tableColumn": "{instance=\"twtxt_twtxt:8000\", job=\"twtxt\"}",
-      "targets": [
-        {
-          "expr": "twtd_server_uptime{job=\"$job\", instance=\"$instance\"} / 1e6",
-          "format": "time_series",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "twtd_server_uptime{job=\"$job\", instance=\"$instance\"} / 1e6",
+        "format": "time_series",
+        "instant": false,
+        "interval": "",
+        "intervalFactor": 1,
+        "legendFormat": "",
+        "refId": "A"
+      }],
       "thresholds": "",
       "title": "Uptime",
       "transparent": true,
       "type": "singlestat",
       "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
+      "valueMaps": [{
+        "op": "=",
+        "text": "N/A",
+        "value": "null"
+      }],
       "valueName": "current"
     },
     {
@@ -147,8 +137,7 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [
-        {
+      "mappingTypes": [{
           "name": "value to text",
           "value": 1
         },
@@ -164,13 +153,11 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "rangeMaps": [{
+        "from": "null",
+        "text": "N/A",
+        "to": "null"
+      }],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -178,17 +165,15 @@
         "show": true
       },
       "tableColumn": "twtd_cache_twts{instance=\"twtxt_twtxt:8000\", job=\"twtxt\"}",
-      "targets": [
-        {
-          "expr": "twtd_cache_twts{job=\"$job\", instance=\"$instance\"}",
-          "format": "time_series",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "twtd_cache_twts{job=\"$job\", instance=\"$instance\"}",
+        "format": "time_series",
+        "instant": false,
+        "interval": "",
+        "intervalFactor": 1,
+        "legendFormat": "",
+        "refId": "A"
+      }],
       "thresholds": "",
       "title": "Cache Size",
       "transparent": true,
@@ -233,8 +218,7 @@
       "interval": null,
       "links": [],
       "mappingType": 1,
-      "mappingTypes": [
-        {
+      "mappingTypes": [{
           "name": "value to text",
           "value": 1
         },
@@ -250,13 +234,11 @@
       "postfixFontSize": "50%",
       "prefix": "",
       "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
+      "rangeMaps": [{
+        "from": "null",
+        "text": "N/A",
+        "to": "null"
+      }],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
         "full": false,
@@ -264,17 +246,15 @@
         "show": true
       },
       "tableColumn": "{instance=\"twtxt_twtxt:8000\", job=\"twtxt\"}",
-      "targets": [
-        {
-          "expr": "avg_over_time(twtd_cache_last_processed_seconds{job=\"$job\", instance=\"$instance\"}[$__range])",
-          "format": "time_series",
-          "instant": false,
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "avg_over_time(twtd_cache_last_processed_seconds{job=\"$job\", instance=\"$instance\"}[$__range])",
+        "format": "time_series",
+        "instant": false,
+        "interval": "",
+        "intervalFactor": 1,
+        "legendFormat": "",
+        "refId": "A"
+      }],
       "thresholds": "150,240",
       "title": "Cache Perf",
       "transparent": true,
@@ -290,22 +270,19 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "mappings": [
-            {
-              "id": 0,
-              "op": "=",
-              "text": "N/A",
-              "type": 1,
-              "value": "null"
-            }
-          ],
+          "mappings": [{
+            "id": 0,
+            "op": "=",
+            "text": "N/A",
+            "type": 1,
+            "value": "null"
+          }],
           "max": 100,
           "min": 0,
           "nullValueMode": "connected",
           "thresholds": {
             "mode": "percentage",
-            "steps": [
-              {
+            "steps": [{
                 "color": "#299c46",
                 "value": null
               },
@@ -346,16 +323,14 @@
         "showThresholdMarkers": true
       },
       "pluginVersion": "7.1.5",
-      "targets": [
-        {
-          "expr": "sum(rate(process_cpu_seconds_total{job=\"$job\", instance=\"$instance\"}[$__range]) * 100)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "cpu",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "sum(rate(process_cpu_seconds_total{job=\"$job\", instance=\"$instance\"}[$__range]) * 100)",
+        "format": "time_series",
+        "interval": "",
+        "intervalFactor": 1,
+        "legendFormat": "cpu",
+        "refId": "A"
+      }],
       "title": "CPU",
       "transparent": true,
       "type": "gauge"
@@ -367,22 +342,19 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "mappings": [
-            {
-              "id": 0,
-              "op": "=",
-              "text": "N/A",
-              "type": 1,
-              "value": "null"
-            }
-          ],
+          "mappings": [{
+            "id": 0,
+            "op": "=",
+            "text": "N/A",
+            "type": 1,
+            "value": "null"
+          }],
           "max": 1073741824,
           "min": 0,
           "nullValueMode": "connected",
           "thresholds": {
             "mode": "percentage",
-            "steps": [
-              {
+            "steps": [{
                 "color": "#299c46",
                 "value": null
               },
@@ -423,16 +395,14 @@
         "showThresholdMarkers": true
       },
       "pluginVersion": "7.1.5",
-      "targets": [
-        {
-          "expr": "process_resident_memory_bytes{job=\"$job\", instance=\"$instance\"}",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 1,
-          "legendFormat": "rss",
-          "refId": "A"
-        }
-      ],
+      "targets": [{
+        "expr": "process_resident_memory_bytes{job=\"$job\", instance=\"$instance\"}",
+        "format": "time_series",
+        "interval": "",
+        "intervalFactor": 1,
+        "legendFormat": "rss",
+        "refId": "A"
+      }],
       "title": "Memory",
       "transparent": true,
       "type": "gauge"
@@ -477,17 +447,14 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "twts_archived",
-          "yaxis": 2
-        }
-      ],
+      "seriesOverrides": [{
+        "alias": "twts_archived",
+        "yaxis": 2
+      }],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "avg_over_time(twtd_cache_last_processed_seconds{job=\"$job\", instance=\"$instance\"}[$__range])",
           "interval": "",
           "legendFormat": "cache_update_duration",
@@ -519,8 +486,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -582,8 +548,7 @@
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
+      "seriesOverrides": [{
           "alias": "feed_sources",
           "yaxis": 2
         },
@@ -603,8 +568,7 @@
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "twtd_db_feeds{job=\"$job\", instance=\"$instance\"}",
           "interval": "",
           "legendFormat": "db_feeds",
@@ -672,8 +636,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -740,27 +703,23 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "resident",
-          "yaxis": 2
-        }
-      ],
+      "seriesOverrides": [{
+        "alias": "resident",
+        "yaxis": 2
+      }],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(rate(process_cpu_seconds_total{job=\"$job\", instance=\"$instance\"}[$__range]) * 100)",
-          "format": "time_series",
-          "interval": "",
-          "intervalFactor": 2,
-          "legendFormat": "cpu",
-          "metric": "process_resident_memory_bytes",
-          "refId": "A",
-          "step": 4
-        }
-      ],
+      "targets": [{
+        "expr": "sum(rate(process_cpu_seconds_total{job=\"$job\", instance=\"$instance\"}[$__range]) * 100)",
+        "format": "time_series",
+        "interval": "",
+        "intervalFactor": 2,
+        "legendFormat": "cpu",
+        "metric": "process_resident_memory_bytes",
+        "refId": "A",
+        "step": 4
+      }],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
@@ -781,8 +740,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "percent",
           "label": null,
           "logBase": 1,
@@ -849,17 +807,14 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "resident",
-          "yaxis": 2
-        }
-      ],
+      "seriesOverrides": [{
+        "alias": "resident",
+        "yaxis": 2
+      }],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "process_resident_memory_bytes{job=\"$job\", instance=\"$instance\"}",
           "format": "time_series",
           "interval": "",
@@ -900,8 +855,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "bytes",
           "label": null,
           "logBase": 1,
@@ -968,17 +922,14 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "resident",
-          "yaxis": 2
-        }
-      ],
+      "seriesOverrides": [{
+        "alias": "resident",
+        "yaxis": 2
+      }],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "go_memstats_heap_sys_bytes{job=\"$job\", instance=\"$instance\"}",
           "format": "time_series",
           "interval": "",
@@ -1043,8 +994,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "bytes",
           "label": null,
           "logBase": 1,
@@ -1111,17 +1061,14 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "resident",
-          "yaxis": 2
-        }
-      ],
+      "seriesOverrides": [{
+        "alias": "resident",
+        "yaxis": 2
+      }],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "go_memstats_alloc_bytes{job=\"$job\", instance=\"$instance\"}",
           "format": "time_series",
           "interval": "",
@@ -1170,8 +1117,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "bytes",
           "label": null,
           "logBase": 1,
@@ -1238,17 +1184,14 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "alloc rate",
-          "yaxis": 2
-        }
-      ],
+      "seriesOverrides": [{
+        "alias": "alloc rate",
+        "yaxis": 2
+      }],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "go_threads{job=\"$job\", instance=\"$instance\"}",
           "format": "time_series",
           "interval": "",
@@ -1287,8 +1230,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "none",
           "label": null,
           "logBase": 1,
@@ -1355,17 +1297,14 @@
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [
-        {
-          "alias": "alloc rate",
-          "yaxis": 2
-        }
-      ],
+      "seriesOverrides": [{
+        "alias": "alloc rate",
+        "yaxis": 2
+      }],
       "spaceLength": 10,
       "stack": false,
       "steppedLine": false,
-      "targets": [
-        {
+      "targets": [{
           "expr": "go_gc_duration_seconds_sum{job=\"$job\", instance=\"$instance\"} / go_gc_duration_seconds_count{job=\"$job\", instance=\"$instance\"}",
           "format": "time_series",
           "interval": "",
@@ -1412,8 +1351,7 @@
         "show": true,
         "values": []
       },
-      "yaxes": [
-        {
+      "yaxes": [{
           "format": "s",
           "label": null,
           "logBase": 1,
@@ -1444,8 +1382,7 @@
     "je"
   ],
   "templating": {
-    "list": [
-      {
+    "list": [{
         "allValue": ".*",
         "current": {
           "selected": false,

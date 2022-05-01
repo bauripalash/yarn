@@ -218,7 +218,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 		DisplayMedia:            conf.DisplayMedia,
 		OriginalMedia:           conf.OriginalMedia,
 
-    VisibilityCompact:  conf.VisibilityCompact,
+		VisibilityCompact:  conf.VisibilityCompact,
 		VisibilityReadmore: conf.VisibilityReadmore,
 		LinkVerification:   conf.LinkVerification,
 		StripTrackingParam: conf.StripTrackingParam,

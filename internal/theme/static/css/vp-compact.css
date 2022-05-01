@@ -183,7 +183,7 @@
     margin-bottom: 0rem !important;
   }
 
-  body > footer {
+  body>footer {
     margin-top: 3rem !important;
     padding: 0.75rem !important;
   }
@@ -253,7 +253,7 @@
     margin-bottom: 0.5rem !important;
   }
 
-  body > footer {
+  body>footer {
     margin-top: -1.25rem !important;
     padding: 0.5rem 0 0.5rem 0 !important;
   }

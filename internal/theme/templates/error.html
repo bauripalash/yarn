@@ -1,8 +1,8 @@
 {{ define "content" }}
-  <article class="grid">
-    <hgroup>
-      <h2>{{ if .Error }}{{ tr . "ErrorTitle" }}{{ else }}{{ tr . "SuccessTitle" }}{{ end }}</h2>
-      <h3>{{ .Message }}</h3>
-    </hgroup>
-  </article>
+<article class="grid">
+  <hgroup>
+    <h2>{{ if .Error }}{{ tr . "ErrorTitle" }}{{ else }}{{ tr . "SuccessTitle" }}{{ end }}</h2>
+    <h3>{{ .Message }}</h3>
+  </hgroup>
+</article>
 {{ end }}

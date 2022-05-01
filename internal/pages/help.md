@@ -33,7 +33,6 @@ Following someone in the twtxt community is actually rather hard to do
 because of it being decentralised. This means no one company or entity
 controls who posts what, where, why or how on their twtxt feeds.
 
-
 Nevertheless following someone on the same instance ({{ .InstanceName }})
 you are on is easy! Simply [/login](/login) and navigate to the
 [/discover](/discover) page to find _public_ posts of
@@ -47,11 +46,11 @@ supports what's called [Markdown](https://en.wikipedia.org/wiki/Markdown).
 
 This means you can format your posts in very simple but powerful ways:
 
-- Anything that looks like a link is automatically rendered as a click-able link
-- Use `**bold**` or `__italics__` to place emphasis on your parts of your post
-- Use `fixed width` to render text in fixed-width or another style of emphasis
-- Use `[Title](url)` to give your links a nice pretty title
-- Use `![](url)` to link to external images which will be rendered inline with your post
+-   Anything that looks like a link is automatically rendered as a click-able link
+-   Use `**bold**` or `__italics__` to place emphasis on your parts of your post
+-   Use `fixed width` to render text in fixed-width or another style of emphasis
+-   Use `[Title](url)` to give your links a nice pretty title
+-   Use `![](url)` to link to external images which will be rendered inline with your post
 
 Of course twtxt is fully Unicode and Emoji capable so any Emoji you
 can type on your keyboard (_such as the special keyboard on your iPhone_)
