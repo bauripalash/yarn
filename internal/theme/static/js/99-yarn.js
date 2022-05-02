@@ -831,8 +831,7 @@ u("body").on("keydown", function(e) {
         selectedIdx - 1;
     }
 
-    scrollOffset =
-      u(".user-list__user").first().clientHeight * (nextIdx - 2);
+    scrollOffset = u(".user-list__user").first().clientHeight * (nextIdx - 2);
 
     u(".user-list__user").nodes.forEach(function(item, index) {
       item.classList.remove("selected");
@@ -1070,6 +1069,7 @@ window.onload = function() {
   }
 }
 
+
 // TippyJS content here
 function eiOS(listener) {
   var clicks = 0;
@@ -1150,4 +1150,47 @@ for (var e in ['a#e-media', 'a#v-info', 'span.help',
   }
 }
 
-var trixdoc = document.querySelector("trix-editor").editor.getDocument()
+
+// Trix Editor content here
+Trix.config.textAttributes.inlineCode = {
+  tagName: "code",
+  inheritable: true
+}
+
+document.addEventListener("trix-action-invoke", function(event) {
+  if (event.actionName == "x-mention") {
+    console.log("mention called");
+  }
+})
+
+document.addEventListener("trix-initialize", function(event) {
+  const element = event.target
+  const {
+    toolbarElement,
+    editor
+  } = element
+
+  const blockCodeButton = toolbarElement.querySelector("[data-trix-attribute=inlineCode]")
+  const inlineCodeButton = blockCodeButton.cloneNode(true)
+
+  inlineCodeButton.hidden = true
+  inlineCodeButton.dataset.trixAttribute = "inlineCode"
+  blockCodeButton.insertAdjacentElement("afterend", inlineCodeButton)
+
+  element.addEventListener("trix-selection-change", _ => {
+    const type = getCodeFormattingType()
+    blockCodeButton.hidden = type == "inline"
+    inlineCodeButton.hidden = type == "block"
+  })
+
+  function getCodeFormattingType() {
+    if (editor.attributeIsActive("code")) return "block"
+    if (editor.attributeIsActive("inlineCode")) return "inline"
+
+    const range = editor.getSelectedRange()
+    if (range[0] == range[1]) return "block"
+
+    const text = editor.getSelectedDocument().toString().trim()
+    return /\n/.test(text) ? "block" : "inline"
+  }
+})

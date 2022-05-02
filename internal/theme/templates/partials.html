@@ -56,6 +56,33 @@
 </div>
 {{ end }}
 
+{{define "trix"}}
+<div class="trix-button-row">
+  <span class="trix-button-group trix-button-group--text-tools" data-trix-button-group="text-tools">
+    <button type="button" class="trix-button ti ti-bold" data-trix-attribute="bold" title="Bold"></button>
+    <button type="button" class="trix-button ti ti-italic" data-trix-attribute="italic" title="Italic"></button>
+    <button type="button" class="trix-button ti ti-strikethrough" data-trix-attribute="strike" title="Strikethrough"></button>
+    <button type="button" class="trix-button ti ti-message" data-trix-attribute="quote" title="Quote"></button>
+    <button type="button" class="trix-button ti ti-code" data-trix-attribute="inlineCode" title="Code"></button>
+    <button type="button" class="trix-button ti ti-user-circle" data-trix-action="x-mention" title="Mention"></button>
+    <button type="button" class="trix-button ti ti-link" data-trix-attribute="href" data-trix-action="link" title="Link"></button>
+    <button type="button" class="trix-button ti ti-upload" data-trix-attribute="upload" data-trix-action="attachFiles" title="Upload"></button>
+  </span>
+</div>
+
+<div class="trix-dialogs" data-trix-dialogs="">
+  <div class="trix-dialog trix-dialog--link" data-trix-dialog="href" data-trix-dialog-attribute="href">
+    <div class="trix-dialog__link-fields">
+      <input type="url" name="href" class="trix-input trix-input--dialog" placeholder="Enter a URL…" aria-label="URL" required="" data-trix-input="" disabled="disabled">
+      <div class="trix-button-group">
+        <input type="button" class="trix-button trix-button--dialog" value="Link" data-trix-method="setAttribute">
+        <input type="button" class="trix-button trix-button--dialog" value="Unlink" data-trix-method="removeAttribute">
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}
+
 {{ define "post" }}
 {{ if $.Authenticated }}
 {{ if or (eq $.view "timeline") (eq $.view "bookmarks") }}
@@ -70,7 +97,9 @@
       <input type="hidden" id="title" name="title" placeholder="{{ tr $.Ctx "TwtFormTitle" }}" value="" />
       <input type="hidden" id="trixdoc" name="content">
       <div class="textarea-container">
-        <trix-editor id="text" input="trixdoc" name="text" placeholder="{{ $.TwtPrompt }}" rows=4 maxlength={{ $.MaxTwtLength }} {{ if $.AutoFocus }}autofocus="true" {{ end }} required="true" aria-required="true">{{ $.PostText }}</trix-editor>
+        <trix-toolbar id="trixbar">{{ template "trix" . }}</trix-toolbar>
+        <trix-editor id="text" input="trixdoc" toolbar="trixbar" name="text" placeholder="{{ $.TwtPrompt }}" rows=4 maxlength={{ $.MaxTwtLength }} {{ if $.AutoFocus }}autofocus="true" {{ end }} required="true" aria-required="true">
+          {{ $.PostText }}</trix-editor>
         <div id="mentioned-list" class="users-list">
           <div id="mentioned-list-content" class="mentioned-list-content">
           </div>

@@ -1,3 +1,35 @@
+trix-toolbar .trix-button {
+  background: var(--primary);
+  opacity: 0.75;
+  font-size: 1.2rem;
+  font-weight: 300;
+  padding: 0.5rem 1rem;
+}
+
+trix-toolbar .trix-button.trix-active {
+  background: var(--primary-focus);
+  opacity: 1;
+}
+
+trix-toolbar .trix-dialog {
+  background: var(--form-element-background-color);
+  box-shadow: none;
+  border: 1px solid;
+  border-radius: var(--border-radius);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+trix-toolbar input:not([type="checkbox"]):not([type="radio"]) {
+  margin-bottom: 0;
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+trix-toolbar .trix-dialog--link {
+  max-width: none;
+}
+
 p+form,
 p+.feed-gap {
   padding-top: 1rem;
@@ -558,6 +590,7 @@ nav.timeline-nav a {
 }
 
 .submit-bar {
+  padding-top: 0.65rem;
   display: flex;
   flex-wrap: wrap;
   column-gap: 0.75rem;
@@ -991,6 +1024,7 @@ article .e-content p img {
 }
 
 /* Blockquotes */
+trix-editor blockquote,
 article .e-content blockquote {
   border-left: 5px solid var(--primary);
   margin: 1.5em 10px;

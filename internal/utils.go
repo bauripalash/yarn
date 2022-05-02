@@ -1869,8 +1869,8 @@ func CleanTwt(text string) string {
 	text = strings.ReplaceAll(text, "</del>", "~~")
 	text = strings.ReplaceAll(text, "<blockquote>", "\u2028> ")
 	text = strings.ReplaceAll(text, "</blockquote>", "\u2028\u2028")
-	text = strings.ReplaceAll(text, "<pre>", "`")
-	text = strings.ReplaceAll(text, "</pre>", "`\u2028")
+	text = strings.ReplaceAll(text, "<code>", "`")
+	text = strings.ReplaceAll(text, "</code>", "`")
 	text = strings.ReplaceAll(text, "&nbsp;", " ")
 
 	for {
