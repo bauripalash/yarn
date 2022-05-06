@@ -2240,7 +2240,7 @@ func FormatTwtFactory(conf *Config, cache *Cache, archive Archiver) func(twt typ
 		p.AllowAttrs("style").OnElements("a", "code", "img", "p", "pre", "span")
 		html := p.SanitizeBytes(maybeUnsafeHTML)
 
-		return template.HTML(html)
+		return template.HTML(fmt.Sprintf(`<p>%s</p>`, html))
 	}
 }
 
