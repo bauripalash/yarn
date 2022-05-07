@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
@@ -106,6 +107,18 @@ func (s *Server) ExternalHandler() httprouter.Handle {
 			follows = append(follows, types.Follow{Nick: nick, URI: twter.URI})
 		}
 
+		var links types.Links
+		for _, link := range ctx.Twter.Metadata["link"] {
+			tokens := strings.Split(link, " ")
+			if len(tokens) >= 2 {
+				n := len(tokens) - 1
+				url := tokens[n]
+				title := strings.Join(tokens[:n], " ")
+				links = append(links, types.Link{Title: title, URL: url})
+			}
+		}
+		sort.Sort(links)
+
 		ctx.Profile = types.Profile{
 			Type: "External",
 
@@ -124,6 +137,7 @@ func (s *Server) ExternalHandler() httprouter.Handle {
 			Follows:    ctx.User.Follows(uri),
 			FollowedBy: s.cache.FollowedBy(ctx.User, uri),
 			Muted:      ctx.User.HasMuted(uri),
+			Links:      links,
 		}
 
 		if len(twts) > 0 {
