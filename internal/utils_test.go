@@ -245,7 +245,7 @@ func TestFormatTwtFactory(t *testing.T) {
 	), NewUser())
 
 	actual := string(txt)
-	expected := "<p><img loading=\"lazy\" src=\"//example.com/hot.png\" title=\"This is title\" alt=\"This is alt\"/></p>\n"
+	expected := "<p><p><img loading=\"lazy\" src=\"//example.com/hot.png\" title=\"This is title\" alt=\"This is alt\"/></p>\n</p>"
 	assert.Equal(actual, expected)
 }
 
