@@ -162,6 +162,10 @@
             <input id="lnkVerify" type="checkbox" name="linkVerification" aria-label="{{ tr . "SettingsTwtLinkVerification" }}" role="switch" {{ if .User.LinkVerification }}checked{{ end }}>
             {{ tr . "SettingsTwtLinkVerification" }}
           </label>
+          <label for="pvcStripTrack">
+            <input id="pvcStripTrack" type="checkbox" name="stripTrackingParam" aria-label="{{ tr . "SettingsTwtStripTrackingParam" }}" role="switch" {{ if .User.StripTrackingParam }}checked{{ end }}>
+            {{ tr . "SettingsTwtStripTrackingParam" }} <span class="help" title="{{ tr . "SettingsTwtStripTrackingParamHelp" }}"><i class="ti ti-help"></i>
+          </label>
         </fieldset>
       </div>
       <div>
@@ -221,6 +225,24 @@
             <option id="theme-dark" value="dark" {{ if eq .User.Theme "dark" }}selected{{ end }}>{{ tr . "ThemeDark" }}</option>
             <option id="theme-light" value="light" {{ if eq .User.Theme "light" }}selected{{ end }}>{{ tr . "ThemeLight" }}</option>
           </select>
+        </fieldset>
+      </div>
+    </div>
+    <div class="grid">
+      <div id="cus-pc">
+        <fieldset>
+          <legend>{{ tr . "SettingsTwtCustomColorPrimary" }} <span class="help" title="{{ tr . "SettingsTwtCustomColorHelp" }}"><i class="ti ti-help"></i></legend>
+          <label for="cusPrimaryColor">
+            <input id="cusPrimaryColor" type="text" name="customPrimaryColor" placeholder="{{ tr . "SettingsTwtCustomColorReset" }}" aria-label="{{ tr . "SettingsTwtCustomColorPrimary" }}" {{ if .User.CustomPrimaryColor }}value="{{ .User.CustomPrimaryColor }}"{{ end }}>
+          </label>
+        </fieldset>
+      </div>
+      <div id="cus-sc">
+        <fieldset>
+          <legend>{{ tr . "SettingsTwtCustomColorSecondary" }} <span class="help" title="{{ tr . "SettingsTwtCustomColorHelp" }}"><i class="ti ti-help"></i></legend>
+          <label for="cusSecondaryColor">
+            <input id="cusSecondaryColor" type="text" name="customSecondaryColor" placeholder="{{ tr . "SettingsTwtCustomColorReset" }}" aria-label="{{ tr . "SettingsTwtCustomColorSecondary" }}" {{ if .User.CustomSecondaryColor }}value="{{ .User.CustomSecondaryColor }}"{{ end }}>
+          </label>
         </fieldset>
       </div>
     </div>

@@ -1,6 +1,6 @@
 {{ define "base" }}
 <!DOCTYPE html>
-<html lang="en" {{ with .Theme }}data-theme="{{ . }}"{{ end }} {{ if $.User.VisibilityReadmore }}data-readmore="true"{{ end }}>
+<html lang="en" {{ with .Theme }}data-theme="{{ . }}"{{ end }}>
   <head>
     {{ if $.Debug }}
       <link href="/css/01-pico.css" rel="stylesheet" />
@@ -66,7 +66,17 @@
     {{ with .Meta.Image }}<meta name="twitter:image" content="{{ . }}" />{{ end }}
 
     <!-- Custom Pod CSS if provided -->
-    {{ if gt (len $.CSS) 0 }}<style>{{ $.CSS }}</style>{{ end }}
+    {{ if gt (len $.CSS) 0 }}
+    <style>{{ $.CSS }}</style>
+    {{ end }}
+
+    <!-- Custom User colors if provided -->
+    {{ if .User.CustomPrimaryColor }}
+    <style>*{--primary:{{ .User.CustomPrimaryColor }}!important;}"</style>
+    {{ end }}
+    {{ if .User.CustomSecondaryColor }}
+    <style>*{--primary-focus:{{ .User.CustomSecondaryColor }}!important;--primary-hover:{{ .User.CustomSecondaryColor }}!important;}"</style>
+    {{ end }}
   </head>
 <body class="preload">
   {{ if or (.Authenticated) ($.AlertGuest) }}
@@ -124,6 +134,9 @@
     <script type="application/javascript" src="/js/ie11CustomProperties.min.js"></script>
   {{ else }}
     <script type="application/javascript" src="/js/{{ .Commit }}/yarn.min.js"></script>
+  {{ end }}
+  {{ if .Authenticated }}
+    <yarn-pref data-striptrack="{{ $.User.StripTrackingParam }}" data-readmore="{{ $.User.VisibilityReadmore }}" data-linkverify="{{ $.User.LinkVerification }}" data-openlink="{{ $.User.OpenLinksInPreference }}"></yarn-pref>
   {{ end }}
 </body>
 </html>

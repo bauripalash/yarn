@@ -93,6 +93,10 @@ type Context struct {
 	VisibilityCompact  bool
 	VisibilityReadmore bool
 	LinkVerification   bool
+	StripTrackingParam bool
+
+	CustomPrimaryColor   string
+	CustomSecondaryColor string
 
 	Error       bool
 	Message     string
@@ -219,6 +223,10 @@ func NewContext(s *Server, req *http.Request) *Context {
     VisibilityCompact:  conf.VisibilityCompact,
 		VisibilityReadmore: conf.VisibilityReadmore,
 		LinkVerification:   conf.LinkVerification,
+		StripTrackingParam: conf.StripTrackingParam,
+
+		CustomPrimaryColor:   conf.CustomPrimaryColor,
+		CustomSecondaryColor: conf.CustomSecondaryColor,
 
 		Commit:      yarn.Commit,
 		Theme:       conf.Theme,
@@ -254,6 +262,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 			VisibilityCompact:       conf.VisibilityCompact,
 			VisibilityReadmore:      conf.VisibilityReadmore,
 			LinkVerification:        conf.LinkVerification,
+			StripTrackingParam:      conf.StripTrackingParam,
 		},
 		Twter: types.Twter{},
 		Root:  types.NilTwt,

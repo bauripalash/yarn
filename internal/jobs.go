@@ -44,7 +44,7 @@ func InitJobs(conf *Config) {
 		"ActiveUsers":       NewJobSpec("@hourly", NewActiveUsersJob),
 		"DeleteOldSessions": NewJobSpec("@hourly", NewDeleteOldSessionsJob),
 
-		"Stats":          NewJobSpec("@daily", NewStatsJob),
+		//"Stats":          NewJobSpec("@daily", NewStatsJob),
 		"RotateFeeds":    NewJobSpec("0 0 1 * * 0", NewRotateFeedsJob),
 		"PruneFollowers": NewJobSpec("0 0 2 * * 0", NewPruneFollowersJob),
 		"PruneUsers":     NewJobSpec("0 0 3 * * 0", NewPruneUsersJob),

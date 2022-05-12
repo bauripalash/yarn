@@ -1,3 +1,49 @@
+.e-content p:empty {
+  display: none;
+}
+
+p+form,
+p+.feed-gap {
+  padding-top: 1rem;
+}
+
+.feed-gap .p-summary {
+  padding-top: 0.5rem;
+}
+
+.feed-gap .h-card div .ti-rss {
+  margin-right: 0.4rem;
+}
+
+p:not(:empty)+p:not(:empty) {
+  margin-top: 1rem;
+}
+
+dialog+p br {
+  display: none;
+}
+
+.e-content+#readtwt+.twt-nav:empty {
+  margin-top: -1rem;
+}
+
+#newPost+.grid.h-feed {
+  margin-top: 1.5rem;
+}
+
+#cus-pc,
+#cus-sc {
+  margin-top: -1rem;
+}
+
+yarn-pref {
+  display: none;
+}
+
+#podLogo {
+  margin-top: 0.5rem;
+}
+
 #podLogo.float {
   margin-top: 4.25rem;
 }
@@ -15,7 +61,7 @@
 #podNavigation {
   width: 28.25rem;
   display: flex;
-  gap: 1.35rem;
+  gap: 1.2rem;
   margin: 0.75rem 0.6rem 0 0;
   justify-content: flex-end;
 }
@@ -32,19 +78,16 @@
 #timelineBtn,
 #discoverBtn,
 #mentionsBtn,
-#mentionsBtn,
 #feedsBtn,
 #settingsBtn,
 #logoutBtn,
 #registerBtn,
 #loginBtn {
-  flex: 0;
   text-align: center;
 }
 
 #timelineBtn i:after,
 #discoverBtn i:after,
-#mentionsBtn i:after,
 #mentionsBtn i:after,
 #feedsBtn i:after,
 #settingsBtn i:after,
@@ -57,7 +100,7 @@
 
 #verifyLink {
   font-family: monospace;
-  font-size: 85%;
+  font-size: 0.85rem;
   margin-top: 1rem;
   border-radius: var(--border-radius);
   background: var(--code-background-color);
@@ -121,7 +164,7 @@ textarea#css {
 #following,
 #followers,
 #followStat,
-.profile-last-seen{
+.profile-last-seen {
   display: block;
   padding-top: 0.15rem;
   padding-bottom: 0.15rem;
@@ -135,12 +178,6 @@ textarea#css {
 #profile-info details p {
   padding-top: 0.5rem;
   padding-bottom: 0;
-}
-
-#muteTool,
-#reportTool {
-  display: block;
-  margin-top: -1rem !important;
 }
 
 #postToUser {
@@ -461,6 +498,7 @@ article.grid {
 
 .twt-nav {
   margin-top: 0.5rem;
+  margin-bottom: 0.2rem;
   border-top: 0.1rem solid var(--muted-border-color);
   font-weight: var(--font-weight);
   padding: 0.25rem 0;
@@ -524,7 +562,7 @@ nav.timeline-nav a {
 
 #uploadMediaButton {
   display: block;
-  margin-left: -0.35rem;
+  margin: 0.1rem 0 0 -0.35rem;
 }
 
 .submit-bar {
@@ -660,7 +698,7 @@ nav.timeline-nav a {
 }
 
 .center-cropped img {
-  margin: -1rem 0 0.25rem 0;
+  margin: 0.5rem 0;
   height: 8rem;
   width: 12rem;
   object-fit: cover;
@@ -670,7 +708,7 @@ nav.timeline-nav a {
 
 .caption {
   font-weight: normal;
-  margin-top: 4.5rem;
+  margin-top: 5.75rem;
   box-sizing: border-box;
   width: 12rem;
   padding: 0.5rem;
@@ -710,8 +748,8 @@ figcaption {
   margin: 0 0 -0.75rem 0.25rem;
 }
 
-figcaption #img-dl,
-figcaption #img-dl:after {
+figcaption .img-dl,
+figcaption .img-dl:after {
   margin-left: -0.1rem;
   display: block;
   content: "\A";
@@ -723,7 +761,7 @@ figcaption #img-dl:after {
 }
 
 div .p-compact {
-  height: 6.8rem;
+  height: 10rem;
 }
 
 #readtwt {
@@ -733,13 +771,19 @@ div .p-compact {
   width: 100%;
   font-weight: 600;
   color: var(--color);
-  background-image: linear-gradient(
-    180deg,
-    var(--card-background-color),
-    var(--contrast-inverse)
-  );
+  background-image: linear-gradient(180deg,
+      var(--card-background-color),
+      var(--contrast-inverse));
   border-bottom-left-radius: var(--border-radius);
   border-bottom-right-radius: var(--border-radius);
+}
+
+.container article.container-fluid:last-child {
+  margin: 0 0 -2.75rem 0;
+}
+
+blockquote>p {
+  color: var(--muted-color);
 }
 
 .e-content ul li,
@@ -755,27 +799,9 @@ div .p-compact {
   margin-bottom: 1.5rem;
 }
 
-.container article.container-fluid:last-child {
-  margin: 0 0 -2.75rem 0;
-}
-
-blockquote > p {
-  color: var(--muted-color);
-}
-
-.e-content p:last-of-type {
-  margin-bottom: 0.25rem;
-}
-
-lightbox+dialog+p:not(:empty),
-audio+p:not(:empty),
-video+p:not(:empty) {
-  margin-top: -1.5rem;
-}
-
 audio,
 video {
-  margin: -1rem 0 0.5rem 0;
+  margin: 0.25rem 0 0.5rem 0;
   max-width: 100%;
   width: 100%;
   object-fit: contain;
@@ -795,6 +821,7 @@ audio {
   display: flex;
   flex-direction: row-reverse;
   gap: 1rem;
+  padding-bottom: 1rem;
 }
 
 #twobutton a {
@@ -822,26 +849,17 @@ audio {
 .users-list {
   display: none;
   flex-direction: column;
-  position: absolute;
+  margin: -0.5rem 0 0.5rem 0;
   background-color: var(--background-color);
-  border-left: 0.1rem solid var(--form-element-border-color);
-  border-bottom: 0.1rem solid var(--form-element-border-color);
-  border-right: 0.1rem solid var(--form-element-border-color);
-}
-
-.users-list.show {
-  display: block;
+  border: 0.1rem solid var(--form-element-border-color);
+  border-radius: var(--border-radius);
 }
 
 .user-list__user {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  height: 4rem;
-  padding: 1rem 1rem;
-  box-sizing: border-box;
-  max-width: 350px;
-  transition: all ease-in-out .25s;
+  height: 4.5rem;
+  padding: 1rem 0.5rem;
 }
 
 .user-list__user.selected {
@@ -850,34 +868,37 @@ audio {
 }
 
 .mentioned-list-content {
-  max-height: 12rem;
+  max-height: 13.5rem;
   overflow: auto;
   cursor: pointer;
+}
+
+.mentioned-list-content:empty:after {
+  display: block;
+  white-space: pre;
+  content: '\A\00a0\00a0\00a0\00a0No Users Found...';
+  height: 4.5rem;
 }
 
 .user-list__user .avatar {
   width: 3.5rem;
   height: 3.5rem;
   background-color: var(--muted-border-color);
-  margin-right: 1rem;
+  margin-right: 0.75rem;
   background-size: cover;
   pointer-events: none;
 }
 
-.user-list__user .info {
-  display: flex;
-  flex-direction: column;
-  pointer-events: none;
-}
-
+.user-list__user .info,
 .user-list__user .nickname,
 .user-list__user .info .name,
 .user-list__user .info .nickname {
-  color: var(--text);
-  margin-bottom: 5px;
-  font-size: 0.9rem;
   font-weight: 600;
   pointer-events: none;
+}
+
+.user-list__user .domain {
+  font-weight: 400;
 }
 
 .mentioned-list-content::-webkit-scrollbar {
@@ -974,7 +995,7 @@ article .e-content {
 article .e-content p video,
 article .e-content p img {
   max-width: 100%;
-  margin-bottom: 0.5rem;
+  margin: 0.5rem;
 }
 
 /* Blockquotes */
@@ -989,7 +1010,7 @@ article .e-content blockquote {
 .container .h-entry,
 .h-feed>div .h-entry {
   margin: 0.5rem 0;
-  padding: 0.75rem 0.75rem 1rem 0.75rem;
+  padding: 0.75rem 0.75rem 0.35rem 0.75rem;
   overflow: visible;
 }
 
@@ -1078,8 +1099,7 @@ footer .footer-menu a {
   margin-left: 0.5rem;
 }
 
-.container-fluid,
-#followFeed {
+.container-fluid {
   margin-left: 0.5rem;
   height: 100%;
 }
@@ -1161,7 +1181,7 @@ span[title="Copyright"]:before {
   float: right;
   width: 50px;
   height: 50px;
-  margin: -3.15rem 1rem 0 0;
+  margin: -3.625rem 1rem 0 0;
   display: none;
   z-index: 99;
   color: var(--primary);
@@ -1201,22 +1221,42 @@ span[title="Copyright"]:before {
   height: 14.75rem;
 }
 
-#mobileMenuInput:checked + #mobileMenu #mobileNav {
+#mobileMenuInput:checked+#mobileMenu #mobileNav {
   visibility: visible;
   top: 0;
 }
 
-#mobileMenuInput:checked + #mobileMenu.float #mobileNav {
-  visibility: visible;
-  top: 6.25rem;
-}
-
-#mobileMenuInput:checked + #mobileMenu.alert #mobileNav {
+#mobileMenuInput:checked+#mobileMenu.alert #mobileNav {
   visibility: visible;
   top: 6rem;
 }
 
+#mobileMenuInput:checked+#mobileMenu.alert.float #mobileNav {
+  visibility: visible;
+  top: 5.75rem;
+}
+
+dialog[id^='lvm-'] article {
+  margin: 0 !important;
+}
+
+dialog[id^='lvm-'] #verifyLink {
+  padding: 0.5rem;
+}
+
+dialog[id^='lvm-'] #twobutton {
+  margin-top: 2rem;
+}
+
 @media (max-width: 576px) {
+  #versionInfo {
+    padding-bottom: 0.5rem;
+  }
+
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1rem;
+  }
+
   #podLogo.float {
     margin-top: 6.25rem;
   }
@@ -1243,13 +1283,13 @@ span[title="Copyright"]:before {
     font-size: 2rem;
     width: 50px;
     height: 50px;
-    margin: 1.4rem 0.88rem 0 0;
+    margin: 1.4rem 0.9rem 0 0;
   }
 
   #mobileNav #podNavigation {
     display: grid;
     grid-area: navigation;
-    grid-gap: 4rem;
+    grid-gap: 2.25rem;
     width: 80%;
     height: 4rem;
     justify-content: space-evenly;
@@ -1296,7 +1336,7 @@ span[title="Copyright"]:before {
   }
 
   #mobileNav #podSearch button {
-    width: 5rem;
+    width: 6rem;
     height: 2.5rem;
     border-radius: var(--border-radius);
     margin-top: -10rem;
@@ -1317,11 +1357,6 @@ span[title="Copyright"]:before {
 
   main.container {
     margin: -2.75rem 0 -3.5rem 0;
-  }
-
-  p:first-of-type:empty+lightbox a {
-    display: block;
-    margin-top: 1.25rem;
   }
 
   #newPost {
@@ -1353,8 +1388,7 @@ span[title="Copyright"]:before {
     margin-bottom: 1rem;
   }
 
-  .container-fluid,
-  #followFeed {
+  .container-fluid {
     margin-top: 0;
   }
 
@@ -1375,19 +1409,23 @@ span[title="Copyright"]:before {
     padding-bottom: 1rem;
   }
 
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 1.6rem;
+  }
+
   #postbox.single-twt {
-    margin: 1.5rem 0 -2.5rem 0;
+    margin: -1rem 0 -1.5rem 0;
   }
 
   #postbox.single-twt.drawer {
-    margin: -2.45rem 0.5rem 2.45rem 0.5rem !important;
+    margin: 0.35rem 0 0.6rem 0 !important;
   }
 
   #postbox form {
     flex: 1 100%;
   }
 
-  #postbox.drawer .toolbar-nav  {
+  #postbox.drawer .toolbar-nav {
     margin: 0.05rem 0 0.75rem 0;
   }
 
@@ -1420,7 +1458,7 @@ span[title="Copyright"]:before {
 
   #uploadMediaButton {
     position: absolute;
-    margin: -0.5rem 0 0 -0.575rem;
+    margin: -0.25rem 0 0 -0.575rem;
   }
 
   #profile-info {
@@ -1481,6 +1519,7 @@ span[title="Copyright"]:before {
   }
 
   .twt-nav {
+    margin-bottom: 0.1rem;
     padding-bottom: 0.4rem;
   }
 
@@ -1652,7 +1691,7 @@ span[title="Copyright"]:before {
     padding-bottom: 1.5rem !important;
   }
 
-  body > footer {
+  body>footer {
     margin-top: 2rem;
   }
 
@@ -1667,6 +1706,10 @@ span[title="Copyright"]:before {
 }
 
 @media (min-width: 577px) and (max-width: 768px) {
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1rem;
+  }
+
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
@@ -1692,10 +1735,6 @@ span[title="Copyright"]:before {
 
   main.container {
     margin-top: -3.25rem;
-  }
-
-  .bump-up {
-    margin-top: -1rem;
   }
 
   .bookmark-feed {
@@ -1831,8 +1870,12 @@ span[title="Copyright"]:before {
     margin: 0.5rem 0 1rem 0 !important;
   }
 
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 0.75rem;
+  }
+
   #postbox.single-twt.drawer {
-    margin: -0.9rem 0.5rem 1.25rem 0.5rem !important;
+    margin: 0.5rem 0 1rem 0 !important;
   }
 
   #twt-join {
@@ -1851,6 +1894,10 @@ span[title="Copyright"]:before {
 }
 
 @media (min-width: 769px) and (max-width: 991px) {
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1.5rem;
+  }
+
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
@@ -1889,12 +1936,16 @@ span[title="Copyright"]:before {
     margin: 0 0 0.75rem 0;
   }
 
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 0.6rem;
+  }
+
   #postbox.single-twt {
     margin: 0.5rem 0 2.25rem 0;
   }
 
   #postbox.single-twt.drawer {
-    margin: -0.9rem 0.5rem 1.45rem 0.5rem !important;
+    margin: 0.35rem 0 1.45rem 0 !important;
   }
 
   #recentTwts {
@@ -1950,6 +2001,10 @@ span[title="Copyright"]:before {
 }
 
 @media (min-width: 992px) and (max-width: 1199px) {
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1.5rem;
+  }
+
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
@@ -1986,6 +2041,14 @@ span[title="Copyright"]:before {
 
   #postbox {
     padding-bottom: 0.5rem;
+  }
+
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 1.35rem;
+  }
+
+  #postbox.single-twt.drawer {
+    margin: 0.5rem 0 1rem 0 !important;
   }
 
   #recentTwts {
@@ -2046,6 +2109,10 @@ span[title="Copyright"]:before {
 }
 
 @media (min-width: 1200px) {
+  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
+    margin-top: -1.5rem;
+  }
+
   html {
     overflow: -moz-scrollbars-vertical;
     overflow-y: scroll;
@@ -2086,6 +2153,14 @@ span[title="Copyright"]:before {
 
   #postbox {
     padding-bottom: 0.5rem;
+  }
+
+  #postbox:not(.single-twt).drawer {
+    padding-bottom: 1.35rem;
+  }
+
+  #postbox.single-twt.drawer {
+    margin: 0.5rem 0 1rem 0 !important;
   }
 
   #recentTwts {

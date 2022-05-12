@@ -34,8 +34,16 @@ func (s *Server) ConversationHandler() httprouter.Handle {
 			http.Error(w, "Bad Request", http.StatusBadRequest)
 			return
 		}
+		if len(hash) < types.TwtHashLength {
+			http.Error(w, "Bad Request", http.StatusBadRequest)
+			return
+		}
 
-		var err error
+		bs, err := DecodeHash(hash)
+		if err != nil || len(bs) < 2 {
+			http.Error(w, "Bad Request", http.StatusBadRequest)
+			return
+		}
 
 		twt, inCache := s.cache.Lookup(hash)
 		if !inCache {

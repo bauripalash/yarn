@@ -163,6 +163,9 @@ Flags:
 
 Use "yarnc [command] --help" for more information about a command.
 ```
+### Deploy With Docker Swarm and Cloudflare
+
+Visit: [deployment](./deployment/)
 
 ### Deploy with Docker Compose
 

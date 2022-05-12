@@ -1647,6 +1647,24 @@ func ExtractHashFromSubject(subject string) string {
 	return hash
 }
 
+func GetLookupMatches(conf *Config, nick string, url string) (avatar, domain string) {
+	isLocalURL := IsLocalURLFactory(conf)
+
+	if isLocalURL(url) {
+		avatar = URLForAvatar(conf.BaseURL, nick, "")
+		re := regexp.MustCompile(`https?:\/\/(.+?)\/user\/`)
+		domain = re.FindStringSubmatch(strings.ToLower(avatar))[1]
+	} else {
+		avatar = URLForExternalAvatar(conf, url)
+		re := regexp.MustCompile(`uri=https?:\/\/(.+?)\/user\/`)
+		if matches := re.FindStringSubmatch(strings.ToLower(avatar)); matches != nil {
+			domain = matches[1]
+		}
+	}
+
+	return
+}
+
 func GetTwtConvSubjectHash(cache *Cache, archive Archiver, twt types.Twt) (string, string) {
 	subject := twt.Subject().String()
 	if subject == "" {
@@ -1947,7 +1965,7 @@ func RenderImage(user *User, conf *Config, uri, caption, alt, renderAs string, f
 		 <dialog id="%s">
         <figure>
           <img loading=lazy src="%s" />
-          <figcaption><a id="img-dl" href="%s">Download</a><p>%s</p></figcaption>
+          <figcaption><a class="img-dl" href="%s">Download</a><p>%s</p></figcaption>
         </figure>
       </dialog>`,
 		imgURI, title, alt, isCaption, imgURI, uuid, uuid, fullImgURI, fullImgURI, caption,
@@ -2026,16 +2044,15 @@ func PreprocessMedia(user *User, conf *Config, u *url.URL, title, alt, renderAs 
 			alt = ` alt="` + alt + `"`
 		}
 
-		uri := url.QueryEscape(u.String())
 		if full {
 			html = fmt.Sprintf(
-				`<a href="/linkVerify?uri=%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
-				uri, title, alt, mtypeIcon, mtype,
+				`<p><a class="e-media" href="%s?full=1" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a></p>`,
+				u.String(), title, alt, mtypeIcon, mtype,
 			)
 		} else {
 			html = fmt.Sprintf(
-				`<a href="/linkVerify?uri=%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a>`,
-				uri, title, alt, mtypeIcon, mtype,
+				`<p><a class="e-media" href="%s" title="%s"%s target="_blank"><i class="ti %s"></i> %s</a></p>`,
+				u.String(), title, alt, mtypeIcon, mtype,
 			)
 		}
 	}
@@ -2086,43 +2103,6 @@ func (p *URLProcessor) RenderNodeHook(w io.Writer, node ast.Node, entering bool)
 	full := p.conf.OriginalMedia
 	if p.user != nil {
 		full = p.user.OriginalMedia
-	}
-
-	verification := p.conf.LinkVerification
-	if p.user != nil {
-		verification = p.user.LinkVerification
-	}
-
-	if verification {
-		link, ok := node.(*ast.Link)
-		if ok && entering {
-			u, err := url.Parse(string(link.Destination))
-			if err != nil {
-				log.WithError(err).Warn("TwtFactory: error parsing url")
-				return ast.GoToNext, false
-			}
-
-			title := string(link.Title)
-			if children := link.Container.GetChildren(); len(children) > 0 {
-				for _, c := range children {
-					if txt, ok := c.(*ast.Text); ok {
-						title = string(txt.Literal)
-					}
-				}
-			}
-
-			href := fmt.Sprintf("/linkVerify?uri=%s", url.QueryEscape(u.String()))
-			uri := strings.ToLower(u.String())
-			base := strings.ToLower(p.conf.BaseURL)
-			if strings.HasPrefix(uri, base) || strings.HasPrefix(u.String(), "/") {
-				href = strings.Replace(uri, base, "", 1)
-			}
-
-			html := fmt.Sprintf("<a href='%s'>%s</a>", href, title)
-			_, _ = io.WriteString(w, html)
-
-			return ast.SkipChildren, true
-		}
 	}
 
 	// Ensure only permitted ![](url) images
@@ -2238,7 +2218,7 @@ func FormatTwtFactory(conf *Config, cache *Cache, archive Archiver) func(twt typ
 
 		//p := bluemonday.UGCPolicy()
 		p := bluemonday.StrictPolicy()
-		p.AllowElements("a", "img", "strong", "em", "del", "br", "p", "blockquote", "ul", "ol", "li", "pre", "code", "figure", "figcaption")
+		p.AllowElements("a", "img", "strong", "em", "del", "p", "blockquote", "ul", "ol", "li", "pre", "code", "figure", "figcaption")
 		p.AllowAttrs("href").OnElements("a")
 		p.AllowAttrs("src").OnElements("img")
 		p.AllowAttrs("id").OnElements("dialog")
@@ -2251,7 +2231,7 @@ func FormatTwtFactory(conf *Config, cache *Cache, archive Archiver) func(twt typ
 		p.AllowAttrs("style").OnElements("a", "code", "img", "p", "pre", "span")
 		html := p.SanitizeBytes(maybeUnsafeHTML)
 
-		return template.HTML(html)
+		return template.HTML(fmt.Sprintf(`<p>%s</p>`, html))
 	}
 }
 
@@ -2316,7 +2296,7 @@ func FormatTwtContextFactory(conf *Config, cache *Cache, archive Archiver) func(
 
 				src := u.String()
 				html := fmt.Sprintf(
-					`<a href="%s" title="%s"%s target="_blank"><i class="external-image"></i></a>`,
+					`<a href="%s" title="%s"%s target="_blank"><i class="ti ti-external-link"></i> Media</a>`,
 					src, image.Title, alt,
 				)
 
@@ -2354,7 +2334,7 @@ func FormatTwtContextFactory(conf *Config, cache *Cache, archive Archiver) func(
 				}
 
 				html := fmt.Sprintf(
-					`<a href="%s" alt="%s" target="_blank"><i class="external-image"></i></a>`,
+					`<a href="%s" alt="%s" target="_blank"><i class="ti ti-external-link"></i> Media</a>`,
 					u, alt,
 				)
 
