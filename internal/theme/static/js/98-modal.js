@@ -17,8 +17,8 @@ let visibleModal = null;
 const toggleModal = event => {
   event.preventDefault();
   const modal = document.getElementById(event.target.getAttribute('data-target'));
-  (typeof(modal) != 'undefined' && modal != null)
-    && isModalOpen(modal) ? closeModal(modal) : openModal(modal)
+  (typeof(modal) != 'undefined' && modal != null) &&
+    isModalOpen(modal) ? closeModal(modal) : openModal(modal)
 }
 
 // Is modal open
@@ -53,7 +53,7 @@ const closeModal = modal => {
 // Close with a click outside
 document.addEventListener('click', event => {
   if (visibleModal != null) {
-    const modalContent = visibleModal.querySelector('article');
+    const modalContent = visibleModal.querySelector('figure');
     const isClickInside = modalContent.contains(event.target);
     !isClickInside && closeModal(visibleModal);
   }
