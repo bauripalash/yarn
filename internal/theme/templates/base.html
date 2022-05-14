@@ -79,33 +79,25 @@
     {{ end }}
   </head>
 <body class="preload">
-  {{ if or (.Authenticated) ($.AlertGuest) }}
-  {{ if gt (len $.AlertMessage) 0 }}
-  <alert class="{{ $.AlertType }} {{ if $.AlertFloat }}float{{ end }}">
-    <div>{{ $.AlertMessage | abbrev 150 | html }}</div>
-  </alert>
-  {{ end }}
-  {{ end }}
-  <div id="podLogo" {{ if $.AlertFloat }}class="float"{{ end }}>
-    <a href="/">{{ $.Logo }}</a>
-  </div>
-  <div id="desktopMenu" {{ if $.AlertFloat }}class="float"{{ end }}>
-    {{ template "navbar" . }}
-  </div>
-  <input type="checkbox" id="mobileMenuInput">
-  <label id="mobileMenu" for="mobileMenuInput" class="{{ if not .Authenticated }}mobNoAuth{{end}} {{ if gt (len $.AlertMessage) 0 }}alert{{ end }} {{ if $.AlertFloat }}float{{ end }}">
-    <nav id="mobileNav" class="{{ if not .Authenticated }}mobNoAuth{{end}} {{ if gt (len $.AlertMessage) 0 }}alert{{ end }} {{ if $.AlertFloat }}float{{ end }}">
-      <div id="podLogo">
-        <a href="/">{{ $.Logo }}</a>
-      </div>
-      <div id="podCloseContain">
-        <div id="podClose">
-          <i class="ti ti-menu-2"></i>
-        </div>
-      </div>
+  <header class="container">
+    {{ if and (or (.Authenticated) ($.AlertGuest)) (gt (len $.AlertMessage) 0) }}
+    <alert class="{{ $.AlertType }} {{ if $.AlertFloat }}float{{ end }}">
+      <div>{{ $.AlertMessage | abbrev 150 | html }}</div>
+    </alert>
+    {{ end }}
+    <div id="podLogo" {{ if $.AlertFloat }}class="float"{{ end }}>
+      <a href="/">{{ $.Logo }}</a>
+    </div>
+    <div id="desktopMenu" {{ if $.AlertFloat }}class="float"{{ end }}>
       {{ template "navbar" . }}
-    </nav>
-  </label>
+    </div>
+    <input type="checkbox" id="mobileMenuInput">
+    <label id="mobileMenu" for="mobileMenuInput" class="{{ if not .Authenticated }}mobNoAuth{{end}} {{ if gt (len $.AlertMessage) 0 }}alert{{ end }} {{ if $.AlertFloat }}float{{ end }}">
+      <nav id="mobileNav" class="{{ if not .Authenticated }}mobNoAuth{{end}} {{ if gt (len $.AlertMessage) 0 }}alert{{ end }} {{ if $.AlertFloat }}float{{ end }}">
+        {{ template "navbar" . }}
+      </nav>
+    </label>
+  </header>
   <main class="container{{ if $.AlertFloat }} float{{ end }}">
     {{ template "content" . }}
   </main>

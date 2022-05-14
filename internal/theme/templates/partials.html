@@ -60,7 +60,7 @@
 {{ if $.Authenticated }}
 {{ if or (eq $.view "timeline") (eq $.view "bookmarks") }}
 <details id="newPost">
-  <summary><i class="ti ti-message"></i>&nbsp;&nbsp;Create a New Post</summary>
+  <summary><span><i class="ti ti-message"></i>&nbsp;&nbsp;Create a New Post</span></summary>
 {{ end }}
   <div id="postbox" class="{{ if eq $.view "permalink" }}single-twt{{ end }}{{ if eq $.view "conv" }}yarn-post{{ end }}">
     <nav id="toolbar" class="toolbar-nav">

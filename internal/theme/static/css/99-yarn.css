@@ -59,16 +59,18 @@ yarn-pref {
 }
 
 #podNavigation {
-  width: 28.25rem;
   display: flex;
-  gap: 1.2rem;
-  margin: 0.75rem 0.6rem 0 0;
-  justify-content: flex-end;
+  gap: 1.25rem;
+  margin: 0.5rem 0;
 }
 
 #podSearch {
-  margin: -2.15rem 0.5rem 0 0;
+  margin: -2.75rem 0;
   height: 0;
+}
+
+#podSearch.mobNoAuth {
+  margin: 1.25rem -8rem;
 }
 
 #podSearch form {
@@ -153,7 +155,7 @@ textarea#css {
   border-color: var(--form-element-border-color);
   color: var(--h6-color);
   display: inline-block;
-  width: 5rem;
+  width: 6rem;
   height: 1.5rem;
   line-height: 0;
   border-radius: 0.25rem;
@@ -235,14 +237,25 @@ textarea#css {
 }
 
 #newPost summary {
+  padding: 0.25rem 0 1rem;
   margin-left: 0.5rem;
   color: var(--color);
   font-weight: 600;
 }
 
+#newPost summary span {
+  display: inline block;
+  float: left;
+  margin-top: -0.25rem;
+}
+
 #newPost summary i {
   font-size: 1.25rem;
   vertical-align: bottom;
+}
+
+#newPost #postbox {
+  padding: 0 0.25rem 1.25rem
 }
 
 .tippy-img {
@@ -320,11 +333,6 @@ textarea#css {
 
 #profile-info summary, #profile-links summary {
   color: var(--primary);
-}
-
-main.container {
-  padding-top: 3rem;
-  padding-bottom: 1rem;
 }
 
 alert {
@@ -1081,6 +1089,10 @@ a[role=button] {
   white-space: pre;
 }
 
+main.container {
+  padding: 0;
+}
+
 /* Footer Style */
 body>footer {
   display: flex;
@@ -1201,7 +1213,7 @@ span[title="Copyright"]:before {
 #mobileMenu #mobileNav {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 0.5fr 1fr 1fr;
   grid-template-areas:
     "logo close"
     "navigation navigation"
@@ -1210,29 +1222,32 @@ span[title="Copyright"]:before {
   top: -22rem;
   left: 0;
   width: 100%;
-  height: 20rem;
+  height: 14rem;
   background-color: var(--background-color);
-  padding: 0px 0.6rem;
-  border-bottom: 1px solid var(--primary);
-  box-shadow: 0 0.1rem 1rem 0.1rem var(--primary);
+  padding: 0 0.6rem;
+  border-bottom: 0.25rem solid var(--primary);
+  /*! z-index: -1; */
 }
 
 #mobileMenu #mobileNav.mobNoAuth {
-  height: 14.75rem;
+  height: 10rem;
+}
+
+#mobileMenuInput:checked+#mobileMenu #mobileNav,
+#mobileMenuInput:checked+#mobileMenu.alert #mobileNav,
+#mobileMenuInput:checked+#mobileMenu.alert.float #mobileNav {
+  visibility: visible;
 }
 
 #mobileMenuInput:checked+#mobileMenu #mobileNav {
-  visibility: visible;
   top: 0;
 }
 
 #mobileMenuInput:checked+#mobileMenu.alert #mobileNav {
-  visibility: visible;
   top: 6rem;
 }
 
 #mobileMenuInput:checked+#mobileMenu.alert.float #mobileNav {
-  visibility: visible;
   top: 5.75rem;
 }
 
@@ -1248,7 +1263,19 @@ dialog[id^='lvm-'] #twobutton {
   margin-top: 2rem;
 }
 
-@media (max-width: 576px) {
+header.container {
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 600px;
+  }
+
+  main.container {
+    padding: 0 0.75rem;
+  }
+
   #versionInfo {
     padding-bottom: 0.5rem;
   }
@@ -1298,13 +1325,13 @@ dialog[id^='lvm-'] #twobutton {
   #mobileNav #podNavigation:not(.mobNoAuth) {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    margin: 0.5rem auto;
+    margin: -0.85rem auto;
   }
 
   #mobileNav #podNavigation.mobNoAuth {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
-    margin: 2.6rem auto;
+    margin: 0 auto;
   }
 
   #timelineBtn,
@@ -1322,11 +1349,11 @@ dialog[id^='lvm-'] #twobutton {
   #mobileNav #podSearch {
     text-align: center;
     grid-area: search;
-    margin: 3.25rem 0 0 0.25rem;
+    margin: 2.5rem 0 0 0.25rem;
   }
 
   #mobileNav #podSearch.mobNoAuth {
-    margin-top: -2.35rem;
+    margin-top: 0.4rem;
   }
 
   #mobileNav #podSearch input {
@@ -1353,10 +1380,6 @@ dialog[id^='lvm-'] #twobutton {
 
   #mobileMenu {
     display: inline;
-  }
-
-  main.container {
-    margin: -2.75rem 0 -3.5rem 0;
   }
 
   #newPost {
@@ -1446,7 +1469,7 @@ dialog[id^='lvm-'] #twobutton {
   #mediaUploadForm,
   #mediaUploadForm label,
   .toolbar-form-button a {
-    margin: 0 auto;
+    margin: 0 0.25rem;
     height: 2rem;
     width: 2rem;
   }
@@ -1691,10 +1714,6 @@ dialog[id^='lvm-'] #twobutton {
     padding-bottom: 1.5rem !important;
   }
 
-  body>footer {
-    margin-top: 2rem;
-  }
-
   .footer-copyright {
     width: 9rem;
   }
@@ -1705,410 +1724,11 @@ dialog[id^='lvm-'] #twobutton {
   }
 }
 
-@media (min-width: 577px) and (max-width: 768px) {
-  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
-    margin-top: -1rem;
-  }
-
-  html {
-    overflow: -moz-scrollbars-vertical;
-    overflow-y: scroll;
-  }
-
-  #desktopMenu {
-    margin-top: -4.25rem;
-    padding-bottom: 6.5rem;
-  }
-
-  #podNavigation {
-    gap: 1.6rem;
-    margin: 1rem 1.5rem 0 0;
-  }
-
-  #podSearch {
-    margin: -1.9rem 1.75rem 0 0;
-  }
-
-  #podSearch input {
-    width: 13rem;
-  }
-
+@media (min-width: 768px) {
   main.container {
-    margin-top: -3.25rem;
+    padding-top: 2rem;
   }
 
-  .bookmark-feed {
-    margin-top: 1.5rem;
-  }
-
-  alert {
-    height: 4rem;
-  }
-
-  body>footer {
-    margin-top: -0.5rem;
-  }
-
-  #newPost {
-    padding: 1rem 0.5rem;
-    margin: 1rem 0 -0.5rem 0;
-  }
-
-  #newPost #postbox {
-    margin: 1rem 0 -1.5rem 0;
-  }
-
-  #postToUser #postbox {
-    margin: 1rem 1rem -1.25rem;
-  }
-
-  #mediaUploadForm {
-    width: 3rem;
-  }
-
-  .profile-button a:last-of-type i {
-    margin: 0.16rem 0.2rem;
-  }
-
-  #profile-info {
-    margin-bottom: -1rem;
-  }
-
-  #profile-links {
-    padding-bottom: 0;
-  }
-
-  .na-twt {
-    margin-bottom: -0.45rem;
-  }
-
-  .conv-post:not(.form-reply) {
-    margin-bottom: 3rem;
-  }
-
-  nav.yarn-nav {
-    margin: -0.5rem 1rem -0.5rem 1rem;
-  }
-
-  nav.timeline-nav:first-of-type {
-    margin: 0.5rem 1rem -0.5rem 1rem;
-  }
-
-  nav.timeline-nav:last-of-type {
-    margin: -1rem 1rem -0.5rem 1rem;
-  }
-
-  nav.yarn-nav:nth-of-type(2) {
-    margin: -0.25rem 1rem 0.25rem 1rem;
-  }
-
-  nav.timeline-nav:nth-of-type(2) {
-    margin: -0.5rem 1rem -0.5rem 1rem;
-  }
-
-  #recentTwts nav.timeline-nav:nth-of-type(1) {
-    margin: -0.25rem 1rem -0.5rem 1rem;
-  }
-
-  #recentTwts nav.timeline-nav:nth-of-type(2) {
-    margin: -0.5rem 1rem -1.5rem 1rem;
-  }
-
-  .profile-recent {
-    margin-top: 3rem;
-    margin-bottom: -2rem;
-  }
-
-  #timelineBtn,
-  #discoverBtn,
-  #mentionsBtn,
-  #feedsBtn,
-  #settingsBtn,
-  #logoutBtn,
-  #loginBtn,
-  #registerBtn {
-    font-size: 0;
-  }
-
-  .ti-message-circle,
-  .ti-compass,
-  .ti-bell-ringing,
-  .ti-rss-nav,
-  .ti-settings-nav,
-  .ti-door-exit,
-  .ti-door-enter,
-  .ti-user-plus {
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    font-size: 1.3rem;
-  }
-
-  .profile-links a {
-    font-size: 0.0009rem;
-    color: var(--background-color);
-  }
-
-  .submit-bar>div {
-    flex: 1;
-    flex-basis: 15.5rem;
-    margin-bottom: 0rem;
-  }
-
-  .submit-bar>div button {
-    margin-bottom: -0.25rem;
-  }
-
-  .container article.container-fluid:last-child {
-    margin: 0 0 -1rem 0;
-  }
-
-  dialog article>footer p {
-    padding: 0.5rem 1.5rem 2rem 1.5rem;
-  }
-
-  article.single-twt {
-    margin: 0.5rem 0 1rem 0 !important;
-  }
-
-  #postbox:not(.single-twt).drawer {
-    padding-bottom: 0.75rem;
-  }
-
-  #postbox.single-twt.drawer {
-    margin: 0.5rem 0 1rem 0 !important;
-  }
-
-  #twt-join {
-    margin: 0.5rem 0 0.5rem 0;
-    padding-bottom: 1.5rem !important;
-  }
-
-  .footer-copyright {
-    width: 9rem;
-  }
-
-  .footer-menu {
-    margin-top: 0.5rem;
-    width: 19rem;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 991px) {
-  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
-    margin-top: -1.5rem;
-  }
-
-  html {
-    overflow: -moz-scrollbars-vertical;
-    overflow-y: scroll;
-  }
-
-  alert {
-    height: 4rem;
-  }
-
-  footer .footer-menu a {
-    margin-left: 0.25rem;
-  }
-
-  #newPost {
-    padding: 1rem 0.5rem 1rem 0.5rem;
-    margin: 0.5rem 0 0.75rem 0;
-  }
-
-  #newPost #postbox {
-    margin: 1rem 0 -0.25rem 0;
-  }
-
-  #postToUser #postbox {
-    margin: 1rem 1rem -0.75rem;
-  }
-
-  #newPost[open=""] {
-    padding-bottom: 0.1rem;
-  }
-
-  #podMenu {
-    margin: 1.25rem -1rem 0 0;
-  }
-
-  #postbox {
-    margin: 0 0 0.75rem 0;
-  }
-
-  #postbox:not(.single-twt).drawer {
-    padding-bottom: 0.6rem;
-  }
-
-  #postbox.single-twt {
-    margin: 0.5rem 0 2.25rem 0;
-  }
-
-  #postbox.single-twt.drawer {
-    margin: 0.35rem 0 1.45rem 0 !important;
-  }
-
-  #recentTwts {
-    margin: -1rem 1rem 0 1rem;
-  }
-
-  .profile-button a:last-of-type i {
-    margin: 0.16rem 0.2rem;
-  }
-
-  nav.yarn-nav,
-  nav.timeline-nav {
-    margin: -0.8rem 1rem -0.5rem 1rem;
-  }
-
-  nav.yarn-nav:nth-of-type(2) {
-    margin: 0 1rem 0 1rem;
-  }
-
-  nav.timeline-nav:nth-of-type(2) {
-    margin: -0.5rem 1rem -0.5rem 1rem;
-  }
-
-  #recentTwts nav.timeline-nav:nth-of-type(1) {
-    margin: -0.25rem 1rem -0.5rem 1rem;
-  }
-
-  #recentTwts nav.timeline-nav:nth-of-type(2) {
-    margin: -0.5rem 1rem -3rem 1rem;
-  }
-
-  .container article.container-fluid:last-child {
-    margin: 0 0 -1.4rem 0;
-  }
-
-  article.single-twt {
-    margin: 0.5rem 0 1rem 0 !important;
-  }
-
-  .profile-post {
-    margin-top: 1rem;
-  }
-
-  .profile-recent {
-    margin-top: 2rem;
-    margin-bottom: -2rem;
-  }
-
-  #twt-join {
-    margin: 0.5rem 0 0.5rem 0;
-    padding-bottom: 1.5rem !important;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
-    margin-top: -1.5rem;
-  }
-
-  html {
-    overflow: -moz-scrollbars-vertical;
-    overflow-y: scroll;
-  }
-
-  article.grid {
-    grid-column-gap: 2rem;
-  }
-
-  alert {
-    height: 4rem;
-  }
-
-  #newPost {
-    padding: 1rem 0.5rem 1rem 0.5rem;
-    margin: 0.5rem 0 0.75rem 0;
-  }
-
-  #newPost #postbox {
-    margin: 1rem 0 -0.75rem 0;
-  }
-
-  #postToUser #postbox {
-    margin: 1rem 1rem -1.25rem;
-  }
-
-  #newPost[open=""] {
-    padding-bottom: 0.1rem;
-  }
-
-  #podMenu {
-    margin: 1.25rem -1rem 0 0;
-  }
-
-  #postbox {
-    padding-bottom: 0.5rem;
-  }
-
-  #postbox:not(.single-twt).drawer {
-    padding-bottom: 1.35rem;
-  }
-
-  #postbox.single-twt.drawer {
-    margin: 0.5rem 0 1rem 0 !important;
-  }
-
-  #recentTwts {
-    margin: -1rem 1rem 0 1rem;
-  }
-
-  .h-feed {
-    display: flex;
-    flex-flow: column nowrap;
-  }
-
-  .profile-button a:last-of-type i {
-    margin: 0.16rem 0.2rem;
-  }
-
-  nav.yarn-nav,
-  nav.timeline-nav {
-    margin: -0.5rem 1rem -0.5rem 1rem;
-  }
-
-  nav.yarn-nav:nth-of-type(2) {
-    margin: 0 1rem 0 1rem;
-  }
-
-  nav.timeline-nav:nth-of-type(2) {
-    margin: -0.5rem 1rem -1rem 1rem;
-  }
-
-  #recentTwts nav.timeline-nav:nth-of-type(1) {
-    margin: -0.25rem 1rem -0.5rem 1rem;
-  }
-
-  #recentTwts nav.timeline-nav:nth-of-type(2) {
-    margin: -0.5rem 1rem -3rem 1rem;
-  }
-
-  .container article.container-fluid:last-child {
-    margin: 0 0 -2.4rem 0;
-  }
-
-  .profile-recent {
-    margin-top: 2rem;
-    margin-bottom: -2.5rem;
-  }
-
-  .profile-post {
-    margin-top: 1rem;
-  }
-
-  article.single-twt {
-    margin: 0.5rem 0 0.5rem 0 !important;
-  }
-
-  #twt-join {
-    margin: 0.5rem 0 0.25rem 0;
-    padding-bottom: 1.5rem !important;
-  }
-}
-
-@media (min-width: 1200px) {
   #newPost+.grid.h-feed nav.timeline-nav:first-of-type {
     margin-top: -1.5rem;
   }
@@ -2213,5 +1833,9 @@ dialog[id^='lvm-'] #twobutton {
   #twt-join {
     margin: 0.5rem 0 0.25rem 0;
     padding-bottom: 1.5rem !important;
+  }
+
+  body>footer {
+    margin-top: 1.25rem;
   }
 }
