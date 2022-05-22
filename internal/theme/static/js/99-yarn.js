@@ -171,7 +171,7 @@ function movePostBox(e) {
     }
   }
 
-  u("article").each(function(n, i){
+  u("article").each(function(n, i) {
     u(n).removeClass("highlight");
   });
 
@@ -190,7 +190,7 @@ function movePostBox(e) {
 }
 
 /* Focus PostBox's TextArea on Toggling the PostBox */
-u("#newPost").on("toggle", function (e) {
+u("#newPost").on("toggle", function(e) {
   if (u(e.target).attr("open") != null) {
     var text = localStorage.getItem('text');
     if (text) {
@@ -232,7 +232,7 @@ function resetPostBox() {
     return;
   }
 
-  u('article').each(function(n){
+  u('article').each(function(n) {
     u(n).removeClass('highlight');
   });
 
@@ -316,31 +316,31 @@ function optionChange(e, primary, secondary) {
   });
 }
 
-u(".bookmarkBtn").on("click", function (e) {
+u(".bookmarkBtn").on("click", function(e) {
   e.preventDefault();
   optionChange(e, "bookmarkBtn", "unbookmarkBtn");
 });
 
-u(".unbookmarkBtn").on("click", function (e) {
+u(".unbookmarkBtn").on("click", function(e) {
   e.preventDefault();
   optionChange(e, "unbookmarkBtn", "bookmarkBtn");
 });
 
-u(".followBtn").on("click", function (e) {
+u(".followBtn").on("click", function(e) {
   e.preventDefault();
   u(".followBtn").disabled = true;
   u(".unfollowBtn").disabled = false;
   optionChange(e, "followBtn", "unfollowBtn");
 });
 
-u(".unfollowBtn").on("click", function (e) {
+u(".unfollowBtn").on("click", function(e) {
   e.preventDefault();
   u(".followBtn").disabled = false;
   u(".unfollowBtn").disabled = true;
   optionChange(e, "unfollowBtn", "followBtn");
 });
 
-u(".muteTwtBtn").on("click", function (e) {
+u(".muteTwtBtn").on("click", function(e) {
   e.preventDefault();
 
   Twix.ajax({
@@ -352,7 +352,7 @@ u(".muteTwtBtn").on("click", function (e) {
   });
 });
 
-u(".muteBtn").on("click", function (e) {
+u(".muteBtn").on("click", function(e) {
   e.preventDefault();
   u(".muteBtn").disabled = true;
   u(".unmuteBtn").disabled = false;
@@ -361,7 +361,7 @@ u(".muteBtn").on("click", function (e) {
   u("#profile-avatar img").addClass("ismuted");
 });
 
-u(".unmuteBtn").on("click", function (e) {
+u(".unmuteBtn").on("click", function(e) {
   e.preventDefault();
   u(".muteBtn").disabled = false;
   u(".unmuteBtn").disabled = true;
@@ -370,11 +370,11 @@ u(".unmuteBtn").on("click", function (e) {
   u("#profile-avatar img").removeClass("ismuted");
 });
 
-u("#promptCancel").on("click", function (e) {
+u("#promptCancel").on("click", function(e) {
   window.history.back()
 })
 
-u.prototype.isHidden = function () {
+u.prototype.isHidden = function() {
   var e = this.first();
   return (e.offsetParent === null)
 };
@@ -719,7 +719,7 @@ function pollForTask(taskURL, delay, maxDelay, timeout, errorCallback, successCa
 }
 
 u("#uploadMedia").on("change", function(e) {
-  u("#uploadMediaButton").attr("aria-busy",true);
+  u("#uploadMediaButton").attr("aria-busy", true);
   u("#uploadMediaForm").data("tooltip", "Uploading...");
 
   document.body.style.cursor = "progress";
@@ -739,7 +739,7 @@ u("#uploadMedia").on("change", function(e) {
         Date.now() + maxTaskWait,
 
         function(errorData) {
-          u("#uploadMediaButton").attr("aria-busy",false);
+          u("#uploadMediaButton").attr("aria-busy", false);
           alert("An error occurred uploading your media: " + errorData.error)
         },
 
@@ -752,7 +752,7 @@ u("#uploadMedia").on("change", function(e) {
           var size = el.text().length;
           text.setSelectionRange(size, size);
 
-          u("#uploadMediaButton").attr("aria-busy",false);
+          u("#uploadMediaButton").attr("aria-busy", false);
           u("#uploadMedia").data("tooltip", "Upload");
         }
 
@@ -760,7 +760,7 @@ u("#uploadMedia").on("change", function(e) {
     },
 
     error: function(statusCode, statusText) {
-      u("#uploadMediaButton").attr("aria-busy",false);
+      u("#uploadMediaButton").attr("aria-busy", false);
       alert("An error occurred uploading your media: " + statusCode + " " + statusText);
     },
 
@@ -782,7 +782,7 @@ u("#register #agree").on("change", function(e) {
 u("#burgerMenu").on("click", function(e) {
   e.preventDefault();
   if (u("#podMenu").first().style.display === "none" ||
-  !(u("#podMenu").first().hasAttribute("style"))) {
+    !(u("#podMenu").first().hasAttribute("style"))) {
     u("#podMenu").first().style.display = "grid";
   } else {
     u("#podMenu").first().style.display = "none";
@@ -806,75 +806,75 @@ u("body").on("keydown", function(e) {
     e.key === "ArrowUp" ||
     e.key === "ArrowDown" ||
     e.key === "Up" ||
-      e.key === "Down"
+    e.key === "Down"
+  ) {
+    e.preventDefault();
+
+    var selectedIdx = u(".user-list__user").nodes.findIndex(function(
+      item
     ) {
-      e.preventDefault();
+      return item.classList.contains("selected");
+    });
 
-      var selectedIdx = u(".user-list__user").nodes.findIndex(function(
-        item
-      ) {
-        return item.classList.contains("selected");
-      });
+    var nextIdx;
+    var scrollOffset;
 
-      var nextIdx;
-      var scrollOffset;
+    if (e.key === "ArrowDown" || e.key === "Down") {
+      nextIdx =
+        selectedIdx + 1 === u(".user-list__user").length ?
+        0 :
+        selectedIdx + 1;
+    } else if (e.key === "ArrowUp" || e.key === "Up") {
+      nextIdx =
+        selectedIdx - 1 < 0 ?
+        u(".user-list__user").length - 1 :
+        selectedIdx - 1;
+    }
 
-      if (e.key === "ArrowDown" || e.key === "Down") {
-        nextIdx =
-          selectedIdx + 1 === u(".user-list__user").length ?
-          0 :
-          selectedIdx + 1;
-      } else if (e.key === "ArrowUp" || e.key === "Up") {
-        nextIdx =
-          selectedIdx - 1 < 0 ?
-          u(".user-list__user").length - 1 :
-          selectedIdx - 1;
+    scrollOffset =
+      u(".user-list__user").first().clientHeight * (nextIdx - 2);
+
+    u(".user-list__user").nodes.forEach(function(item, index) {
+      item.classList.remove("selected");
+      if (index === nextIdx) {
+        u("#mentioned-list-content").first().scrollTop =
+          scrollOffset > 0 ? scrollOffset : 0;
+        item.classList.add("selected");
       }
+    });
+  }
 
-      scrollOffset =
-        u(".user-list__user").first().clientHeight * (nextIdx - 2);
+  if (e.key === "Tab" || e.key === "Enter") {
+    e.preventDefault();
 
-      u(".user-list__user").nodes.forEach(function(item, index) {
-        item.classList.remove("selected");
-        if (index === nextIdx) {
-          u("#mentioned-list-content").first().scrollTop =
-            scrollOffset > 0 ? scrollOffset : 0;
-          item.classList.add("selected");
-        }
-      });
-    }
+    var selectedNodeIdx = u(".user-list__user").nodes.findIndex(function(
+      item
+    ) {
+      return item.classList.contains("selected");
+    });
 
-    if (e.key === "Tab" || e.key === "Enter") {
-      e.preventDefault();
+    var selectedNode = u(".user-list__user").nodes[selectedNodeIdx];
+    var value = u("textarea#text").first().value;
 
-      var selectedNodeIdx = u(".user-list__user").nodes.findIndex(function(
-        item
-      ) {
-        return item.classList.contains("selected");
-      });
+    u("textarea#text").first().value =
+      value.slice(0, startMention) +
+      value.slice(u("textarea#text").first().selectionEnd);
 
-      var selectedNode = u(".user-list__user").nodes[selectedNodeIdx];
-      var value = u("textarea#text").first().value;
-
-      u("textarea#text").first().value =
-        value.slice(0, startMention) +
-        value.slice(u("textarea#text").first().selectionEnd);
-
-      u("textarea#text")
-        .first()
-        .setSelectionRange(startMention, startMention);
-      insertText(u("textarea#text"), selectedNode.innerText.replace('\n', '@').trim());
-      clearMentionedList();
-    }
-
-    var caret = u("textarea#text").first().selectionStart;
-    var prevSymbol = u("textarea#text")
+    u("textarea#text")
       .first()
-      .value.slice(caret - 1, 1);
+      .setSelectionRange(startMention, startMention);
+    insertText(u("textarea#text"), selectedNode.innerText.replace('\n', '@').trim());
+    clearMentionedList();
+  }
 
-    if (e.key === "Backspace" && prevSymbol === "@") {
-      clearMentionedList();
-    }
+  var caret = u("textarea#text").first().selectionStart;
+  var prevSymbol = u("textarea#text")
+    .first()
+    .value.slice(caret - 1, 1);
+
+  if (e.key === "Backspace" && prevSymbol === "@") {
+    clearMentionedList();
+  }
 });
 
 function clearMentionedList() {
@@ -905,9 +905,7 @@ u("#readtwt").on("click", function(e) {
   readMore(e);
 });
 
-if (
-  window.performance.getEntriesByType("navigation")[0].type === "back_forward"
-) {
+if (window.performance.getEntriesByType("navigation")[0].type === "back_forward") {
   window.scrollTo(0, Number(localStorage.getItem("prevOffset")));
 }
 
@@ -918,7 +916,7 @@ window.addEventListener("scroll", function() {
 });
 
 window.addEventListener("blur", function() {
-  u("article").find("dialog").each(function(modal, i){
+  u("article").find("dialog").each(function(modal, i) {
     if (u(modal).attr("open") == "true") {
       if (u(modal).attr("id").startsWith("lvm-")) {
         u(modal).trigger("click");
@@ -988,6 +986,7 @@ function yarnPref(pref) {
     return "_self";
   }
 
+  // This is dumb, but for some reason won't work otherwise?!
   if (data === "true") {
     return true;
   } else {
@@ -995,11 +994,25 @@ function yarnPref(pref) {
   }
 }
 
+function usedBookmarklet() {
+  if (typeof(window.URLSearchParams) != "undefined") {
+    var urlParams = new URLSearchParams(window.location.search);
+    var titleParam = urlParams.get("title");
+    var urlParam = urlParams.get("url");
+
+    if (titleParam && urlParam) {
+      var bookmarklet = " [" + titleParam + "](" + urlParam + ")"
+      var text = localStorage.getItem('text');
+      localStorage.setItem("text", text + bookmarklet);
+    }
+  }
+}
+
 window.onload = function() {
   localStorage.setItem("isPost", "false");
 
   if (yarnPref("readmore") && u("article.h-entry").length > 0) {
-    u("article.h-entry").each(function(article, i){
+    u("article.h-entry").each(function(article, i) {
       var ec = u(article).find(".e-content");
       var rt = u(article).find("#readtwt");
       if (Math.ceil(ec.size().height) > 225) {
@@ -1010,8 +1023,8 @@ window.onload = function() {
   };
 
   if (yarnPref("linkverify") && u("article.h-entry").length > 0) {
-    u("article.h-entry .e-content").each(function(article, i){
-      var lk = u(article).find("a").each(function(link, i){
+    u("article.h-entry .e-content").each(function(article, i) {
+      var lk = u(article).find("a").each(function(link, i) {
         var notallow = ["img-orig-open", "img-dl", "e-media"];
         if (!(notallow.includes(u(link).attr("class")))) {
           var id = u(article).parent().attr("id");
@@ -1032,38 +1045,19 @@ window.onload = function() {
   };
 
   if (!(yarnPref("linkverify")) && yarnPref("striptrack") && u("article.h-entry").length > 0) {
-    u("article.h-entry .e-content").each(function(article, i){
-      var lk = u(article).find("a").each(function(link, i){
+    u("article.h-entry .e-content").each(function(article, i) {
+      var lk = u(article).find("a").each(function(link, i) {
         var url = stripTrackingParameters(u(link).attr("href"));
         u(link).attr("href", url);
       });
     });
   };
 
-  var text = localStorage.getItem('text');
-  if (text && u("textarea#text").length > 0) {
-    u("textarea#text").first().value = text;
-    u("#newPost").attr("open", "");
-    u("textarea#text").first().focus();
-    return;
-  }
-
-  // Support Bookmarklet
-  /*
-    var url = document.URL ;
-    var title = document.title ;
-
-    window.location.href = "https://twtxt.net"
-                            + "/?title="
-                            + title + "&url="
-                            + url;
-  */
-  if (typeof(window.URLSearchParams) != "undefined") {
-    const urlParams = new URLSearchParams(window.location.search);
-    const titleParam = urlParams.get("title");
-    const urlParam = urlParams.get("url");
-    if (titleParam && urlParam) {
-      insertText(u("textarea#text"), "[" + titleParam + "](" + urlParam + ")\r\n\r\n");
+  if (document.getElementById('postbox') != null) {
+    usedBookmarklet()
+    var text = localStorage.getItem('text');
+    if (text && u("textarea#text").length > 0) {
+      u("textarea#text").first().value = text;
       u("#newPost").attr("open", "");
       u("textarea#text").first().focus();
     }
@@ -1073,7 +1067,7 @@ window.onload = function() {
 // TippyJS content here
 function eiOS(listener) {
   var clicks = 0;
-  return function () {
+  return function() {
     clicks++;
     if (clicks === 2 || iOS || !tippy.currentInput.isTouch) {
       clicks = 0;
@@ -1094,12 +1088,10 @@ tippy('a#e-media', {
     var mData = media.getAttribute('href');
     var mTitle = media.getAttribute('data-title');
     if (mData.endsWith('.mp4') || mData.endsWith('.mp4?full=1')) {
-      return '<video controls playsinline><source type="video/mp4" src="'
-      + mData + '">Your browser does not support the video element.</video>' + mTitle;
+      return '<video controls playsinline><source type="video/mp4" src="' + mData + '">Your browser does not support the video element.</video>' + mTitle;
     }
     if (mData.endsWith('.mp3') || mData.endsWith('.mp3?full=1')) {
-      return '<audio controls><source type="audio/mp3" src="'
-      + mData + '">Your browser does not support the audio element.</audio>' + mTitle;
+      return '<audio controls><source type="audio/mp3" src="' + mData + '">Your browser does not support the audio element.</audio>' + mTitle;
     }
     return '<img class="tippy-img" src="' + mData + '">' + mTitle;
   },
@@ -1142,7 +1134,8 @@ tippy('span.vp-f-help', {
   }
 });
 
-for (var e in ['a#e-media', 'a#v-info', 'span.help',
-              'span.vp-d-help', 'span.vp-p-help', 'span.vp-f-help']) {
-  if (!e) { document.querySelector(e).addEventListener('click', eiOS); }
+for (var e in ['a#e-media', 'a#v-info', 'span.help', 'span.vp-d-help', 'span.vp-p-help', 'span.vp-f-help']) {
+  if (!e) {
+    document.querySelector(e).addEventListener('click', eiOS);
+  }
 }
