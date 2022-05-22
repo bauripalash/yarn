@@ -1234,6 +1234,10 @@ other = "連接"
 hash = "sha1-f1702b4686278becffc88baabe6f4b7a8355532c"
 other = "訊息"
 
+[NavOrigin]
+hash = "sha1-33a35153d6e17e76c77daee66b805792d3627a68"
+other = "Origin (default)"
+
 [NavRegister]
 hash = "sha1-d672995a14650d0e018026b64f297663d8c71c8d"
 other = "註冊"
@@ -1621,6 +1625,14 @@ other = "Followings are public"
 [SettingsFormPrivacySettingsTitle]
 hash = "sha1-af95411fcc562c72d8401d289430eccb5aa057b9"
 other = "Privacy Settings"
+
+[SettingsFormStartPageTitle]
+hash = "sha1-577bf05f4e03c0dd62291e242fe6d623e61c30b1"
+other = "Start Page"
+
+[SettingsFormStartPageTitleHelp]
+hash = "sha1-ef42ebc4ddc61de4b6bd872fde6c78e978617f8d"
+other = "Choosing <strong>Origin</strong> will take you back to the page before login."
 
 [SettingsFormThemeTitle]
 hash = "sha1-a797e30923ac1be590300ce6b08e63b4e6dc6688"

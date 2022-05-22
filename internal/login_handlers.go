@@ -94,7 +94,15 @@ func (s *Server) LoginHandler() httprouter.Handle {
 			_ = sess.(*session.Session).Set("persist", "1")
 		}
 
-		http.Redirect(w, r, r.FormValue("referer"), http.StatusFound)
+		pageRedirection := ""
+		switch user.StartPage {
+		case "/", "/discover", "/mentions":
+			pageRedirection = user.StartPage
+		default:
+			pageRedirection = r.FormValue("referer")
+		}
+
+		http.Redirect(w, r, pageRedirection, http.StatusFound)
 	}
 }
 

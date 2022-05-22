@@ -53,6 +53,7 @@ type User struct {
 	CreatedAt  time.Time
 	LastSeenAt time.Time
 
+	StartPage  string `default:"#origin"`
 	Theme      string `default:"auto"`
 	Lang       string `default:""`
 	Recovery   string `default:""`

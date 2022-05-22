@@ -216,6 +216,17 @@
     </div>
     <div class="grid">
       <div>
+        <fieldset id="startpage">
+          <legend>{{ tr . "SettingsFormStartPageTitle" }} <span class="help" title="{{ tr . "SettingsFormStartPageTitleHelp" }}"><i class="ti ti-help"></i></legend>
+          <select name="startpage">
+            <option id="sp-timeline" value="#origin" {{ if eq .User.StartPage "#origin" }}selected{{ end }}>{{ tr . "NavOrigin" }}</option>
+            <option id="sp-timeline" value="/" {{ if eq .User.StartPage "/" }}selected{{ end }}>{{ tr . "NavTimeline" }}</option>
+            <option id="sp-discover" value="/discover" {{ if eq .User.StartPage "/discover" }}selected{{ end }}>{{ tr . "NavDiscover" }}</option>
+            <option id="sp-mentions" value="/mentions" {{ if eq .User.StartPage "/mentions" }}selected{{ end }}>{{ tr . "NavMentions" }}</option>
+          </select>
+        </fieldset>
+      </div>
+      <div>
         <fieldset id="theme">
           <legend>{{ tr . "SettingsFormThemeTitle" }}</legend>
           <select name="theme">

@@ -102,6 +102,7 @@ type Context struct {
 	Callback    string
 	Lang        string // language
 	AcceptLangs string // accept languages
+	StartPage   string
 	Theme       string // not to be confused with the config.Theme
 	Commit      string
 
@@ -218,7 +219,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 		DisplayMedia:            conf.DisplayMedia,
 		OriginalMedia:           conf.OriginalMedia,
 
-    VisibilityCompact:  conf.VisibilityCompact,
+		VisibilityCompact:  conf.VisibilityCompact,
 		VisibilityReadmore: conf.VisibilityReadmore,
 		LinkVerification:   conf.LinkVerification,
 		StripTrackingParam: conf.StripTrackingParam,
@@ -227,6 +228,7 @@ func NewContext(s *Server, req *http.Request) *Context {
 		CustomSecondaryColor: conf.CustomSecondaryColor,
 
 		Commit:      yarn.Commit,
+		StartPage:   conf.StartPage,
 		Theme:       conf.Theme,
 		Lang:        conf.Lang,
 		AcceptLangs: req.Header.Get("Accept-Language"),

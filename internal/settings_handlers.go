@@ -46,6 +46,7 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		tagline := strings.TrimSpace(r.FormValue("tagline"))
 		password := r.FormValue("password")
 
+		startpage := r.FormValue("startpage")
 		theme := r.FormValue("theme")
 
 		displayDatesInTimezone := r.FormValue("displayDatesInTimezone")
@@ -121,6 +122,7 @@ func (s *Server) SettingsHandler() httprouter.Handle {
 		user.Recovery = recoveryHash
 		user.Tagline = tagline
 
+		user.StartPage = startpage
 		user.Theme = theme
 
 		user.DisplayDatesInTimezone = displayDatesInTimezone

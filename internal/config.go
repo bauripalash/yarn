@@ -113,6 +113,7 @@ type Config struct {
 	CSS               string
 	Description       string
 	Store             string `json:"-"`
+	StartPage         string
 	Theme             string `json:"-"`
 	AlertFloat        bool
 	AlertGuest        bool
