@@ -79,4 +79,7 @@ COPY --from=build /src/internal/theme /theme
 COPY .dockerfiles/entrypoint.sh /init
 
 ENTRYPOINT ["/init"]
+HEALTHCHECK --interval=10s --timeout=10s --retries=5 \
+        CMD wget -nv -t1 --spider 'http://localhost:8000' || exit 1
+
 CMD ["yarnd"]
